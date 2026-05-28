@@ -25,6 +25,9 @@ dist/
 # Packaged submissions (large, regenerable; keep `submissions/` tree)
 submissions/*.zip
 
+# Third-party Kaggle notebooks pulled in for technique research only.
+reference/
+
 # IDE
 .vscode/
 .idea/

@@ -16,6 +16,7 @@ import onnx
 
 from .conv3x3 import solve_conv3x3
 from .identity import solve_identity
+from .marker_crop import solve_marker_crop
 from .remap import solve_remap
 from .single_color import solve_single_color
 from .spatial import solve_transpose
@@ -29,5 +30,6 @@ ALL_SOLVERS: list[Solver] = [
     solve_single_color,
     solve_remap,
     solve_transpose,
+    solve_marker_crop,
     solve_conv3x3,
 ]
