@@ -689,11 +689,11 @@
   },
   {
     "task": 87,
-    "solver": "none",
-    "saved": false,
-    "points": 0.0,
-    "memory": null,
-    "params": null
+    "solver": "solve_rot180_aware",
+    "saved": true,
+    "points": 13.326300126323913,
+    "memory": 117368,
+    "params": 74
   },
   {
     "task": 88,
@@ -1073,11 +1073,11 @@
   },
   {
     "task": 135,
-    "solver": "none",
-    "saved": false,
-    "points": 0.0,
-    "memory": null,
-    "params": null
+    "solver": "solve_static_crop",
+    "saved": true,
+    "points": 19.07574420258547,
+    "memory": 360,
+    "params": 14
   },
   {
     "task": 136,
@@ -1113,11 +1113,11 @@
   },
   {
     "task": 140,
-    "solver": "none",
-    "saved": false,
-    "points": 0.0,
-    "memory": null,
-    "params": null
+    "solver": "solve_rot180_aware",
+    "saved": true,
+    "points": 13.326300126323913,
+    "memory": 117368,
+    "params": 74
   },
   {
     "task": 141,
@@ -1193,11 +1193,11 @@
   },
   {
     "task": 150,
-    "solver": "none",
-    "saved": false,
-    "points": 0.0,
-    "memory": null,
-    "params": null
+    "solver": "solve_flip_h_aware",
+    "saved": true,
+    "points": 14.385500791120359,
+    "memory": 40684,
+    "params": 37
   },
   {
     "task": 151,
@@ -1233,11 +1233,11 @@
   },
   {
     "task": 155,
-    "solver": "none",
-    "saved": false,
-    "points": 0.0,
-    "memory": null,
-    "params": null
+    "solver": "solve_flip_v_aware",
+    "saved": true,
+    "points": 14.385500791120359,
+    "memory": 40684,
+    "params": 37
   },
   {
     "task": 156,
@@ -1777,11 +1777,11 @@
   },
   {
     "task": 223,
-    "solver": "none",
-    "saved": false,
-    "points": 0.0,
-    "memory": null,
-    "params": null
+    "solver": "solve_resize_scale",
+    "saved": true,
+    "points": 16.699968288220425,
+    "memory": 4000,
+    "params": 24
   },
   {
     "task": 224,
@@ -2449,11 +2449,11 @@
   },
   {
     "task": 307,
-    "solver": "none",
-    "saved": false,
-    "points": 0.0,
-    "memory": null,
-    "params": null
+    "solver": "solve_resize_scale",
+    "saved": true,
+    "points": 15.89235702626216,
+    "memory": 9000,
+    "params": 24
   },
   {
     "task": 308,
@@ -2601,11 +2601,11 @@
   },
   {
     "task": 326,
-    "solver": "none",
-    "saved": false,
-    "points": 0.0,
-    "memory": null,
-    "params": null
+    "solver": "solve_static_crop",
+    "saved": true,
+    "points": 19.84094470078547,
+    "memory": 160,
+    "params": 14
   },
   {
     "task": 327,

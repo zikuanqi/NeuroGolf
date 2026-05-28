@@ -16,10 +16,15 @@ import onnx
 
 from .conv3x3 import solve_conv3x3
 from .identity import solve_identity
+from .kron_scale import solve_kron_scale
 from .marker_crop import solve_marker_crop
 from .remap import solve_remap
+from .resize_scale import solve_resize_scale
+from .shape_aware_flip import (solve_flip_h_aware, solve_flip_v_aware,
+                                solve_rot180_aware)
 from .single_color import solve_single_color
 from .spatial import solve_transpose
+from .static_crop import solve_static_crop
 from .zero import solve_zero
 
 Solver = Callable[[dict], Optional[onnx.ModelProto]]
@@ -30,6 +35,12 @@ ALL_SOLVERS: list[Solver] = [
     solve_single_color,
     solve_remap,
     solve_transpose,
+    solve_static_crop,
+    solve_kron_scale,
+    solve_resize_scale,
     solve_marker_crop,
+    solve_flip_h_aware,
+    solve_flip_v_aware,
+    solve_rot180_aware,
     solve_conv3x3,
 ]
