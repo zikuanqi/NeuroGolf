@@ -15,8 +15,10 @@ from neurogolf.solvers.shape_aware_flip import (  # noqa: E402
     solve_flip_h_aware, solve_flip_v_aware, solve_rot180_aware,
     solve_rot90_ccw_aware,
 )
+from neurogolf.solvers.shift import solve_shift  # noqa: E402
 from neurogolf.solvers.spatial import solve_transpose  # noqa: E402
 from neurogolf.solvers.static_crop import solve_static_crop  # noqa: E402
+from neurogolf.solvers.tile_h import solve_tile_h  # noqa: E402
 
 
 def _make_task(pairs):
@@ -141,3 +143,47 @@ def test_bbox_strip_picks_non_bg():
     assert "ArgMax" in op_types
     assert "Less" in op_types
     assert sum(t == "Gather" for t in op_types) == 2
+
+
+def test_shift_constant_shape_down_one():
+    # 3x3 grid shifted down by one — top row becomes color 0.
+    task = _make_task([
+        ([[1, 2, 3], [4, 5, 6], [0, 0, 0]],
+         [[0, 0, 0], [1, 2, 3], [4, 5, 6]]),
+    ])
+    model = solve_shift(task)
+    assert model is not None
+    op_types = [n.op_type for n in model.graph.node]
+    # Slice the source, Concat with a color-0 fill row, Pad to canvas.
+    assert op_types == ["Slice", "Concat", "Pad"]
+    # The fill initializer must encode color-0 cells: channel 0 = 1.0.
+    fill = next(i for i in model.graph.initializer if i.name == "fill")
+    assert list(fill.dims) == [1, 10, 1, 3]
+
+
+def test_shift_rejects_non_translation():
+    task = _make_task([([[1, 2], [3, 4]], [[5, 5], [5, 5]])])
+    assert solve_shift(task) is None
+
+
+def test_tile_h_picks_factor_2():
+    task = _make_task([
+        ([[1, 2], [3, 4]], [[1, 2, 1, 2], [3, 4, 3, 4]]),
+    ])
+    model = solve_tile_h(task)
+    assert model is not None
+    op_types = {n.op_type for n in model.graph.node}
+    # Tile-h is shape-aware: it must compute W, take a Mod, gather, then mask.
+    assert {"Mod", "Gather", "Less"} <= op_types
+
+
+def test_tile_h_picks_factor_3():
+    task = _make_task([
+        ([[1, 2]], [[1, 2, 1, 2, 1, 2]]),
+    ])
+    assert solve_tile_h(task) is not None
+
+
+def test_tile_h_rejects_non_tile():
+    task = _make_task([([[1, 2], [3, 4]], [[1, 2], [3, 4]])])
+    assert solve_tile_h(task) is None

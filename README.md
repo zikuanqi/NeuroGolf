@@ -11,7 +11,7 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![Last Commit](https://img.shields.io/github/last-commit/zikuanqi/NeuroGolf)](https://github.com/zikuanqi/NeuroGolf/commits/main)
 [![Tests](https://img.shields.io/badge/tests-passing-brightgreen)](tests/)
-[![Tasks Solved](https://img.shields.io/badge/tasks_solved-17%2F400-blue)](networks/)
+[![Tasks Solved](https://img.shields.io/badge/tasks_solved-19%2F400-blue)](networks/)
 
 </div>
 
@@ -34,7 +34,8 @@
 | v3 | + marker-crop (opset 11) | 7 | **149.93** |
 | v4 | + static-crop, kron-scale, resize-scale, shape-aware flip/rot180 | 15 | **276.86** |
 | v5 | + rot90-ccw (transpose ∘ flip-v) | 16 | **290.62** |
-| v6 | + bbox-strip (Slice + Sub + ReduceMax/ArgMax + Gather + Less + Mul) | 17 | ~304 (pending) |
+| v6 | + bbox-strip (Slice + Sub + ReduceMax/ArgMax + Gather + Less + Mul) | 17 | **303.98** |
+| v7 | + shift (Slice+Concat+Pad) + tile-h (shape-aware Mod-Gather) | 19 | ~337 (pending) |
 
 ---
 
@@ -82,6 +83,8 @@ Each solver is a callable `(task: dict) → Optional[onnx.ModelProto]`. The pipe
 | `solve_rot180_aware` | two stacked shape-aware flips · 双轴形状感知翻转 | flip-h ∘ flip-v | ~74 |
 | `solve_rot90_ccw_aware` / `solve_rot90_cw_aware` | shape-aware 90° rotation · 形状感知 90° 旋转 | `Transpose` ∘ flip-v | ~37 |
 | `solve_bbox_strip` | crop input to the bbox of non-background cells · 非背景外接矩形提取 | `ReduceSum` + `Sub` + row/col `ArgMax` + `Gather` + `Less` + `Mul` | ~76 |
+| `solve_shift` | constant-shape translation with color-0 fill on the gap · 定形平移并以色 0 填充 | `Slice` + `Concat`(with init fill) + `Pad` | ~50 |
+| `solve_tile_h` | horizontal tile-N with variable input width · 变宽 N 倍水平复刻 | `ReduceSum` + `ReduceMax` + `Mod` + `Gather` + `Less` + `Mul` | ~67 |
 | `solve_conv3x3` | least-squares fit of a 3×3 conv · 3×3 卷积最小二乘拟合 | 3×3 `Conv` | 900 |
 | `solve_zero` | output is empty grid · 输出为空网格 | `Sub` | 0 |
 
@@ -138,13 +141,13 @@ points = max(1, 25 − ln(memory_bytes + params))   # if all examples pass · �
 python -m pytest tests/ -q
 ```
 
-15 cases cover the one-hot round-trip contract and per-family solver
+20 cases cover the one-hot round-trip contract and per-family solver
 shape contracts (Identity / Conv1×1 / Transpose / Slice+Pad / Gather+Pad /
-Resize / shape-aware flip / rot / bbox).
+Resize / shape-aware flip / rot / bbox / shift / tile-h).
 
-15 个测试覆盖独热编码的往返一致性，以及各求解器输出图的形状契约
+20 个测试覆盖独热编码的往返一致性，以及各求解器输出图的形状契约
 （Identity / Conv1×1 / Transpose / Slice+Pad / Gather+Pad / Resize /
-形状感知翻转 / 旋转 / 外接矩形）。
+形状感知翻转 / 旋转 / 外接矩形 / 平移 / 横向复刻）。
 
 ---
 
@@ -153,9 +156,11 @@ Resize / shape-aware flip / rot / bbox).
 - [x] Bounding-box extraction (ReduceSum + ArgMax row/col projections) · 外接矩形提取（行列投影 + ArgMax）
 - [x] Shape-aware flip / rotate that handles top-left alignment · 处理左上角对齐的形状感知翻转 / 旋转
 - [x] Scale-by-N tasks via static `Resize` or `Tile` · 用 `Resize` / `Tile` 实现 N 倍缩放任务
+- [x] Constant-shape translation (shift with color-0 gap) · 定形平移并填补色 0 间隙
+- [x] Shape-aware horizontal tile-N (Mod-Gather-mask pipeline) · 形状感知横向 N 倍复刻
 - [ ] Generalize marker-crop to handle multi-pixel markers and per-color crop rules · 通用化标记裁剪以支持多像素标记
 - [ ] Detect "input contains a filled rectangle of color C" tasks (57 candidates) · 识别"输入含纯色矩形"类任务
-- [ ] Search over conv kernel sizes (5×5, 7×7) and channel-wise grouping · 搜索更大卷积核 (5×5, 7×7) 与分组卷积
+- [ ] Reduce double `(1,10,30,30)` intermediates in rot180 and flip via sparse / fused Gather · 借助稀疏或融合 `Gather` 降低 rot180 / flip 的双 `(1,10,30,30)` 中间张量内存
 - [ ] Cache ONNX Runtime traces to speed up iteration · 缓存 ONNX Runtime trace 加速迭代
 
 ---

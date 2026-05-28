@@ -417,11 +417,11 @@
   },
   {
     "task": 53,
-    "solver": "none",
-    "saved": false,
-    "points": 0.0,
-    "memory": null,
-    "params": null
+    "solver": "solve_shift",
+    "saved": true,
+    "points": 18.523027637110317,
+    "memory": 600,
+    "params": 50
   },
   {
     "task": 54,
@@ -1985,11 +1985,11 @@
   },
   {
     "task": 249,
-    "solver": "none",
-    "saved": false,
-    "points": 0.0,
-    "memory": null,
-    "params": null
+    "solver": "solve_tile_h",
+    "saved": true,
+    "points": 14.380699096405015,
+    "memory": 40850,
+    "params": 67
   },
   {
     "task": 250,
