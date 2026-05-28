@@ -1,43 +1,147 @@
+<div align="center">
+
 # NeuroGolf 2026
 
-Solutions for the [2026 NeuroGolf Championship](https://www.kaggle.com/competitions/neurogolf-2026) on Kaggle.
+**Tiny ONNX networks that solve ARC-AGI puzzles · 用极小的 ONNX 网络求解 ARC-AGI 谜题**
 
-The competition asks for ONNX networks that solve ARC-AGI tasks while minimizing
-`memory_bytes + parameter_count`. Each task that passes all train / test /
-arc-gen examples earns `max(1, 25 - ln(memory + params))` points.
+[![Python](https://img.shields.io/badge/Python-3.13+-3776AB?logo=python&logoColor=white)](https://www.python.org/)
+[![ONNX](https://img.shields.io/badge/ONNX-1.21-005CED?logo=onnx&logoColor=white)](https://onnx.ai/)
+[![ONNX Runtime](https://img.shields.io/badge/ONNX%20Runtime-1.26-FF6F00)](https://onnxruntime.ai/)
+[![Kaggle](https://img.shields.io/badge/Kaggle-NeuroGolf%202026-20BEFF?logo=kaggle&logoColor=white)](https://www.kaggle.com/competitions/neurogolf-2026)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+[![Last Commit](https://img.shields.io/github/last-commit/zikuanqi/NeuroGolf)](https://github.com/zikuanqi/NeuroGolf/commits/main)
+[![Tests](https://img.shields.io/badge/tests-9%20passing-brightgreen)](tests/)
 
-## Layout
+</div>
 
-- `src/neurogolf/` — Python package
-  - `grids.py` — grid <-> one-hot tensor conversions and example helpers
-  - `onnx_ops.py` — small helpers for building ONNX graphs in opset 10
-  - `solvers/` — per-task or per-family solvers, each returning an `onnx.ModelProto`
-  - `pipeline.py` — orchestrates: try each solver, verify, write the network
-  - `verify.py` — clean-room reimplementation of the official scorer
-- `scripts/`
-  - `download.py` — pulls competition data via Kaggle CLI into `data/`
-  - `build_all.py` — runs the pipeline over all 400 tasks
-  - `package_submission.py` — zips the produced `.onnx` files
-  - `submit.py` — posts the submission zip to Kaggle
-- `networks/` — generated `task001.onnx` ... `task400.onnx`
-- `submissions/` — packaged zip files ready for upload
+---
 
-## Quick start
+## 📖 Overview · 项目概览
 
-```
+> **EN** — Solution framework for the [2026 NeuroGolf Championship](https://www.kaggle.com/competitions/neurogolf-2026) on Kaggle. The competition asks for ONNX networks that solve ARC-AGI tasks while minimizing `memory_bytes + parameter_count`. A task that passes **every** train / test / arc-gen example earns `max(1, 25 − ln(memory + params))` points; one that fails any example scores zero.
+
+> **中文** —— Kaggle [2026 NeuroGolf 锦标赛](https://www.kaggle.com/competitions/neurogolf-2026) 的求解框架。比赛要求为每个 ARC-AGI 任务提交一个 ONNX 网络，在通过**全部** train / test / arc-gen 样例的前提下，最小化 `内存字节数 + 参数数量`。单任务得分为 `max(1, 25 − ln(memory + params))`，任一样例失败即得零分。
+
+---
+
+## 📊 Results · 当前成绩
+
+| Submission · 提交 | Solvers added · 新增求解器 | Tasks pass · 通过任务 | Score · 公开分数 |
+|---|---|---|---|
+| v1 | identity, zero, single-color, remap | 4 | **81.57** |
+| v2 | + transpose | 6 | **131.57** |
+| v3 | + marker-crop (opset 11) | 7 | **149.93** |
+
+---
+
+## 🚀 Quick Start · 快速开始
+
+```bash
+# 1. Install deps · 安装依赖
 pip install -r requirements.txt
-python scripts/download.py            # populates data/
-python scripts/build_all.py           # produces networks/
-python scripts/package_submission.py  # produces submissions/submission_<ts>.zip
-python scripts/submit.py submissions/submission_<ts>.zip "baseline run"
+
+# 2. Download competition data · 下载竞赛数据
+python scripts/download.py
+
+# 3. Build networks for all 400 tasks · 为全部 400 个任务构建网络
+python scripts/build_all.py
+
+# 4. Package the .onnx files · 打包 .onnx 文件
+python scripts/package_submission.py
+
+# 5. Submit to Kaggle · 提交到 Kaggle
+python scripts/submit.py submissions/submission.zip "describe your run"
 ```
 
-## Scoring notes
+> Kaggle requires the submission file be named **exactly** `submission.zip`.
+> Kaggle 要求提交文件必须命名为 `submission.zip`。
 
-- Networks must be ONNX opset 10, statically shaped, input `(1,10,30,30)` named
-  `input`, output `(1,10,30,30)` named `output`. The output is thresholded at
-  `> 0.0` to recover the predicted one-hot encoding.
-- File size limit: 1.44 MB per `.onnx`.
-- Banned ops: LOOP, SCAN, NONZERO, UNIQUE, SCRIPT, FUNCTION, COMPRESS, any
-  `Sequence*` op, graph attributes, sub-graphs, functions, custom domains.
-- arc-gen examples larger than 30x30 are skipped by the official scorer.
+---
+
+## 🧩 Solvers · 求解器一览
+
+Each solver is a callable `(task: dict) → Optional[onnx.ModelProto]`. The pipeline runs every solver, verifies each candidate against the official scorer, and keeps the highest-scoring network.
+
+每个求解器是一个 `(task: dict) → Optional[onnx.ModelProto]` 调用，pipeline 会运行所有求解器，用官方评分器验证每个候选网络，保留得分最高的网络。
+
+| Solver · 求解器 | Pattern · 识别模式 | ONNX ops · 算子 | Params · 参数 |
+|---|---|---|---|
+| `solve_identity` | output ≡ input · 输出等于输入 | `Identity` | 0 |
+| `solve_remap` | per-pixel color lookup · 像素级颜色映射 | 1×1 `Conv` | 100 |
+| `solve_single_color` | uniform fill, same shape · 同尺寸纯色填充 | 1×1 `Conv` | 100 |
+| `solve_transpose` | output is input transposed · 输出为输入的转置 | `Transpose` | 0 |
+| `solve_marker_crop` | crop a fixed window around a unique marker pixel · 围绕唯一标记像素的定长裁剪 | `Slice` → `ReduceSum` → `ArgMax` → `Slice` → `Pad` | ~27 |
+| `solve_conv3x3` | least-squares fit of a 3×3 conv · 3×3 卷积最小二乘拟合 | 3×3 `Conv` | 900 |
+| `solve_zero` | output is empty grid · 输出为空网格 | `Sub` | 0 |
+
+---
+
+## 🗂️ Project Layout · 项目结构
+
+```
+NeuroGolf/
+├── src/neurogolf/
+│   ├── grids.py          # one-hot conversions      · 独热编码转换
+│   ├── onnx_ops.py       # ONNX graph helpers       · ONNX 图构建辅助
+│   ├── verify.py         # clean-room scorer        · 评分器独立实现
+│   ├── pipeline.py       # solver orchestration     · 求解器调度
+│   └── solvers/          # per-family solvers       · 各类求解器
+├── scripts/
+│   ├── download.py             # pull data via Kaggle CLI · 下载比赛数据
+│   ├── build_all.py            # run pipeline over tasks  · 跑全量任务
+│   ├── package_submission.py   # zip the .onnx files      · 打包提交
+│   └── submit.py               # post to Kaggle           · 上传 Kaggle
+├── networks/             # generated .onnx files    · 生成的网络
+├── submissions/          # packaged submission.zip  · 打包的提交文件
+└── tests/                # pytest cases             · 单元测试
+```
+
+---
+
+## 📏 Scoring & Constraints · 评分与约束
+
+**Per-task score · 单任务得分**
+
+```
+points = max(1, 25 − ln(memory_bytes + params))   # if all examples pass · 全样例通过时
+       = 0                                         # otherwise · 否则
+```
+
+**Constraints · 约束条件**
+
+| Aspect · 项目 | Requirement · 要求 |
+|---|---|
+| Input / output tensor · 输入输出张量 | `(1, 10, 30, 30)` float32, one-hot · 独热编码 |
+| Tensor names · 张量名 | `"input"` / `"output"` |
+| Output decoding · 输出解码 | thresholded at `> 0.0` · 以 `> 0.0` 阈值化 |
+| File size · 文件大小 | ≤ 1.44 MB per `.onnx` · 单文件不超过 1.44 MB |
+| Banned ops · 禁用算子 | `LOOP`, `SCAN`, `NONZERO`, `UNIQUE`, `SCRIPT`, `FUNCTION`, `COMPRESS`, any `Sequence*`, graph-typed attributes · 任何 `Sequence*`、子图属性 |
+| Shapes · 形状 | statically inferable; declare `value_info` when shape inference can't see through dynamic ops · 必须静态可推断；动态算子需显式声明 `value_info` |
+| ARC-gen grids · arc-gen 样例 | grids larger than 30×30 are skipped by the scorer · 超过 30×30 的样例由评分器自动跳过 |
+
+---
+
+## 🔬 Tests · 单元测试
+
+```bash
+python -m pytest tests/ -q
+```
+
+9 cases cover the one-hot round-trip contract and the solver-family shape contracts.
+9 个测试覆盖独热编码的往返一致性与各求解器输出图的形状契约。
+
+---
+
+## 🛣️ Roadmap · 后续计划
+
+- [ ] Bounding-box extraction (ReduceSum + ArgMax row/col projections) · 外接矩形提取（行列投影 + ArgMax）
+- [ ] Shape-aware flip / rotate that handles top-left alignment · 处理左上角对齐的形状感知翻转 / 旋转
+- [ ] Scale-by-N tasks via static `Resize` or `Tile` · 用 `Resize` / `Tile` 实现 N 倍缩放任务
+- [ ] Search over conv kernel sizes (5×5, 7×7) and channel-wise grouping · 搜索更大卷积核 (5×5, 7×7) 与分组卷积
+- [ ] Cache ONNX Runtime traces to speed up iteration · 缓存 ONNX Runtime trace 加速迭代
+
+---
+
+## 📜 License · 许可证
+
+MIT © 2026 [zikuanqi](https://github.com/zikuanqi) — see [LICENSE](LICENSE) · 详见 [LICENSE](LICENSE)
