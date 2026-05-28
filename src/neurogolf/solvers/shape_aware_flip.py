@@ -265,6 +265,97 @@ def _build_rot180() -> onnx.ModelProto:
     )
 
 
+# ---------- 90° rotations (transpose + shape-aware flip) ----------
+
+def _is_rot90_ccw(task: dict) -> bool:
+    """output[r][c] = input[c][W-1-r]; output shape = (W, H)."""
+    saw = False
+    for ex in all_examples(task):
+        i, o = ex["input"], ex["output"]
+        if not i or not o:
+            return False
+        H, W = len(i), len(i[0])
+        if len(o) != W or len(o[0]) != H:
+            return False
+        for r in range(W):
+            for c in range(H):
+                if o[r][c] != i[c][W - 1 - r]:
+                    return False
+        saw = True
+    return saw
+
+
+def _is_rot90_cw(task: dict) -> bool:
+    """output[r][c] = input[H-1-c][r]; output shape = (W, H)."""
+    saw = False
+    for ex in all_examples(task):
+        i, o = ex["input"], ex["output"]
+        if not i or not o:
+            return False
+        H, W = len(i), len(i[0])
+        if len(o) != W or len(o[0]) != H:
+            return False
+        for r in range(W):
+            for c in range(H):
+                if o[r][c] != i[H - 1 - c][r]:
+                    return False
+        saw = True
+    return saw
+
+
+def _build_rot90(direction: str) -> onnx.ModelProto:
+    """Transpose composed with a shape-aware flip.
+
+    rot90 CCW (output[r,c] = input[c, W-1-r]):
+        transpose first, then flip rows of the result based on the new
+        content height (which equals the original content width W).
+
+    rot90 CW (output[r,c] = input[H-1-c, r]):
+        flip rows of the input based on content height H, then transpose.
+    """
+    initializers: list = []
+    value_info: list = []
+    if direction == "ccw":
+        nodes = [helper.make_node(
+            "Transpose", ["input"], ["_t"], perm=[0, 1, 3, 2],
+            name="pre_transpose")]
+        value_info.append(helper.make_tensor_value_info(
+            "_t", TensorProto.FLOAT, [1, CHANNELS, HEIGHT, WIDTH]))
+        nodes += _flip_along(2, "v", "_t", "output",
+                             initializers, value_info)
+        graph_name = "rot90_ccw"
+    else:
+        nodes = _flip_along(2, "v", "input", "_v",
+                            initializers, value_info)
+        value_info.append(helper.make_tensor_value_info(
+            "_v", TensorProto.FLOAT, [1, CHANNELS, HEIGHT, WIDTH]))
+        nodes.append(helper.make_node(
+            "Transpose", ["_v"], ["output"], perm=[0, 1, 3, 2],
+            name="post_transpose"))
+        graph_name = "rot90_cw"
+
+    inputs = [helper.make_tensor_value_info(
+        "input", TensorProto.FLOAT, [1, CHANNELS, HEIGHT, WIDTH])]
+    outputs = [helper.make_tensor_value_info(
+        "output", TensorProto.FLOAT, [1, CHANNELS, HEIGHT, WIDTH])]
+    graph = helper.make_graph(
+        nodes, graph_name, inputs, outputs,
+        initializer=initializers, value_info=value_info,
+    )
+    return helper.make_model(
+        graph, opset_imports=[helper.make_operatorsetid("", OPSET)],
+        ir_version=IR_VERSION,
+    )
+
+
+def solve_rot90_ccw_aware(task: dict) -> Optional[onnx.ModelProto]:
+    return _build_rot90("ccw") if _is_rot90_ccw(task) else None
+
+
+def solve_rot90_cw_aware(task: dict) -> Optional[onnx.ModelProto]:
+    return _build_rot90("cw") if _is_rot90_cw(task) else None
+
+
 # ---------- public solvers ----------
 
 def solve_flip_h_aware(task: dict) -> Optional[onnx.ModelProto]:

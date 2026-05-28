@@ -10,7 +10,8 @@
 [![Kaggle](https://img.shields.io/badge/Kaggle-NeuroGolf%202026-20BEFF?logo=kaggle&logoColor=white)](https://www.kaggle.com/competitions/neurogolf-2026)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![Last Commit](https://img.shields.io/github/last-commit/zikuanqi/NeuroGolf)](https://github.com/zikuanqi/NeuroGolf/commits/main)
-[![Tests](https://img.shields.io/badge/tests-9%20passing-brightgreen)](tests/)
+[![Tests](https://img.shields.io/badge/tests-passing-brightgreen)](tests/)
+[![Tasks Solved](https://img.shields.io/badge/tasks_solved-17%2F400-blue)](networks/)
 
 </div>
 
@@ -31,6 +32,9 @@
 | v1 | identity, zero, single-color, remap | 4 | **81.57** |
 | v2 | + transpose | 6 | **131.57** |
 | v3 | + marker-crop (opset 11) | 7 | **149.93** |
+| v4 | + static-crop, kron-scale, resize-scale, shape-aware flip/rot180 | 15 | **276.86** |
+| v5 | + rot90-ccw (transpose ∘ flip-v) | 16 | **290.62** |
+| v6 | + bbox-strip (Slice + Sub + ReduceMax/ArgMax + Gather + Less + Mul) | 17 | ~304 (pending) |
 
 ---
 
@@ -70,7 +74,14 @@ Each solver is a callable `(task: dict) → Optional[onnx.ModelProto]`. The pipe
 | `solve_remap` | per-pixel color lookup · 像素级颜色映射 | 1×1 `Conv` | 100 |
 | `solve_single_color` | uniform fill, same shape · 同尺寸纯色填充 | 1×1 `Conv` | 100 |
 | `solve_transpose` | output is input transposed · 输出为输入的转置 | `Transpose` | 0 |
+| `solve_static_crop` | fixed-offset, fixed-size subrect of input · 定长定位裁剪 | `Slice` + `Pad` | ~14 |
+| `solve_kron_scale` | N×N pixel expansion, constant input shape · 同尺寸像素块复制 | 2× `Gather` + `Pad` | ~40 |
+| `solve_resize_scale` | N× nearest upscale, variable input shape · 变尺寸 N 倍最近邻放大 | `Slice` + `Resize` | ~24 |
 | `solve_marker_crop` | crop a fixed window around a unique marker pixel · 围绕唯一标记像素的定长裁剪 | `Slice` → `ReduceSum` → `ArgMax` → `Slice` → `Pad` | ~27 |
+| `solve_flip_h_aware` / `solve_flip_v_aware` | content-aware horizontal / vertical flip · 形状感知水平 / 垂直翻转 | `ReduceSum` + `ReduceMax` + `Mul`(arange) + `Sub` + `Clip` + `Cast` + `Gather` + `Mul` | ~37 |
+| `solve_rot180_aware` | two stacked shape-aware flips · 双轴形状感知翻转 | flip-h ∘ flip-v | ~74 |
+| `solve_rot90_ccw_aware` / `solve_rot90_cw_aware` | shape-aware 90° rotation · 形状感知 90° 旋转 | `Transpose` ∘ flip-v | ~37 |
+| `solve_bbox_strip` | crop input to the bbox of non-background cells · 非背景外接矩形提取 | `ReduceSum` + `Sub` + row/col `ArgMax` + `Gather` + `Less` + `Mul` | ~76 |
 | `solve_conv3x3` | least-squares fit of a 3×3 conv · 3×3 卷积最小二乘拟合 | 3×3 `Conv` | 900 |
 | `solve_zero` | output is empty grid · 输出为空网格 | `Sub` | 0 |
 
@@ -127,16 +138,23 @@ points = max(1, 25 − ln(memory_bytes + params))   # if all examples pass · �
 python -m pytest tests/ -q
 ```
 
-9 cases cover the one-hot round-trip contract and the solver-family shape contracts.
-9 个测试覆盖独热编码的往返一致性与各求解器输出图的形状契约。
+15 cases cover the one-hot round-trip contract and per-family solver
+shape contracts (Identity / Conv1×1 / Transpose / Slice+Pad / Gather+Pad /
+Resize / shape-aware flip / rot / bbox).
+
+15 个测试覆盖独热编码的往返一致性，以及各求解器输出图的形状契约
+（Identity / Conv1×1 / Transpose / Slice+Pad / Gather+Pad / Resize /
+形状感知翻转 / 旋转 / 外接矩形）。
 
 ---
 
 ## 🛣️ Roadmap · 后续计划
 
-- [ ] Bounding-box extraction (ReduceSum + ArgMax row/col projections) · 外接矩形提取（行列投影 + ArgMax）
-- [ ] Shape-aware flip / rotate that handles top-left alignment · 处理左上角对齐的形状感知翻转 / 旋转
-- [ ] Scale-by-N tasks via static `Resize` or `Tile` · 用 `Resize` / `Tile` 实现 N 倍缩放任务
+- [x] Bounding-box extraction (ReduceSum + ArgMax row/col projections) · 外接矩形提取（行列投影 + ArgMax）
+- [x] Shape-aware flip / rotate that handles top-left alignment · 处理左上角对齐的形状感知翻转 / 旋转
+- [x] Scale-by-N tasks via static `Resize` or `Tile` · 用 `Resize` / `Tile` 实现 N 倍缩放任务
+- [ ] Generalize marker-crop to handle multi-pixel markers and per-color crop rules · 通用化标记裁剪以支持多像素标记
+- [ ] Detect "input contains a filled rectangle of color C" tasks (57 candidates) · 识别"输入含纯色矩形"类任务
 - [ ] Search over conv kernel sizes (5×5, 7×7) and channel-wise grouping · 搜索更大卷积核 (5×5, 7×7) 与分组卷积
 - [ ] Cache ONNX Runtime traces to speed up iteration · 缓存 ONNX Runtime trace 加速迭代
 

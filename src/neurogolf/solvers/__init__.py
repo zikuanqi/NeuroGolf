@@ -14,6 +14,7 @@ from typing import Callable, Optional
 
 import onnx
 
+from .bbox_strip import solve_bbox_strip
 from .conv3x3 import solve_conv3x3
 from .identity import solve_identity
 from .kron_scale import solve_kron_scale
@@ -21,6 +22,7 @@ from .marker_crop import solve_marker_crop
 from .remap import solve_remap
 from .resize_scale import solve_resize_scale
 from .shape_aware_flip import (solve_flip_h_aware, solve_flip_v_aware,
+                                solve_rot90_ccw_aware, solve_rot90_cw_aware,
                                 solve_rot180_aware)
 from .single_color import solve_single_color
 from .spatial import solve_transpose
@@ -42,5 +44,8 @@ ALL_SOLVERS: list[Solver] = [
     solve_flip_h_aware,
     solve_flip_v_aware,
     solve_rot180_aware,
+    solve_rot90_ccw_aware,
+    solve_rot90_cw_aware,
+    solve_bbox_strip,
     solve_conv3x3,
 ]

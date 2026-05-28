@@ -6,9 +6,17 @@ import sys
 
 sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent.parent / "src"))
 
+from neurogolf.solvers.bbox_strip import solve_bbox_strip  # noqa: E402
 from neurogolf.solvers.identity import solve_identity  # noqa: E402
+from neurogolf.solvers.kron_scale import solve_kron_scale  # noqa: E402
 from neurogolf.solvers.remap import solve_remap  # noqa: E402
+from neurogolf.solvers.resize_scale import solve_resize_scale  # noqa: E402
+from neurogolf.solvers.shape_aware_flip import (  # noqa: E402
+    solve_flip_h_aware, solve_flip_v_aware, solve_rot180_aware,
+    solve_rot90_ccw_aware,
+)
 from neurogolf.solvers.spatial import solve_transpose  # noqa: E402
+from neurogolf.solvers.static_crop import solve_static_crop  # noqa: E402
 
 
 def _make_task(pairs):
@@ -51,3 +59,85 @@ def test_transpose():
     model = solve_transpose(task)
     assert model is not None
     assert model.graph.node[0].op_type == "Transpose"
+
+
+def test_static_crop_picks_fixed_offset():
+    # Output is always the 2x2 top-right of a 4x4 input.
+    task = _make_task([
+        ([[1, 2, 3, 4], [5, 6, 7, 8], [0, 0, 0, 0], [0, 0, 0, 0]],
+         [[3, 4], [7, 8]]),
+    ])
+    model = solve_static_crop(task)
+    assert model is not None
+    op_types = {n.op_type for n in model.graph.node}
+    assert {"Slice", "Pad"} <= op_types
+
+
+def test_kron_scale_picks_2x():
+    task = _make_task([
+        ([[1, 2], [3, 4]],
+         [[1, 1, 2, 2], [1, 1, 2, 2], [3, 3, 4, 4], [3, 3, 4, 4]]),
+    ])
+    model = solve_kron_scale(task)
+    assert model is not None
+    assert sum(n.op_type == "Gather" for n in model.graph.node) == 2
+
+
+def test_resize_scale_picks_variable_shape_2x():
+    # kron_scale wants ONE input shape; resize_scale accepts varying ones.
+    task = _make_task([
+        ([[1]], [[1, 1], [1, 1]]),
+        ([[1, 2], [3, 4]],
+         [[1, 1, 2, 2], [1, 1, 2, 2], [3, 3, 4, 4], [3, 3, 4, 4]]),
+    ])
+    assert solve_kron_scale(task) is None
+    model = solve_resize_scale(task)
+    assert model is not None
+    op_types = [n.op_type for n in model.graph.node]
+    assert "Resize" in op_types
+
+
+def test_shape_aware_flips_emit_dynamic_pipeline():
+    # 2x3 grid: flipping horizontally swaps columns within each row.
+    h_task = _make_task([
+        ([[1, 2, 3], [4, 5, 6]], [[3, 2, 1], [6, 5, 4]]),
+    ])
+    h_model = solve_flip_h_aware(h_task)
+    assert h_model is not None
+    assert any(n.op_type == "Gather" for n in h_model.graph.node)
+    # Flip-v solver should NOT match a flip-h task.
+    assert solve_flip_v_aware(h_task) is None
+
+    v_task = _make_task([
+        ([[1, 2], [3, 4]], [[3, 4], [1, 2]]),
+    ])
+    assert solve_flip_v_aware(v_task) is not None
+    assert solve_flip_h_aware(v_task) is None
+
+
+def test_rot_solvers_distinguish_directions():
+    cw_input = [[1, 2], [3, 4]]
+    # rot180: [[4,3],[2,1]]; rot90 ccw: [[2,4],[1,3]]; cw: [[3,1],[4,2]]
+    rot180 = _make_task([(cw_input, [[4, 3], [2, 1]])])
+    rot_ccw = _make_task([(cw_input, [[2, 4], [1, 3]])])
+    assert solve_rot180_aware(rot180) is not None
+    assert solve_rot180_aware(rot_ccw) is None
+    assert solve_rot90_ccw_aware(rot_ccw) is not None
+    assert solve_rot90_ccw_aware(rot180) is None
+
+
+def test_bbox_strip_picks_non_bg():
+    # The bbox of non-zero cells is the 2x2 block (1..2, 1..2).
+    task = _make_task([
+        ([[0, 0, 0, 0],
+          [0, 1, 2, 0],
+          [0, 3, 4, 0],
+          [0, 0, 0, 0]],
+         [[1, 2], [3, 4]]),
+    ])
+    model = solve_bbox_strip(task)
+    assert model is not None
+    op_types = [n.op_type for n in model.graph.node]
+    assert "ArgMax" in op_types
+    assert "Less" in op_types
+    assert sum(t == "Gather" for t in op_types) == 2

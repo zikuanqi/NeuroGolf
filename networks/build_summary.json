@@ -241,11 +241,11 @@
   },
   {
     "task": 31,
-    "solver": "none",
-    "saved": false,
-    "points": 0.0,
-    "memory": null,
-    "params": null
+    "solver": "solve_bbox_strip",
+    "saved": true,
+    "points": 13.603788142728135,
+    "memory": 88908,
+    "params": 76
   },
   {
     "task": 32,
@@ -3033,11 +3033,11 @@
   },
   {
     "task": 380,
-    "solver": "none",
-    "saved": false,
-    "points": 0.0,
-    "memory": null,
-    "params": null
+    "solver": "solve_rot90_ccw_aware",
+    "saved": true,
+    "points": 13.752069256116783,
+    "memory": 76684,
+    "params": 37
   },
   {
     "task": 381,
