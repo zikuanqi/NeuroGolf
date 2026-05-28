@@ -1,0 +1,29 @@
+# Competition data (large; redownload via Kaggle CLI)
+data/
+*.zip
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+.venv/
+venv/
+.pytest_cache/
+.mypy_cache/
+.ipynb_checkpoints/
+
+# ONNX runtime profiler trace files
+*.json.tmp
+onnxruntime_profile*.json
+[0-9][0-9][0-9]_*.json
+
+# Build artifacts
+build/
+dist/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+.DS_Store

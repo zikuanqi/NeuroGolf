@@ -1,0 +1,5 @@
+numpy>=1.26
+onnx>=1.15
+onnxruntime>=1.17
+onnx_tool>=0.9
+kaggle>=1.6
