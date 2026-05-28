@@ -14,9 +14,11 @@ from typing import Callable, Optional
 
 import onnx
 
+from .conv3x3 import solve_conv3x3
 from .identity import solve_identity
 from .remap import solve_remap
 from .single_color import solve_single_color
+from .spatial import solve_transpose
 from .zero import solve_zero
 
 Solver = Callable[[dict], Optional[onnx.ModelProto]]
@@ -26,4 +28,6 @@ ALL_SOLVERS: list[Solver] = [
     solve_zero,
     solve_single_color,
     solve_remap,
+    solve_transpose,
+    solve_conv3x3,
 ]

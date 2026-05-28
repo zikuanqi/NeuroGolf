@@ -1425,11 +1425,11 @@
   },
   {
     "task": 179,
-    "solver": "none",
-    "saved": false,
-    "points": 0.0,
-    "memory": null,
-    "params": null
+    "solver": "solve_transpose",
+    "saved": true,
+    "points": 25.0,
+    "memory": 0,
+    "params": 0
   },
   {
     "task": 180,
@@ -1921,11 +1921,11 @@
   },
   {
     "task": 241,
-    "solver": "none",
-    "saved": false,
-    "points": 0.0,
-    "memory": null,
-    "params": null
+    "solver": "solve_transpose",
+    "saved": true,
+    "points": 25.0,
+    "memory": 0,
+    "params": 0
   },
   {
     "task": 242,

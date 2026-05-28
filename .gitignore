@@ -22,6 +22,9 @@ onnxruntime_profile*.json
 build/
 dist/
 
+# Packaged submissions (large, regenerable; keep `submissions/` tree)
+submissions/*.zip
+
 # IDE
 .vscode/
 .idea/

@@ -16,12 +16,16 @@ def main() -> int:
     if not networks:
         print("no networks found")
         return 1
+    # Kaggle requires the submission file be named exactly `submission.zip`.
     ts = time.strftime("%Y%m%d_%H%M%S")
-    out = SUBMISSIONS / f"submission_{ts}.zip"
-    with zipfile.ZipFile(out, "w", zipfile.ZIP_DEFLATED) as z:
+    versioned = SUBMISSIONS / f"submission_{ts}.zip"
+    out = SUBMISSIONS / "submission.zip"
+    with zipfile.ZipFile(versioned, "w", zipfile.ZIP_DEFLATED) as z:
         for n in networks:
             z.write(n, arcname=n.name)
-    print(f"wrote {out} ({out.stat().st_size} bytes, {len(networks)} files)")
+    out.write_bytes(versioned.read_bytes())
+    print(f"wrote {out} ({out.stat().st_size} bytes, {len(networks)} files); "
+          f"snapshot at {versioned.name}")
     return 0
 
 
