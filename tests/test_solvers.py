@@ -18,6 +18,10 @@ from neurogolf.solvers.shape_aware_flip import (  # noqa: E402
 from neurogolf.solvers.shift import solve_shift  # noqa: E402
 from neurogolf.solvers.spatial import solve_transpose  # noqa: E402
 from neurogolf.solvers.static_crop import solve_static_crop  # noqa: E402
+from neurogolf.solvers.majority_fill import solve_majority_fill  # noqa: E402
+from neurogolf.solvers.palindrome import (  # noqa: E402
+    solve_palindrome_2d, solve_palindrome_h, solve_palindrome_v,
+)
 from neurogolf.solvers.tile_h import solve_tile_h  # noqa: E402
 
 
@@ -187,3 +191,50 @@ def test_tile_h_picks_factor_3():
 def test_tile_h_rejects_non_tile():
     task = _make_task([([[1, 2], [3, 4]], [[1, 2], [3, 4]])])
     assert solve_tile_h(task) is None
+
+
+def test_palindrome_h_picks_mirror_right():
+    task = _make_task([
+        ([[1, 2, 3]], [[1, 2, 3, 3, 2, 1]]),
+    ])
+    model = solve_palindrome_h(task)
+    assert model is not None
+    op_types = {n.op_type for n in model.graph.node}
+    assert {"Where", "Gather", "Less"} <= op_types
+
+
+def test_palindrome_v_picks_mirror_bottom():
+    task = _make_task([
+        ([[1], [2]], [[1], [2], [2], [1]]),
+    ])
+    assert solve_palindrome_v(task) is not None
+    assert solve_palindrome_h(task) is None
+
+
+def test_palindrome_2d_picks_four_quadrants():
+    task = _make_task([
+        ([[1, 2], [3, 4]],
+         [[1, 2, 2, 1], [3, 4, 4, 3], [3, 4, 4, 3], [1, 2, 2, 1]]),
+    ])
+    assert solve_palindrome_2d(task) is not None
+
+
+def test_majority_fill_picks_3x3_majority():
+    task = _make_task([
+        ([[0, 1, 1], [2, 1, 0], [3, 0, 0]],
+         [[1, 1, 1], [1, 1, 1], [1, 1, 1]]),
+        ([[2, 2, 2], [0, 1, 0], [0, 3, 0]],
+         [[2, 2, 2], [2, 2, 2], [2, 2, 2]]),
+    ])
+    model = solve_majority_fill(task)
+    assert model is not None
+    op_types = {n.op_type for n in model.graph.node}
+    assert {"TopK", "Greater", "OneHot", "Where"} <= op_types
+
+
+def test_majority_fill_rejects_when_output_varies():
+    # Output color isn't a majority in input
+    task = _make_task([
+        ([[1, 2], [1, 2]], [[5, 5], [5, 5]]),
+    ])
+    assert solve_majority_fill(task) is None
