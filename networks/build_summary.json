@@ -1,10 +1,10 @@
 [
   {
-    "task": 1,
-    "solver": "none",
-    "saved": false,
-    "points": 0.0,
-    "memory": null,
-    "params": null
+    "task": 4,
+    "solver": "solve_gravity_right_diag",
+    "saved": true,
+    "points": 12.258048207639728,
+    "memory": 341640,
+    "params": 150
   }
 ]

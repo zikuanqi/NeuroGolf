@@ -23,6 +23,7 @@ from .conv3x3_masked import (solve_conv1x1_masked, solve_conv3x3_masked,
                               solve_conv5x5_masked)
 from .filled_rect import solve_filled_rect
 from .gravity_right import solve_gravity_right
+from .gravity_right_diag import solve_gravity_right_diag
 from .identity import solve_identity
 from .kron_scale import solve_kron_scale
 from .largest_bbox_fill import solve_largest_bbox_fill
@@ -86,6 +87,7 @@ ALL_SOLVERS: list[Solver] = [
     solve_zero_color,
     solve_column_label,
     solve_gravity_right,
+    solve_gravity_right_diag,
     solve_filled_rect,
     solve_conv3x3,
     solve_conv1x1_masked,
