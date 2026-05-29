@@ -2145,11 +2145,11 @@
   },
   {
     "task": 269,
-    "solver": "none",
-    "saved": false,
-    "points": 0.0,
-    "memory": null,
-    "params": null
+    "solver": "solve_variable_kron",
+    "saved": true,
+    "points": 13.725661727837835,
+    "memory": 78636,
+    "params": 138
   },
   {
     "task": 270,
@@ -2305,11 +2305,11 @@
   },
   {
     "task": 289,
-    "solver": "none",
-    "saved": false,
-    "points": 0.0,
-    "memory": null,
-    "params": null
+    "solver": "solve_variable_kron",
+    "saved": true,
+    "points": 13.725090636466733,
+    "memory": 78681,
+    "params": 138
   },
   {
     "task": 290,

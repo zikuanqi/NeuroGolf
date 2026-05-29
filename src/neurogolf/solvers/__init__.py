@@ -32,6 +32,7 @@ from .shape_aware_flip import (solve_flip_h_aware, solve_flip_v_aware,
 from .single_color import solve_single_color
 from .spatial import solve_transpose
 from .static_crop import solve_static_crop
+from .variable_kron import solve_variable_kron
 from .zero import solve_zero
 
 Solver = Callable[[dict], Optional[onnx.ModelProto]]
@@ -45,6 +46,7 @@ ALL_SOLVERS: list[Solver] = [
     solve_static_crop,
     solve_kron_scale,
     solve_resize_scale,
+    solve_variable_kron,
     solve_marker_crop,
     solve_shift,
     solve_tile_h,
