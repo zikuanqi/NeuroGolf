@@ -1361,11 +1361,11 @@
   },
   {
     "task": 171,
-    "solver": "none",
-    "saved": false,
-    "points": 0.0,
-    "memory": null,
-    "params": null
+    "solver": "solve_conv5x5_masked",
+    "saved": true,
+    "points": 14.351959478844027,
+    "memory": 39600,
+    "params": 2510
   },
   {
     "task": 172,
