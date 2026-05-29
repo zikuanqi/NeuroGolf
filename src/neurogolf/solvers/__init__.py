@@ -15,6 +15,7 @@ from typing import Callable, Optional
 import onnx
 
 from .bbox_color_extract import solve_bbox_color_extract
+from .block_mask import solve_block_mask
 from .column_label import solve_column_label
 from .bbox_strip import solve_bbox_strip
 from .conv3x3 import solve_conv3x3
@@ -58,6 +59,7 @@ ALL_SOLVERS: list[Solver] = [
     solve_remap,
     solve_repeat_top_rows,
     solve_transpose,
+    solve_block_mask,
     solve_static_crop,
     solve_kron_scale,
     solve_resize_scale,
