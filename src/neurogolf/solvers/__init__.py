@@ -19,30 +19,32 @@ from .bbox_strip import solve_bbox_strip
 from .conv3x3 import solve_conv3x3
 from .conv3x3_masked import (solve_conv1x1_masked, solve_conv3x3_masked,
                               solve_conv5x5_masked)
-from .scale_detector import solve_scale_detector
-from .variable_shift import solve_variable_shift
+from .filled_rect import solve_filled_rect
 from .gravity_right import solve_gravity_right
 from .identity import solve_identity
 from .kron_scale import solve_kron_scale
 from .largest_bbox_fill import solve_largest_bbox_fill
 from .majority_fill import solve_majority_fill
 from .marker_crop import solve_marker_crop
+from .palindrome import (solve_palindrome_2d, solve_palindrome_h,
+                          solve_palindrome_v)
 from .remap import solve_remap
 from .resize_scale import solve_resize_scale
 from .row_uniform_indicator import solve_row_uniform_indicator
-from .palindrome import (solve_palindrome_2d, solve_palindrome_h,
-                          solve_palindrome_v)
-from .shift import solve_shift
-from .tile_h import solve_tile_h
+from .scale_detector import solve_scale_detector
 from .shape_aware_flip import (solve_flip_h_aware, solve_flip_v_aware,
                                 solve_rot90_ccw_aware, solve_rot90_cw_aware,
                                 solve_rot180_aware)
+from .shift import solve_shift
 from .single_color import solve_single_color
 from .spatial import solve_transpose
 from .split_and import solve_split_and
 from .static_crop import solve_static_crop
+from .tile_h import solve_tile_h
 from .variable_kron import solve_variable_kron
+from .variable_shift import solve_variable_shift
 from .zero import solve_zero
+from .zero_color import solve_zero_color
 
 Solver = Callable[[dict], Optional[onnx.ModelProto]]
 
@@ -75,6 +77,9 @@ ALL_SOLVERS: list[Solver] = [
     solve_bbox_strip,
     solve_bbox_color_extract,
     solve_split_and,
+    solve_zero_color,
+    solve_gravity_right,
+    solve_filled_rect,
     solve_conv3x3,
     solve_conv1x1_masked,
     solve_conv3x3_masked,
