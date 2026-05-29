@@ -30,6 +30,7 @@ from .marker_crop import solve_marker_crop
 from .palindrome import (solve_palindrome_2d, solve_palindrome_h,
                           solve_palindrome_v)
 from .remap import solve_remap
+from .repeat_top_rows import solve_repeat_top_rows
 from .resize_scale import solve_resize_scale
 from .row_uniform_indicator import solve_row_uniform_indicator
 from .scale_detector import solve_scale_detector
@@ -55,6 +56,7 @@ ALL_SOLVERS: list[Solver] = [
     solve_zero,
     solve_single_color,
     solve_remap,
+    solve_repeat_top_rows,
     solve_transpose,
     solve_static_crop,
     solve_kron_scale,
