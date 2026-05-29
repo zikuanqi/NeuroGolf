@@ -11,7 +11,7 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![Last Commit](https://img.shields.io/github/last-commit/zikuanqi/NeuroGolf)](https://github.com/zikuanqi/NeuroGolf/commits/main)
 [![Tests](https://img.shields.io/badge/tests-passing-brightgreen)](tests/)
-[![Tasks Solved](https://img.shields.io/badge/tasks_solved-39%2F400-blue)](networks/)
+[![Tasks Solved](https://img.shields.io/badge/tasks_solved-40%2F400-blue)](networks/)
 
 </div>
 
@@ -44,6 +44,7 @@
 | v13 | + flood-fill-enclosure (border BFS unrolled with Pad+Conv+Max) | 36 | **578.92** |
 | v14 | + column-label (ArgMax pairwise ranking for per-column top-row labeling) | 37 | **592.92** |
 | v15 | + repeat-top-rows (runtime period detection P=2/3/4 with weighted candidate mix) | 39 | ~605 (pending) |
+| v16 | + block-mask (N×N→N²×N² masked tiling + channel-0 recovery with Tile×inv_mask) | 40 | ~616 (pending) |
 
 ---
 
@@ -106,6 +107,7 @@ Each solver is a callable `(task: dict) → Optional[onnx.ModelProto]`. The pipe
 | `solve_conv1x1_masked` / `solve_conv3x3_masked` / `solve_conv5x5_masked` | K×K conv + bias, masked to non-padding cells · K×K 卷积带偏置和非填充掩码 | `Conv` + `ReduceSum` + `Mul` | 100 / 910 / 2510 |
 | `solve_zero` | output is empty grid · 输出为空网格 | `Sub` | 0 |
 | `solve_flood_fill_enclosure` | fill color-0 cells fully enclosed by a single source color · 填充被单一颜色完全包围的色 0 区域 | `ArgMax` + `Equal` + 58×(`Pad`+`Conv`+`Greater`+`Max`) border flood-fill + `Gather` + `Sub` + `Slice` + `Concat` | ~1.8k |
+| `solve_block_mask` | N×N→N²×N²: tile input row/col-wise, mask[0-block]→zero, channel-0 recovery via Tile×inv_mask · 块掩码平铺：按块复制输入，零块掩蔽，通道 0 恢复 | `Slice` + `ReduceSum` + `Less` + `Tile` + `Mul` + `Add` | 78 |
 
 ---
 
