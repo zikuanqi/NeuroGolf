@@ -19,6 +19,9 @@ from .bbox_strip import solve_bbox_strip
 from .conv3x3 import solve_conv3x3
 from .conv3x3_masked import (solve_conv1x1_masked, solve_conv3x3_masked,
                               solve_conv5x5_masked)
+from .scale_detector import solve_scale_detector
+from .variable_shift import solve_variable_shift
+from .gravity_right import solve_gravity_right
 from .identity import solve_identity
 from .kron_scale import solve_kron_scale
 from .largest_bbox_fill import solve_largest_bbox_fill
@@ -36,6 +39,7 @@ from .shape_aware_flip import (solve_flip_h_aware, solve_flip_v_aware,
                                 solve_rot180_aware)
 from .single_color import solve_single_color
 from .spatial import solve_transpose
+from .split_and import solve_split_and
 from .static_crop import solve_static_crop
 from .variable_kron import solve_variable_kron
 from .zero import solve_zero
@@ -55,6 +59,8 @@ ALL_SOLVERS: list[Solver] = [
     solve_marker_crop,
     solve_shift,
     solve_tile_h,
+    solve_scale_detector,
+    solve_variable_shift,
     solve_palindrome_h,
     solve_palindrome_v,
     solve_palindrome_2d,
@@ -68,6 +74,7 @@ ALL_SOLVERS: list[Solver] = [
     solve_rot90_cw_aware,
     solve_bbox_strip,
     solve_bbox_color_extract,
+    solve_split_and,
     solve_conv3x3,
     solve_conv1x1_masked,
     solve_conv3x3_masked,

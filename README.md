@@ -11,7 +11,7 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![Last Commit](https://img.shields.io/github/last-commit/zikuanqi/NeuroGolf)](https://github.com/zikuanqi/NeuroGolf/commits/main)
 [![Tests](https://img.shields.io/badge/tests-passing-brightgreen)](tests/)
-[![Tasks Solved](https://img.shields.io/badge/tasks_solved-31%2F400-blue)](networks/)
+[![Tasks Solved](https://img.shields.io/badge/tasks_solved-35%2F400-blue)](networks/)
 
 </div>
 
@@ -40,6 +40,7 @@
 | v9 | + majority-fill (ReduceSum→TopK→Where→OneHot) | 27 | ~453 (pending) |
 | v10 | + variable-kron (Div+Min+Mul masked Resize-by-N) | 29 | **480.56** |
 | v11 | + conv 1×1 / 3×3 / 5×5 masked (least-squares + bias) | 31 | ~509 (pending) |
+| v12 | + bbox-color-extract, split-and, scale-detector, variable-shift, gravity-right | 35 | **567.92** |
 
 ---
 
@@ -93,6 +94,11 @@ Each solver is a callable `(task: dict) → Optional[onnx.ModelProto]`. The pipe
 | `solve_palindrome_2d` | four-quadrant 2D mirror · 四象限二维镜像 | palindrome-h ∘ palindrome-v | ~133 |
 | `solve_majority_fill` | constant-shape rectangle filled with the majority non-bg color · 常尺寸主色填充 | `ReduceSum` + `TopK` + `Greater` + `And` + `Where` + `OneHot` + `Mul` + `Pad` | ~32 |
 | `solve_variable_kron` | scale by N where N is `count(non-zero)` or `count(distinct colors)` · 变 N 倍 Kronecker（N 来自输入特征）| `ReduceSum` + `Cast` + `Div` + `Min` (float) + `Gather` ×2 + `Less` + `Mul` | ~138 |
+| `solve_bbox_color_extract` | crop input to bbox of majority/rarest color · 按主色/稀有色外接矩形裁剪 | `ReduceSum` + `ArgMax`/`ArgMin` + `OneHot` + `Mul` + `Cast` + `Gather` + `Mod` + `Less` | ~66 |
+| `solve_split_and` | split input along a color-5 vertical separator, AND the two halves · 沿颜色5分隔列分割并对两半做AND | `Slice` + `Pad` + `Sub` + `Mul` + `Less` + `Cast` + `And` | ~8129 |
+| `solve_scale_detector` | N× nearest-neighbor upscale or downscale · N 倍最近邻放大或缩小 | `Slice` + `Resize` | ~24 |
+| `solve_variable_shift` | shift by fixed offset with zero-fill, variable input shape · 定偏移量平移零填充，变输入尺寸 | `Slice` + `Pad` + `Concat` | ~50 |
+| `solve_gravity_right` | each row's cells slide right until blocked · 重力向右：每行格子右移直到被挡住 | `ReduceSum` + `CumSum` + `Where` + `Mul` | ~94 |
 | `solve_conv3x3` | least-squares fit of a 3×3 conv (no bias) · 无偏置 3×3 卷积拟合 | 3×3 `Conv` | 900 |
 | `solve_conv1x1_masked` / `solve_conv3x3_masked` / `solve_conv5x5_masked` | K×K conv + bias, masked to non-padding cells · K×K 卷积带偏置和非填充掩码 | `Conv` + `ReduceSum` + `Mul` | 100 / 910 / 2510 |
 | `solve_zero` | output is empty grid · 输出为空网格 | `Sub` | 0 |
