@@ -1009,11 +1009,11 @@
   },
   {
     "task": 127,
-    "solver": "none",
-    "saved": false,
-    "points": 0.0,
-    "memory": null,
-    "params": null
+    "solver": "solve_conv3x3_masked",
+    "saved": true,
+    "points": 14.390695863803264,
+    "memory": 39600,
+    "params": 910
   },
   {
     "task": 128,

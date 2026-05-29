@@ -16,6 +16,7 @@ import onnx
 
 from .bbox_strip import solve_bbox_strip
 from .conv3x3 import solve_conv3x3
+from .conv3x3_masked import solve_conv3x3_masked
 from .identity import solve_identity
 from .kron_scale import solve_kron_scale
 from .majority_fill import solve_majority_fill
@@ -61,4 +62,5 @@ ALL_SOLVERS: list[Solver] = [
     solve_rot90_cw_aware,
     solve_bbox_strip,
     solve_conv3x3,
+    solve_conv3x3_masked,
 ]
