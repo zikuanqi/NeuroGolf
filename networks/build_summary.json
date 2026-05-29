@@ -793,11 +793,11 @@
   },
   {
     "task": 100,
-    "solver": "none",
-    "saved": false,
-    "points": 0.0,
-    "memory": null,
-    "params": null
+    "solver": "solve_largest_bbox_fill",
+    "saved": true,
+    "points": 16.027155685562427,
+    "memory": 7792,
+    "params": 94
   },
   {
     "task": 101,
