@@ -102,6 +102,7 @@ Each solver is a callable `(task: dict) → Optional[onnx.ModelProto]`. The pipe
 | `solve_conv3x3` | least-squares fit of a 3×3 conv (no bias) · 无偏置 3×3 卷积拟合 | 3×3 `Conv` | 900 |
 | `solve_conv1x1_masked` / `solve_conv3x3_masked` / `solve_conv5x5_masked` | K×K conv + bias, masked to non-padding cells · K×K 卷积带偏置和非填充掩码 | `Conv` + `ReduceSum` + `Mul` | 100 / 910 / 2510 |
 | `solve_zero` | output is empty grid · 输出为空网格 | `Sub` | 0 |
+| `solve_flood_fill_enclosure` | fill color-0 cells fully enclosed by a single source color · 填充被单一颜色完全包围的色 0 区域 | `ArgMax` + `Equal` + 58×(`Pad`+`Conv`+`Greater`+`Max`) border flood-fill + `Gather` + `Sub` + `Slice` + `Concat` | ~1.8k |
 
 ---
 
