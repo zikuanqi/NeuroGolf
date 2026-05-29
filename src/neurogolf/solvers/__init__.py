@@ -21,6 +21,8 @@ from .kron_scale import solve_kron_scale
 from .marker_crop import solve_marker_crop
 from .remap import solve_remap
 from .resize_scale import solve_resize_scale
+from .palindrome import (solve_palindrome_2d, solve_palindrome_h,
+                          solve_palindrome_v)
 from .shift import solve_shift
 from .tile_h import solve_tile_h
 from .shape_aware_flip import (solve_flip_h_aware, solve_flip_v_aware,
@@ -45,6 +47,9 @@ ALL_SOLVERS: list[Solver] = [
     solve_marker_crop,
     solve_shift,
     solve_tile_h,
+    solve_palindrome_h,
+    solve_palindrome_v,
+    solve_palindrome_2d,
     solve_flip_h_aware,
     solve_flip_v_aware,
     solve_rot180_aware,

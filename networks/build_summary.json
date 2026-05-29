@@ -657,11 +657,11 @@
   },
   {
     "task": 83,
-    "solver": "none",
-    "saved": false,
-    "points": 0.0,
-    "memory": null,
-    "params": null
+    "solver": "solve_palindrome_2d",
+    "saved": true,
+    "points": 13.318133769729878,
+    "memory": 118272,
+    "params": 133
   },
   {
     "task": 84,
@@ -1129,11 +1129,11 @@
   },
   {
     "task": 142,
-    "solver": "none",
-    "saved": false,
-    "points": 0.0,
-    "memory": null,
-    "params": null
+    "solver": "solve_palindrome_2d",
+    "saved": true,
+    "points": 13.318133769729878,
+    "memory": 118272,
+    "params": 133
   },
   {
     "task": 143,
@@ -1209,11 +1209,11 @@
   },
   {
     "task": 152,
-    "solver": "none",
-    "saved": false,
-    "points": 0.0,
-    "memory": null,
-    "params": null
+    "solver": "solve_palindrome_2d",
+    "saved": true,
+    "points": 13.318133769729878,
+    "memory": 118272,
+    "params": 133
   },
   {
     "task": 153,
@@ -1305,11 +1305,11 @@
   },
   {
     "task": 164,
-    "solver": "none",
-    "saved": false,
-    "points": 0.0,
-    "memory": null,
-    "params": null
+    "solver": "solve_palindrome_h",
+    "saved": true,
+    "points": 14.373709381996417,
+    "memory": 41136,
+    "params": 68
   },
   {
     "task": 165,
@@ -1369,11 +1369,11 @@
   },
   {
     "task": 172,
-    "solver": "none",
-    "saved": false,
-    "points": 0.0,
-    "memory": null,
-    "params": null
+    "solver": "solve_palindrome_v",
+    "saved": true,
+    "points": 14.373709381996417,
+    "memory": 41136,
+    "params": 68
   },
   {
     "task": 173,
@@ -1673,11 +1673,11 @@
   },
   {
     "task": 210,
-    "solver": "none",
-    "saved": false,
-    "points": 0.0,
-    "memory": null,
-    "params": null
+    "solver": "solve_palindrome_v",
+    "saved": true,
+    "points": 14.373709381996417,
+    "memory": 41136,
+    "params": 68
   },
   {
     "task": 211,
@@ -2481,11 +2481,11 @@
   },
   {
     "task": 311,
-    "solver": "none",
-    "saved": false,
-    "points": 0.0,
-    "memory": null,
-    "params": null
+    "solver": "solve_palindrome_h",
+    "saved": true,
+    "points": 14.373709381996417,
+    "memory": 41136,
+    "params": 68
   },
   {
     "task": 312,
