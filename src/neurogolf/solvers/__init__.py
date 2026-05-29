@@ -25,6 +25,7 @@ from .majority_fill import solve_majority_fill
 from .marker_crop import solve_marker_crop
 from .remap import solve_remap
 from .resize_scale import solve_resize_scale
+from .row_uniform_indicator import solve_row_uniform_indicator
 from .palindrome import (solve_palindrome_2d, solve_palindrome_h,
                           solve_palindrome_v)
 from .shift import solve_shift
@@ -58,6 +59,7 @@ ALL_SOLVERS: list[Solver] = [
     solve_palindrome_2d,
     solve_majority_fill,
     solve_largest_bbox_fill,
+    solve_row_uniform_indicator,
     solve_flip_h_aware,
     solve_flip_v_aware,
     solve_rot180_aware,

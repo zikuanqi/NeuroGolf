@@ -409,11 +409,11 @@
   },
   {
     "task": 52,
-    "solver": "none",
-    "saved": false,
-    "points": 0.0,
-    "memory": null,
-    "params": null
+    "solver": "solve_row_uniform_indicator",
+    "saved": true,
+    "points": 13.976807514256535,
+    "memory": 61200,
+    "params": 79
   },
   {
     "task": 53,
