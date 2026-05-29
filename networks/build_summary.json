@@ -1025,11 +1025,11 @@
   },
   {
     "task": 129,
-    "solver": "none",
-    "saved": false,
-    "points": 0.0,
-    "memory": null,
-    "params": null
+    "solver": "solve_majority_fill",
+    "saved": true,
+    "points": 18.53385527576238,
+    "memory": 611,
+    "params": 32
   },
   {
     "task": 130,

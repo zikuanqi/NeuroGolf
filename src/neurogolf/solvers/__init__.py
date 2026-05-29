@@ -18,6 +18,7 @@ from .bbox_strip import solve_bbox_strip
 from .conv3x3 import solve_conv3x3
 from .identity import solve_identity
 from .kron_scale import solve_kron_scale
+from .majority_fill import solve_majority_fill
 from .marker_crop import solve_marker_crop
 from .remap import solve_remap
 from .resize_scale import solve_resize_scale
@@ -50,6 +51,7 @@ ALL_SOLVERS: list[Solver] = [
     solve_palindrome_h,
     solve_palindrome_v,
     solve_palindrome_2d,
+    solve_majority_fill,
     solve_flip_h_aware,
     solve_flip_v_aware,
     solve_rot180_aware,
