@@ -11,7 +11,7 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![Last Commit](https://img.shields.io/github/last-commit/zikuanqi/NeuroGolf)](https://github.com/zikuanqi/NeuroGolf/commits/main)
 [![Tests](https://img.shields.io/badge/tests-passing-brightgreen)](tests/)
-[![Tasks Solved](https://img.shields.io/badge/tasks_solved-35%2F400-blue)](networks/)
+[![Tasks Solved](https://img.shields.io/badge/tasks_solved-36%2F400-blue)](networks/)
 
 </div>
 
@@ -41,6 +41,7 @@
 | v10 | + variable-kron (Div+Min+Mul masked Resize-by-N) | 29 | **480.56** |
 | v11 | + conv 1×1 / 3×3 / 5×5 masked (least-squares + bias) | 31 | ~509 (pending) |
 | v12 | + bbox-color-extract, split-and, scale-detector, variable-shift, gravity-right | 35 | **567.92** |
+| v13 | + flood-fill-enclosure (border BFS unrolled with Pad+Conv+Max) | 36 | **578.92** |
 
 ---
 
