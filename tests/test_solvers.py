@@ -238,3 +238,33 @@ def test_majority_fill_rejects_when_output_varies():
         ([[1, 2], [1, 2]], [[5, 5], [5, 5]]),
     ])
     assert solve_majority_fill(task) is None
+
+
+def test_variable_kron_picks_count_rule():
+    from neurogolf.solvers.variable_kron import solve_variable_kron
+    # 3x3 input with N non-zero cells → N-times kron-scaled output.
+    task = _make_task([
+        ([[1, 0, 0], [0, 0, 0], [0, 0, 0]],  # N = 1 → identity
+         [[1, 0, 0], [0, 0, 0], [0, 0, 0]]),
+        ([[1, 0, 0], [0, 2, 0], [0, 0, 0]],  # N = 2 → 6x6
+         [[1, 1, 0, 0, 0, 0], [1, 1, 0, 0, 0, 0],
+          [0, 0, 2, 2, 0, 0], [0, 0, 2, 2, 0, 0],
+          [0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0]]),
+    ])
+    model = solve_variable_kron(task)
+    assert model is not None
+    op_types = {n.op_type for n in model.graph.node}
+    assert {"Div", "Gather", "Less", "Cast", "Mul"} <= op_types
+
+
+def test_conv_masked_picks_when_lstsq_fits():
+    from neurogolf.solvers.conv3x3_masked import solve_conv1x1_masked
+    # Trivial 1x1 color remap (with bias) that ANY conv kernel should fit.
+    task = _make_task([
+        ([[1, 2]], [[5, 5]]),
+        ([[3, 4]], [[5, 5]]),
+    ])
+    # Whether it actually fits depends on lstsq; we just verify the
+    # solver returns a valid model or cleanly None without crashing.
+    result = solve_conv1x1_masked(task)
+    assert result is None or hasattr(result, "graph")

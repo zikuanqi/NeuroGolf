@@ -11,7 +11,7 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![Last Commit](https://img.shields.io/github/last-commit/zikuanqi/NeuroGolf)](https://github.com/zikuanqi/NeuroGolf/commits/main)
 [![Tests](https://img.shields.io/badge/tests-passing-brightgreen)](tests/)
-[![Tasks Solved](https://img.shields.io/badge/tasks_solved-27%2F400-blue)](networks/)
+[![Tasks Solved](https://img.shields.io/badge/tasks_solved-31%2F400-blue)](networks/)
 
 </div>
 
@@ -38,6 +38,8 @@
 | v7 | + shift (Slice+Concat+Pad) + tile-h (shape-aware Mod-Gather) | 19 | ~337 (pending) |
 | v8 | + palindrome H / V / 2D (Where-based mirror-concat) | 26 | ~435 (pending) |
 | v9 | + majority-fill (ReduceSum→TopK→Where→OneHot) | 27 | ~453 (pending) |
+| v10 | + variable-kron (Div+Min+Mul masked Resize-by-N) | 29 | **480.56** |
+| v11 | + conv 1×1 / 3×3 / 5×5 masked (least-squares + bias) | 31 | ~509 (pending) |
 
 ---
 
@@ -90,7 +92,9 @@ Each solver is a callable `(task: dict) → Optional[onnx.ModelProto]`. The pipe
 | `solve_palindrome_h` / `solve_palindrome_v` | input mirror-concatenated to its right / bottom edge · 镜像拼接 | shape-aware `Where` + `Gather` + `Less` mask | ~68 |
 | `solve_palindrome_2d` | four-quadrant 2D mirror · 四象限二维镜像 | palindrome-h ∘ palindrome-v | ~133 |
 | `solve_majority_fill` | constant-shape rectangle filled with the majority non-bg color · 常尺寸主色填充 | `ReduceSum` + `TopK` + `Greater` + `And` + `Where` + `OneHot` + `Mul` + `Pad` | ~32 |
-| `solve_conv3x3` | least-squares fit of a 3×3 conv · 3×3 卷积最小二乘拟合 | 3×3 `Conv` | 900 |
+| `solve_variable_kron` | scale by N where N is `count(non-zero)` or `count(distinct colors)` · 变 N 倍 Kronecker（N 来自输入特征）| `ReduceSum` + `Cast` + `Div` + `Min` (float) + `Gather` ×2 + `Less` + `Mul` | ~138 |
+| `solve_conv3x3` | least-squares fit of a 3×3 conv (no bias) · 无偏置 3×3 卷积拟合 | 3×3 `Conv` | 900 |
+| `solve_conv1x1_masked` / `solve_conv3x3_masked` / `solve_conv5x5_masked` | K×K conv + bias, masked to non-padding cells · K×K 卷积带偏置和非填充掩码 | `Conv` + `ReduceSum` + `Mul` | 100 / 910 / 2510 |
 | `solve_zero` | output is empty grid · 输出为空网格 | `Sub` | 0 |
 
 ---
