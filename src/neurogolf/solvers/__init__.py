@@ -14,6 +14,7 @@ from typing import Callable, Optional
 
 import onnx
 
+from .bbox_color_extract import solve_bbox_color_extract
 from .bbox_strip import solve_bbox_strip
 from .conv3x3 import solve_conv3x3
 from .conv3x3_masked import (solve_conv1x1_masked, solve_conv3x3_masked,
@@ -66,6 +67,7 @@ ALL_SOLVERS: list[Solver] = [
     solve_rot90_ccw_aware,
     solve_rot90_cw_aware,
     solve_bbox_strip,
+    solve_bbox_color_extract,
     solve_conv3x3,
     solve_conv1x1_masked,
     solve_conv3x3_masked,
