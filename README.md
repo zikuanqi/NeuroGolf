@@ -11,7 +11,7 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![Last Commit](https://img.shields.io/github/last-commit/zikuanqi/NeuroGolf)](https://github.com/zikuanqi/NeuroGolf/commits/main)
 [![Tests](https://img.shields.io/badge/tests-passing-brightgreen)](tests/)
-[![Tasks Solved](https://img.shields.io/badge/tasks_solved-37%2F400-blue)](networks/)
+[![Tasks Solved](https://img.shields.io/badge/tasks_solved-39%2F400-blue)](networks/)
 
 </div>
 
@@ -43,6 +43,7 @@
 | v12 | + bbox-color-extract, split-and, scale-detector, variable-shift, gravity-right | 35 | **567.92** |
 | v13 | + flood-fill-enclosure (border BFS unrolled with Pad+Conv+Max) | 36 | **578.92** |
 | v14 | + column-label (ArgMax pairwise ranking for per-column top-row labeling) | 37 | **592.92** |
+| v15 | + repeat-top-rows (runtime period detection P=2/3/4 with weighted candidate mix) | 39 | ~605 (pending) |
 
 ---
 
