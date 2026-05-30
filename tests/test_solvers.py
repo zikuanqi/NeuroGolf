@@ -335,3 +335,37 @@ def test_self_fractal_rejects_plain_kron():
                         [[1, 1, 2, 2], [1, 1, 2, 2],
                          [3, 3, 4, 4], [3, 3, 4, 4]])])
     assert solve_self_fractal(task) is None
+
+
+def _rot_tile_expected(grid):
+    import numpy as np
+    i = np.array(grid)
+    top = np.hstack([i, np.rot90(i, 3)])
+    bot = np.hstack([np.rot90(i, 1), np.rot90(i, 2)])
+    return np.vstack([top, bot]).tolist()
+
+
+def test_rot_tile_assembles_four_rotations():
+    import numpy as np
+    import onnxruntime as ort
+    from neurogolf.grids import from_onehot, to_onehot
+    from neurogolf.solvers.rot_tile import solve_rot_tile
+
+    grid = [[8, 5, 0], [8, 5, 3], [0, 3, 2]]
+    task = _make_task([(grid, _rot_tile_expected(grid))])
+    model = solve_rot_tile(task)
+    assert model is not None and hasattr(model, "graph")
+
+    sess = ort.InferenceSession(model.SerializeToString())
+    out = sess.run(["output"], {"input": to_onehot(grid)})[0]
+    assert from_onehot((out > 0.0).astype(np.float32)) == task["train"][0]["output"]
+
+
+def test_rot_tile_rejects_mixed_sizes():
+    from neurogolf.solvers.rot_tile import solve_rot_tile
+    # The graph bakes in one N, so mixed grid sizes must be rejected.
+    g2 = [[1, 2], [3, 4]]
+    g3 = [[1, 2, 3], [4, 5, 6], [7, 8, 9]]
+    task = _make_task([(g2, _rot_tile_expected(g2)),
+                       (g3, _rot_tile_expected(g3))])
+    assert solve_rot_tile(task) is None

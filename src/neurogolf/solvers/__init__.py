@@ -38,6 +38,7 @@ from .resize_scale import solve_resize_scale
 from .row_uniform_indicator import solve_row_uniform_indicator
 from .scale_detector import solve_scale_detector
 from .self_fractal import solve_self_fractal
+from .rot_tile import solve_rot_tile
 from .shape_aware_flip import (solve_flip_h_aware, solve_flip_v_aware,
                                 solve_rot90_ccw_aware, solve_rot90_cw_aware,
                                 solve_rot180_aware)
@@ -72,6 +73,7 @@ ALL_SOLVERS: list[Solver] = [
     solve_tile_h,
     solve_scale_detector,
     solve_self_fractal,
+    solve_rot_tile,
     solve_variable_shift,
     solve_palindrome_h,
     solve_palindrome_v,

@@ -1545,11 +1545,11 @@
   },
   {
     "task": 194,
-    "solver": "none",
-    "saved": false,
-    "points": 0.0,
-    "memory": null,
-    "params": null
+    "solver": "solve_rot_tile",
+    "saved": true,
+    "points": 16.47028552803009,
+    "memory": 5040,
+    "params": 23
   },
   {
     "task": 195,
