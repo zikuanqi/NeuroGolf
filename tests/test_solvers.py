@@ -589,3 +589,32 @@ def test_connect_fill_rejects_no_change():
     # single dot, nothing to connect -> decline.
     task = _make_task([([[8, 0], [0, 0]], [[8, 0], [0, 0]])])
     assert solve_connect_fill(task) is None
+
+
+def test_drop_into_wall_drops_one():
+    import numpy as np
+    import onnxruntime as ort
+    from neurogolf.grids import from_onehot, to_onehot
+    from neurogolf.solvers.drop_into_wall import solve_drop_into_wall
+
+    # the 1 above the full colour-5 wall drops into the wall in its column.
+    inp = [[0, 1, 0],
+           [0, 5, 0],
+           [5, 5, 5]]
+    out = [[0, 0, 0],
+           [0, 5, 0],
+           [5, 1, 5]]
+    task = _make_task([(inp, out)])
+    model = solve_drop_into_wall(task)
+    assert model is not None and hasattr(model, "graph")
+
+    sess = ort.InferenceSession(model.SerializeToString())
+    res = sess.run(["output"], {"input": to_onehot(inp)})[0]
+    assert from_onehot((res > 0.0).astype(np.float32)) == out
+
+
+def test_drop_into_wall_rejects_no_wall():
+    from neurogolf.solvers.drop_into_wall import solve_drop_into_wall
+    # no full colour-5 wall row -> decline.
+    task = _make_task([([[1, 0], [0, 0]], [[1, 0], [0, 0]])])
+    assert solve_drop_into_wall(task) is None

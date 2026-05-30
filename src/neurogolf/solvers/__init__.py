@@ -20,6 +20,7 @@ from .column_label import solve_column_label
 from .connect_dots import solve_connect_dots
 from .connect_fill import solve_connect_fill
 from .denoise import solve_denoise
+from .drop_into_wall import solve_drop_into_wall
 from .bbox_strip import solve_bbox_strip
 from .conv3x3 import solve_conv3x3
 from .conv3x3_masked import (solve_conv1x1_masked, solve_conv3x3_masked,
@@ -99,6 +100,7 @@ ALL_SOLVERS: list[Solver] = [
     solve_connect_fill,
     solve_mirror_complete,
     solve_denoise,
+    solve_drop_into_wall,
     solve_zero_color,
     solve_column_label,
     solve_gravity_down,

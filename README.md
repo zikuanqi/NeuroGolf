@@ -11,7 +11,7 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![Last Commit](https://img.shields.io/github/last-commit/zikuanqi/NeuroGolf)](https://github.com/zikuanqi/NeuroGolf/commits/main)
 [![Tests](https://img.shields.io/badge/tests-passing-brightgreen)](tests/)
-[![Tasks Solved](https://img.shields.io/badge/tasks_solved-70%2F400-blue)](networks/)
+[![Tasks Solved](https://img.shields.io/badge/tasks_solved-71%2F400-blue)](networks/)
 
 </div>
 
@@ -56,6 +56,7 @@
 | v25 | + mirror-complete (restore an erased half as the shape-aware mirror of the present half) | 66 | **975.27** |
 | v26 | + denoise (remove isolated single cells via depthwise 3×3 same-colour neighbour count) | 67 | ~988 (pending) |
 | v27 | + connect-fill (fill the gap between aligned same-colour dots with a fixed colour) | 70 | ~1024 (pending) |
+| v28 | + drop-into-wall (colour-1 cells fall into a full colour-5 wall row in their column) | 71 | ~1037 (pending) |
 
 ---
 
@@ -116,6 +117,7 @@ Each solver is a callable `(task: dict) → Optional[onnx.ModelProto]`. The pipe
 | `solve_mirror_complete` | restore an erased half as the shape-aware mirror of the present half · 用形状感知镜像补全被擦除的另一半 | shape-aware flip (`ReduceMax` + `Sub` + `Clip` + `Gather`) + `Mul` + `Add` merge | ~42 |
 | `solve_denoise` | remove isolated single cells (no same-colour 8-neighbour) · 删除无同色邻居的孤立点 | depthwise 3×3 `Conv` (hollow kernel) + `Greater` + `Mul` + `Concat` | ~81 |
 | `solve_connect_fill` | fill the gap between aligned same-colour dots with one fixed colour · 用固定色连接同行/列的成对同色点 | `CumSum` ×4 (h/v prefix+suffix) + `Greater` + `And` + `Or` + `ReduceMax` + `Concat` | ~64 |
+| `solve_drop_into_wall` | colour-1 cells fall into a full colour-5 wall row in their column · 颜色1沿列落入整行的颜色5墙 | `Gather` + `ReduceSum`/`ReduceMax` (wall + column detect) + `Mul` (outer product) + `Relu` + `Concat` | ~12 |
 | `solve_scale_detector` | N× nearest-neighbor upscale or downscale · N 倍最近邻放大或缩小 | `Slice` + `Resize` | ~24 |
 | `solve_variable_shift` | shift by fixed offset with zero-fill, variable input shape · 定偏移量平移零填充，变输入尺寸 | `Slice` + `Pad` + `Concat` | ~50 |
 | `solve_gravity_right` | each row's cells slide right until blocked · 重力向右：每行格子右移直到被挡住 | `ReduceSum` + `CumSum` + `Where` + `Mul` | ~94 |

@@ -577,11 +577,11 @@
   },
   {
     "task": 73,
-    "solver": "none",
-    "saved": false,
-    "points": 0.0,
-    "memory": null,
-    "params": null
+    "solver": "solve_drop_into_wall",
+    "saved": true,
+    "points": 13.96756495899969,
+    "memory": 61834,
+    "params": 14
   },
   {
     "task": 74,
