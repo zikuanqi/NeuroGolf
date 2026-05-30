@@ -33,7 +33,15 @@ def main() -> int:
             task = load_task(task_num, args.data)
         except FileNotFoundError:
             continue
-        result = build_one(task_num, task, NETWORKS)
+        try:
+            result = build_one(task_num, task, NETWORKS)
+        except Exception as exc:  # noqa: BLE001 - one bad task must not abort the run
+            print(f"task{task_num:03d}: ERROR ({type(exc).__name__}: {exc})")
+            summary.append({
+                "task": task_num, "solver": "error", "saved": False,
+                "points": 0.0, "memory": None, "params": None,
+            })
+            continue
         if result.saved and result.score:
             solved += 1
             total_points += result.score.points

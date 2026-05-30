@@ -24,14 +24,22 @@ def build_one(task_num: int, task: dict, out_dir: pathlib.Path) -> BuildResult:
     best: tuple[float, str, onnx.ModelProto, Score] | None = None
     last_err = ""
 
+    tmp_path = out_dir / f"_tmp_{task_num:03d}.onnx"
     for solver in ALL_SOLVERS:
-        candidate = solver(task)
-        if candidate is None:
+        # A crash in one solver (build, save, or ONNX Runtime verify) must not
+        # abort the remaining solvers for this task, and the temp file must
+        # always be cleaned up regardless of how this iteration exits.
+        try:
+            candidate = solver(task)
+            if candidate is None:
+                continue
+            onnx.save(candidate, str(tmp_path))
+            score = verify(tmp_path, task, task_num)
+        except Exception as exc:  # noqa: BLE001 - isolate per-solver failures
+            last_err = f"{solver.__name__}: {type(exc).__name__}: {exc}"
             continue
-        tmp_path = out_dir / f"_tmp_{task_num:03d}.onnx"
-        onnx.save(candidate, str(tmp_path))
-        score = verify(tmp_path, task, task_num)
-        tmp_path.unlink(missing_ok=True)
+        finally:
+            tmp_path.unlink(missing_ok=True)
         if not score.passed:
             last_err = f"{solver.__name__}: {score.error or 'examples wrong'}"
             continue

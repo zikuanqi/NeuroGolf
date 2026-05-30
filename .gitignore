@@ -18,6 +18,9 @@ venv/
 onnxruntime_profile*.json
 [0-9][0-9][0-9]_*.json
 
+# Per-task temp networks written during verification
+networks/_tmp_*.onnx
+
 # Build artifacts
 build/
 dist/
