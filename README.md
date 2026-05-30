@@ -11,7 +11,7 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![Last Commit](https://img.shields.io/github/last-commit/zikuanqi/NeuroGolf)](https://github.com/zikuanqi/NeuroGolf/commits/main)
 [![Tests](https://img.shields.io/badge/tests-passing-brightgreen)](tests/)
-[![Tasks Solved](https://img.shields.io/badge/tasks_solved-45%2F400-blue)](networks/)
+[![Tasks Solved](https://img.shields.io/badge/tasks_solved-47%2F400-blue)](networks/)
 
 </div>
 
@@ -46,7 +46,8 @@
 | v15 | + repeat-top-rows (runtime period detection P=2/3/4 with weighted candidate mix) | 39 | ~605 (pending) |
 | v16 | + block-mask (N×N→N²×N² masked tiling + channel-0 recovery with Tile×inv_mask) | 40 | ~616 (pending) |
 | v17 | + gravity-right-diag (per-channel center-of-mass diagonal shift with stay/shift mask) | 41 | ~628 (pending) |
-| v18 | + gravity-down (size-aware per-channel column sink via content-mask height + ramp threshold) | 45 | ~698 (pending) |
+| v18 | + gravity-down (size-aware per-channel column sink via content-mask height + ramp threshold) | 45 | **697.88** |
+| v19 | + self-fractal (Tile × Kron-upscaled selector mask; fixed / most-frequent colour) | 47 | ~726 (pending) |
 
 ---
 
@@ -106,6 +107,7 @@ Each solver is a callable `(task: dict) → Optional[onnx.ModelProto]`. The pipe
 | `solve_variable_shift` | shift by fixed offset with zero-fill, variable input shape · 定偏移量平移零填充，变输入尺寸 | `Slice` + `Pad` + `Concat` | ~50 |
 | `solve_gravity_right` | each row's cells slide right until blocked · 重力向右：每行格子右移直到被挡住 | `ReduceSum` + `CumSum` + `Where` + `Mul` | ~94 |
 | `solve_gravity_down` | each column's cells fall to the bottom edge · 重力向下：每列格子下落堆积到底部 | `ReduceSum` + `ReduceMax` (content-mask height) + `Less` + `Mul` + `Slice` + `Concat` | ~66 |
+| `solve_self_fractal` | N×N input tiles into an N²×N² self-similar fractal, keyed by a selector colour · N×N 输入自相似放大为 N²×N²，按选择色决定哪些块保留 | `Slice` + `Tile` + `Gather` ×2 (Kron mask) + `ArgMax` + `Mul` + `Pad` + `Concat` | ~57 |
 | `solve_gravity_right_diag` | per-channel diagonal slide: compute center-of-mass, shift non-rightmost cells toward it · 按通道对角线滑移：计算质心，将非最右像素移向质心方向 | `ReduceSum` + `ReduceMax` + `ArgMax` + `Mul` + `Slice` + `Concat` + `Min` + `Sub` | 150 |
 | `solve_conv3x3` | least-squares fit of a 3×3 conv (no bias) · 无偏置 3×3 卷积拟合 | 3×3 `Conv` | 900 |
 | `solve_conv1x1_masked` / `solve_conv3x3_masked` / `solve_conv5x5_masked` | K×K conv + bias, masked to non-padding cells · K×K 卷积带偏置和非填充掩码 | `Conv` + `ReduceSum` + `Mul` | 100 / 910 / 2510 |

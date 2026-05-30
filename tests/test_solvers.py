@@ -298,3 +298,40 @@ def test_gravity_down_rejects_non_gravity():
     # Cells that don't sink to the bottom must not be claimed.
     task = _make_task([([[2, 0], [0, 0]], [[2, 0], [0, 0]])])
     assert solve_gravity_down(task) is None
+
+
+def _fractal_expected(grid, color):
+    n = len(grid)
+    out = [[0] * (n * n) for _ in range(n * n)]
+    for R in range(n):
+        for C in range(n):
+            if grid[R][C] == color:
+                for r in range(n):
+                    for c in range(n):
+                        out[R * n + r][C * n + c] = grid[r][c]
+    return out
+
+
+def test_self_fractal_fixed_colour():
+    import numpy as np
+    import onnxruntime as ort
+    from neurogolf.grids import from_onehot, to_onehot
+    from neurogolf.solvers.self_fractal import solve_self_fractal
+
+    grid = [[1, 0, 0], [2, 1, 0], [0, 0, 1]]   # selector colour 2 (fixed)
+    task = _make_task([(grid, _fractal_expected(grid, 2))])
+    model = solve_self_fractal(task)
+    assert model is not None and hasattr(model, "graph")
+
+    sess = ort.InferenceSession(model.SerializeToString())
+    out = sess.run(["output"], {"input": to_onehot(grid)})[0]
+    assert from_onehot((out > 0.0).astype(np.float32)) == task["train"][0]["output"]
+
+
+def test_self_fractal_rejects_plain_kron():
+    from neurogolf.solvers.self_fractal import solve_self_fractal
+    # Plain NxN block upscale (every cell expands) is not a self-fractal.
+    task = _make_task([([[1, 2], [3, 4]],
+                        [[1, 1, 2, 2], [1, 1, 2, 2],
+                         [3, 3, 4, 4], [3, 3, 4, 4]])])
+    assert solve_self_fractal(task) is None

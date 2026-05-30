@@ -2425,11 +2425,11 @@
   },
   {
     "task": 304,
-    "solver": "none",
-    "saved": false,
-    "points": 0.0,
-    "memory": null,
-    "params": null
+    "solver": "solve_self_fractal",
+    "saved": true,
+    "points": 14.248393495693051,
+    "memory": 46648,
+    "params": 57
   },
   {
     "task": 305,
@@ -2513,11 +2513,11 @@
   },
   {
     "task": 315,
-    "solver": "none",
-    "saved": false,
-    "points": 0.0,
-    "memory": null,
-    "params": null
+    "solver": "solve_self_fractal",
+    "saved": true,
+    "points": 14.250558346660169,
+    "memory": 46548,
+    "params": 56
   },
   {
     "task": 316,
