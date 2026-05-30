@@ -18,6 +18,7 @@ from .bbox_color_extract import solve_bbox_color_extract
 from .block_mask import solve_block_mask
 from .column_label import solve_column_label
 from .connect_dots import solve_connect_dots
+from .denoise import solve_denoise
 from .bbox_strip import solve_bbox_strip
 from .conv3x3 import solve_conv3x3
 from .conv3x3_masked import (solve_conv1x1_masked, solve_conv3x3_masked,
@@ -95,6 +96,7 @@ ALL_SOLVERS: list[Solver] = [
     solve_split_logic,
     solve_connect_dots,
     solve_mirror_complete,
+    solve_denoise,
     solve_zero_color,
     solve_column_label,
     solve_gravity_down,

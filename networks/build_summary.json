@@ -769,11 +769,11 @@
   },
   {
     "task": 97,
-    "solver": "none",
-    "saved": false,
-    "points": 0.0,
-    "memory": null,
-    "params": null
+    "solver": "solve_denoise",
+    "saved": true,
+    "points": 13.03799453616946,
+    "memory": 156600,
+    "params": 87
   },
   {
     "task": 98,

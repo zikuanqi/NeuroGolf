@@ -533,3 +533,32 @@ def test_mirror_complete_rejects_no_fill():
     # Already symmetric, nothing to restore -> decline.
     task = _make_task([([[2, 2], [2, 2]], [[2, 2], [2, 2]])])
     assert solve_mirror_complete(task) is None
+
+
+def test_denoise_removes_isolated_cells():
+    import numpy as np
+    import onnxruntime as ort
+    from neurogolf.grids import from_onehot, to_onehot
+    from neurogolf.solvers.denoise import solve_denoise
+
+    # the lone 3 is removed; the 2x1 pair of 2s (touching) survives.
+    inp = [[3, 0, 0],
+           [0, 0, 2],
+           [0, 0, 2]]
+    out = [[0, 0, 0],
+           [0, 0, 2],
+           [0, 0, 2]]
+    task = _make_task([(inp, out)])
+    model = solve_denoise(task)
+    assert model is not None and hasattr(model, "graph")
+
+    sess = ort.InferenceSession(model.SerializeToString())
+    res = sess.run(["output"], {"input": to_onehot(inp)})[0]
+    assert from_onehot((res > 0.0).astype(np.float32)) == out
+
+
+def test_denoise_rejects_no_change():
+    from neurogolf.solvers.denoise import solve_denoise
+    # nothing isolated -> grid unchanged -> decline.
+    task = _make_task([([[2, 2], [0, 0]], [[2, 2], [0, 0]])])
+    assert solve_denoise(task) is None
