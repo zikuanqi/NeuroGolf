@@ -11,7 +11,7 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![Last Commit](https://img.shields.io/github/last-commit/zikuanqi/NeuroGolf)](https://github.com/zikuanqi/NeuroGolf/commits/main)
 [![Tests](https://img.shields.io/badge/tests-passing-brightgreen)](tests/)
-[![Tasks Solved](https://img.shields.io/badge/tasks_solved-40%2F400-blue)](networks/)
+[![Tasks Solved](https://img.shields.io/badge/tasks_solved-41%2F400-blue)](networks/)
 
 </div>
 
@@ -45,6 +45,7 @@
 | v14 | + column-label (ArgMax pairwise ranking for per-column top-row labeling) | 37 | **592.92** |
 | v15 | + repeat-top-rows (runtime period detection P=2/3/4 with weighted candidate mix) | 39 | ~605 (pending) |
 | v16 | + block-mask (N×N→N²×N² masked tiling + channel-0 recovery with Tile×inv_mask) | 40 | ~616 (pending) |
+| v17 | + gravity-right-diag (per-channel center-of-mass diagonal shift with stay/shift mask) | 41 | ~628 (pending) |
 
 ---
 
@@ -103,6 +104,7 @@ Each solver is a callable `(task: dict) → Optional[onnx.ModelProto]`. The pipe
 | `solve_scale_detector` | N× nearest-neighbor upscale or downscale · N 倍最近邻放大或缩小 | `Slice` + `Resize` | ~24 |
 | `solve_variable_shift` | shift by fixed offset with zero-fill, variable input shape · 定偏移量平移零填充，变输入尺寸 | `Slice` + `Pad` + `Concat` | ~50 |
 | `solve_gravity_right` | each row's cells slide right until blocked · 重力向右：每行格子右移直到被挡住 | `ReduceSum` + `CumSum` + `Where` + `Mul` | ~94 |
+| `solve_gravity_right_diag` | per-channel diagonal slide: compute center-of-mass, shift non-rightmost cells toward it · 按通道对角线滑移：计算质心，将非最右像素移向质心方向 | `ReduceSum` + `ReduceMax` + `ArgMax` + `Mul` + `Slice` + `Concat` + `Min` + `Sub` | 150 |
 | `solve_conv3x3` | least-squares fit of a 3×3 conv (no bias) · 无偏置 3×3 卷积拟合 | 3×3 `Conv` | 900 |
 | `solve_conv1x1_masked` / `solve_conv3x3_masked` / `solve_conv5x5_masked` | K×K conv + bias, masked to non-padding cells · K×K 卷积带偏置和非填充掩码 | `Conv` + `ReduceSum` + `Mul` | 100 / 910 / 2510 |
 | `solve_zero` | output is empty grid · 输出为空网格 | `Sub` | 0 |
