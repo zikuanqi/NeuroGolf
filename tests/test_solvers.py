@@ -268,3 +268,33 @@ def test_conv_masked_picks_when_lstsq_fits():
     # solver returns a valid model or cleanly None without crashing.
     result = solve_conv1x1_masked(task)
     assert result is None or hasattr(result, "graph")
+
+
+def test_gravity_down_detects_and_sinks():
+    import numpy as np
+    import onnxruntime as ort
+    from neurogolf.grids import from_onehot, to_onehot
+    from neurogolf.solvers.gravity_down import solve_gravity_down
+
+    # Each column's colours fall to the bottom of the real grid.
+    task = _make_task([
+        ([[2, 0, 3],
+          [0, 0, 0],
+          [0, 0, 3]],
+         [[0, 0, 0],
+          [0, 0, 3],
+          [2, 0, 3]]),
+    ])
+    model = solve_gravity_down(task)
+    assert model is not None and hasattr(model, "graph")
+
+    sess = ort.InferenceSession(model.SerializeToString())
+    out = sess.run(["output"], {"input": to_onehot(task["train"][0]["input"])})[0]
+    assert from_onehot((out > 0.0).astype(np.float32)) == task["train"][0]["output"]
+
+
+def test_gravity_down_rejects_non_gravity():
+    from neurogolf.solvers.gravity_down import solve_gravity_down
+    # Cells that don't sink to the bottom must not be claimed.
+    task = _make_task([([[2, 0], [0, 0]], [[2, 0], [0, 0]])])
+    assert solve_gravity_down(task) is None

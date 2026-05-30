@@ -22,6 +22,7 @@ from .conv3x3 import solve_conv3x3
 from .conv3x3_masked import (solve_conv1x1_masked, solve_conv3x3_masked,
                               solve_conv5x5_masked)
 from .filled_rect import solve_filled_rect
+from .gravity_down import solve_gravity_down
 from .gravity_right import solve_gravity_right
 from .gravity_right_diag import solve_gravity_right_diag
 from .identity import solve_identity
@@ -86,6 +87,7 @@ ALL_SOLVERS: list[Solver] = [
     solve_split_and,
     solve_zero_color,
     solve_column_label,
+    solve_gravity_down,
     solve_gravity_right,
     solve_gravity_right_diag,
     solve_filled_rect,
