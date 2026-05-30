@@ -48,6 +48,7 @@ from .shift import solve_shift
 from .single_color import solve_single_color
 from .spatial import solve_transpose
 from .split_and import solve_split_and
+from .split_logic import solve_split_logic
 from .static_crop import solve_static_crop
 from .tile_h import solve_tile_h
 from .variable_kron import solve_variable_kron
@@ -91,6 +92,7 @@ ALL_SOLVERS: list[Solver] = [
     solve_bbox_strip,
     solve_bbox_color_extract,
     solve_split_and,
+    solve_split_logic,
     solve_zero_color,
     solve_column_label,
     solve_gravity_down,

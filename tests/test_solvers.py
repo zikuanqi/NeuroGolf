@@ -429,3 +429,47 @@ def test_periodic_fill_rejects_non_periodic():
     # No erased cells / not a periodic completion -> must decline.
     task = _make_task([([[1, 2], [3, 4]], [[1, 2], [3, 4]])])
     assert solve_periodic_fill(task) is None
+
+
+def test_split_logic_left_right_or():
+    import numpy as np
+    import onnxruntime as ort
+    from neurogolf.grids import from_onehot, to_onehot
+    from neurogolf.solvers.split_logic import solve_split_logic
+
+    # left | right halves OR-combined, painted colour 6.
+    inp = [[1, 0, 0, 0, 1, 0],
+           [0, 1, 0, 1, 0, 0],
+           [0, 0, 0, 0, 0, 1]]
+    out = [[6, 6, 0],
+           [6, 6, 0],
+           [0, 0, 6]]
+    task = _make_task([(inp, out)])
+    model = solve_split_logic(task)
+    assert model is not None and hasattr(model, "graph")
+
+    sess = ort.InferenceSession(model.SerializeToString())
+    res = sess.run(["output"], {"input": to_onehot(inp)})[0]
+    assert from_onehot((res > 0.0).astype(np.float32)) == out
+
+
+def test_split_logic_top_bottom_nor():
+    import numpy as np
+    import onnxruntime as ort
+    from neurogolf.grids import from_onehot, to_onehot
+    from neurogolf.solvers.split_logic import solve_split_logic
+
+    # top / bottom halves NOR-combined (on where both empty), painted colour 2.
+    inp = [[1, 0, 0],
+           [0, 0, 1],
+           [0, 1, 0],
+           [0, 0, 1]]
+    out = [[0, 0, 2],
+           [2, 2, 0]]
+    task = _make_task([(inp, out)])
+    model = solve_split_logic(task)
+    assert model is not None
+
+    sess = ort.InferenceSession(model.SerializeToString())
+    res = sess.run(["output"], {"input": to_onehot(inp)})[0]
+    assert from_onehot((res > 0.0).astype(np.float32)) == out
