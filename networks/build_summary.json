@@ -1049,11 +1049,11 @@
   },
   {
     "task": 132,
-    "solver": "none",
-    "saved": false,
-    "points": 0.0,
-    "memory": null,
-    "params": null
+    "solver": "solve_color_bbox_fill",
+    "saved": true,
+    "points": 13.503732511925914,
+    "memory": 98280,
+    "params": 68
   },
   {
     "task": 133,

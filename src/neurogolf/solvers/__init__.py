@@ -16,6 +16,7 @@ import onnx
 
 from .bbox_color_extract import solve_bbox_color_extract
 from .block_mask import solve_block_mask
+from .color_bbox_fill import solve_color_bbox_fill
 from .column_label import solve_column_label
 from .connect_dots import solve_connect_dots
 from .connect_fill import solve_connect_fill
@@ -98,6 +99,7 @@ ALL_SOLVERS: list[Solver] = [
     solve_split_logic,
     solve_connect_dots,
     solve_connect_fill,
+    solve_color_bbox_fill,
     solve_mirror_complete,
     solve_denoise,
     solve_drop_into_wall,
