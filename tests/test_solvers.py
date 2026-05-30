@@ -502,3 +502,34 @@ def test_connect_dots_rejects_unrelated():
     # A lone dot (nothing to connect) leaves the grid unchanged -> decline.
     task = _make_task([([[5, 0], [0, 0]], [[5, 0], [0, 0]])])
     assert solve_connect_dots(task) is None
+
+
+def test_mirror_complete_vertical():
+    import numpy as np
+    import onnxruntime as ort
+    from neurogolf.grids import from_onehot, to_onehot
+    from neurogolf.solvers.mirror_complete import solve_mirror_complete
+
+    # bottom half erased; restore it as the vertical mirror of the top half.
+    inp = [[2, 2, 2],
+           [3, 3, 3],
+           [0, 0, 0],
+           [0, 0, 0]]
+    out = [[2, 2, 2],
+           [3, 3, 3],
+           [3, 3, 3],
+           [2, 2, 2]]
+    task = _make_task([(inp, out)])
+    model = solve_mirror_complete(task)
+    assert model is not None and hasattr(model, "graph")
+
+    sess = ort.InferenceSession(model.SerializeToString())
+    res = sess.run(["output"], {"input": to_onehot(inp)})[0]
+    assert from_onehot((res > 0.0).astype(np.float32)) == out
+
+
+def test_mirror_complete_rejects_no_fill():
+    from neurogolf.solvers.mirror_complete import solve_mirror_complete
+    # Already symmetric, nothing to restore -> decline.
+    task = _make_task([([[2, 2], [2, 2]], [[2, 2], [2, 2]])])
+    assert solve_mirror_complete(task) is None

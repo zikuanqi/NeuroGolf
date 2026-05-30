@@ -897,11 +897,11 @@
   },
   {
     "task": 113,
-    "solver": "none",
-    "saved": false,
-    "points": 0.0,
-    "memory": null,
-    "params": null
+    "solver": "solve_mirror_complete",
+    "saved": true,
+    "points": 13.042863185286496,
+    "memory": 155884,
+    "params": 42
   },
   {
     "task": 114,
@@ -3073,11 +3073,11 @@
   },
   {
     "task": 385,
-    "solver": "none",
-    "saved": false,
-    "points": 0.0,
-    "memory": null,
-    "params": null
+    "solver": "solve_mirror_complete",
+    "saved": true,
+    "points": 13.042863185286496,
+    "memory": 155884,
+    "params": 42
   },
   {
     "task": 386,
