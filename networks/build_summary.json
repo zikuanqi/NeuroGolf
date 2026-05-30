@@ -129,11 +129,11 @@
   },
   {
     "task": 17,
-    "solver": "none",
-    "saved": false,
-    "points": 0.0,
-    "memory": null,
-    "params": null
+    "solver": "solve_periodic_fill",
+    "saved": true,
+    "points": 7.654344587038995,
+    "memory": 34125998,
+    "params": 2913
   },
   {
     "task": 18,
@@ -481,11 +481,11 @@
   },
   {
     "task": 61,
-    "solver": "none",
-    "saved": false,
-    "points": 0.0,
-    "memory": null,
-    "params": null
+    "solver": "solve_periodic_fill",
+    "saved": true,
+    "points": 7.654344587038995,
+    "memory": 34125998,
+    "params": 2913
   },
   {
     "task": 62,
@@ -873,11 +873,11 @@
   },
   {
     "task": 110,
-    "solver": "none",
-    "saved": false,
-    "points": 0.0,
-    "memory": null,
-    "params": null
+    "solver": "solve_periodic_fill",
+    "saved": true,
+    "points": 7.654344587038995,
+    "memory": 34125998,
+    "params": 2913
   },
   {
     "task": 111,
@@ -2433,11 +2433,11 @@
   },
   {
     "task": 305,
-    "solver": "none",
-    "saved": false,
-    "points": 0.0,
-    "memory": null,
-    "params": null
+    "solver": "solve_periodic_fill",
+    "saved": true,
+    "points": 7.654344587038995,
+    "memory": 34125998,
+    "params": 2913
   },
   {
     "task": 306,

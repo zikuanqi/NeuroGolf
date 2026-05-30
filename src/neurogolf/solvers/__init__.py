@@ -40,6 +40,7 @@ from .row_uniform_indicator import solve_row_uniform_indicator
 from .scale_detector import solve_scale_detector
 from .self_fractal import solve_self_fractal
 from .rot_tile import solve_rot_tile
+from .periodic_fill import solve_periodic_fill
 from .shape_aware_flip import (solve_flip_h_aware, solve_flip_v_aware,
                                 solve_rot90_ccw_aware, solve_rot90_cw_aware,
                                 solve_rot180_aware)
@@ -97,6 +98,7 @@ ALL_SOLVERS: list[Solver] = [
     solve_gravity_right,
     solve_gravity_right_diag,
     solve_filled_rect,
+    solve_periodic_fill,
     solve_conv3x3,
     solve_conv1x1_masked,
     solve_conv3x3_masked,

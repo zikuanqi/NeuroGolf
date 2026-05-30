@@ -398,3 +398,34 @@ def test_gravity_up_rejects_non_gravity():
     from neurogolf.solvers.gravity_up import solve_gravity_up
     task = _make_task([([[0, 0], [2, 0]], [[0, 0], [2, 0]])])
     assert solve_gravity_up(task) is None
+
+
+def test_periodic_fill_inpaints_period_two():
+    import numpy as np
+    import onnxruntime as ort
+    from neurogolf.grids import from_onehot, to_onehot
+    from neurogolf.solvers.periodic_fill import solve_periodic_fill
+
+    # A 4x4 checker with period (2,2); two cells erased to 0 must be restored.
+    full = [[3, 4, 3, 4],
+            [5, 6, 5, 6],
+            [3, 4, 3, 4],
+            [5, 6, 5, 6]]
+    erased = [[3, 4, 3, 4],
+              [5, 0, 5, 6],
+              [3, 4, 0, 4],
+              [5, 6, 5, 6]]
+    task = _make_task([(erased, full)])
+    model = solve_periodic_fill(task)
+    assert model is not None and hasattr(model, "graph")
+
+    sess = ort.InferenceSession(model.SerializeToString())
+    out = sess.run(["output"], {"input": to_onehot(erased)})[0]
+    assert from_onehot((out > 0.0).astype(np.float32)) == full
+
+
+def test_periodic_fill_rejects_non_periodic():
+    from neurogolf.solvers.periodic_fill import solve_periodic_fill
+    # No erased cells / not a periodic completion -> must decline.
+    task = _make_task([([[1, 2], [3, 4]], [[1, 2], [3, 4]])])
+    assert solve_periodic_fill(task) is None

@@ -1,0 +1,6492 @@
+:çë
+'
+input
+c1
+c10
+ax1
+st1cur0"Slice
+-
+cur0
+padv_dn_r29_0
+zeropdn_r29_0_p"Pad
+G
+pdn_r29_0_p
+
+slo0_r29_0
+
+shi0_r29_0
+	sax_r29_0
+st1	pdn_r29_0"Slice
+-
+cur0
+padv_up_r29_0
+zeropup_r29_0_p"Pad
+G
+pup_r29_0_p
+
+slop_r29_0
+
+ship_r29_0
+	sax_r29_0
+st1	pup_r29_0"Slice
+ 
+cur0
+	pdn_r29_0m1_r29_0"Max
+$
+m1_r29_0
+	pup_r29_0fl_r29_0"Max
+%
+cur0
+vpad_r29
+zerovd_r29_p"Pad
+<
+vd_r29_p
+vslo_r29
+vshi_r29
+vsax_r29
+st1vd_r29"Slice
+
+cur0
+vd_r29
+same_r29_m"Mul
+?
+
+same_r29_msame_r29"	ReduceSum*
+axes@ *
+keepdims 
+7
+cur0ca_r29"	ReduceSum*
+axes@ *
+keepdims 
+9
+vd_r29cb_r29"	ReduceSum*
+axes@ *
+keepdims 
+
+ca_r29
+cb_r29both_r29"Mul
+#
+both_r29
+same_r29conf_r29"Sub
+"
+conf_r29confsum_r29"	ReduceSum
+ 
+same_r29	match_r29"	ReduceSum
+&
+confsum_r29
+one_f
+noconf_r29"Less
+$
+	match_r29
+zerohasm_r29"Greater
+&
+
+noconf_r29
+hasm_r29	valid_r29"And
++
+	valid_r29
+fl_r29_0
+cur0cur_r29"Where
+-
+cur0
+padv_dn_r28_0
+zeropdn_r28_0_p"Pad
+G
+pdn_r28_0_p
+
+slo0_r28_0
+
+shi0_r28_0
+	sax_r28_0
+st1	pdn_r28_0"Slice
+-
+cur0
+padv_up_r28_0
+zeropup_r28_0_p"Pad
+G
+pup_r28_0_p
+
+slop_r28_0
+
+ship_r28_0
+	sax_r28_0
+st1	pup_r28_0"Slice
+ 
+cur0
+	pdn_r28_0m1_r28_0"Max
+$
+m1_r28_0
+	pup_r28_0fl_r28_0"Max
+%
+cur0
+vpad_r28
+zerovd_r28_p"Pad
+<
+vd_r28_p
+vslo_r28
+vshi_r28
+vsax_r28
+st1vd_r28"Slice
+
+cur0
+vd_r28
+same_r28_m"Mul
+?
+
+same_r28_msame_r28"	ReduceSum*
+axes@ *
+keepdims 
+7
+cur0ca_r28"	ReduceSum*
+axes@ *
+keepdims 
+9
+vd_r28cb_r28"	ReduceSum*
+axes@ *
+keepdims 
+
+ca_r28
+cb_r28both_r28"Mul
+#
+both_r28
+same_r28conf_r28"Sub
+"
+conf_r28confsum_r28"	ReduceSum
+ 
+same_r28	match_r28"	ReduceSum
+&
+confsum_r28
+one_f
+noconf_r28"Less
+$
+	match_r28
+zerohasm_r28"Greater
+&
+
+noconf_r28
+hasm_r28	valid_r28"And
+.
+	valid_r28
+fl_r28_0
+cur_r29cur_r28"Where
+-
+cur0
+padv_dn_r27_0
+zeropdn_r27_0_p"Pad
+G
+pdn_r27_0_p
+
+slo0_r27_0
+
+shi0_r27_0
+	sax_r27_0
+st1	pdn_r27_0"Slice
+-
+cur0
+padv_up_r27_0
+zeropup_r27_0_p"Pad
+G
+pup_r27_0_p
+
+slop_r27_0
+
+ship_r27_0
+	sax_r27_0
+st1	pup_r27_0"Slice
+ 
+cur0
+	pdn_r27_0m1_r27_0"Max
+$
+m1_r27_0
+	pup_r27_0fl_r27_0"Max
+%
+cur0
+vpad_r27
+zerovd_r27_p"Pad
+<
+vd_r27_p
+vslo_r27
+vshi_r27
+vsax_r27
+st1vd_r27"Slice
+
+cur0
+vd_r27
+same_r27_m"Mul
+?
+
+same_r27_msame_r27"	ReduceSum*
+axes@ *
+keepdims 
+7
+cur0ca_r27"	ReduceSum*
+axes@ *
+keepdims 
+9
+vd_r27cb_r27"	ReduceSum*
+axes@ *
+keepdims 
+
+ca_r27
+cb_r27both_r27"Mul
+#
+both_r27
+same_r27conf_r27"Sub
+"
+conf_r27confsum_r27"	ReduceSum
+ 
+same_r27	match_r27"	ReduceSum
+&
+confsum_r27
+one_f
+noconf_r27"Less
+$
+	match_r27
+zerohasm_r27"Greater
+&
+
+noconf_r27
+hasm_r27	valid_r27"And
+.
+	valid_r27
+fl_r27_0
+cur_r28cur_r27"Where
+-
+cur0
+padv_dn_r26_0
+zeropdn_r26_0_p"Pad
+G
+pdn_r26_0_p
+
+slo0_r26_0
+
+shi0_r26_0
+	sax_r26_0
+st1	pdn_r26_0"Slice
+-
+cur0
+padv_up_r26_0
+zeropup_r26_0_p"Pad
+G
+pup_r26_0_p
+
+slop_r26_0
+
+ship_r26_0
+	sax_r26_0
+st1	pup_r26_0"Slice
+ 
+cur0
+	pdn_r26_0m1_r26_0"Max
+$
+m1_r26_0
+	pup_r26_0fl_r26_0"Max
+%
+cur0
+vpad_r26
+zerovd_r26_p"Pad
+<
+vd_r26_p
+vslo_r26
+vshi_r26
+vsax_r26
+st1vd_r26"Slice
+
+cur0
+vd_r26
+same_r26_m"Mul
+?
+
+same_r26_msame_r26"	ReduceSum*
+axes@ *
+keepdims 
+7
+cur0ca_r26"	ReduceSum*
+axes@ *
+keepdims 
+9
+vd_r26cb_r26"	ReduceSum*
+axes@ *
+keepdims 
+
+ca_r26
+cb_r26both_r26"Mul
+#
+both_r26
+same_r26conf_r26"Sub
+"
+conf_r26confsum_r26"	ReduceSum
+ 
+same_r26	match_r26"	ReduceSum
+&
+confsum_r26
+one_f
+noconf_r26"Less
+$
+	match_r26
+zerohasm_r26"Greater
+&
+
+noconf_r26
+hasm_r26	valid_r26"And
+.
+	valid_r26
+fl_r26_0
+cur_r27cur_r26"Where
+-
+cur0
+padv_dn_r25_0
+zeropdn_r25_0_p"Pad
+G
+pdn_r25_0_p
+
+slo0_r25_0
+
+shi0_r25_0
+	sax_r25_0
+st1	pdn_r25_0"Slice
+-
+cur0
+padv_up_r25_0
+zeropup_r25_0_p"Pad
+G
+pup_r25_0_p
+
+slop_r25_0
+
+ship_r25_0
+	sax_r25_0
+st1	pup_r25_0"Slice
+ 
+cur0
+	pdn_r25_0m1_r25_0"Max
+$
+m1_r25_0
+	pup_r25_0fl_r25_0"Max
+%
+cur0
+vpad_r25
+zerovd_r25_p"Pad
+<
+vd_r25_p
+vslo_r25
+vshi_r25
+vsax_r25
+st1vd_r25"Slice
+
+cur0
+vd_r25
+same_r25_m"Mul
+?
+
+same_r25_msame_r25"	ReduceSum*
+axes@ *
+keepdims 
+7
+cur0ca_r25"	ReduceSum*
+axes@ *
+keepdims 
+9
+vd_r25cb_r25"	ReduceSum*
+axes@ *
+keepdims 
+
+ca_r25
+cb_r25both_r25"Mul
+#
+both_r25
+same_r25conf_r25"Sub
+"
+conf_r25confsum_r25"	ReduceSum
+ 
+same_r25	match_r25"	ReduceSum
+&
+confsum_r25
+one_f
+noconf_r25"Less
+$
+	match_r25
+zerohasm_r25"Greater
+&
+
+noconf_r25
+hasm_r25	valid_r25"And
+.
+	valid_r25
+fl_r25_0
+cur_r26cur_r25"Where
+-
+cur0
+padv_dn_r24_0
+zeropdn_r24_0_p"Pad
+G
+pdn_r24_0_p
+
+slo0_r24_0
+
+shi0_r24_0
+	sax_r24_0
+st1	pdn_r24_0"Slice
+-
+cur0
+padv_up_r24_0
+zeropup_r24_0_p"Pad
+G
+pup_r24_0_p
+
+slop_r24_0
+
+ship_r24_0
+	sax_r24_0
+st1	pup_r24_0"Slice
+ 
+cur0
+	pdn_r24_0m1_r24_0"Max
+$
+m1_r24_0
+	pup_r24_0fl_r24_0"Max
+%
+cur0
+vpad_r24
+zerovd_r24_p"Pad
+<
+vd_r24_p
+vslo_r24
+vshi_r24
+vsax_r24
+st1vd_r24"Slice
+
+cur0
+vd_r24
+same_r24_m"Mul
+?
+
+same_r24_msame_r24"	ReduceSum*
+axes@ *
+keepdims 
+7
+cur0ca_r24"	ReduceSum*
+axes@ *
+keepdims 
+9
+vd_r24cb_r24"	ReduceSum*
+axes@ *
+keepdims 
+
+ca_r24
+cb_r24both_r24"Mul
+#
+both_r24
+same_r24conf_r24"Sub
+"
+conf_r24confsum_r24"	ReduceSum
+ 
+same_r24	match_r24"	ReduceSum
+&
+confsum_r24
+one_f
+noconf_r24"Less
+$
+	match_r24
+zerohasm_r24"Greater
+&
+
+noconf_r24
+hasm_r24	valid_r24"And
+.
+	valid_r24
+fl_r24_0
+cur_r25cur_r24"Where
+-
+cur0
+padv_dn_r23_0
+zeropdn_r23_0_p"Pad
+G
+pdn_r23_0_p
+
+slo0_r23_0
+
+shi0_r23_0
+	sax_r23_0
+st1	pdn_r23_0"Slice
+-
+cur0
+padv_up_r23_0
+zeropup_r23_0_p"Pad
+G
+pup_r23_0_p
+
+slop_r23_0
+
+ship_r23_0
+	sax_r23_0
+st1	pup_r23_0"Slice
+ 
+cur0
+	pdn_r23_0m1_r23_0"Max
+$
+m1_r23_0
+	pup_r23_0fl_r23_0"Max
+%
+cur0
+vpad_r23
+zerovd_r23_p"Pad
+<
+vd_r23_p
+vslo_r23
+vshi_r23
+vsax_r23
+st1vd_r23"Slice
+
+cur0
+vd_r23
+same_r23_m"Mul
+?
+
+same_r23_msame_r23"	ReduceSum*
+axes@ *
+keepdims 
+7
+cur0ca_r23"	ReduceSum*
+axes@ *
+keepdims 
+9
+vd_r23cb_r23"	ReduceSum*
+axes@ *
+keepdims 
+
+ca_r23
+cb_r23both_r23"Mul
+#
+both_r23
+same_r23conf_r23"Sub
+"
+conf_r23confsum_r23"	ReduceSum
+ 
+same_r23	match_r23"	ReduceSum
+&
+confsum_r23
+one_f
+noconf_r23"Less
+$
+	match_r23
+zerohasm_r23"Greater
+&
+
+noconf_r23
+hasm_r23	valid_r23"And
+.
+	valid_r23
+fl_r23_0
+cur_r24cur_r23"Where
+-
+cur0
+padv_dn_r22_0
+zeropdn_r22_0_p"Pad
+G
+pdn_r22_0_p
+
+slo0_r22_0
+
+shi0_r22_0
+	sax_r22_0
+st1	pdn_r22_0"Slice
+-
+cur0
+padv_up_r22_0
+zeropup_r22_0_p"Pad
+G
+pup_r22_0_p
+
+slop_r22_0
+
+ship_r22_0
+	sax_r22_0
+st1	pup_r22_0"Slice
+ 
+cur0
+	pdn_r22_0m1_r22_0"Max
+$
+m1_r22_0
+	pup_r22_0fl_r22_0"Max
+%
+cur0
+vpad_r22
+zerovd_r22_p"Pad
+<
+vd_r22_p
+vslo_r22
+vshi_r22
+vsax_r22
+st1vd_r22"Slice
+
+cur0
+vd_r22
+same_r22_m"Mul
+?
+
+same_r22_msame_r22"	ReduceSum*
+axes@ *
+keepdims 
+7
+cur0ca_r22"	ReduceSum*
+axes@ *
+keepdims 
+9
+vd_r22cb_r22"	ReduceSum*
+axes@ *
+keepdims 
+
+ca_r22
+cb_r22both_r22"Mul
+#
+both_r22
+same_r22conf_r22"Sub
+"
+conf_r22confsum_r22"	ReduceSum
+ 
+same_r22	match_r22"	ReduceSum
+&
+confsum_r22
+one_f
+noconf_r22"Less
+$
+	match_r22
+zerohasm_r22"Greater
+&
+
+noconf_r22
+hasm_r22	valid_r22"And
+.
+	valid_r22
+fl_r22_0
+cur_r23cur_r22"Where
+-
+cur0
+padv_dn_r21_0
+zeropdn_r21_0_p"Pad
+G
+pdn_r21_0_p
+
+slo0_r21_0
+
+shi0_r21_0
+	sax_r21_0
+st1	pdn_r21_0"Slice
+-
+cur0
+padv_up_r21_0
+zeropup_r21_0_p"Pad
+G
+pup_r21_0_p
+
+slop_r21_0
+
+ship_r21_0
+	sax_r21_0
+st1	pup_r21_0"Slice
+ 
+cur0
+	pdn_r21_0m1_r21_0"Max
+$
+m1_r21_0
+	pup_r21_0fl_r21_0"Max
+%
+cur0
+vpad_r21
+zerovd_r21_p"Pad
+<
+vd_r21_p
+vslo_r21
+vshi_r21
+vsax_r21
+st1vd_r21"Slice
+
+cur0
+vd_r21
+same_r21_m"Mul
+?
+
+same_r21_msame_r21"	ReduceSum*
+axes@ *
+keepdims 
+7
+cur0ca_r21"	ReduceSum*
+axes@ *
+keepdims 
+9
+vd_r21cb_r21"	ReduceSum*
+axes@ *
+keepdims 
+
+ca_r21
+cb_r21both_r21"Mul
+#
+both_r21
+same_r21conf_r21"Sub
+"
+conf_r21confsum_r21"	ReduceSum
+ 
+same_r21	match_r21"	ReduceSum
+&
+confsum_r21
+one_f
+noconf_r21"Less
+$
+	match_r21
+zerohasm_r21"Greater
+&
+
+noconf_r21
+hasm_r21	valid_r21"And
+.
+	valid_r21
+fl_r21_0
+cur_r22cur_r21"Where
+-
+cur0
+padv_dn_r20_0
+zeropdn_r20_0_p"Pad
+G
+pdn_r20_0_p
+
+slo0_r20_0
+
+shi0_r20_0
+	sax_r20_0
+st1	pdn_r20_0"Slice
+-
+cur0
+padv_up_r20_0
+zeropup_r20_0_p"Pad
+G
+pup_r20_0_p
+
+slop_r20_0
+
+ship_r20_0
+	sax_r20_0
+st1	pup_r20_0"Slice
+ 
+cur0
+	pdn_r20_0m1_r20_0"Max
+$
+m1_r20_0
+	pup_r20_0fl_r20_0"Max
+%
+cur0
+vpad_r20
+zerovd_r20_p"Pad
+<
+vd_r20_p
+vslo_r20
+vshi_r20
+vsax_r20
+st1vd_r20"Slice
+
+cur0
+vd_r20
+same_r20_m"Mul
+?
+
+same_r20_msame_r20"	ReduceSum*
+axes@ *
+keepdims 
+7
+cur0ca_r20"	ReduceSum*
+axes@ *
+keepdims 
+9
+vd_r20cb_r20"	ReduceSum*
+axes@ *
+keepdims 
+
+ca_r20
+cb_r20both_r20"Mul
+#
+both_r20
+same_r20conf_r20"Sub
+"
+conf_r20confsum_r20"	ReduceSum
+ 
+same_r20	match_r20"	ReduceSum
+&
+confsum_r20
+one_f
+noconf_r20"Less
+$
+	match_r20
+zerohasm_r20"Greater
+&
+
+noconf_r20
+hasm_r20	valid_r20"And
+.
+	valid_r20
+fl_r20_0
+cur_r21cur_r20"Where
+-
+cur0
+padv_dn_r19_0
+zeropdn_r19_0_p"Pad
+G
+pdn_r19_0_p
+
+slo0_r19_0
+
+shi0_r19_0
+	sax_r19_0
+st1	pdn_r19_0"Slice
+-
+cur0
+padv_up_r19_0
+zeropup_r19_0_p"Pad
+G
+pup_r19_0_p
+
+slop_r19_0
+
+ship_r19_0
+	sax_r19_0
+st1	pup_r19_0"Slice
+ 
+cur0
+	pdn_r19_0m1_r19_0"Max
+$
+m1_r19_0
+	pup_r19_0fl_r19_0"Max
+%
+cur0
+vpad_r19
+zerovd_r19_p"Pad
+<
+vd_r19_p
+vslo_r19
+vshi_r19
+vsax_r19
+st1vd_r19"Slice
+
+cur0
+vd_r19
+same_r19_m"Mul
+?
+
+same_r19_msame_r19"	ReduceSum*
+axes@ *
+keepdims 
+7
+cur0ca_r19"	ReduceSum*
+axes@ *
+keepdims 
+9
+vd_r19cb_r19"	ReduceSum*
+axes@ *
+keepdims 
+
+ca_r19
+cb_r19both_r19"Mul
+#
+both_r19
+same_r19conf_r19"Sub
+"
+conf_r19confsum_r19"	ReduceSum
+ 
+same_r19	match_r19"	ReduceSum
+&
+confsum_r19
+one_f
+noconf_r19"Less
+$
+	match_r19
+zerohasm_r19"Greater
+&
+
+noconf_r19
+hasm_r19	valid_r19"And
+.
+	valid_r19
+fl_r19_0
+cur_r20cur_r19"Where
+-
+cur0
+padv_dn_r18_0
+zeropdn_r18_0_p"Pad
+G
+pdn_r18_0_p
+
+slo0_r18_0
+
+shi0_r18_0
+	sax_r18_0
+st1	pdn_r18_0"Slice
+-
+cur0
+padv_up_r18_0
+zeropup_r18_0_p"Pad
+G
+pup_r18_0_p
+
+slop_r18_0
+
+ship_r18_0
+	sax_r18_0
+st1	pup_r18_0"Slice
+ 
+cur0
+	pdn_r18_0m1_r18_0"Max
+$
+m1_r18_0
+	pup_r18_0fl_r18_0"Max
+%
+cur0
+vpad_r18
+zerovd_r18_p"Pad
+<
+vd_r18_p
+vslo_r18
+vshi_r18
+vsax_r18
+st1vd_r18"Slice
+
+cur0
+vd_r18
+same_r18_m"Mul
+?
+
+same_r18_msame_r18"	ReduceSum*
+axes@ *
+keepdims 
+7
+cur0ca_r18"	ReduceSum*
+axes@ *
+keepdims 
+9
+vd_r18cb_r18"	ReduceSum*
+axes@ *
+keepdims 
+
+ca_r18
+cb_r18both_r18"Mul
+#
+both_r18
+same_r18conf_r18"Sub
+"
+conf_r18confsum_r18"	ReduceSum
+ 
+same_r18	match_r18"	ReduceSum
+&
+confsum_r18
+one_f
+noconf_r18"Less
+$
+	match_r18
+zerohasm_r18"Greater
+&
+
+noconf_r18
+hasm_r18	valid_r18"And
+.
+	valid_r18
+fl_r18_0
+cur_r19cur_r18"Where
+-
+cur0
+padv_dn_r17_0
+zeropdn_r17_0_p"Pad
+G
+pdn_r17_0_p
+
+slo0_r17_0
+
+shi0_r17_0
+	sax_r17_0
+st1	pdn_r17_0"Slice
+-
+cur0
+padv_up_r17_0
+zeropup_r17_0_p"Pad
+G
+pup_r17_0_p
+
+slop_r17_0
+
+ship_r17_0
+	sax_r17_0
+st1	pup_r17_0"Slice
+ 
+cur0
+	pdn_r17_0m1_r17_0"Max
+$
+m1_r17_0
+	pup_r17_0fl_r17_0"Max
+%
+cur0
+vpad_r17
+zerovd_r17_p"Pad
+<
+vd_r17_p
+vslo_r17
+vshi_r17
+vsax_r17
+st1vd_r17"Slice
+
+cur0
+vd_r17
+same_r17_m"Mul
+?
+
+same_r17_msame_r17"	ReduceSum*
+axes@ *
+keepdims 
+7
+cur0ca_r17"	ReduceSum*
+axes@ *
+keepdims 
+9
+vd_r17cb_r17"	ReduceSum*
+axes@ *
+keepdims 
+
+ca_r17
+cb_r17both_r17"Mul
+#
+both_r17
+same_r17conf_r17"Sub
+"
+conf_r17confsum_r17"	ReduceSum
+ 
+same_r17	match_r17"	ReduceSum
+&
+confsum_r17
+one_f
+noconf_r17"Less
+$
+	match_r17
+zerohasm_r17"Greater
+&
+
+noconf_r17
+hasm_r17	valid_r17"And
+.
+	valid_r17
+fl_r17_0
+cur_r18cur_r17"Where
+-
+cur0
+padv_dn_r16_0
+zeropdn_r16_0_p"Pad
+G
+pdn_r16_0_p
+
+slo0_r16_0
+
+shi0_r16_0
+	sax_r16_0
+st1	pdn_r16_0"Slice
+-
+cur0
+padv_up_r16_0
+zeropup_r16_0_p"Pad
+G
+pup_r16_0_p
+
+slop_r16_0
+
+ship_r16_0
+	sax_r16_0
+st1	pup_r16_0"Slice
+ 
+cur0
+	pdn_r16_0m1_r16_0"Max
+$
+m1_r16_0
+	pup_r16_0fl_r16_0"Max
+%
+cur0
+vpad_r16
+zerovd_r16_p"Pad
+<
+vd_r16_p
+vslo_r16
+vshi_r16
+vsax_r16
+st1vd_r16"Slice
+
+cur0
+vd_r16
+same_r16_m"Mul
+?
+
+same_r16_msame_r16"	ReduceSum*
+axes@ *
+keepdims 
+7
+cur0ca_r16"	ReduceSum*
+axes@ *
+keepdims 
+9
+vd_r16cb_r16"	ReduceSum*
+axes@ *
+keepdims 
+
+ca_r16
+cb_r16both_r16"Mul
+#
+both_r16
+same_r16conf_r16"Sub
+"
+conf_r16confsum_r16"	ReduceSum
+ 
+same_r16	match_r16"	ReduceSum
+&
+confsum_r16
+one_f
+noconf_r16"Less
+$
+	match_r16
+zerohasm_r16"Greater
+&
+
+noconf_r16
+hasm_r16	valid_r16"And
+.
+	valid_r16
+fl_r16_0
+cur_r17cur_r16"Where
+-
+cur0
+padv_dn_r15_0
+zeropdn_r15_0_p"Pad
+G
+pdn_r15_0_p
+
+slo0_r15_0
+
+shi0_r15_0
+	sax_r15_0
+st1	pdn_r15_0"Slice
+-
+cur0
+padv_up_r15_0
+zeropup_r15_0_p"Pad
+G
+pup_r15_0_p
+
+slop_r15_0
+
+ship_r15_0
+	sax_r15_0
+st1	pup_r15_0"Slice
+ 
+cur0
+	pdn_r15_0m1_r15_0"Max
+$
+m1_r15_0
+	pup_r15_0fl_r15_0"Max
+%
+cur0
+vpad_r15
+zerovd_r15_p"Pad
+<
+vd_r15_p
+vslo_r15
+vshi_r15
+vsax_r15
+st1vd_r15"Slice
+
+cur0
+vd_r15
+same_r15_m"Mul
+?
+
+same_r15_msame_r15"	ReduceSum*
+axes@ *
+keepdims 
+7
+cur0ca_r15"	ReduceSum*
+axes@ *
+keepdims 
+9
+vd_r15cb_r15"	ReduceSum*
+axes@ *
+keepdims 
+
+ca_r15
+cb_r15both_r15"Mul
+#
+both_r15
+same_r15conf_r15"Sub
+"
+conf_r15confsum_r15"	ReduceSum
+ 
+same_r15	match_r15"	ReduceSum
+&
+confsum_r15
+one_f
+noconf_r15"Less
+$
+	match_r15
+zerohasm_r15"Greater
+&
+
+noconf_r15
+hasm_r15	valid_r15"And
+.
+	valid_r15
+fl_r15_0
+cur_r16cur_r15"Where
+-
+cur0
+padv_dn_r14_0
+zeropdn_r14_0_p"Pad
+G
+pdn_r14_0_p
+
+slo0_r14_0
+
+shi0_r14_0
+	sax_r14_0
+st1	pdn_r14_0"Slice
+-
+cur0
+padv_up_r14_0
+zeropup_r14_0_p"Pad
+G
+pup_r14_0_p
+
+slop_r14_0
+
+ship_r14_0
+	sax_r14_0
+st1	pup_r14_0"Slice
+ 
+cur0
+	pdn_r14_0m1_r14_0"Max
+$
+m1_r14_0
+	pup_r14_0fl_r14_0"Max
+1
+fl_r14_0
+padv_dn_r14_1
+zeropdn_r14_1_p"Pad
+G
+pdn_r14_1_p
+
+slo0_r14_1
+
+shi0_r14_1
+	sax_r14_1
+st1	pdn_r14_1"Slice
+1
+fl_r14_0
+padv_up_r14_1
+zeropup_r14_1_p"Pad
+G
+pup_r14_1_p
+
+slop_r14_1
+
+ship_r14_1
+	sax_r14_1
+st1	pup_r14_1"Slice
+$
+fl_r14_0
+	pdn_r14_1m1_r14_1"Max
+$
+m1_r14_1
+	pup_r14_1fl_r14_1"Max
+%
+cur0
+vpad_r14
+zerovd_r14_p"Pad
+<
+vd_r14_p
+vslo_r14
+vshi_r14
+vsax_r14
+st1vd_r14"Slice
+
+cur0
+vd_r14
+same_r14_m"Mul
+?
+
+same_r14_msame_r14"	ReduceSum*
+axes@ *
+keepdims 
+7
+cur0ca_r14"	ReduceSum*
+axes@ *
+keepdims 
+9
+vd_r14cb_r14"	ReduceSum*
+axes@ *
+keepdims 
+
+ca_r14
+cb_r14both_r14"Mul
+#
+both_r14
+same_r14conf_r14"Sub
+"
+conf_r14confsum_r14"	ReduceSum
+ 
+same_r14	match_r14"	ReduceSum
+&
+confsum_r14
+one_f
+noconf_r14"Less
+$
+	match_r14
+zerohasm_r14"Greater
+&
+
+noconf_r14
+hasm_r14	valid_r14"And
+.
+	valid_r14
+fl_r14_1
+cur_r15cur_r14"Where
+-
+cur0
+padv_dn_r13_0
+zeropdn_r13_0_p"Pad
+G
+pdn_r13_0_p
+
+slo0_r13_0
+
+shi0_r13_0
+	sax_r13_0
+st1	pdn_r13_0"Slice
+-
+cur0
+padv_up_r13_0
+zeropup_r13_0_p"Pad
+G
+pup_r13_0_p
+
+slop_r13_0
+
+ship_r13_0
+	sax_r13_0
+st1	pup_r13_0"Slice
+ 
+cur0
+	pdn_r13_0m1_r13_0"Max
+$
+m1_r13_0
+	pup_r13_0fl_r13_0"Max
+1
+fl_r13_0
+padv_dn_r13_1
+zeropdn_r13_1_p"Pad
+G
+pdn_r13_1_p
+
+slo0_r13_1
+
+shi0_r13_1
+	sax_r13_1
+st1	pdn_r13_1"Slice
+1
+fl_r13_0
+padv_up_r13_1
+zeropup_r13_1_p"Pad
+G
+pup_r13_1_p
+
+slop_r13_1
+
+ship_r13_1
+	sax_r13_1
+st1	pup_r13_1"Slice
+$
+fl_r13_0
+	pdn_r13_1m1_r13_1"Max
+$
+m1_r13_1
+	pup_r13_1fl_r13_1"Max
+%
+cur0
+vpad_r13
+zerovd_r13_p"Pad
+<
+vd_r13_p
+vslo_r13
+vshi_r13
+vsax_r13
+st1vd_r13"Slice
+
+cur0
+vd_r13
+same_r13_m"Mul
+?
+
+same_r13_msame_r13"	ReduceSum*
+axes@ *
+keepdims 
+7
+cur0ca_r13"	ReduceSum*
+axes@ *
+keepdims 
+9
+vd_r13cb_r13"	ReduceSum*
+axes@ *
+keepdims 
+
+ca_r13
+cb_r13both_r13"Mul
+#
+both_r13
+same_r13conf_r13"Sub
+"
+conf_r13confsum_r13"	ReduceSum
+ 
+same_r13	match_r13"	ReduceSum
+&
+confsum_r13
+one_f
+noconf_r13"Less
+$
+	match_r13
+zerohasm_r13"Greater
+&
+
+noconf_r13
+hasm_r13	valid_r13"And
+.
+	valid_r13
+fl_r13_1
+cur_r14cur_r13"Where
+-
+cur0
+padv_dn_r12_0
+zeropdn_r12_0_p"Pad
+G
+pdn_r12_0_p
+
+slo0_r12_0
+
+shi0_r12_0
+	sax_r12_0
+st1	pdn_r12_0"Slice
+-
+cur0
+padv_up_r12_0
+zeropup_r12_0_p"Pad
+G
+pup_r12_0_p
+
+slop_r12_0
+
+ship_r12_0
+	sax_r12_0
+st1	pup_r12_0"Slice
+ 
+cur0
+	pdn_r12_0m1_r12_0"Max
+$
+m1_r12_0
+	pup_r12_0fl_r12_0"Max
+1
+fl_r12_0
+padv_dn_r12_1
+zeropdn_r12_1_p"Pad
+G
+pdn_r12_1_p
+
+slo0_r12_1
+
+shi0_r12_1
+	sax_r12_1
+st1	pdn_r12_1"Slice
+1
+fl_r12_0
+padv_up_r12_1
+zeropup_r12_1_p"Pad
+G
+pup_r12_1_p
+
+slop_r12_1
+
+ship_r12_1
+	sax_r12_1
+st1	pup_r12_1"Slice
+$
+fl_r12_0
+	pdn_r12_1m1_r12_1"Max
+$
+m1_r12_1
+	pup_r12_1fl_r12_1"Max
+%
+cur0
+vpad_r12
+zerovd_r12_p"Pad
+<
+vd_r12_p
+vslo_r12
+vshi_r12
+vsax_r12
+st1vd_r12"Slice
+
+cur0
+vd_r12
+same_r12_m"Mul
+?
+
+same_r12_msame_r12"	ReduceSum*
+axes@ *
+keepdims 
+7
+cur0ca_r12"	ReduceSum*
+axes@ *
+keepdims 
+9
+vd_r12cb_r12"	ReduceSum*
+axes@ *
+keepdims 
+
+ca_r12
+cb_r12both_r12"Mul
+#
+both_r12
+same_r12conf_r12"Sub
+"
+conf_r12confsum_r12"	ReduceSum
+ 
+same_r12	match_r12"	ReduceSum
+&
+confsum_r12
+one_f
+noconf_r12"Less
+$
+	match_r12
+zerohasm_r12"Greater
+&
+
+noconf_r12
+hasm_r12	valid_r12"And
+.
+	valid_r12
+fl_r12_1
+cur_r13cur_r12"Where
+-
+cur0
+padv_dn_r11_0
+zeropdn_r11_0_p"Pad
+G
+pdn_r11_0_p
+
+slo0_r11_0
+
+shi0_r11_0
+	sax_r11_0
+st1	pdn_r11_0"Slice
+-
+cur0
+padv_up_r11_0
+zeropup_r11_0_p"Pad
+G
+pup_r11_0_p
+
+slop_r11_0
+
+ship_r11_0
+	sax_r11_0
+st1	pup_r11_0"Slice
+ 
+cur0
+	pdn_r11_0m1_r11_0"Max
+$
+m1_r11_0
+	pup_r11_0fl_r11_0"Max
+1
+fl_r11_0
+padv_dn_r11_1
+zeropdn_r11_1_p"Pad
+G
+pdn_r11_1_p
+
+slo0_r11_1
+
+shi0_r11_1
+	sax_r11_1
+st1	pdn_r11_1"Slice
+1
+fl_r11_0
+padv_up_r11_1
+zeropup_r11_1_p"Pad
+G
+pup_r11_1_p
+
+slop_r11_1
+
+ship_r11_1
+	sax_r11_1
+st1	pup_r11_1"Slice
+$
+fl_r11_0
+	pdn_r11_1m1_r11_1"Max
+$
+m1_r11_1
+	pup_r11_1fl_r11_1"Max
+%
+cur0
+vpad_r11
+zerovd_r11_p"Pad
+<
+vd_r11_p
+vslo_r11
+vshi_r11
+vsax_r11
+st1vd_r11"Slice
+
+cur0
+vd_r11
+same_r11_m"Mul
+?
+
+same_r11_msame_r11"	ReduceSum*
+axes@ *
+keepdims 
+7
+cur0ca_r11"	ReduceSum*
+axes@ *
+keepdims 
+9
+vd_r11cb_r11"	ReduceSum*
+axes@ *
+keepdims 
+
+ca_r11
+cb_r11both_r11"Mul
+#
+both_r11
+same_r11conf_r11"Sub
+"
+conf_r11confsum_r11"	ReduceSum
+ 
+same_r11	match_r11"	ReduceSum
+&
+confsum_r11
+one_f
+noconf_r11"Less
+$
+	match_r11
+zerohasm_r11"Greater
+&
+
+noconf_r11
+hasm_r11	valid_r11"And
+.
+	valid_r11
+fl_r11_1
+cur_r12cur_r11"Where
+-
+cur0
+padv_dn_r10_0
+zeropdn_r10_0_p"Pad
+G
+pdn_r10_0_p
+
+slo0_r10_0
+
+shi0_r10_0
+	sax_r10_0
+st1	pdn_r10_0"Slice
+-
+cur0
+padv_up_r10_0
+zeropup_r10_0_p"Pad
+G
+pup_r10_0_p
+
+slop_r10_0
+
+ship_r10_0
+	sax_r10_0
+st1	pup_r10_0"Slice
+ 
+cur0
+	pdn_r10_0m1_r10_0"Max
+$
+m1_r10_0
+	pup_r10_0fl_r10_0"Max
+1
+fl_r10_0
+padv_dn_r10_1
+zeropdn_r10_1_p"Pad
+G
+pdn_r10_1_p
+
+slo0_r10_1
+
+shi0_r10_1
+	sax_r10_1
+st1	pdn_r10_1"Slice
+1
+fl_r10_0
+padv_up_r10_1
+zeropup_r10_1_p"Pad
+G
+pup_r10_1_p
+
+slop_r10_1
+
+ship_r10_1
+	sax_r10_1
+st1	pup_r10_1"Slice
+$
+fl_r10_0
+	pdn_r10_1m1_r10_1"Max
+$
+m1_r10_1
+	pup_r10_1fl_r10_1"Max
+%
+cur0
+vpad_r10
+zerovd_r10_p"Pad
+<
+vd_r10_p
+vslo_r10
+vshi_r10
+vsax_r10
+st1vd_r10"Slice
+
+cur0
+vd_r10
+same_r10_m"Mul
+?
+
+same_r10_msame_r10"	ReduceSum*
+axes@ *
+keepdims 
+7
+cur0ca_r10"	ReduceSum*
+axes@ *
+keepdims 
+9
+vd_r10cb_r10"	ReduceSum*
+axes@ *
+keepdims 
+
+ca_r10
+cb_r10both_r10"Mul
+#
+both_r10
+same_r10conf_r10"Sub
+"
+conf_r10confsum_r10"	ReduceSum
+ 
+same_r10	match_r10"	ReduceSum
+&
+confsum_r10
+one_f
+noconf_r10"Less
+$
+	match_r10
+zerohasm_r10"Greater
+&
+
+noconf_r10
+hasm_r10	valid_r10"And
+.
+	valid_r10
+fl_r10_1
+cur_r11cur_r10"Where
++
+cur0
+padv_dn_r9_0
+zero
+pdn_r9_0_p"Pad
+B
+
+pdn_r9_0_p
+	slo0_r9_0
+	shi0_r9_0
+sax_r9_0
+st1pdn_r9_0"Slice
++
+cur0
+padv_up_r9_0
+zero
+pup_r9_0_p"Pad
+B
+
+pup_r9_0_p
+	slop_r9_0
+	ship_r9_0
+sax_r9_0
+st1pup_r9_0"Slice
+
+cur0
+pdn_r9_0m1_r9_0"Max
+!
+m1_r9_0
+pup_r9_0fl_r9_0"Max
+.
+fl_r9_0
+padv_dn_r9_1
+zero
+pdn_r9_1_p"Pad
+B
+
+pdn_r9_1_p
+	slo0_r9_1
+	shi0_r9_1
+sax_r9_1
+st1pdn_r9_1"Slice
+.
+fl_r9_0
+padv_up_r9_1
+zero
+pup_r9_1_p"Pad
+B
+
+pup_r9_1_p
+	slop_r9_1
+	ship_r9_1
+sax_r9_1
+st1pup_r9_1"Slice
+!
+fl_r9_0
+pdn_r9_1m1_r9_1"Max
+!
+m1_r9_1
+pup_r9_1fl_r9_1"Max
+#
+cur0
+vpad_r9
+zerovd_r9_p"Pad
+7
+vd_r9_p
+vslo_r9
+vshi_r9
+vsax_r9
+st1vd_r9"Slice
+
+cur0
+vd_r9	same_r9_m"Mul
+=
+	same_r9_msame_r9"	ReduceSum*
+axes@ *
+keepdims 
+6
+cur0ca_r9"	ReduceSum*
+axes@ *
+keepdims 
+7
+vd_r9cb_r9"	ReduceSum*
+axes@ *
+keepdims 
+
+ca_r9
+cb_r9both_r9"Mul
+ 
+both_r9
+same_r9conf_r9"Sub
+ 
+conf_r9
+confsum_r9"	ReduceSum
+
+same_r9match_r9"	ReduceSum
+$
+
+confsum_r9
+one_f	noconf_r9"Less
+"
+match_r9
+zerohasm_r9"Greater
+#
+	noconf_r9
+hasm_r9valid_r9"And
++
+valid_r9
+fl_r9_1
+cur_r10cur_r9"Where
++
+cur0
+padv_dn_r8_0
+zero
+pdn_r8_0_p"Pad
+B
+
+pdn_r8_0_p
+	slo0_r8_0
+	shi0_r8_0
+sax_r8_0
+st1pdn_r8_0"Slice
++
+cur0
+padv_up_r8_0
+zero
+pup_r8_0_p"Pad
+B
+
+pup_r8_0_p
+	slop_r8_0
+	ship_r8_0
+sax_r8_0
+st1pup_r8_0"Slice
+
+cur0
+pdn_r8_0m1_r8_0"Max
+!
+m1_r8_0
+pup_r8_0fl_r8_0"Max
+.
+fl_r8_0
+padv_dn_r8_1
+zero
+pdn_r8_1_p"Pad
+B
+
+pdn_r8_1_p
+	slo0_r8_1
+	shi0_r8_1
+sax_r8_1
+st1pdn_r8_1"Slice
+.
+fl_r8_0
+padv_up_r8_1
+zero
+pup_r8_1_p"Pad
+B
+
+pup_r8_1_p
+	slop_r8_1
+	ship_r8_1
+sax_r8_1
+st1pup_r8_1"Slice
+!
+fl_r8_0
+pdn_r8_1m1_r8_1"Max
+!
+m1_r8_1
+pup_r8_1fl_r8_1"Max
+#
+cur0
+vpad_r8
+zerovd_r8_p"Pad
+7
+vd_r8_p
+vslo_r8
+vshi_r8
+vsax_r8
+st1vd_r8"Slice
+
+cur0
+vd_r8	same_r8_m"Mul
+=
+	same_r8_msame_r8"	ReduceSum*
+axes@ *
+keepdims 
+6
+cur0ca_r8"	ReduceSum*
+axes@ *
+keepdims 
+7
+vd_r8cb_r8"	ReduceSum*
+axes@ *
+keepdims 
+
+ca_r8
+cb_r8both_r8"Mul
+ 
+both_r8
+same_r8conf_r8"Sub
+ 
+conf_r8
+confsum_r8"	ReduceSum
+
+same_r8match_r8"	ReduceSum
+$
+
+confsum_r8
+one_f	noconf_r8"Less
+"
+match_r8
+zerohasm_r8"Greater
+#
+	noconf_r8
+hasm_r8valid_r8"And
+*
+valid_r8
+fl_r8_1
+cur_r9cur_r8"Where
++
+cur0
+padv_dn_r7_0
+zero
+pdn_r7_0_p"Pad
+B
+
+pdn_r7_0_p
+	slo0_r7_0
+	shi0_r7_0
+sax_r7_0
+st1pdn_r7_0"Slice
++
+cur0
+padv_up_r7_0
+zero
+pup_r7_0_p"Pad
+B
+
+pup_r7_0_p
+	slop_r7_0
+	ship_r7_0
+sax_r7_0
+st1pup_r7_0"Slice
+
+cur0
+pdn_r7_0m1_r7_0"Max
+!
+m1_r7_0
+pup_r7_0fl_r7_0"Max
+.
+fl_r7_0
+padv_dn_r7_1
+zero
+pdn_r7_1_p"Pad
+B
+
+pdn_r7_1_p
+	slo0_r7_1
+	shi0_r7_1
+sax_r7_1
+st1pdn_r7_1"Slice
+.
+fl_r7_0
+padv_up_r7_1
+zero
+pup_r7_1_p"Pad
+B
+
+pup_r7_1_p
+	slop_r7_1
+	ship_r7_1
+sax_r7_1
+st1pup_r7_1"Slice
+!
+fl_r7_0
+pdn_r7_1m1_r7_1"Max
+!
+m1_r7_1
+pup_r7_1fl_r7_1"Max
+.
+fl_r7_1
+padv_dn_r7_2
+zero
+pdn_r7_2_p"Pad
+B
+
+pdn_r7_2_p
+	slo0_r7_2
+	shi0_r7_2
+sax_r7_2
+st1pdn_r7_2"Slice
+.
+fl_r7_1
+padv_up_r7_2
+zero
+pup_r7_2_p"Pad
+B
+
+pup_r7_2_p
+	slop_r7_2
+	ship_r7_2
+sax_r7_2
+st1pup_r7_2"Slice
+!
+fl_r7_1
+pdn_r7_2m1_r7_2"Max
+!
+m1_r7_2
+pup_r7_2fl_r7_2"Max
+#
+cur0
+vpad_r7
+zerovd_r7_p"Pad
+7
+vd_r7_p
+vslo_r7
+vshi_r7
+vsax_r7
+st1vd_r7"Slice
+
+cur0
+vd_r7	same_r7_m"Mul
+=
+	same_r7_msame_r7"	ReduceSum*
+axes@ *
+keepdims 
+6
+cur0ca_r7"	ReduceSum*
+axes@ *
+keepdims 
+7
+vd_r7cb_r7"	ReduceSum*
+axes@ *
+keepdims 
+
+ca_r7
+cb_r7both_r7"Mul
+ 
+both_r7
+same_r7conf_r7"Sub
+ 
+conf_r7
+confsum_r7"	ReduceSum
+
+same_r7match_r7"	ReduceSum
+$
+
+confsum_r7
+one_f	noconf_r7"Less
+"
+match_r7
+zerohasm_r7"Greater
+#
+	noconf_r7
+hasm_r7valid_r7"And
+*
+valid_r7
+fl_r7_2
+cur_r8cur_r7"Where
++
+cur0
+padv_dn_r6_0
+zero
+pdn_r6_0_p"Pad
+B
+
+pdn_r6_0_p
+	slo0_r6_0
+	shi0_r6_0
+sax_r6_0
+st1pdn_r6_0"Slice
++
+cur0
+padv_up_r6_0
+zero
+pup_r6_0_p"Pad
+B
+
+pup_r6_0_p
+	slop_r6_0
+	ship_r6_0
+sax_r6_0
+st1pup_r6_0"Slice
+
+cur0
+pdn_r6_0m1_r6_0"Max
+!
+m1_r6_0
+pup_r6_0fl_r6_0"Max
+.
+fl_r6_0
+padv_dn_r6_1
+zero
+pdn_r6_1_p"Pad
+B
+
+pdn_r6_1_p
+	slo0_r6_1
+	shi0_r6_1
+sax_r6_1
+st1pdn_r6_1"Slice
+.
+fl_r6_0
+padv_up_r6_1
+zero
+pup_r6_1_p"Pad
+B
+
+pup_r6_1_p
+	slop_r6_1
+	ship_r6_1
+sax_r6_1
+st1pup_r6_1"Slice
+!
+fl_r6_0
+pdn_r6_1m1_r6_1"Max
+!
+m1_r6_1
+pup_r6_1fl_r6_1"Max
+.
+fl_r6_1
+padv_dn_r6_2
+zero
+pdn_r6_2_p"Pad
+B
+
+pdn_r6_2_p
+	slo0_r6_2
+	shi0_r6_2
+sax_r6_2
+st1pdn_r6_2"Slice
+.
+fl_r6_1
+padv_up_r6_2
+zero
+pup_r6_2_p"Pad
+B
+
+pup_r6_2_p
+	slop_r6_2
+	ship_r6_2
+sax_r6_2
+st1pup_r6_2"Slice
+!
+fl_r6_1
+pdn_r6_2m1_r6_2"Max
+!
+m1_r6_2
+pup_r6_2fl_r6_2"Max
+#
+cur0
+vpad_r6
+zerovd_r6_p"Pad
+7
+vd_r6_p
+vslo_r6
+vshi_r6
+vsax_r6
+st1vd_r6"Slice
+
+cur0
+vd_r6	same_r6_m"Mul
+=
+	same_r6_msame_r6"	ReduceSum*
+axes@ *
+keepdims 
+6
+cur0ca_r6"	ReduceSum*
+axes@ *
+keepdims 
+7
+vd_r6cb_r6"	ReduceSum*
+axes@ *
+keepdims 
+
+ca_r6
+cb_r6both_r6"Mul
+ 
+both_r6
+same_r6conf_r6"Sub
+ 
+conf_r6
+confsum_r6"	ReduceSum
+
+same_r6match_r6"	ReduceSum
+$
+
+confsum_r6
+one_f	noconf_r6"Less
+"
+match_r6
+zerohasm_r6"Greater
+#
+	noconf_r6
+hasm_r6valid_r6"And
+*
+valid_r6
+fl_r6_2
+cur_r7cur_r6"Where
++
+cur0
+padv_dn_r5_0
+zero
+pdn_r5_0_p"Pad
+B
+
+pdn_r5_0_p
+	slo0_r5_0
+	shi0_r5_0
+sax_r5_0
+st1pdn_r5_0"Slice
++
+cur0
+padv_up_r5_0
+zero
+pup_r5_0_p"Pad
+B
+
+pup_r5_0_p
+	slop_r5_0
+	ship_r5_0
+sax_r5_0
+st1pup_r5_0"Slice
+
+cur0
+pdn_r5_0m1_r5_0"Max
+!
+m1_r5_0
+pup_r5_0fl_r5_0"Max
+.
+fl_r5_0
+padv_dn_r5_1
+zero
+pdn_r5_1_p"Pad
+B
+
+pdn_r5_1_p
+	slo0_r5_1
+	shi0_r5_1
+sax_r5_1
+st1pdn_r5_1"Slice
+.
+fl_r5_0
+padv_up_r5_1
+zero
+pup_r5_1_p"Pad
+B
+
+pup_r5_1_p
+	slop_r5_1
+	ship_r5_1
+sax_r5_1
+st1pup_r5_1"Slice
+!
+fl_r5_0
+pdn_r5_1m1_r5_1"Max
+!
+m1_r5_1
+pup_r5_1fl_r5_1"Max
+.
+fl_r5_1
+padv_dn_r5_2
+zero
+pdn_r5_2_p"Pad
+B
+
+pdn_r5_2_p
+	slo0_r5_2
+	shi0_r5_2
+sax_r5_2
+st1pdn_r5_2"Slice
+.
+fl_r5_1
+padv_up_r5_2
+zero
+pup_r5_2_p"Pad
+B
+
+pup_r5_2_p
+	slop_r5_2
+	ship_r5_2
+sax_r5_2
+st1pup_r5_2"Slice
+!
+fl_r5_1
+pdn_r5_2m1_r5_2"Max
+!
+m1_r5_2
+pup_r5_2fl_r5_2"Max
+#
+cur0
+vpad_r5
+zerovd_r5_p"Pad
+7
+vd_r5_p
+vslo_r5
+vshi_r5
+vsax_r5
+st1vd_r5"Slice
+
+cur0
+vd_r5	same_r5_m"Mul
+=
+	same_r5_msame_r5"	ReduceSum*
+axes@ *
+keepdims 
+6
+cur0ca_r5"	ReduceSum*
+axes@ *
+keepdims 
+7
+vd_r5cb_r5"	ReduceSum*
+axes@ *
+keepdims 
+
+ca_r5
+cb_r5both_r5"Mul
+ 
+both_r5
+same_r5conf_r5"Sub
+ 
+conf_r5
+confsum_r5"	ReduceSum
+
+same_r5match_r5"	ReduceSum
+$
+
+confsum_r5
+one_f	noconf_r5"Less
+"
+match_r5
+zerohasm_r5"Greater
+#
+	noconf_r5
+hasm_r5valid_r5"And
+*
+valid_r5
+fl_r5_2
+cur_r6cur_r5"Where
++
+cur0
+padv_dn_r4_0
+zero
+pdn_r4_0_p"Pad
+B
+
+pdn_r4_0_p
+	slo0_r4_0
+	shi0_r4_0
+sax_r4_0
+st1pdn_r4_0"Slice
++
+cur0
+padv_up_r4_0
+zero
+pup_r4_0_p"Pad
+B
+
+pup_r4_0_p
+	slop_r4_0
+	ship_r4_0
+sax_r4_0
+st1pup_r4_0"Slice
+
+cur0
+pdn_r4_0m1_r4_0"Max
+!
+m1_r4_0
+pup_r4_0fl_r4_0"Max
+.
+fl_r4_0
+padv_dn_r4_1
+zero
+pdn_r4_1_p"Pad
+B
+
+pdn_r4_1_p
+	slo0_r4_1
+	shi0_r4_1
+sax_r4_1
+st1pdn_r4_1"Slice
+.
+fl_r4_0
+padv_up_r4_1
+zero
+pup_r4_1_p"Pad
+B
+
+pup_r4_1_p
+	slop_r4_1
+	ship_r4_1
+sax_r4_1
+st1pup_r4_1"Slice
+!
+fl_r4_0
+pdn_r4_1m1_r4_1"Max
+!
+m1_r4_1
+pup_r4_1fl_r4_1"Max
+.
+fl_r4_1
+padv_dn_r4_2
+zero
+pdn_r4_2_p"Pad
+B
+
+pdn_r4_2_p
+	slo0_r4_2
+	shi0_r4_2
+sax_r4_2
+st1pdn_r4_2"Slice
+.
+fl_r4_1
+padv_up_r4_2
+zero
+pup_r4_2_p"Pad
+B
+
+pup_r4_2_p
+	slop_r4_2
+	ship_r4_2
+sax_r4_2
+st1pup_r4_2"Slice
+!
+fl_r4_1
+pdn_r4_2m1_r4_2"Max
+!
+m1_r4_2
+pup_r4_2fl_r4_2"Max
+#
+cur0
+vpad_r4
+zerovd_r4_p"Pad
+7
+vd_r4_p
+vslo_r4
+vshi_r4
+vsax_r4
+st1vd_r4"Slice
+
+cur0
+vd_r4	same_r4_m"Mul
+=
+	same_r4_msame_r4"	ReduceSum*
+axes@ *
+keepdims 
+6
+cur0ca_r4"	ReduceSum*
+axes@ *
+keepdims 
+7
+vd_r4cb_r4"	ReduceSum*
+axes@ *
+keepdims 
+
+ca_r4
+cb_r4both_r4"Mul
+ 
+both_r4
+same_r4conf_r4"Sub
+ 
+conf_r4
+confsum_r4"	ReduceSum
+
+same_r4match_r4"	ReduceSum
+$
+
+confsum_r4
+one_f	noconf_r4"Less
+"
+match_r4
+zerohasm_r4"Greater
+#
+	noconf_r4
+hasm_r4valid_r4"And
+*
+valid_r4
+fl_r4_2
+cur_r5cur_r4"Where
++
+cur0
+padv_dn_r3_0
+zero
+pdn_r3_0_p"Pad
+B
+
+pdn_r3_0_p
+	slo0_r3_0
+	shi0_r3_0
+sax_r3_0
+st1pdn_r3_0"Slice
++
+cur0
+padv_up_r3_0
+zero
+pup_r3_0_p"Pad
+B
+
+pup_r3_0_p
+	slop_r3_0
+	ship_r3_0
+sax_r3_0
+st1pup_r3_0"Slice
+
+cur0
+pdn_r3_0m1_r3_0"Max
+!
+m1_r3_0
+pup_r3_0fl_r3_0"Max
+.
+fl_r3_0
+padv_dn_r3_1
+zero
+pdn_r3_1_p"Pad
+B
+
+pdn_r3_1_p
+	slo0_r3_1
+	shi0_r3_1
+sax_r3_1
+st1pdn_r3_1"Slice
+.
+fl_r3_0
+padv_up_r3_1
+zero
+pup_r3_1_p"Pad
+B
+
+pup_r3_1_p
+	slop_r3_1
+	ship_r3_1
+sax_r3_1
+st1pup_r3_1"Slice
+!
+fl_r3_0
+pdn_r3_1m1_r3_1"Max
+!
+m1_r3_1
+pup_r3_1fl_r3_1"Max
+.
+fl_r3_1
+padv_dn_r3_2
+zero
+pdn_r3_2_p"Pad
+B
+
+pdn_r3_2_p
+	slo0_r3_2
+	shi0_r3_2
+sax_r3_2
+st1pdn_r3_2"Slice
+.
+fl_r3_1
+padv_up_r3_2
+zero
+pup_r3_2_p"Pad
+B
+
+pup_r3_2_p
+	slop_r3_2
+	ship_r3_2
+sax_r3_2
+st1pup_r3_2"Slice
+!
+fl_r3_1
+pdn_r3_2m1_r3_2"Max
+!
+m1_r3_2
+pup_r3_2fl_r3_2"Max
+.
+fl_r3_2
+padv_dn_r3_3
+zero
+pdn_r3_3_p"Pad
+B
+
+pdn_r3_3_p
+	slo0_r3_3
+	shi0_r3_3
+sax_r3_3
+st1pdn_r3_3"Slice
+.
+fl_r3_2
+padv_up_r3_3
+zero
+pup_r3_3_p"Pad
+B
+
+pup_r3_3_p
+	slop_r3_3
+	ship_r3_3
+sax_r3_3
+st1pup_r3_3"Slice
+!
+fl_r3_2
+pdn_r3_3m1_r3_3"Max
+!
+m1_r3_3
+pup_r3_3fl_r3_3"Max
+#
+cur0
+vpad_r3
+zerovd_r3_p"Pad
+7
+vd_r3_p
+vslo_r3
+vshi_r3
+vsax_r3
+st1vd_r3"Slice
+
+cur0
+vd_r3	same_r3_m"Mul
+=
+	same_r3_msame_r3"	ReduceSum*
+axes@ *
+keepdims 
+6
+cur0ca_r3"	ReduceSum*
+axes@ *
+keepdims 
+7
+vd_r3cb_r3"	ReduceSum*
+axes@ *
+keepdims 
+
+ca_r3
+cb_r3both_r3"Mul
+ 
+both_r3
+same_r3conf_r3"Sub
+ 
+conf_r3
+confsum_r3"	ReduceSum
+
+same_r3match_r3"	ReduceSum
+$
+
+confsum_r3
+one_f	noconf_r3"Less
+"
+match_r3
+zerohasm_r3"Greater
+#
+	noconf_r3
+hasm_r3valid_r3"And
+*
+valid_r3
+fl_r3_3
+cur_r4cur_r3"Where
++
+cur0
+padv_dn_r2_0
+zero
+pdn_r2_0_p"Pad
+B
+
+pdn_r2_0_p
+	slo0_r2_0
+	shi0_r2_0
+sax_r2_0
+st1pdn_r2_0"Slice
++
+cur0
+padv_up_r2_0
+zero
+pup_r2_0_p"Pad
+B
+
+pup_r2_0_p
+	slop_r2_0
+	ship_r2_0
+sax_r2_0
+st1pup_r2_0"Slice
+
+cur0
+pdn_r2_0m1_r2_0"Max
+!
+m1_r2_0
+pup_r2_0fl_r2_0"Max
+.
+fl_r2_0
+padv_dn_r2_1
+zero
+pdn_r2_1_p"Pad
+B
+
+pdn_r2_1_p
+	slo0_r2_1
+	shi0_r2_1
+sax_r2_1
+st1pdn_r2_1"Slice
+.
+fl_r2_0
+padv_up_r2_1
+zero
+pup_r2_1_p"Pad
+B
+
+pup_r2_1_p
+	slop_r2_1
+	ship_r2_1
+sax_r2_1
+st1pup_r2_1"Slice
+!
+fl_r2_0
+pdn_r2_1m1_r2_1"Max
+!
+m1_r2_1
+pup_r2_1fl_r2_1"Max
+.
+fl_r2_1
+padv_dn_r2_2
+zero
+pdn_r2_2_p"Pad
+B
+
+pdn_r2_2_p
+	slo0_r2_2
+	shi0_r2_2
+sax_r2_2
+st1pdn_r2_2"Slice
+.
+fl_r2_1
+padv_up_r2_2
+zero
+pup_r2_2_p"Pad
+B
+
+pup_r2_2_p
+	slop_r2_2
+	ship_r2_2
+sax_r2_2
+st1pup_r2_2"Slice
+!
+fl_r2_1
+pdn_r2_2m1_r2_2"Max
+!
+m1_r2_2
+pup_r2_2fl_r2_2"Max
+.
+fl_r2_2
+padv_dn_r2_3
+zero
+pdn_r2_3_p"Pad
+B
+
+pdn_r2_3_p
+	slo0_r2_3
+	shi0_r2_3
+sax_r2_3
+st1pdn_r2_3"Slice
+.
+fl_r2_2
+padv_up_r2_3
+zero
+pup_r2_3_p"Pad
+B
+
+pup_r2_3_p
+	slop_r2_3
+	ship_r2_3
+sax_r2_3
+st1pup_r2_3"Slice
+!
+fl_r2_2
+pdn_r2_3m1_r2_3"Max
+!
+m1_r2_3
+pup_r2_3fl_r2_3"Max
+#
+cur0
+vpad_r2
+zerovd_r2_p"Pad
+7
+vd_r2_p
+vslo_r2
+vshi_r2
+vsax_r2
+st1vd_r2"Slice
+
+cur0
+vd_r2	same_r2_m"Mul
+=
+	same_r2_msame_r2"	ReduceSum*
+axes@ *
+keepdims 
+6
+cur0ca_r2"	ReduceSum*
+axes@ *
+keepdims 
+7
+vd_r2cb_r2"	ReduceSum*
+axes@ *
+keepdims 
+
+ca_r2
+cb_r2both_r2"Mul
+ 
+both_r2
+same_r2conf_r2"Sub
+ 
+conf_r2
+confsum_r2"	ReduceSum
+
+same_r2match_r2"	ReduceSum
+$
+
+confsum_r2
+one_f	noconf_r2"Less
+"
+match_r2
+zerohasm_r2"Greater
+#
+	noconf_r2
+hasm_r2valid_r2"And
+*
+valid_r2
+fl_r2_3
+cur_r3cur_r2"Where
++
+cur0
+padv_dn_r1_0
+zero
+pdn_r1_0_p"Pad
+B
+
+pdn_r1_0_p
+	slo0_r1_0
+	shi0_r1_0
+sax_r1_0
+st1pdn_r1_0"Slice
++
+cur0
+padv_up_r1_0
+zero
+pup_r1_0_p"Pad
+B
+
+pup_r1_0_p
+	slop_r1_0
+	ship_r1_0
+sax_r1_0
+st1pup_r1_0"Slice
+
+cur0
+pdn_r1_0m1_r1_0"Max
+!
+m1_r1_0
+pup_r1_0fl_r1_0"Max
+.
+fl_r1_0
+padv_dn_r1_1
+zero
+pdn_r1_1_p"Pad
+B
+
+pdn_r1_1_p
+	slo0_r1_1
+	shi0_r1_1
+sax_r1_1
+st1pdn_r1_1"Slice
+.
+fl_r1_0
+padv_up_r1_1
+zero
+pup_r1_1_p"Pad
+B
+
+pup_r1_1_p
+	slop_r1_1
+	ship_r1_1
+sax_r1_1
+st1pup_r1_1"Slice
+!
+fl_r1_0
+pdn_r1_1m1_r1_1"Max
+!
+m1_r1_1
+pup_r1_1fl_r1_1"Max
+.
+fl_r1_1
+padv_dn_r1_2
+zero
+pdn_r1_2_p"Pad
+B
+
+pdn_r1_2_p
+	slo0_r1_2
+	shi0_r1_2
+sax_r1_2
+st1pdn_r1_2"Slice
+.
+fl_r1_1
+padv_up_r1_2
+zero
+pup_r1_2_p"Pad
+B
+
+pup_r1_2_p
+	slop_r1_2
+	ship_r1_2
+sax_r1_2
+st1pup_r1_2"Slice
+!
+fl_r1_1
+pdn_r1_2m1_r1_2"Max
+!
+m1_r1_2
+pup_r1_2fl_r1_2"Max
+.
+fl_r1_2
+padv_dn_r1_3
+zero
+pdn_r1_3_p"Pad
+B
+
+pdn_r1_3_p
+	slo0_r1_3
+	shi0_r1_3
+sax_r1_3
+st1pdn_r1_3"Slice
+.
+fl_r1_2
+padv_up_r1_3
+zero
+pup_r1_3_p"Pad
+B
+
+pup_r1_3_p
+	slop_r1_3
+	ship_r1_3
+sax_r1_3
+st1pup_r1_3"Slice
+!
+fl_r1_2
+pdn_r1_3m1_r1_3"Max
+!
+m1_r1_3
+pup_r1_3fl_r1_3"Max
+.
+fl_r1_3
+padv_dn_r1_4
+zero
+pdn_r1_4_p"Pad
+B
+
+pdn_r1_4_p
+	slo0_r1_4
+	shi0_r1_4
+sax_r1_4
+st1pdn_r1_4"Slice
+.
+fl_r1_3
+padv_up_r1_4
+zero
+pup_r1_4_p"Pad
+B
+
+pup_r1_4_p
+	slop_r1_4
+	ship_r1_4
+sax_r1_4
+st1pup_r1_4"Slice
+!
+fl_r1_3
+pdn_r1_4m1_r1_4"Max
+!
+m1_r1_4
+pup_r1_4fl_r1_4"Max
+#
+cur0
+vpad_r1
+zerovd_r1_p"Pad
+7
+vd_r1_p
+vslo_r1
+vshi_r1
+vsax_r1
+st1vd_r1"Slice
+
+cur0
+vd_r1	same_r1_m"Mul
+=
+	same_r1_msame_r1"	ReduceSum*
+axes@ *
+keepdims 
+6
+cur0ca_r1"	ReduceSum*
+axes@ *
+keepdims 
+7
+vd_r1cb_r1"	ReduceSum*
+axes@ *
+keepdims 
+
+ca_r1
+cb_r1both_r1"Mul
+ 
+both_r1
+same_r1conf_r1"Sub
+ 
+conf_r1
+confsum_r1"	ReduceSum
+
+same_r1match_r1"	ReduceSum
+$
+
+confsum_r1
+one_f	noconf_r1"Less
+"
+match_r1
+zerohasm_r1"Greater
+#
+	noconf_r1
+hasm_r1valid_r1"And
+*
+valid_r1
+fl_r1_4
+cur_r2cur_r1"Where
+/
+cur_r1
+padv_dn_c29_0
+zeropdn_c29_0_p"Pad
+G
+pdn_c29_0_p
+
+slo0_c29_0
+
+shi0_c29_0
+	sax_c29_0
+st1	pdn_c29_0"Slice
+/
+cur_r1
+padv_up_c29_0
+zeropup_c29_0_p"Pad
+G
+pup_c29_0_p
+
+slop_c29_0
+
+ship_c29_0
+	sax_c29_0
+st1	pup_c29_0"Slice
+"
+cur_r1
+	pdn_c29_0m1_c29_0"Max
+$
+m1_c29_0
+	pup_c29_0fl_c29_0"Max
+'
+cur_r1
+vpad_c29
+zerovd_c29_p"Pad
+<
+vd_c29_p
+vslo_c29
+vshi_c29
+vsax_c29
+st1vd_c29"Slice
+!
+cur_r1
+vd_c29
+same_c29_m"Mul
+?
+
+same_c29_msame_c29"	ReduceSum*
+axes@ *
+keepdims 
+9
+cur_r1ca_c29"	ReduceSum*
+axes@ *
+keepdims 
+9
+vd_c29cb_c29"	ReduceSum*
+axes@ *
+keepdims 
+
+ca_c29
+cb_c29both_c29"Mul
+#
+both_c29
+same_c29conf_c29"Sub
+"
+conf_c29confsum_c29"	ReduceSum
+ 
+same_c29	match_c29"	ReduceSum
+&
+confsum_c29
+one_f
+noconf_c29"Less
+$
+	match_c29
+zerohasm_c29"Greater
+&
+
+noconf_c29
+hasm_c29	valid_c29"And
+-
+	valid_c29
+fl_c29_0
+cur_r1cur_c29"Where
+/
+cur_r1
+padv_dn_c28_0
+zeropdn_c28_0_p"Pad
+G
+pdn_c28_0_p
+
+slo0_c28_0
+
+shi0_c28_0
+	sax_c28_0
+st1	pdn_c28_0"Slice
+/
+cur_r1
+padv_up_c28_0
+zeropup_c28_0_p"Pad
+G
+pup_c28_0_p
+
+slop_c28_0
+
+ship_c28_0
+	sax_c28_0
+st1	pup_c28_0"Slice
+"
+cur_r1
+	pdn_c28_0m1_c28_0"Max
+$
+m1_c28_0
+	pup_c28_0fl_c28_0"Max
+'
+cur_r1
+vpad_c28
+zerovd_c28_p"Pad
+<
+vd_c28_p
+vslo_c28
+vshi_c28
+vsax_c28
+st1vd_c28"Slice
+!
+cur_r1
+vd_c28
+same_c28_m"Mul
+?
+
+same_c28_msame_c28"	ReduceSum*
+axes@ *
+keepdims 
+9
+cur_r1ca_c28"	ReduceSum*
+axes@ *
+keepdims 
+9
+vd_c28cb_c28"	ReduceSum*
+axes@ *
+keepdims 
+
+ca_c28
+cb_c28both_c28"Mul
+#
+both_c28
+same_c28conf_c28"Sub
+"
+conf_c28confsum_c28"	ReduceSum
+ 
+same_c28	match_c28"	ReduceSum
+&
+confsum_c28
+one_f
+noconf_c28"Less
+$
+	match_c28
+zerohasm_c28"Greater
+&
+
+noconf_c28
+hasm_c28	valid_c28"And
+.
+	valid_c28
+fl_c28_0
+cur_c29cur_c28"Where
+/
+cur_r1
+padv_dn_c27_0
+zeropdn_c27_0_p"Pad
+G
+pdn_c27_0_p
+
+slo0_c27_0
+
+shi0_c27_0
+	sax_c27_0
+st1	pdn_c27_0"Slice
+/
+cur_r1
+padv_up_c27_0
+zeropup_c27_0_p"Pad
+G
+pup_c27_0_p
+
+slop_c27_0
+
+ship_c27_0
+	sax_c27_0
+st1	pup_c27_0"Slice
+"
+cur_r1
+	pdn_c27_0m1_c27_0"Max
+$
+m1_c27_0
+	pup_c27_0fl_c27_0"Max
+'
+cur_r1
+vpad_c27
+zerovd_c27_p"Pad
+<
+vd_c27_p
+vslo_c27
+vshi_c27
+vsax_c27
+st1vd_c27"Slice
+!
+cur_r1
+vd_c27
+same_c27_m"Mul
+?
+
+same_c27_msame_c27"	ReduceSum*
+axes@ *
+keepdims 
+9
+cur_r1ca_c27"	ReduceSum*
+axes@ *
+keepdims 
+9
+vd_c27cb_c27"	ReduceSum*
+axes@ *
+keepdims 
+
+ca_c27
+cb_c27both_c27"Mul
+#
+both_c27
+same_c27conf_c27"Sub
+"
+conf_c27confsum_c27"	ReduceSum
+ 
+same_c27	match_c27"	ReduceSum
+&
+confsum_c27
+one_f
+noconf_c27"Less
+$
+	match_c27
+zerohasm_c27"Greater
+&
+
+noconf_c27
+hasm_c27	valid_c27"And
+.
+	valid_c27
+fl_c27_0
+cur_c28cur_c27"Where
+/
+cur_r1
+padv_dn_c26_0
+zeropdn_c26_0_p"Pad
+G
+pdn_c26_0_p
+
+slo0_c26_0
+
+shi0_c26_0
+	sax_c26_0
+st1	pdn_c26_0"Slice
+/
+cur_r1
+padv_up_c26_0
+zeropup_c26_0_p"Pad
+G
+pup_c26_0_p
+
+slop_c26_0
+
+ship_c26_0
+	sax_c26_0
+st1	pup_c26_0"Slice
+"
+cur_r1
+	pdn_c26_0m1_c26_0"Max
+$
+m1_c26_0
+	pup_c26_0fl_c26_0"Max
+'
+cur_r1
+vpad_c26
+zerovd_c26_p"Pad
+<
+vd_c26_p
+vslo_c26
+vshi_c26
+vsax_c26
+st1vd_c26"Slice
+!
+cur_r1
+vd_c26
+same_c26_m"Mul
+?
+
+same_c26_msame_c26"	ReduceSum*
+axes@ *
+keepdims 
+9
+cur_r1ca_c26"	ReduceSum*
+axes@ *
+keepdims 
+9
+vd_c26cb_c26"	ReduceSum*
+axes@ *
+keepdims 
+
+ca_c26
+cb_c26both_c26"Mul
+#
+both_c26
+same_c26conf_c26"Sub
+"
+conf_c26confsum_c26"	ReduceSum
+ 
+same_c26	match_c26"	ReduceSum
+&
+confsum_c26
+one_f
+noconf_c26"Less
+$
+	match_c26
+zerohasm_c26"Greater
+&
+
+noconf_c26
+hasm_c26	valid_c26"And
+.
+	valid_c26
+fl_c26_0
+cur_c27cur_c26"Where
+/
+cur_r1
+padv_dn_c25_0
+zeropdn_c25_0_p"Pad
+G
+pdn_c25_0_p
+
+slo0_c25_0
+
+shi0_c25_0
+	sax_c25_0
+st1	pdn_c25_0"Slice
+/
+cur_r1
+padv_up_c25_0
+zeropup_c25_0_p"Pad
+G
+pup_c25_0_p
+
+slop_c25_0
+
+ship_c25_0
+	sax_c25_0
+st1	pup_c25_0"Slice
+"
+cur_r1
+	pdn_c25_0m1_c25_0"Max
+$
+m1_c25_0
+	pup_c25_0fl_c25_0"Max
+'
+cur_r1
+vpad_c25
+zerovd_c25_p"Pad
+<
+vd_c25_p
+vslo_c25
+vshi_c25
+vsax_c25
+st1vd_c25"Slice
+!
+cur_r1
+vd_c25
+same_c25_m"Mul
+?
+
+same_c25_msame_c25"	ReduceSum*
+axes@ *
+keepdims 
+9
+cur_r1ca_c25"	ReduceSum*
+axes@ *
+keepdims 
+9
+vd_c25cb_c25"	ReduceSum*
+axes@ *
+keepdims 
+
+ca_c25
+cb_c25both_c25"Mul
+#
+both_c25
+same_c25conf_c25"Sub
+"
+conf_c25confsum_c25"	ReduceSum
+ 
+same_c25	match_c25"	ReduceSum
+&
+confsum_c25
+one_f
+noconf_c25"Less
+$
+	match_c25
+zerohasm_c25"Greater
+&
+
+noconf_c25
+hasm_c25	valid_c25"And
+.
+	valid_c25
+fl_c25_0
+cur_c26cur_c25"Where
+/
+cur_r1
+padv_dn_c24_0
+zeropdn_c24_0_p"Pad
+G
+pdn_c24_0_p
+
+slo0_c24_0
+
+shi0_c24_0
+	sax_c24_0
+st1	pdn_c24_0"Slice
+/
+cur_r1
+padv_up_c24_0
+zeropup_c24_0_p"Pad
+G
+pup_c24_0_p
+
+slop_c24_0
+
+ship_c24_0
+	sax_c24_0
+st1	pup_c24_0"Slice
+"
+cur_r1
+	pdn_c24_0m1_c24_0"Max
+$
+m1_c24_0
+	pup_c24_0fl_c24_0"Max
+'
+cur_r1
+vpad_c24
+zerovd_c24_p"Pad
+<
+vd_c24_p
+vslo_c24
+vshi_c24
+vsax_c24
+st1vd_c24"Slice
+!
+cur_r1
+vd_c24
+same_c24_m"Mul
+?
+
+same_c24_msame_c24"	ReduceSum*
+axes@ *
+keepdims 
+9
+cur_r1ca_c24"	ReduceSum*
+axes@ *
+keepdims 
+9
+vd_c24cb_c24"	ReduceSum*
+axes@ *
+keepdims 
+
+ca_c24
+cb_c24both_c24"Mul
+#
+both_c24
+same_c24conf_c24"Sub
+"
+conf_c24confsum_c24"	ReduceSum
+ 
+same_c24	match_c24"	ReduceSum
+&
+confsum_c24
+one_f
+noconf_c24"Less
+$
+	match_c24
+zerohasm_c24"Greater
+&
+
+noconf_c24
+hasm_c24	valid_c24"And
+.
+	valid_c24
+fl_c24_0
+cur_c25cur_c24"Where
+/
+cur_r1
+padv_dn_c23_0
+zeropdn_c23_0_p"Pad
+G
+pdn_c23_0_p
+
+slo0_c23_0
+
+shi0_c23_0
+	sax_c23_0
+st1	pdn_c23_0"Slice
+/
+cur_r1
+padv_up_c23_0
+zeropup_c23_0_p"Pad
+G
+pup_c23_0_p
+
+slop_c23_0
+
+ship_c23_0
+	sax_c23_0
+st1	pup_c23_0"Slice
+"
+cur_r1
+	pdn_c23_0m1_c23_0"Max
+$
+m1_c23_0
+	pup_c23_0fl_c23_0"Max
+'
+cur_r1
+vpad_c23
+zerovd_c23_p"Pad
+<
+vd_c23_p
+vslo_c23
+vshi_c23
+vsax_c23
+st1vd_c23"Slice
+!
+cur_r1
+vd_c23
+same_c23_m"Mul
+?
+
+same_c23_msame_c23"	ReduceSum*
+axes@ *
+keepdims 
+9
+cur_r1ca_c23"	ReduceSum*
+axes@ *
+keepdims 
+9
+vd_c23cb_c23"	ReduceSum*
+axes@ *
+keepdims 
+
+ca_c23
+cb_c23both_c23"Mul
+#
+both_c23
+same_c23conf_c23"Sub
+"
+conf_c23confsum_c23"	ReduceSum
+ 
+same_c23	match_c23"	ReduceSum
+&
+confsum_c23
+one_f
+noconf_c23"Less
+$
+	match_c23
+zerohasm_c23"Greater
+&
+
+noconf_c23
+hasm_c23	valid_c23"And
+.
+	valid_c23
+fl_c23_0
+cur_c24cur_c23"Where
+/
+cur_r1
+padv_dn_c22_0
+zeropdn_c22_0_p"Pad
+G
+pdn_c22_0_p
+
+slo0_c22_0
+
+shi0_c22_0
+	sax_c22_0
+st1	pdn_c22_0"Slice
+/
+cur_r1
+padv_up_c22_0
+zeropup_c22_0_p"Pad
+G
+pup_c22_0_p
+
+slop_c22_0
+
+ship_c22_0
+	sax_c22_0
+st1	pup_c22_0"Slice
+"
+cur_r1
+	pdn_c22_0m1_c22_0"Max
+$
+m1_c22_0
+	pup_c22_0fl_c22_0"Max
+'
+cur_r1
+vpad_c22
+zerovd_c22_p"Pad
+<
+vd_c22_p
+vslo_c22
+vshi_c22
+vsax_c22
+st1vd_c22"Slice
+!
+cur_r1
+vd_c22
+same_c22_m"Mul
+?
+
+same_c22_msame_c22"	ReduceSum*
+axes@ *
+keepdims 
+9
+cur_r1ca_c22"	ReduceSum*
+axes@ *
+keepdims 
+9
+vd_c22cb_c22"	ReduceSum*
+axes@ *
+keepdims 
+
+ca_c22
+cb_c22both_c22"Mul
+#
+both_c22
+same_c22conf_c22"Sub
+"
+conf_c22confsum_c22"	ReduceSum
+ 
+same_c22	match_c22"	ReduceSum
+&
+confsum_c22
+one_f
+noconf_c22"Less
+$
+	match_c22
+zerohasm_c22"Greater
+&
+
+noconf_c22
+hasm_c22	valid_c22"And
+.
+	valid_c22
+fl_c22_0
+cur_c23cur_c22"Where
+/
+cur_r1
+padv_dn_c21_0
+zeropdn_c21_0_p"Pad
+G
+pdn_c21_0_p
+
+slo0_c21_0
+
+shi0_c21_0
+	sax_c21_0
+st1	pdn_c21_0"Slice
+/
+cur_r1
+padv_up_c21_0
+zeropup_c21_0_p"Pad
+G
+pup_c21_0_p
+
+slop_c21_0
+
+ship_c21_0
+	sax_c21_0
+st1	pup_c21_0"Slice
+"
+cur_r1
+	pdn_c21_0m1_c21_0"Max
+$
+m1_c21_0
+	pup_c21_0fl_c21_0"Max
+'
+cur_r1
+vpad_c21
+zerovd_c21_p"Pad
+<
+vd_c21_p
+vslo_c21
+vshi_c21
+vsax_c21
+st1vd_c21"Slice
+!
+cur_r1
+vd_c21
+same_c21_m"Mul
+?
+
+same_c21_msame_c21"	ReduceSum*
+axes@ *
+keepdims 
+9
+cur_r1ca_c21"	ReduceSum*
+axes@ *
+keepdims 
+9
+vd_c21cb_c21"	ReduceSum*
+axes@ *
+keepdims 
+
+ca_c21
+cb_c21both_c21"Mul
+#
+both_c21
+same_c21conf_c21"Sub
+"
+conf_c21confsum_c21"	ReduceSum
+ 
+same_c21	match_c21"	ReduceSum
+&
+confsum_c21
+one_f
+noconf_c21"Less
+$
+	match_c21
+zerohasm_c21"Greater
+&
+
+noconf_c21
+hasm_c21	valid_c21"And
+.
+	valid_c21
+fl_c21_0
+cur_c22cur_c21"Where
+/
+cur_r1
+padv_dn_c20_0
+zeropdn_c20_0_p"Pad
+G
+pdn_c20_0_p
+
+slo0_c20_0
+
+shi0_c20_0
+	sax_c20_0
+st1	pdn_c20_0"Slice
+/
+cur_r1
+padv_up_c20_0
+zeropup_c20_0_p"Pad
+G
+pup_c20_0_p
+
+slop_c20_0
+
+ship_c20_0
+	sax_c20_0
+st1	pup_c20_0"Slice
+"
+cur_r1
+	pdn_c20_0m1_c20_0"Max
+$
+m1_c20_0
+	pup_c20_0fl_c20_0"Max
+'
+cur_r1
+vpad_c20
+zerovd_c20_p"Pad
+<
+vd_c20_p
+vslo_c20
+vshi_c20
+vsax_c20
+st1vd_c20"Slice
+!
+cur_r1
+vd_c20
+same_c20_m"Mul
+?
+
+same_c20_msame_c20"	ReduceSum*
+axes@ *
+keepdims 
+9
+cur_r1ca_c20"	ReduceSum*
+axes@ *
+keepdims 
+9
+vd_c20cb_c20"	ReduceSum*
+axes@ *
+keepdims 
+
+ca_c20
+cb_c20both_c20"Mul
+#
+both_c20
+same_c20conf_c20"Sub
+"
+conf_c20confsum_c20"	ReduceSum
+ 
+same_c20	match_c20"	ReduceSum
+&
+confsum_c20
+one_f
+noconf_c20"Less
+$
+	match_c20
+zerohasm_c20"Greater
+&
+
+noconf_c20
+hasm_c20	valid_c20"And
+.
+	valid_c20
+fl_c20_0
+cur_c21cur_c20"Where
+/
+cur_r1
+padv_dn_c19_0
+zeropdn_c19_0_p"Pad
+G
+pdn_c19_0_p
+
+slo0_c19_0
+
+shi0_c19_0
+	sax_c19_0
+st1	pdn_c19_0"Slice
+/
+cur_r1
+padv_up_c19_0
+zeropup_c19_0_p"Pad
+G
+pup_c19_0_p
+
+slop_c19_0
+
+ship_c19_0
+	sax_c19_0
+st1	pup_c19_0"Slice
+"
+cur_r1
+	pdn_c19_0m1_c19_0"Max
+$
+m1_c19_0
+	pup_c19_0fl_c19_0"Max
+'
+cur_r1
+vpad_c19
+zerovd_c19_p"Pad
+<
+vd_c19_p
+vslo_c19
+vshi_c19
+vsax_c19
+st1vd_c19"Slice
+!
+cur_r1
+vd_c19
+same_c19_m"Mul
+?
+
+same_c19_msame_c19"	ReduceSum*
+axes@ *
+keepdims 
+9
+cur_r1ca_c19"	ReduceSum*
+axes@ *
+keepdims 
+9
+vd_c19cb_c19"	ReduceSum*
+axes@ *
+keepdims 
+
+ca_c19
+cb_c19both_c19"Mul
+#
+both_c19
+same_c19conf_c19"Sub
+"
+conf_c19confsum_c19"	ReduceSum
+ 
+same_c19	match_c19"	ReduceSum
+&
+confsum_c19
+one_f
+noconf_c19"Less
+$
+	match_c19
+zerohasm_c19"Greater
+&
+
+noconf_c19
+hasm_c19	valid_c19"And
+.
+	valid_c19
+fl_c19_0
+cur_c20cur_c19"Where
+/
+cur_r1
+padv_dn_c18_0
+zeropdn_c18_0_p"Pad
+G
+pdn_c18_0_p
+
+slo0_c18_0
+
+shi0_c18_0
+	sax_c18_0
+st1	pdn_c18_0"Slice
+/
+cur_r1
+padv_up_c18_0
+zeropup_c18_0_p"Pad
+G
+pup_c18_0_p
+
+slop_c18_0
+
+ship_c18_0
+	sax_c18_0
+st1	pup_c18_0"Slice
+"
+cur_r1
+	pdn_c18_0m1_c18_0"Max
+$
+m1_c18_0
+	pup_c18_0fl_c18_0"Max
+'
+cur_r1
+vpad_c18
+zerovd_c18_p"Pad
+<
+vd_c18_p
+vslo_c18
+vshi_c18
+vsax_c18
+st1vd_c18"Slice
+!
+cur_r1
+vd_c18
+same_c18_m"Mul
+?
+
+same_c18_msame_c18"	ReduceSum*
+axes@ *
+keepdims 
+9
+cur_r1ca_c18"	ReduceSum*
+axes@ *
+keepdims 
+9
+vd_c18cb_c18"	ReduceSum*
+axes@ *
+keepdims 
+
+ca_c18
+cb_c18both_c18"Mul
+#
+both_c18
+same_c18conf_c18"Sub
+"
+conf_c18confsum_c18"	ReduceSum
+ 
+same_c18	match_c18"	ReduceSum
+&
+confsum_c18
+one_f
+noconf_c18"Less
+$
+	match_c18
+zerohasm_c18"Greater
+&
+
+noconf_c18
+hasm_c18	valid_c18"And
+.
+	valid_c18
+fl_c18_0
+cur_c19cur_c18"Where
+/
+cur_r1
+padv_dn_c17_0
+zeropdn_c17_0_p"Pad
+G
+pdn_c17_0_p
+
+slo0_c17_0
+
+shi0_c17_0
+	sax_c17_0
+st1	pdn_c17_0"Slice
+/
+cur_r1
+padv_up_c17_0
+zeropup_c17_0_p"Pad
+G
+pup_c17_0_p
+
+slop_c17_0
+
+ship_c17_0
+	sax_c17_0
+st1	pup_c17_0"Slice
+"
+cur_r1
+	pdn_c17_0m1_c17_0"Max
+$
+m1_c17_0
+	pup_c17_0fl_c17_0"Max
+'
+cur_r1
+vpad_c17
+zerovd_c17_p"Pad
+<
+vd_c17_p
+vslo_c17
+vshi_c17
+vsax_c17
+st1vd_c17"Slice
+!
+cur_r1
+vd_c17
+same_c17_m"Mul
+?
+
+same_c17_msame_c17"	ReduceSum*
+axes@ *
+keepdims 
+9
+cur_r1ca_c17"	ReduceSum*
+axes@ *
+keepdims 
+9
+vd_c17cb_c17"	ReduceSum*
+axes@ *
+keepdims 
+
+ca_c17
+cb_c17both_c17"Mul
+#
+both_c17
+same_c17conf_c17"Sub
+"
+conf_c17confsum_c17"	ReduceSum
+ 
+same_c17	match_c17"	ReduceSum
+&
+confsum_c17
+one_f
+noconf_c17"Less
+$
+	match_c17
+zerohasm_c17"Greater
+&
+
+noconf_c17
+hasm_c17	valid_c17"And
+.
+	valid_c17
+fl_c17_0
+cur_c18cur_c17"Where
+/
+cur_r1
+padv_dn_c16_0
+zeropdn_c16_0_p"Pad
+G
+pdn_c16_0_p
+
+slo0_c16_0
+
+shi0_c16_0
+	sax_c16_0
+st1	pdn_c16_0"Slice
+/
+cur_r1
+padv_up_c16_0
+zeropup_c16_0_p"Pad
+G
+pup_c16_0_p
+
+slop_c16_0
+
+ship_c16_0
+	sax_c16_0
+st1	pup_c16_0"Slice
+"
+cur_r1
+	pdn_c16_0m1_c16_0"Max
+$
+m1_c16_0
+	pup_c16_0fl_c16_0"Max
+'
+cur_r1
+vpad_c16
+zerovd_c16_p"Pad
+<
+vd_c16_p
+vslo_c16
+vshi_c16
+vsax_c16
+st1vd_c16"Slice
+!
+cur_r1
+vd_c16
+same_c16_m"Mul
+?
+
+same_c16_msame_c16"	ReduceSum*
+axes@ *
+keepdims 
+9
+cur_r1ca_c16"	ReduceSum*
+axes@ *
+keepdims 
+9
+vd_c16cb_c16"	ReduceSum*
+axes@ *
+keepdims 
+
+ca_c16
+cb_c16both_c16"Mul
+#
+both_c16
+same_c16conf_c16"Sub
+"
+conf_c16confsum_c16"	ReduceSum
+ 
+same_c16	match_c16"	ReduceSum
+&
+confsum_c16
+one_f
+noconf_c16"Less
+$
+	match_c16
+zerohasm_c16"Greater
+&
+
+noconf_c16
+hasm_c16	valid_c16"And
+.
+	valid_c16
+fl_c16_0
+cur_c17cur_c16"Where
+/
+cur_r1
+padv_dn_c15_0
+zeropdn_c15_0_p"Pad
+G
+pdn_c15_0_p
+
+slo0_c15_0
+
+shi0_c15_0
+	sax_c15_0
+st1	pdn_c15_0"Slice
+/
+cur_r1
+padv_up_c15_0
+zeropup_c15_0_p"Pad
+G
+pup_c15_0_p
+
+slop_c15_0
+
+ship_c15_0
+	sax_c15_0
+st1	pup_c15_0"Slice
+"
+cur_r1
+	pdn_c15_0m1_c15_0"Max
+$
+m1_c15_0
+	pup_c15_0fl_c15_0"Max
+'
+cur_r1
+vpad_c15
+zerovd_c15_p"Pad
+<
+vd_c15_p
+vslo_c15
+vshi_c15
+vsax_c15
+st1vd_c15"Slice
+!
+cur_r1
+vd_c15
+same_c15_m"Mul
+?
+
+same_c15_msame_c15"	ReduceSum*
+axes@ *
+keepdims 
+9
+cur_r1ca_c15"	ReduceSum*
+axes@ *
+keepdims 
+9
+vd_c15cb_c15"	ReduceSum*
+axes@ *
+keepdims 
+
+ca_c15
+cb_c15both_c15"Mul
+#
+both_c15
+same_c15conf_c15"Sub
+"
+conf_c15confsum_c15"	ReduceSum
+ 
+same_c15	match_c15"	ReduceSum
+&
+confsum_c15
+one_f
+noconf_c15"Less
+$
+	match_c15
+zerohasm_c15"Greater
+&
+
+noconf_c15
+hasm_c15	valid_c15"And
+.
+	valid_c15
+fl_c15_0
+cur_c16cur_c15"Where
+/
+cur_r1
+padv_dn_c14_0
+zeropdn_c14_0_p"Pad
+G
+pdn_c14_0_p
+
+slo0_c14_0
+
+shi0_c14_0
+	sax_c14_0
+st1	pdn_c14_0"Slice
+/
+cur_r1
+padv_up_c14_0
+zeropup_c14_0_p"Pad
+G
+pup_c14_0_p
+
+slop_c14_0
+
+ship_c14_0
+	sax_c14_0
+st1	pup_c14_0"Slice
+"
+cur_r1
+	pdn_c14_0m1_c14_0"Max
+$
+m1_c14_0
+	pup_c14_0fl_c14_0"Max
+1
+fl_c14_0
+padv_dn_c14_1
+zeropdn_c14_1_p"Pad
+G
+pdn_c14_1_p
+
+slo0_c14_1
+
+shi0_c14_1
+	sax_c14_1
+st1	pdn_c14_1"Slice
+1
+fl_c14_0
+padv_up_c14_1
+zeropup_c14_1_p"Pad
+G
+pup_c14_1_p
+
+slop_c14_1
+
+ship_c14_1
+	sax_c14_1
+st1	pup_c14_1"Slice
+$
+fl_c14_0
+	pdn_c14_1m1_c14_1"Max
+$
+m1_c14_1
+	pup_c14_1fl_c14_1"Max
+'
+cur_r1
+vpad_c14
+zerovd_c14_p"Pad
+<
+vd_c14_p
+vslo_c14
+vshi_c14
+vsax_c14
+st1vd_c14"Slice
+!
+cur_r1
+vd_c14
+same_c14_m"Mul
+?
+
+same_c14_msame_c14"	ReduceSum*
+axes@ *
+keepdims 
+9
+cur_r1ca_c14"	ReduceSum*
+axes@ *
+keepdims 
+9
+vd_c14cb_c14"	ReduceSum*
+axes@ *
+keepdims 
+
+ca_c14
+cb_c14both_c14"Mul
+#
+both_c14
+same_c14conf_c14"Sub
+"
+conf_c14confsum_c14"	ReduceSum
+ 
+same_c14	match_c14"	ReduceSum
+&
+confsum_c14
+one_f
+noconf_c14"Less
+$
+	match_c14
+zerohasm_c14"Greater
+&
+
+noconf_c14
+hasm_c14	valid_c14"And
+.
+	valid_c14
+fl_c14_1
+cur_c15cur_c14"Where
+/
+cur_r1
+padv_dn_c13_0
+zeropdn_c13_0_p"Pad
+G
+pdn_c13_0_p
+
+slo0_c13_0
+
+shi0_c13_0
+	sax_c13_0
+st1	pdn_c13_0"Slice
+/
+cur_r1
+padv_up_c13_0
+zeropup_c13_0_p"Pad
+G
+pup_c13_0_p
+
+slop_c13_0
+
+ship_c13_0
+	sax_c13_0
+st1	pup_c13_0"Slice
+"
+cur_r1
+	pdn_c13_0m1_c13_0"Max
+$
+m1_c13_0
+	pup_c13_0fl_c13_0"Max
+1
+fl_c13_0
+padv_dn_c13_1
+zeropdn_c13_1_p"Pad
+G
+pdn_c13_1_p
+
+slo0_c13_1
+
+shi0_c13_1
+	sax_c13_1
+st1	pdn_c13_1"Slice
+1
+fl_c13_0
+padv_up_c13_1
+zeropup_c13_1_p"Pad
+G
+pup_c13_1_p
+
+slop_c13_1
+
+ship_c13_1
+	sax_c13_1
+st1	pup_c13_1"Slice
+$
+fl_c13_0
+	pdn_c13_1m1_c13_1"Max
+$
+m1_c13_1
+	pup_c13_1fl_c13_1"Max
+'
+cur_r1
+vpad_c13
+zerovd_c13_p"Pad
+<
+vd_c13_p
+vslo_c13
+vshi_c13
+vsax_c13
+st1vd_c13"Slice
+!
+cur_r1
+vd_c13
+same_c13_m"Mul
+?
+
+same_c13_msame_c13"	ReduceSum*
+axes@ *
+keepdims 
+9
+cur_r1ca_c13"	ReduceSum*
+axes@ *
+keepdims 
+9
+vd_c13cb_c13"	ReduceSum*
+axes@ *
+keepdims 
+
+ca_c13
+cb_c13both_c13"Mul
+#
+both_c13
+same_c13conf_c13"Sub
+"
+conf_c13confsum_c13"	ReduceSum
+ 
+same_c13	match_c13"	ReduceSum
+&
+confsum_c13
+one_f
+noconf_c13"Less
+$
+	match_c13
+zerohasm_c13"Greater
+&
+
+noconf_c13
+hasm_c13	valid_c13"And
+.
+	valid_c13
+fl_c13_1
+cur_c14cur_c13"Where
+/
+cur_r1
+padv_dn_c12_0
+zeropdn_c12_0_p"Pad
+G
+pdn_c12_0_p
+
+slo0_c12_0
+
+shi0_c12_0
+	sax_c12_0
+st1	pdn_c12_0"Slice
+/
+cur_r1
+padv_up_c12_0
+zeropup_c12_0_p"Pad
+G
+pup_c12_0_p
+
+slop_c12_0
+
+ship_c12_0
+	sax_c12_0
+st1	pup_c12_0"Slice
+"
+cur_r1
+	pdn_c12_0m1_c12_0"Max
+$
+m1_c12_0
+	pup_c12_0fl_c12_0"Max
+1
+fl_c12_0
+padv_dn_c12_1
+zeropdn_c12_1_p"Pad
+G
+pdn_c12_1_p
+
+slo0_c12_1
+
+shi0_c12_1
+	sax_c12_1
+st1	pdn_c12_1"Slice
+1
+fl_c12_0
+padv_up_c12_1
+zeropup_c12_1_p"Pad
+G
+pup_c12_1_p
+
+slop_c12_1
+
+ship_c12_1
+	sax_c12_1
+st1	pup_c12_1"Slice
+$
+fl_c12_0
+	pdn_c12_1m1_c12_1"Max
+$
+m1_c12_1
+	pup_c12_1fl_c12_1"Max
+'
+cur_r1
+vpad_c12
+zerovd_c12_p"Pad
+<
+vd_c12_p
+vslo_c12
+vshi_c12
+vsax_c12
+st1vd_c12"Slice
+!
+cur_r1
+vd_c12
+same_c12_m"Mul
+?
+
+same_c12_msame_c12"	ReduceSum*
+axes@ *
+keepdims 
+9
+cur_r1ca_c12"	ReduceSum*
+axes@ *
+keepdims 
+9
+vd_c12cb_c12"	ReduceSum*
+axes@ *
+keepdims 
+
+ca_c12
+cb_c12both_c12"Mul
+#
+both_c12
+same_c12conf_c12"Sub
+"
+conf_c12confsum_c12"	ReduceSum
+ 
+same_c12	match_c12"	ReduceSum
+&
+confsum_c12
+one_f
+noconf_c12"Less
+$
+	match_c12
+zerohasm_c12"Greater
+&
+
+noconf_c12
+hasm_c12	valid_c12"And
+.
+	valid_c12
+fl_c12_1
+cur_c13cur_c12"Where
+/
+cur_r1
+padv_dn_c11_0
+zeropdn_c11_0_p"Pad
+G
+pdn_c11_0_p
+
+slo0_c11_0
+
+shi0_c11_0
+	sax_c11_0
+st1	pdn_c11_0"Slice
+/
+cur_r1
+padv_up_c11_0
+zeropup_c11_0_p"Pad
+G
+pup_c11_0_p
+
+slop_c11_0
+
+ship_c11_0
+	sax_c11_0
+st1	pup_c11_0"Slice
+"
+cur_r1
+	pdn_c11_0m1_c11_0"Max
+$
+m1_c11_0
+	pup_c11_0fl_c11_0"Max
+1
+fl_c11_0
+padv_dn_c11_1
+zeropdn_c11_1_p"Pad
+G
+pdn_c11_1_p
+
+slo0_c11_1
+
+shi0_c11_1
+	sax_c11_1
+st1	pdn_c11_1"Slice
+1
+fl_c11_0
+padv_up_c11_1
+zeropup_c11_1_p"Pad
+G
+pup_c11_1_p
+
+slop_c11_1
+
+ship_c11_1
+	sax_c11_1
+st1	pup_c11_1"Slice
+$
+fl_c11_0
+	pdn_c11_1m1_c11_1"Max
+$
+m1_c11_1
+	pup_c11_1fl_c11_1"Max
+'
+cur_r1
+vpad_c11
+zerovd_c11_p"Pad
+<
+vd_c11_p
+vslo_c11
+vshi_c11
+vsax_c11
+st1vd_c11"Slice
+!
+cur_r1
+vd_c11
+same_c11_m"Mul
+?
+
+same_c11_msame_c11"	ReduceSum*
+axes@ *
+keepdims 
+9
+cur_r1ca_c11"	ReduceSum*
+axes@ *
+keepdims 
+9
+vd_c11cb_c11"	ReduceSum*
+axes@ *
+keepdims 
+
+ca_c11
+cb_c11both_c11"Mul
+#
+both_c11
+same_c11conf_c11"Sub
+"
+conf_c11confsum_c11"	ReduceSum
+ 
+same_c11	match_c11"	ReduceSum
+&
+confsum_c11
+one_f
+noconf_c11"Less
+$
+	match_c11
+zerohasm_c11"Greater
+&
+
+noconf_c11
+hasm_c11	valid_c11"And
+.
+	valid_c11
+fl_c11_1
+cur_c12cur_c11"Where
+/
+cur_r1
+padv_dn_c10_0
+zeropdn_c10_0_p"Pad
+G
+pdn_c10_0_p
+
+slo0_c10_0
+
+shi0_c10_0
+	sax_c10_0
+st1	pdn_c10_0"Slice
+/
+cur_r1
+padv_up_c10_0
+zeropup_c10_0_p"Pad
+G
+pup_c10_0_p
+
+slop_c10_0
+
+ship_c10_0
+	sax_c10_0
+st1	pup_c10_0"Slice
+"
+cur_r1
+	pdn_c10_0m1_c10_0"Max
+$
+m1_c10_0
+	pup_c10_0fl_c10_0"Max
+1
+fl_c10_0
+padv_dn_c10_1
+zeropdn_c10_1_p"Pad
+G
+pdn_c10_1_p
+
+slo0_c10_1
+
+shi0_c10_1
+	sax_c10_1
+st1	pdn_c10_1"Slice
+1
+fl_c10_0
+padv_up_c10_1
+zeropup_c10_1_p"Pad
+G
+pup_c10_1_p
+
+slop_c10_1
+
+ship_c10_1
+	sax_c10_1
+st1	pup_c10_1"Slice
+$
+fl_c10_0
+	pdn_c10_1m1_c10_1"Max
+$
+m1_c10_1
+	pup_c10_1fl_c10_1"Max
+'
+cur_r1
+vpad_c10
+zerovd_c10_p"Pad
+<
+vd_c10_p
+vslo_c10
+vshi_c10
+vsax_c10
+st1vd_c10"Slice
+!
+cur_r1
+vd_c10
+same_c10_m"Mul
+?
+
+same_c10_msame_c10"	ReduceSum*
+axes@ *
+keepdims 
+9
+cur_r1ca_c10"	ReduceSum*
+axes@ *
+keepdims 
+9
+vd_c10cb_c10"	ReduceSum*
+axes@ *
+keepdims 
+
+ca_c10
+cb_c10both_c10"Mul
+#
+both_c10
+same_c10conf_c10"Sub
+"
+conf_c10confsum_c10"	ReduceSum
+ 
+same_c10	match_c10"	ReduceSum
+&
+confsum_c10
+one_f
+noconf_c10"Less
+$
+	match_c10
+zerohasm_c10"Greater
+&
+
+noconf_c10
+hasm_c10	valid_c10"And
+.
+	valid_c10
+fl_c10_1
+cur_c11cur_c10"Where
+-
+cur_r1
+padv_dn_c9_0
+zero
+pdn_c9_0_p"Pad
+B
+
+pdn_c9_0_p
+	slo0_c9_0
+	shi0_c9_0
+sax_c9_0
+st1pdn_c9_0"Slice
+-
+cur_r1
+padv_up_c9_0
+zero
+pup_c9_0_p"Pad
+B
+
+pup_c9_0_p
+	slop_c9_0
+	ship_c9_0
+sax_c9_0
+st1pup_c9_0"Slice
+ 
+cur_r1
+pdn_c9_0m1_c9_0"Max
+!
+m1_c9_0
+pup_c9_0fl_c9_0"Max
+.
+fl_c9_0
+padv_dn_c9_1
+zero
+pdn_c9_1_p"Pad
+B
+
+pdn_c9_1_p
+	slo0_c9_1
+	shi0_c9_1
+sax_c9_1
+st1pdn_c9_1"Slice
+.
+fl_c9_0
+padv_up_c9_1
+zero
+pup_c9_1_p"Pad
+B
+
+pup_c9_1_p
+	slop_c9_1
+	ship_c9_1
+sax_c9_1
+st1pup_c9_1"Slice
+!
+fl_c9_0
+pdn_c9_1m1_c9_1"Max
+!
+m1_c9_1
+pup_c9_1fl_c9_1"Max
+%
+cur_r1
+vpad_c9
+zerovd_c9_p"Pad
+7
+vd_c9_p
+vslo_c9
+vshi_c9
+vsax_c9
+st1vd_c9"Slice
+
+cur_r1
+vd_c9	same_c9_m"Mul
+=
+	same_c9_msame_c9"	ReduceSum*
+axes@ *
+keepdims 
+8
+cur_r1ca_c9"	ReduceSum*
+axes@ *
+keepdims 
+7
+vd_c9cb_c9"	ReduceSum*
+axes@ *
+keepdims 
+
+ca_c9
+cb_c9both_c9"Mul
+ 
+both_c9
+same_c9conf_c9"Sub
+ 
+conf_c9
+confsum_c9"	ReduceSum
+
+same_c9match_c9"	ReduceSum
+$
+
+confsum_c9
+one_f	noconf_c9"Less
+"
+match_c9
+zerohasm_c9"Greater
+#
+	noconf_c9
+hasm_c9valid_c9"And
++
+valid_c9
+fl_c9_1
+cur_c10cur_c9"Where
+-
+cur_r1
+padv_dn_c8_0
+zero
+pdn_c8_0_p"Pad
+B
+
+pdn_c8_0_p
+	slo0_c8_0
+	shi0_c8_0
+sax_c8_0
+st1pdn_c8_0"Slice
+-
+cur_r1
+padv_up_c8_0
+zero
+pup_c8_0_p"Pad
+B
+
+pup_c8_0_p
+	slop_c8_0
+	ship_c8_0
+sax_c8_0
+st1pup_c8_0"Slice
+ 
+cur_r1
+pdn_c8_0m1_c8_0"Max
+!
+m1_c8_0
+pup_c8_0fl_c8_0"Max
+.
+fl_c8_0
+padv_dn_c8_1
+zero
+pdn_c8_1_p"Pad
+B
+
+pdn_c8_1_p
+	slo0_c8_1
+	shi0_c8_1
+sax_c8_1
+st1pdn_c8_1"Slice
+.
+fl_c8_0
+padv_up_c8_1
+zero
+pup_c8_1_p"Pad
+B
+
+pup_c8_1_p
+	slop_c8_1
+	ship_c8_1
+sax_c8_1
+st1pup_c8_1"Slice
+!
+fl_c8_0
+pdn_c8_1m1_c8_1"Max
+!
+m1_c8_1
+pup_c8_1fl_c8_1"Max
+%
+cur_r1
+vpad_c8
+zerovd_c8_p"Pad
+7
+vd_c8_p
+vslo_c8
+vshi_c8
+vsax_c8
+st1vd_c8"Slice
+
+cur_r1
+vd_c8	same_c8_m"Mul
+=
+	same_c8_msame_c8"	ReduceSum*
+axes@ *
+keepdims 
+8
+cur_r1ca_c8"	ReduceSum*
+axes@ *
+keepdims 
+7
+vd_c8cb_c8"	ReduceSum*
+axes@ *
+keepdims 
+
+ca_c8
+cb_c8both_c8"Mul
+ 
+both_c8
+same_c8conf_c8"Sub
+ 
+conf_c8
+confsum_c8"	ReduceSum
+
+same_c8match_c8"	ReduceSum
+$
+
+confsum_c8
+one_f	noconf_c8"Less
+"
+match_c8
+zerohasm_c8"Greater
+#
+	noconf_c8
+hasm_c8valid_c8"And
+*
+valid_c8
+fl_c8_1
+cur_c9cur_c8"Where
+-
+cur_r1
+padv_dn_c7_0
+zero
+pdn_c7_0_p"Pad
+B
+
+pdn_c7_0_p
+	slo0_c7_0
+	shi0_c7_0
+sax_c7_0
+st1pdn_c7_0"Slice
+-
+cur_r1
+padv_up_c7_0
+zero
+pup_c7_0_p"Pad
+B
+
+pup_c7_0_p
+	slop_c7_0
+	ship_c7_0
+sax_c7_0
+st1pup_c7_0"Slice
+ 
+cur_r1
+pdn_c7_0m1_c7_0"Max
+!
+m1_c7_0
+pup_c7_0fl_c7_0"Max
+.
+fl_c7_0
+padv_dn_c7_1
+zero
+pdn_c7_1_p"Pad
+B
+
+pdn_c7_1_p
+	slo0_c7_1
+	shi0_c7_1
+sax_c7_1
+st1pdn_c7_1"Slice
+.
+fl_c7_0
+padv_up_c7_1
+zero
+pup_c7_1_p"Pad
+B
+
+pup_c7_1_p
+	slop_c7_1
+	ship_c7_1
+sax_c7_1
+st1pup_c7_1"Slice
+!
+fl_c7_0
+pdn_c7_1m1_c7_1"Max
+!
+m1_c7_1
+pup_c7_1fl_c7_1"Max
+.
+fl_c7_1
+padv_dn_c7_2
+zero
+pdn_c7_2_p"Pad
+B
+
+pdn_c7_2_p
+	slo0_c7_2
+	shi0_c7_2
+sax_c7_2
+st1pdn_c7_2"Slice
+.
+fl_c7_1
+padv_up_c7_2
+zero
+pup_c7_2_p"Pad
+B
+
+pup_c7_2_p
+	slop_c7_2
+	ship_c7_2
+sax_c7_2
+st1pup_c7_2"Slice
+!
+fl_c7_1
+pdn_c7_2m1_c7_2"Max
+!
+m1_c7_2
+pup_c7_2fl_c7_2"Max
+%
+cur_r1
+vpad_c7
+zerovd_c7_p"Pad
+7
+vd_c7_p
+vslo_c7
+vshi_c7
+vsax_c7
+st1vd_c7"Slice
+
+cur_r1
+vd_c7	same_c7_m"Mul
+=
+	same_c7_msame_c7"	ReduceSum*
+axes@ *
+keepdims 
+8
+cur_r1ca_c7"	ReduceSum*
+axes@ *
+keepdims 
+7
+vd_c7cb_c7"	ReduceSum*
+axes@ *
+keepdims 
+
+ca_c7
+cb_c7both_c7"Mul
+ 
+both_c7
+same_c7conf_c7"Sub
+ 
+conf_c7
+confsum_c7"	ReduceSum
+
+same_c7match_c7"	ReduceSum
+$
+
+confsum_c7
+one_f	noconf_c7"Less
+"
+match_c7
+zerohasm_c7"Greater
+#
+	noconf_c7
+hasm_c7valid_c7"And
+*
+valid_c7
+fl_c7_2
+cur_c8cur_c7"Where
+-
+cur_r1
+padv_dn_c6_0
+zero
+pdn_c6_0_p"Pad
+B
+
+pdn_c6_0_p
+	slo0_c6_0
+	shi0_c6_0
+sax_c6_0
+st1pdn_c6_0"Slice
+-
+cur_r1
+padv_up_c6_0
+zero
+pup_c6_0_p"Pad
+B
+
+pup_c6_0_p
+	slop_c6_0
+	ship_c6_0
+sax_c6_0
+st1pup_c6_0"Slice
+ 
+cur_r1
+pdn_c6_0m1_c6_0"Max
+!
+m1_c6_0
+pup_c6_0fl_c6_0"Max
+.
+fl_c6_0
+padv_dn_c6_1
+zero
+pdn_c6_1_p"Pad
+B
+
+pdn_c6_1_p
+	slo0_c6_1
+	shi0_c6_1
+sax_c6_1
+st1pdn_c6_1"Slice
+.
+fl_c6_0
+padv_up_c6_1
+zero
+pup_c6_1_p"Pad
+B
+
+pup_c6_1_p
+	slop_c6_1
+	ship_c6_1
+sax_c6_1
+st1pup_c6_1"Slice
+!
+fl_c6_0
+pdn_c6_1m1_c6_1"Max
+!
+m1_c6_1
+pup_c6_1fl_c6_1"Max
+.
+fl_c6_1
+padv_dn_c6_2
+zero
+pdn_c6_2_p"Pad
+B
+
+pdn_c6_2_p
+	slo0_c6_2
+	shi0_c6_2
+sax_c6_2
+st1pdn_c6_2"Slice
+.
+fl_c6_1
+padv_up_c6_2
+zero
+pup_c6_2_p"Pad
+B
+
+pup_c6_2_p
+	slop_c6_2
+	ship_c6_2
+sax_c6_2
+st1pup_c6_2"Slice
+!
+fl_c6_1
+pdn_c6_2m1_c6_2"Max
+!
+m1_c6_2
+pup_c6_2fl_c6_2"Max
+%
+cur_r1
+vpad_c6
+zerovd_c6_p"Pad
+7
+vd_c6_p
+vslo_c6
+vshi_c6
+vsax_c6
+st1vd_c6"Slice
+
+cur_r1
+vd_c6	same_c6_m"Mul
+=
+	same_c6_msame_c6"	ReduceSum*
+axes@ *
+keepdims 
+8
+cur_r1ca_c6"	ReduceSum*
+axes@ *
+keepdims 
+7
+vd_c6cb_c6"	ReduceSum*
+axes@ *
+keepdims 
+
+ca_c6
+cb_c6both_c6"Mul
+ 
+both_c6
+same_c6conf_c6"Sub
+ 
+conf_c6
+confsum_c6"	ReduceSum
+
+same_c6match_c6"	ReduceSum
+$
+
+confsum_c6
+one_f	noconf_c6"Less
+"
+match_c6
+zerohasm_c6"Greater
+#
+	noconf_c6
+hasm_c6valid_c6"And
+*
+valid_c6
+fl_c6_2
+cur_c7cur_c6"Where
+-
+cur_r1
+padv_dn_c5_0
+zero
+pdn_c5_0_p"Pad
+B
+
+pdn_c5_0_p
+	slo0_c5_0
+	shi0_c5_0
+sax_c5_0
+st1pdn_c5_0"Slice
+-
+cur_r1
+padv_up_c5_0
+zero
+pup_c5_0_p"Pad
+B
+
+pup_c5_0_p
+	slop_c5_0
+	ship_c5_0
+sax_c5_0
+st1pup_c5_0"Slice
+ 
+cur_r1
+pdn_c5_0m1_c5_0"Max
+!
+m1_c5_0
+pup_c5_0fl_c5_0"Max
+.
+fl_c5_0
+padv_dn_c5_1
+zero
+pdn_c5_1_p"Pad
+B
+
+pdn_c5_1_p
+	slo0_c5_1
+	shi0_c5_1
+sax_c5_1
+st1pdn_c5_1"Slice
+.
+fl_c5_0
+padv_up_c5_1
+zero
+pup_c5_1_p"Pad
+B
+
+pup_c5_1_p
+	slop_c5_1
+	ship_c5_1
+sax_c5_1
+st1pup_c5_1"Slice
+!
+fl_c5_0
+pdn_c5_1m1_c5_1"Max
+!
+m1_c5_1
+pup_c5_1fl_c5_1"Max
+.
+fl_c5_1
+padv_dn_c5_2
+zero
+pdn_c5_2_p"Pad
+B
+
+pdn_c5_2_p
+	slo0_c5_2
+	shi0_c5_2
+sax_c5_2
+st1pdn_c5_2"Slice
+.
+fl_c5_1
+padv_up_c5_2
+zero
+pup_c5_2_p"Pad
+B
+
+pup_c5_2_p
+	slop_c5_2
+	ship_c5_2
+sax_c5_2
+st1pup_c5_2"Slice
+!
+fl_c5_1
+pdn_c5_2m1_c5_2"Max
+!
+m1_c5_2
+pup_c5_2fl_c5_2"Max
+%
+cur_r1
+vpad_c5
+zerovd_c5_p"Pad
+7
+vd_c5_p
+vslo_c5
+vshi_c5
+vsax_c5
+st1vd_c5"Slice
+
+cur_r1
+vd_c5	same_c5_m"Mul
+=
+	same_c5_msame_c5"	ReduceSum*
+axes@ *
+keepdims 
+8
+cur_r1ca_c5"	ReduceSum*
+axes@ *
+keepdims 
+7
+vd_c5cb_c5"	ReduceSum*
+axes@ *
+keepdims 
+
+ca_c5
+cb_c5both_c5"Mul
+ 
+both_c5
+same_c5conf_c5"Sub
+ 
+conf_c5
+confsum_c5"	ReduceSum
+
+same_c5match_c5"	ReduceSum
+$
+
+confsum_c5
+one_f	noconf_c5"Less
+"
+match_c5
+zerohasm_c5"Greater
+#
+	noconf_c5
+hasm_c5valid_c5"And
+*
+valid_c5
+fl_c5_2
+cur_c6cur_c5"Where
+-
+cur_r1
+padv_dn_c4_0
+zero
+pdn_c4_0_p"Pad
+B
+
+pdn_c4_0_p
+	slo0_c4_0
+	shi0_c4_0
+sax_c4_0
+st1pdn_c4_0"Slice
+-
+cur_r1
+padv_up_c4_0
+zero
+pup_c4_0_p"Pad
+B
+
+pup_c4_0_p
+	slop_c4_0
+	ship_c4_0
+sax_c4_0
+st1pup_c4_0"Slice
+ 
+cur_r1
+pdn_c4_0m1_c4_0"Max
+!
+m1_c4_0
+pup_c4_0fl_c4_0"Max
+.
+fl_c4_0
+padv_dn_c4_1
+zero
+pdn_c4_1_p"Pad
+B
+
+pdn_c4_1_p
+	slo0_c4_1
+	shi0_c4_1
+sax_c4_1
+st1pdn_c4_1"Slice
+.
+fl_c4_0
+padv_up_c4_1
+zero
+pup_c4_1_p"Pad
+B
+
+pup_c4_1_p
+	slop_c4_1
+	ship_c4_1
+sax_c4_1
+st1pup_c4_1"Slice
+!
+fl_c4_0
+pdn_c4_1m1_c4_1"Max
+!
+m1_c4_1
+pup_c4_1fl_c4_1"Max
+.
+fl_c4_1
+padv_dn_c4_2
+zero
+pdn_c4_2_p"Pad
+B
+
+pdn_c4_2_p
+	slo0_c4_2
+	shi0_c4_2
+sax_c4_2
+st1pdn_c4_2"Slice
+.
+fl_c4_1
+padv_up_c4_2
+zero
+pup_c4_2_p"Pad
+B
+
+pup_c4_2_p
+	slop_c4_2
+	ship_c4_2
+sax_c4_2
+st1pup_c4_2"Slice
+!
+fl_c4_1
+pdn_c4_2m1_c4_2"Max
+!
+m1_c4_2
+pup_c4_2fl_c4_2"Max
+%
+cur_r1
+vpad_c4
+zerovd_c4_p"Pad
+7
+vd_c4_p
+vslo_c4
+vshi_c4
+vsax_c4
+st1vd_c4"Slice
+
+cur_r1
+vd_c4	same_c4_m"Mul
+=
+	same_c4_msame_c4"	ReduceSum*
+axes@ *
+keepdims 
+8
+cur_r1ca_c4"	ReduceSum*
+axes@ *
+keepdims 
+7
+vd_c4cb_c4"	ReduceSum*
+axes@ *
+keepdims 
+
+ca_c4
+cb_c4both_c4"Mul
+ 
+both_c4
+same_c4conf_c4"Sub
+ 
+conf_c4
+confsum_c4"	ReduceSum
+
+same_c4match_c4"	ReduceSum
+$
+
+confsum_c4
+one_f	noconf_c4"Less
+"
+match_c4
+zerohasm_c4"Greater
+#
+	noconf_c4
+hasm_c4valid_c4"And
+*
+valid_c4
+fl_c4_2
+cur_c5cur_c4"Where
+-
+cur_r1
+padv_dn_c3_0
+zero
+pdn_c3_0_p"Pad
+B
+
+pdn_c3_0_p
+	slo0_c3_0
+	shi0_c3_0
+sax_c3_0
+st1pdn_c3_0"Slice
+-
+cur_r1
+padv_up_c3_0
+zero
+pup_c3_0_p"Pad
+B
+
+pup_c3_0_p
+	slop_c3_0
+	ship_c3_0
+sax_c3_0
+st1pup_c3_0"Slice
+ 
+cur_r1
+pdn_c3_0m1_c3_0"Max
+!
+m1_c3_0
+pup_c3_0fl_c3_0"Max
+.
+fl_c3_0
+padv_dn_c3_1
+zero
+pdn_c3_1_p"Pad
+B
+
+pdn_c3_1_p
+	slo0_c3_1
+	shi0_c3_1
+sax_c3_1
+st1pdn_c3_1"Slice
+.
+fl_c3_0
+padv_up_c3_1
+zero
+pup_c3_1_p"Pad
+B
+
+pup_c3_1_p
+	slop_c3_1
+	ship_c3_1
+sax_c3_1
+st1pup_c3_1"Slice
+!
+fl_c3_0
+pdn_c3_1m1_c3_1"Max
+!
+m1_c3_1
+pup_c3_1fl_c3_1"Max
+.
+fl_c3_1
+padv_dn_c3_2
+zero
+pdn_c3_2_p"Pad
+B
+
+pdn_c3_2_p
+	slo0_c3_2
+	shi0_c3_2
+sax_c3_2
+st1pdn_c3_2"Slice
+.
+fl_c3_1
+padv_up_c3_2
+zero
+pup_c3_2_p"Pad
+B
+
+pup_c3_2_p
+	slop_c3_2
+	ship_c3_2
+sax_c3_2
+st1pup_c3_2"Slice
+!
+fl_c3_1
+pdn_c3_2m1_c3_2"Max
+!
+m1_c3_2
+pup_c3_2fl_c3_2"Max
+.
+fl_c3_2
+padv_dn_c3_3
+zero
+pdn_c3_3_p"Pad
+B
+
+pdn_c3_3_p
+	slo0_c3_3
+	shi0_c3_3
+sax_c3_3
+st1pdn_c3_3"Slice
+.
+fl_c3_2
+padv_up_c3_3
+zero
+pup_c3_3_p"Pad
+B
+
+pup_c3_3_p
+	slop_c3_3
+	ship_c3_3
+sax_c3_3
+st1pup_c3_3"Slice
+!
+fl_c3_2
+pdn_c3_3m1_c3_3"Max
+!
+m1_c3_3
+pup_c3_3fl_c3_3"Max
+%
+cur_r1
+vpad_c3
+zerovd_c3_p"Pad
+7
+vd_c3_p
+vslo_c3
+vshi_c3
+vsax_c3
+st1vd_c3"Slice
+
+cur_r1
+vd_c3	same_c3_m"Mul
+=
+	same_c3_msame_c3"	ReduceSum*
+axes@ *
+keepdims 
+8
+cur_r1ca_c3"	ReduceSum*
+axes@ *
+keepdims 
+7
+vd_c3cb_c3"	ReduceSum*
+axes@ *
+keepdims 
+
+ca_c3
+cb_c3both_c3"Mul
+ 
+both_c3
+same_c3conf_c3"Sub
+ 
+conf_c3
+confsum_c3"	ReduceSum
+
+same_c3match_c3"	ReduceSum
+$
+
+confsum_c3
+one_f	noconf_c3"Less
+"
+match_c3
+zerohasm_c3"Greater
+#
+	noconf_c3
+hasm_c3valid_c3"And
+*
+valid_c3
+fl_c3_3
+cur_c4cur_c3"Where
+-
+cur_r1
+padv_dn_c2_0
+zero
+pdn_c2_0_p"Pad
+B
+
+pdn_c2_0_p
+	slo0_c2_0
+	shi0_c2_0
+sax_c2_0
+st1pdn_c2_0"Slice
+-
+cur_r1
+padv_up_c2_0
+zero
+pup_c2_0_p"Pad
+B
+
+pup_c2_0_p
+	slop_c2_0
+	ship_c2_0
+sax_c2_0
+st1pup_c2_0"Slice
+ 
+cur_r1
+pdn_c2_0m1_c2_0"Max
+!
+m1_c2_0
+pup_c2_0fl_c2_0"Max
+.
+fl_c2_0
+padv_dn_c2_1
+zero
+pdn_c2_1_p"Pad
+B
+
+pdn_c2_1_p
+	slo0_c2_1
+	shi0_c2_1
+sax_c2_1
+st1pdn_c2_1"Slice
+.
+fl_c2_0
+padv_up_c2_1
+zero
+pup_c2_1_p"Pad
+B
+
+pup_c2_1_p
+	slop_c2_1
+	ship_c2_1
+sax_c2_1
+st1pup_c2_1"Slice
+!
+fl_c2_0
+pdn_c2_1m1_c2_1"Max
+!
+m1_c2_1
+pup_c2_1fl_c2_1"Max
+.
+fl_c2_1
+padv_dn_c2_2
+zero
+pdn_c2_2_p"Pad
+B
+
+pdn_c2_2_p
+	slo0_c2_2
+	shi0_c2_2
+sax_c2_2
+st1pdn_c2_2"Slice
+.
+fl_c2_1
+padv_up_c2_2
+zero
+pup_c2_2_p"Pad
+B
+
+pup_c2_2_p
+	slop_c2_2
+	ship_c2_2
+sax_c2_2
+st1pup_c2_2"Slice
+!
+fl_c2_1
+pdn_c2_2m1_c2_2"Max
+!
+m1_c2_2
+pup_c2_2fl_c2_2"Max
+.
+fl_c2_2
+padv_dn_c2_3
+zero
+pdn_c2_3_p"Pad
+B
+
+pdn_c2_3_p
+	slo0_c2_3
+	shi0_c2_3
+sax_c2_3
+st1pdn_c2_3"Slice
+.
+fl_c2_2
+padv_up_c2_3
+zero
+pup_c2_3_p"Pad
+B
+
+pup_c2_3_p
+	slop_c2_3
+	ship_c2_3
+sax_c2_3
+st1pup_c2_3"Slice
+!
+fl_c2_2
+pdn_c2_3m1_c2_3"Max
+!
+m1_c2_3
+pup_c2_3fl_c2_3"Max
+%
+cur_r1
+vpad_c2
+zerovd_c2_p"Pad
+7
+vd_c2_p
+vslo_c2
+vshi_c2
+vsax_c2
+st1vd_c2"Slice
+
+cur_r1
+vd_c2	same_c2_m"Mul
+=
+	same_c2_msame_c2"	ReduceSum*
+axes@ *
+keepdims 
+8
+cur_r1ca_c2"	ReduceSum*
+axes@ *
+keepdims 
+7
+vd_c2cb_c2"	ReduceSum*
+axes@ *
+keepdims 
+
+ca_c2
+cb_c2both_c2"Mul
+ 
+both_c2
+same_c2conf_c2"Sub
+ 
+conf_c2
+confsum_c2"	ReduceSum
+
+same_c2match_c2"	ReduceSum
+$
+
+confsum_c2
+one_f	noconf_c2"Less
+"
+match_c2
+zerohasm_c2"Greater
+#
+	noconf_c2
+hasm_c2valid_c2"And
+*
+valid_c2
+fl_c2_3
+cur_c3cur_c2"Where
+-
+cur_r1
+padv_dn_c1_0
+zero
+pdn_c1_0_p"Pad
+B
+
+pdn_c1_0_p
+	slo0_c1_0
+	shi0_c1_0
+sax_c1_0
+st1pdn_c1_0"Slice
+-
+cur_r1
+padv_up_c1_0
+zero
+pup_c1_0_p"Pad
+B
+
+pup_c1_0_p
+	slop_c1_0
+	ship_c1_0
+sax_c1_0
+st1pup_c1_0"Slice
+ 
+cur_r1
+pdn_c1_0m1_c1_0"Max
+!
+m1_c1_0
+pup_c1_0fl_c1_0"Max
+.
+fl_c1_0
+padv_dn_c1_1
+zero
+pdn_c1_1_p"Pad
+B
+
+pdn_c1_1_p
+	slo0_c1_1
+	shi0_c1_1
+sax_c1_1
+st1pdn_c1_1"Slice
+.
+fl_c1_0
+padv_up_c1_1
+zero
+pup_c1_1_p"Pad
+B
+
+pup_c1_1_p
+	slop_c1_1
+	ship_c1_1
+sax_c1_1
+st1pup_c1_1"Slice
+!
+fl_c1_0
+pdn_c1_1m1_c1_1"Max
+!
+m1_c1_1
+pup_c1_1fl_c1_1"Max
+.
+fl_c1_1
+padv_dn_c1_2
+zero
+pdn_c1_2_p"Pad
+B
+
+pdn_c1_2_p
+	slo0_c1_2
+	shi0_c1_2
+sax_c1_2
+st1pdn_c1_2"Slice
+.
+fl_c1_1
+padv_up_c1_2
+zero
+pup_c1_2_p"Pad
+B
+
+pup_c1_2_p
+	slop_c1_2
+	ship_c1_2
+sax_c1_2
+st1pup_c1_2"Slice
+!
+fl_c1_1
+pdn_c1_2m1_c1_2"Max
+!
+m1_c1_2
+pup_c1_2fl_c1_2"Max
+.
+fl_c1_2
+padv_dn_c1_3
+zero
+pdn_c1_3_p"Pad
+B
+
+pdn_c1_3_p
+	slo0_c1_3
+	shi0_c1_3
+sax_c1_3
+st1pdn_c1_3"Slice
+.
+fl_c1_2
+padv_up_c1_3
+zero
+pup_c1_3_p"Pad
+B
+
+pup_c1_3_p
+	slop_c1_3
+	ship_c1_3
+sax_c1_3
+st1pup_c1_3"Slice
+!
+fl_c1_2
+pdn_c1_3m1_c1_3"Max
+!
+m1_c1_3
+pup_c1_3fl_c1_3"Max
+.
+fl_c1_3
+padv_dn_c1_4
+zero
+pdn_c1_4_p"Pad
+B
+
+pdn_c1_4_p
+	slo0_c1_4
+	shi0_c1_4
+sax_c1_4
+st1pdn_c1_4"Slice
+.
+fl_c1_3
+padv_up_c1_4
+zero
+pup_c1_4_p"Pad
+B
+
+pup_c1_4_p
+	slop_c1_4
+	ship_c1_4
+sax_c1_4
+st1pup_c1_4"Slice
+!
+fl_c1_3
+pdn_c1_4m1_c1_4"Max
+!
+m1_c1_4
+pup_c1_4fl_c1_4"Max
+%
+cur_r1
+vpad_c1
+zerovd_c1_p"Pad
+7
+vd_c1_p
+vslo_c1
+vshi_c1
+vsax_c1
+st1vd_c1"Slice
+
+cur_r1
+vd_c1	same_c1_m"Mul
+=
+	same_c1_msame_c1"	ReduceSum*
+axes@ *
+keepdims 
+8
+cur_r1ca_c1"	ReduceSum*
+axes@ *
+keepdims 
+7
+vd_c1cb_c1"	ReduceSum*
+axes@ *
+keepdims 
+
+ca_c1
+cb_c1both_c1"Mul
+ 
+both_c1
+same_c1conf_c1"Sub
+ 
+conf_c1
+confsum_c1"	ReduceSum
+
+same_c1match_c1"	ReduceSum
+$
+
+confsum_c1
+one_f	noconf_c1"Less
+"
+match_c1
+zerohasm_c1"Greater
+#
+	noconf_c1
+hasm_c1valid_c1"And
+*
+valid_c1
+fl_c1_4
+cur_c2cur_c1"Where
+<
+input
+in_content"	ReduceSum*
+axes@ *
+keepdims 
+>
+
+in_contentrow_has"	ReduceMax*
+axes@ *
+keepdims 
+>
+
+in_contentcol_has"	ReduceMax*
+axes@ *
+keepdims 
+ 
+row_has
+col_hasin_grid"Mul
+ 
+cur_c1
+in_gridcur_clip"Mul
+9
+cur_clipcsum"	ReduceSum*
+axes@ *
+keepdims 
+
+one_f
+csum	not_color"Sub
+
+in_grid
+	not_colorbg"Mul
++
+bg
+cur_clipoutput"Concat*
+axis periodic_fill*Bc1J       *Bc10J
+       *Bax1J       *Bst1J       *BzeroJ    *Bone_fJ  €?*Bidx0J        *UBpadv_dn_r29_0J@                                                               *UBpadv_up_r29_0J@                                                               *B
+slo0_r29_0J        *B
+shi0_r29_0J       *B
+slop_r29_0J       *B
+ship_r29_0J;       *B	sax_r29_0J       *PBvpad_r29J@                                                               *Bvslo_r29J        *Bvshi_r29J       *Bvsax_r29J       *UBpadv_dn_r28_0J@                                                               *UBpadv_up_r28_0J@                                                               *B
+slo0_r28_0J        *B
+shi0_r28_0J       *B
+slop_r28_0J       *B
+ship_r28_0J:       *B	sax_r28_0J       *PBvpad_r28J@                                                               *Bvslo_r28J        *Bvshi_r28J       *Bvsax_r28J       *UBpadv_dn_r27_0J@                                                               *UBpadv_up_r27_0J@                                                               *B
+slo0_r27_0J        *B
+shi0_r27_0J       *B
+slop_r27_0J       *B
+ship_r27_0J9       *B	sax_r27_0J       *PBvpad_r27J@                                                               *Bvslo_r27J        *Bvshi_r27J       *Bvsax_r27J       *UBpadv_dn_r26_0J@                                                               *UBpadv_up_r26_0J@                                                               *B
+slo0_r26_0J        *B
+shi0_r26_0J       *B
+slop_r26_0J       *B
+ship_r26_0J8       *B	sax_r26_0J       *PBvpad_r26J@                                                               *Bvslo_r26J        *Bvshi_r26J       *Bvsax_r26J       *UBpadv_dn_r25_0J@                                                               *UBpadv_up_r25_0J@                                                               *B
+slo0_r25_0J        *B
+shi0_r25_0J       *B
+slop_r25_0J       *B
+ship_r25_0J7       *B	sax_r25_0J       *PBvpad_r25J@                                                               *Bvslo_r25J        *Bvshi_r25J       *Bvsax_r25J       *UBpadv_dn_r24_0J@                                                               *UBpadv_up_r24_0J@                                                               *B
+slo0_r24_0J        *B
+shi0_r24_0J       *B
+slop_r24_0J       *B
+ship_r24_0J6       *B	sax_r24_0J       *PBvpad_r24J@                                                               *Bvslo_r24J        *Bvshi_r24J       *Bvsax_r24J       *UBpadv_dn_r23_0J@                                                               *UBpadv_up_r23_0J@                                                               *B
+slo0_r23_0J        *B
+shi0_r23_0J       *B
+slop_r23_0J       *B
+ship_r23_0J5       *B	sax_r23_0J       *PBvpad_r23J@                                                               *Bvslo_r23J        *Bvshi_r23J       *Bvsax_r23J       *UBpadv_dn_r22_0J@                                                               *UBpadv_up_r22_0J@                                                               *B
+slo0_r22_0J        *B
+shi0_r22_0J       *B
+slop_r22_0J       *B
+ship_r22_0J4       *B	sax_r22_0J       *PBvpad_r22J@                                                               *Bvslo_r22J        *Bvshi_r22J       *Bvsax_r22J       *UBpadv_dn_r21_0J@                                                               *UBpadv_up_r21_0J@                                                               *B
+slo0_r21_0J        *B
+shi0_r21_0J       *B
+slop_r21_0J       *B
+ship_r21_0J3       *B	sax_r21_0J       *PBvpad_r21J@                                                               *Bvslo_r21J        *Bvshi_r21J       *Bvsax_r21J       *UBpadv_dn_r20_0J@                                                               *UBpadv_up_r20_0J@                                                               *B
+slo0_r20_0J        *B
+shi0_r20_0J       *B
+slop_r20_0J       *B
+ship_r20_0J2       *B	sax_r20_0J       *PBvpad_r20J@                                                               *Bvslo_r20J        *Bvshi_r20J       *Bvsax_r20J       *UBpadv_dn_r19_0J@                                                               *UBpadv_up_r19_0J@                                                               *B
+slo0_r19_0J        *B
+shi0_r19_0J       *B
+slop_r19_0J       *B
+ship_r19_0J1       *B	sax_r19_0J       *PBvpad_r19J@                                                               *Bvslo_r19J        *Bvshi_r19J       *Bvsax_r19J       *UBpadv_dn_r18_0J@                                                               *UBpadv_up_r18_0J@                                                               *B
+slo0_r18_0J        *B
+shi0_r18_0J       *B
+slop_r18_0J       *B
+ship_r18_0J0       *B	sax_r18_0J       *PBvpad_r18J@                                                               *Bvslo_r18J        *Bvshi_r18J       *Bvsax_r18J       *UBpadv_dn_r17_0J@                                                               *UBpadv_up_r17_0J@                                                               *B
+slo0_r17_0J        *B
+shi0_r17_0J       *B
+slop_r17_0J       *B
+ship_r17_0J/       *B	sax_r17_0J       *PBvpad_r17J@                                                               *Bvslo_r17J        *Bvshi_r17J       *Bvsax_r17J       *UBpadv_dn_r16_0J@                                                               *UBpadv_up_r16_0J@                                                               *B
+slo0_r16_0J        *B
+shi0_r16_0J       *B
+slop_r16_0J       *B
+ship_r16_0J.       *B	sax_r16_0J       *PBvpad_r16J@                                                               *Bvslo_r16J        *Bvshi_r16J       *Bvsax_r16J       *UBpadv_dn_r15_0J@                                                               *UBpadv_up_r15_0J@                                                               *B
+slo0_r15_0J        *B
+shi0_r15_0J       *B
+slop_r15_0J       *B
+ship_r15_0J-       *B	sax_r15_0J       *PBvpad_r15J@                                                               *Bvslo_r15J        *Bvshi_r15J       *Bvsax_r15J       *UBpadv_dn_r14_0J@                                                               *UBpadv_up_r14_0J@                                                               *B
+slo0_r14_0J        *B
+shi0_r14_0J       *B
+slop_r14_0J       *B
+ship_r14_0J,       *B	sax_r14_0J       *UBpadv_dn_r14_1J@                                                               *UBpadv_up_r14_1J@                                                               *B
+slo0_r14_1J        *B
+shi0_r14_1J       *B
+slop_r14_1J       *B
+ship_r14_1J:       *B	sax_r14_1J       *PBvpad_r14J@                                                               *Bvslo_r14J        *Bvshi_r14J       *Bvsax_r14J       *UBpadv_dn_r13_0J@                                                               *UBpadv_up_r13_0J@                                                               *B
+slo0_r13_0J        *B
+shi0_r13_0J       *B
+slop_r13_0J       *B
+ship_r13_0J+       *B	sax_r13_0J       *UBpadv_dn_r13_1J@                                                               *UBpadv_up_r13_1J@                                                               *B
+slo0_r13_1J        *B
+shi0_r13_1J       *B
+slop_r13_1J       *B
+ship_r13_1J8       *B	sax_r13_1J       *PBvpad_r13J@                                                               *Bvslo_r13J        *Bvshi_r13J       *Bvsax_r13J       *UBpadv_dn_r12_0J@                                                               *UBpadv_up_r12_0J@                                                               *B
+slo0_r12_0J        *B
+shi0_r12_0J       *B
+slop_r12_0J       *B
+ship_r12_0J*       *B	sax_r12_0J       *UBpadv_dn_r12_1J@                                                               *UBpadv_up_r12_1J@                                                               *B
+slo0_r12_1J        *B
+shi0_r12_1J       *B
+slop_r12_1J       *B
+ship_r12_1J6       *B	sax_r12_1J       *PBvpad_r12J@                                                               *Bvslo_r12J        *Bvshi_r12J       *Bvsax_r12J       *UBpadv_dn_r11_0J@                                                               *UBpadv_up_r11_0J@                                                               *B
+slo0_r11_0J        *B
+shi0_r11_0J       *B
+slop_r11_0J       *B
+ship_r11_0J)       *B	sax_r11_0J       *UBpadv_dn_r11_1J@                                                               *UBpadv_up_r11_1J@                                                               *B
+slo0_r11_1J        *B
+shi0_r11_1J       *B
+slop_r11_1J       *B
+ship_r11_1J4       *B	sax_r11_1J       *PBvpad_r11J@                                                               *Bvslo_r11J        *Bvshi_r11J       *Bvsax_r11J       *UBpadv_dn_r10_0J@                
+                                               *UBpadv_up_r10_0J@                                                
+               *B
+slo0_r10_0J        *B
+shi0_r10_0J       *B
+slop_r10_0J
+       *B
+ship_r10_0J(       *B	sax_r10_0J       *UBpadv_dn_r10_1J@                                                               *UBpadv_up_r10_1J@                                                               *B
+slo0_r10_1J        *B
+shi0_r10_1J       *B
+slop_r10_1J       *B
+ship_r10_1J2       *B	sax_r10_1J       *PBvpad_r10J@                
+                                               *Bvslo_r10J        *Bvshi_r10J       *Bvsax_r10J       *TBpadv_dn_r9_0J@                	                                               *TBpadv_up_r9_0J@                                                	               *B	slo0_r9_0J        *B	shi0_r9_0J       *B	slop_r9_0J	       *B	ship_r9_0J'       *Bsax_r9_0J       *TBpadv_dn_r9_1J@                                                               *TBpadv_up_r9_1J@                                                               *B	slo0_r9_1J        *B	shi0_r9_1J       *B	slop_r9_1J       *B	ship_r9_1J0       *Bsax_r9_1J       *OBvpad_r9J@                	                                               *Bvslo_r9J        *Bvshi_r9J       *Bvsax_r9J       *TBpadv_dn_r8_0J@                                                               *TBpadv_up_r8_0J@                                                               *B	slo0_r8_0J        *B	shi0_r8_0J       *B	slop_r8_0J       *B	ship_r8_0J&       *Bsax_r8_0J       *TBpadv_dn_r8_1J@                                                               *TBpadv_up_r8_1J@                                                               *B	slo0_r8_1J        *B	shi0_r8_1J       *B	slop_r8_1J       *B	ship_r8_1J.       *Bsax_r8_1J       *OBvpad_r8J@                                                               *Bvslo_r8J        *Bvshi_r8J       *Bvsax_r8J       *TBpadv_dn_r7_0J@                                                               *TBpadv_up_r7_0J@                                                               *B	slo0_r7_0J        *B	shi0_r7_0J       *B	slop_r7_0J       *B	ship_r7_0J%       *Bsax_r7_0J       *TBpadv_dn_r7_1J@                                                               *TBpadv_up_r7_1J@                                                               *B	slo0_r7_1J        *B	shi0_r7_1J       *B	slop_r7_1J       *B	ship_r7_1J,       *Bsax_r7_1J       *TBpadv_dn_r7_2J@                                                               *TBpadv_up_r7_2J@                                                               *B	slo0_r7_2J        *B	shi0_r7_2J       *B	slop_r7_2J       *B	ship_r7_2J:       *Bsax_r7_2J       *OBvpad_r7J@                                                               *Bvslo_r7J        *Bvshi_r7J       *Bvsax_r7J       *TBpadv_dn_r6_0J@                                                               *TBpadv_up_r6_0J@                                                               *B	slo0_r6_0J        *B	shi0_r6_0J       *B	slop_r6_0J       *B	ship_r6_0J$       *Bsax_r6_0J       *TBpadv_dn_r6_1J@                                                               *TBpadv_up_r6_1J@                                                               *B	slo0_r6_1J        *B	shi0_r6_1J       *B	slop_r6_1J       *B	ship_r6_1J*       *Bsax_r6_1J       *TBpadv_dn_r6_2J@                                                               *TBpadv_up_r6_2J@                                                               *B	slo0_r6_2J        *B	shi0_r6_2J       *B	slop_r6_2J       *B	ship_r6_2J6       *Bsax_r6_2J       *OBvpad_r6J@                                                               *Bvslo_r6J        *Bvshi_r6J       *Bvsax_r6J       *TBpadv_dn_r5_0J@                                                               *TBpadv_up_r5_0J@                                                               *B	slo0_r5_0J        *B	shi0_r5_0J       *B	slop_r5_0J       *B	ship_r5_0J#       *Bsax_r5_0J       *TBpadv_dn_r5_1J@                
+                                               *TBpadv_up_r5_1J@                                                
+               *B	slo0_r5_1J        *B	shi0_r5_1J       *B	slop_r5_1J
+       *B	ship_r5_1J(       *Bsax_r5_1J       *TBpadv_dn_r5_2J@                                                               *TBpadv_up_r5_2J@                                                               *B	slo0_r5_2J        *B	shi0_r5_2J       *B	slop_r5_2J       *B	ship_r5_2J2       *Bsax_r5_2J       *OBvpad_r5J@                                                               *Bvslo_r5J        *Bvshi_r5J       *Bvsax_r5J       *TBpadv_dn_r4_0J@                                                               *TBpadv_up_r4_0J@                                                               *B	slo0_r4_0J        *B	shi0_r4_0J       *B	slop_r4_0J       *B	ship_r4_0J"       *Bsax_r4_0J       *TBpadv_dn_r4_1J@                                                               *TBpadv_up_r4_1J@                                                               *B	slo0_r4_1J        *B	shi0_r4_1J       *B	slop_r4_1J       *B	ship_r4_1J&       *Bsax_r4_1J       *TBpadv_dn_r4_2J@                                                               *TBpadv_up_r4_2J@                                                               *B	slo0_r4_2J        *B	shi0_r4_2J       *B	slop_r4_2J       *B	ship_r4_2J.       *Bsax_r4_2J       *OBvpad_r4J@                                                               *Bvslo_r4J        *Bvshi_r4J       *Bvsax_r4J       *TBpadv_dn_r3_0J@                                                               *TBpadv_up_r3_0J@                                                               *B	slo0_r3_0J        *B	shi0_r3_0J       *B	slop_r3_0J       *B	ship_r3_0J!       *Bsax_r3_0J       *TBpadv_dn_r3_1J@                                                               *TBpadv_up_r3_1J@                                                               *B	slo0_r3_1J        *B	shi0_r3_1J       *B	slop_r3_1J       *B	ship_r3_1J$       *Bsax_r3_1J       *TBpadv_dn_r3_2J@                                                               *TBpadv_up_r3_2J@                                                               *B	slo0_r3_2J        *B	shi0_r3_2J       *B	slop_r3_2J       *B	ship_r3_2J*       *Bsax_r3_2J       *TBpadv_dn_r3_3J@                                                               *TBpadv_up_r3_3J@                                                               *B	slo0_r3_3J        *B	shi0_r3_3J       *B	slop_r3_3J       *B	ship_r3_3J6       *Bsax_r3_3J       *OBvpad_r3J@                                                               *Bvslo_r3J        *Bvshi_r3J       *Bvsax_r3J       *TBpadv_dn_r2_0J@                                                               *TBpadv_up_r2_0J@                                                               *B	slo0_r2_0J        *B	shi0_r2_0J       *B	slop_r2_0J       *B	ship_r2_0J        *Bsax_r2_0J       *TBpadv_dn_r2_1J@                                                               *TBpadv_up_r2_1J@                                                               *B	slo0_r2_1J        *B	shi0_r2_1J       *B	slop_r2_1J       *B	ship_r2_1J"       *Bsax_r2_1J       *TBpadv_dn_r2_2J@                                                               *TBpadv_up_r2_2J@                                                               *B	slo0_r2_2J        *B	shi0_r2_2J       *B	slop_r2_2J       *B	ship_r2_2J&       *Bsax_r2_2J       *TBpadv_dn_r2_3J@                                                               *TBpadv_up_r2_3J@                                                               *B	slo0_r2_3J        *B	shi0_r2_3J       *B	slop_r2_3J       *B	ship_r2_3J.       *Bsax_r2_3J       *OBvpad_r2J@                                                               *Bvslo_r2J        *Bvshi_r2J       *Bvsax_r2J       *TBpadv_dn_r1_0J@                                                               *TBpadv_up_r1_0J@                                                               *B	slo0_r1_0J        *B	shi0_r1_0J       *B	slop_r1_0J       *B	ship_r1_0J       *Bsax_r1_0J       *TBpadv_dn_r1_1J@                                                               *TBpadv_up_r1_1J@                                                               *B	slo0_r1_1J        *B	shi0_r1_1J       *B	slop_r1_1J       *B	ship_r1_1J        *Bsax_r1_1J       *TBpadv_dn_r1_2J@                                                               *TBpadv_up_r1_2J@                                                               *B	slo0_r1_2J        *B	shi0_r1_2J       *B	slop_r1_2J       *B	ship_r1_2J"       *Bsax_r1_2J       *TBpadv_dn_r1_3J@                                                               *TBpadv_up_r1_3J@                                                               *B	slo0_r1_3J        *B	shi0_r1_3J       *B	slop_r1_3J       *B	ship_r1_3J&       *Bsax_r1_3J       *TBpadv_dn_r1_4J@                                                               *TBpadv_up_r1_4J@                                                               *B	slo0_r1_4J        *B	shi0_r1_4J       *B	slop_r1_4J       *B	ship_r1_4J.       *Bsax_r1_4J       *OBvpad_r1J@                                                               *Bvslo_r1J        *Bvshi_r1J       *Bvsax_r1J       *UBpadv_dn_c29_0J@                                                               *UBpadv_up_c29_0J@                                                               *B
+slo0_c29_0J        *B
+shi0_c29_0J       *B
+slop_c29_0J       *B
+ship_c29_0J;       *B	sax_c29_0J       *PBvpad_c29J@                                                               *Bvslo_c29J        *Bvshi_c29J       *Bvsax_c29J       *UBpadv_dn_c28_0J@                                                               *UBpadv_up_c28_0J@                                                               *B
+slo0_c28_0J        *B
+shi0_c28_0J       *B
+slop_c28_0J       *B
+ship_c28_0J:       *B	sax_c28_0J       *PBvpad_c28J@                                                               *Bvslo_c28J        *Bvshi_c28J       *Bvsax_c28J       *UBpadv_dn_c27_0J@                                                               *UBpadv_up_c27_0J@                                                               *B
+slo0_c27_0J        *B
+shi0_c27_0J       *B
+slop_c27_0J       *B
+ship_c27_0J9       *B	sax_c27_0J       *PBvpad_c27J@                                                               *Bvslo_c27J        *Bvshi_c27J       *Bvsax_c27J       *UBpadv_dn_c26_0J@                                                               *UBpadv_up_c26_0J@                                                               *B
+slo0_c26_0J        *B
+shi0_c26_0J       *B
+slop_c26_0J       *B
+ship_c26_0J8       *B	sax_c26_0J       *PBvpad_c26J@                                                               *Bvslo_c26J        *Bvshi_c26J       *Bvsax_c26J       *UBpadv_dn_c25_0J@                                                               *UBpadv_up_c25_0J@                                                               *B
+slo0_c25_0J        *B
+shi0_c25_0J       *B
+slop_c25_0J       *B
+ship_c25_0J7       *B	sax_c25_0J       *PBvpad_c25J@                                                               *Bvslo_c25J        *Bvshi_c25J       *Bvsax_c25J       *UBpadv_dn_c24_0J@                                                               *UBpadv_up_c24_0J@                                                               *B
+slo0_c24_0J        *B
+shi0_c24_0J       *B
+slop_c24_0J       *B
+ship_c24_0J6       *B	sax_c24_0J       *PBvpad_c24J@                                                               *Bvslo_c24J        *Bvshi_c24J       *Bvsax_c24J       *UBpadv_dn_c23_0J@                                                               *UBpadv_up_c23_0J@                                                               *B
+slo0_c23_0J        *B
+shi0_c23_0J       *B
+slop_c23_0J       *B
+ship_c23_0J5       *B	sax_c23_0J       *PBvpad_c23J@                                                               *Bvslo_c23J        *Bvshi_c23J       *Bvsax_c23J       *UBpadv_dn_c22_0J@                                                               *UBpadv_up_c22_0J@                                                               *B
+slo0_c22_0J        *B
+shi0_c22_0J       *B
+slop_c22_0J       *B
+ship_c22_0J4       *B	sax_c22_0J       *PBvpad_c22J@                                                               *Bvslo_c22J        *Bvshi_c22J       *Bvsax_c22J       *UBpadv_dn_c21_0J@                                                               *UBpadv_up_c21_0J@                                                               *B
+slo0_c21_0J        *B
+shi0_c21_0J       *B
+slop_c21_0J       *B
+ship_c21_0J3       *B	sax_c21_0J       *PBvpad_c21J@                                                               *Bvslo_c21J        *Bvshi_c21J       *Bvsax_c21J       *UBpadv_dn_c20_0J@                                                               *UBpadv_up_c20_0J@                                                               *B
+slo0_c20_0J        *B
+shi0_c20_0J       *B
+slop_c20_0J       *B
+ship_c20_0J2       *B	sax_c20_0J       *PBvpad_c20J@                                                               *Bvslo_c20J        *Bvshi_c20J       *Bvsax_c20J       *UBpadv_dn_c19_0J@                                                               *UBpadv_up_c19_0J@                                                               *B
+slo0_c19_0J        *B
+shi0_c19_0J       *B
+slop_c19_0J       *B
+ship_c19_0J1       *B	sax_c19_0J       *PBvpad_c19J@                                                               *Bvslo_c19J        *Bvshi_c19J       *Bvsax_c19J       *UBpadv_dn_c18_0J@                                                               *UBpadv_up_c18_0J@                                                               *B
+slo0_c18_0J        *B
+shi0_c18_0J       *B
+slop_c18_0J       *B
+ship_c18_0J0       *B	sax_c18_0J       *PBvpad_c18J@                                                               *Bvslo_c18J        *Bvshi_c18J       *Bvsax_c18J       *UBpadv_dn_c17_0J@                                                               *UBpadv_up_c17_0J@                                                               *B
+slo0_c17_0J        *B
+shi0_c17_0J       *B
+slop_c17_0J       *B
+ship_c17_0J/       *B	sax_c17_0J       *PBvpad_c17J@                                                               *Bvslo_c17J        *Bvshi_c17J       *Bvsax_c17J       *UBpadv_dn_c16_0J@                                                               *UBpadv_up_c16_0J@                                                               *B
+slo0_c16_0J        *B
+shi0_c16_0J       *B
+slop_c16_0J       *B
+ship_c16_0J.       *B	sax_c16_0J       *PBvpad_c16J@                                                               *Bvslo_c16J        *Bvshi_c16J       *Bvsax_c16J       *UBpadv_dn_c15_0J@                                                               *UBpadv_up_c15_0J@                                                               *B
+slo0_c15_0J        *B
+shi0_c15_0J       *B
+slop_c15_0J       *B
+ship_c15_0J-       *B	sax_c15_0J       *PBvpad_c15J@                                                               *Bvslo_c15J        *Bvshi_c15J       *Bvsax_c15J       *UBpadv_dn_c14_0J@                                                               *UBpadv_up_c14_0J@                                                               *B
+slo0_c14_0J        *B
+shi0_c14_0J       *B
+slop_c14_0J       *B
+ship_c14_0J,       *B	sax_c14_0J       *UBpadv_dn_c14_1J@                                                               *UBpadv_up_c14_1J@                                                               *B
+slo0_c14_1J        *B
+shi0_c14_1J       *B
+slop_c14_1J       *B
+ship_c14_1J:       *B	sax_c14_1J       *PBvpad_c14J@                                                               *Bvslo_c14J        *Bvshi_c14J       *Bvsax_c14J       *UBpadv_dn_c13_0J@                                                               *UBpadv_up_c13_0J@                                                               *B
+slo0_c13_0J        *B
+shi0_c13_0J       *B
+slop_c13_0J       *B
+ship_c13_0J+       *B	sax_c13_0J       *UBpadv_dn_c13_1J@                                                               *UBpadv_up_c13_1J@                                                               *B
+slo0_c13_1J        *B
+shi0_c13_1J       *B
+slop_c13_1J       *B
+ship_c13_1J8       *B	sax_c13_1J       *PBvpad_c13J@                                                               *Bvslo_c13J        *Bvshi_c13J       *Bvsax_c13J       *UBpadv_dn_c12_0J@                                                               *UBpadv_up_c12_0J@                                                               *B
+slo0_c12_0J        *B
+shi0_c12_0J       *B
+slop_c12_0J       *B
+ship_c12_0J*       *B	sax_c12_0J       *UBpadv_dn_c12_1J@                                                               *UBpadv_up_c12_1J@                                                               *B
+slo0_c12_1J        *B
+shi0_c12_1J       *B
+slop_c12_1J       *B
+ship_c12_1J6       *B	sax_c12_1J       *PBvpad_c12J@                                                               *Bvslo_c12J        *Bvshi_c12J       *Bvsax_c12J       *UBpadv_dn_c11_0J@                                                               *UBpadv_up_c11_0J@                                                               *B
+slo0_c11_0J        *B
+shi0_c11_0J       *B
+slop_c11_0J       *B
+ship_c11_0J)       *B	sax_c11_0J       *UBpadv_dn_c11_1J@                                                               *UBpadv_up_c11_1J@                                                               *B
+slo0_c11_1J        *B
+shi0_c11_1J       *B
+slop_c11_1J       *B
+ship_c11_1J4       *B	sax_c11_1J       *PBvpad_c11J@                                                               *Bvslo_c11J        *Bvshi_c11J       *Bvsax_c11J       *UBpadv_dn_c10_0J@                        
+                                       *UBpadv_up_c10_0J@                                                        
+       *B
+slo0_c10_0J        *B
+shi0_c10_0J       *B
+slop_c10_0J
+       *B
+ship_c10_0J(       *B	sax_c10_0J       *UBpadv_dn_c10_1J@                                                               *UBpadv_up_c10_1J@                                                               *B
+slo0_c10_1J        *B
+shi0_c10_1J       *B
+slop_c10_1J       *B
+ship_c10_1J2       *B	sax_c10_1J       *PBvpad_c10J@                        
+                                       *Bvslo_c10J        *Bvshi_c10J       *Bvsax_c10J       *TBpadv_dn_c9_0J@                        	                                       *TBpadv_up_c9_0J@                                                        	       *B	slo0_c9_0J        *B	shi0_c9_0J       *B	slop_c9_0J	       *B	ship_c9_0J'       *Bsax_c9_0J       *TBpadv_dn_c9_1J@                                                               *TBpadv_up_c9_1J@                                                               *B	slo0_c9_1J        *B	shi0_c9_1J       *B	slop_c9_1J       *B	ship_c9_1J0       *Bsax_c9_1J       *OBvpad_c9J@                        	                                       *Bvslo_c9J        *Bvshi_c9J       *Bvsax_c9J       *TBpadv_dn_c8_0J@                                                               *TBpadv_up_c8_0J@                                                               *B	slo0_c8_0J        *B	shi0_c8_0J       *B	slop_c8_0J       *B	ship_c8_0J&       *Bsax_c8_0J       *TBpadv_dn_c8_1J@                                                               *TBpadv_up_c8_1J@                                                               *B	slo0_c8_1J        *B	shi0_c8_1J       *B	slop_c8_1J       *B	ship_c8_1J.       *Bsax_c8_1J       *OBvpad_c8J@                                                               *Bvslo_c8J        *Bvshi_c8J       *Bvsax_c8J       *TBpadv_dn_c7_0J@                                                               *TBpadv_up_c7_0J@                                                               *B	slo0_c7_0J        *B	shi0_c7_0J       *B	slop_c7_0J       *B	ship_c7_0J%       *Bsax_c7_0J       *TBpadv_dn_c7_1J@                                                               *TBpadv_up_c7_1J@                                                               *B	slo0_c7_1J        *B	shi0_c7_1J       *B	slop_c7_1J       *B	ship_c7_1J,       *Bsax_c7_1J       *TBpadv_dn_c7_2J@                                                               *TBpadv_up_c7_2J@                                                               *B	slo0_c7_2J        *B	shi0_c7_2J       *B	slop_c7_2J       *B	ship_c7_2J:       *Bsax_c7_2J       *OBvpad_c7J@                                                               *Bvslo_c7J        *Bvshi_c7J       *Bvsax_c7J       *TBpadv_dn_c6_0J@                                                               *TBpadv_up_c6_0J@                                                               *B	slo0_c6_0J        *B	shi0_c6_0J       *B	slop_c6_0J       *B	ship_c6_0J$       *Bsax_c6_0J       *TBpadv_dn_c6_1J@                                                               *TBpadv_up_c6_1J@                                                               *B	slo0_c6_1J        *B	shi0_c6_1J       *B	slop_c6_1J       *B	ship_c6_1J*       *Bsax_c6_1J       *TBpadv_dn_c6_2J@                                                               *TBpadv_up_c6_2J@                                                               *B	slo0_c6_2J        *B	shi0_c6_2J       *B	slop_c6_2J       *B	ship_c6_2J6       *Bsax_c6_2J       *OBvpad_c6J@                                                               *Bvslo_c6J        *Bvshi_c6J       *Bvsax_c6J       *TBpadv_dn_c5_0J@                                                               *TBpadv_up_c5_0J@                                                               *B	slo0_c5_0J        *B	shi0_c5_0J       *B	slop_c5_0J       *B	ship_c5_0J#       *Bsax_c5_0J       *TBpadv_dn_c5_1J@                        
+                                       *TBpadv_up_c5_1J@                                                        
+       *B	slo0_c5_1J        *B	shi0_c5_1J       *B	slop_c5_1J
+       *B	ship_c5_1J(       *Bsax_c5_1J       *TBpadv_dn_c5_2J@                                                               *TBpadv_up_c5_2J@                                                               *B	slo0_c5_2J        *B	shi0_c5_2J       *B	slop_c5_2J       *B	ship_c5_2J2       *Bsax_c5_2J       *OBvpad_c5J@                                                               *Bvslo_c5J        *Bvshi_c5J       *Bvsax_c5J       *TBpadv_dn_c4_0J@                                                               *TBpadv_up_c4_0J@                                                               *B	slo0_c4_0J        *B	shi0_c4_0J       *B	slop_c4_0J       *B	ship_c4_0J"       *Bsax_c4_0J       *TBpadv_dn_c4_1J@                                                               *TBpadv_up_c4_1J@                                                               *B	slo0_c4_1J        *B	shi0_c4_1J       *B	slop_c4_1J       *B	ship_c4_1J&       *Bsax_c4_1J       *TBpadv_dn_c4_2J@                                                               *TBpadv_up_c4_2J@                                                               *B	slo0_c4_2J        *B	shi0_c4_2J       *B	slop_c4_2J       *B	ship_c4_2J.       *Bsax_c4_2J       *OBvpad_c4J@                                                               *Bvslo_c4J        *Bvshi_c4J       *Bvsax_c4J       *TBpadv_dn_c3_0J@                                                               *TBpadv_up_c3_0J@                                                               *B	slo0_c3_0J        *B	shi0_c3_0J       *B	slop_c3_0J       *B	ship_c3_0J!       *Bsax_c3_0J       *TBpadv_dn_c3_1J@                                                               *TBpadv_up_c3_1J@                                                               *B	slo0_c3_1J        *B	shi0_c3_1J       *B	slop_c3_1J       *B	ship_c3_1J$       *Bsax_c3_1J       *TBpadv_dn_c3_2J@                                                               *TBpadv_up_c3_2J@                                                               *B	slo0_c3_2J        *B	shi0_c3_2J       *B	slop_c3_2J       *B	ship_c3_2J*       *Bsax_c3_2J       *TBpadv_dn_c3_3J@                                                               *TBpadv_up_c3_3J@                                                               *B	slo0_c3_3J        *B	shi0_c3_3J       *B	slop_c3_3J       *B	ship_c3_3J6       *Bsax_c3_3J       *OBvpad_c3J@                                                               *Bvslo_c3J        *Bvshi_c3J       *Bvsax_c3J       *TBpadv_dn_c2_0J@                                                               *TBpadv_up_c2_0J@                                                               *B	slo0_c2_0J        *B	shi0_c2_0J       *B	slop_c2_0J       *B	ship_c2_0J        *Bsax_c2_0J       *TBpadv_dn_c2_1J@                                                               *TBpadv_up_c2_1J@                                                               *B	slo0_c2_1J        *B	shi0_c2_1J       *B	slop_c2_1J       *B	ship_c2_1J"       *Bsax_c2_1J       *TBpadv_dn_c2_2J@                                                               *TBpadv_up_c2_2J@                                                               *B	slo0_c2_2J        *B	shi0_c2_2J       *B	slop_c2_2J       *B	ship_c2_2J&       *Bsax_c2_2J       *TBpadv_dn_c2_3J@                                                               *TBpadv_up_c2_3J@                                                               *B	slo0_c2_3J        *B	shi0_c2_3J       *B	slop_c2_3J       *B	ship_c2_3J.       *Bsax_c2_3J       *OBvpad_c2J@                                                               *Bvslo_c2J        *Bvshi_c2J       *Bvsax_c2J       *TBpadv_dn_c1_0J@                                                               *TBpadv_up_c1_0J@                                                               *B	slo0_c1_0J        *B	shi0_c1_0J       *B	slop_c1_0J       *B	ship_c1_0J       *Bsax_c1_0J       *TBpadv_dn_c1_1J@                                                               *TBpadv_up_c1_1J@                                                               *B	slo0_c1_1J        *B	shi0_c1_1J       *B	slop_c1_1J       *B	ship_c1_1J        *Bsax_c1_1J       *TBpadv_dn_c1_2J@                                                               *TBpadv_up_c1_2J@                                                               *B	slo0_c1_2J        *B	shi0_c1_2J       *B	slop_c1_2J       *B	ship_c1_2J"       *Bsax_c1_2J       *TBpadv_dn_c1_3J@                                                               *TBpadv_up_c1_3J@                                                               *B	slo0_c1_3J        *B	shi0_c1_3J       *B	slop_c1_3J       *B	ship_c1_3J&       *Bsax_c1_3J       *TBpadv_dn_c1_4J@                                                               *TBpadv_up_c1_4J@                                                               *B	slo0_c1_4J        *B	shi0_c1_4J       *B	slop_c1_4J       *B	ship_c1_4J.       *Bsax_c1_4J       *OBvpad_c1J@                                                               *Bvslo_c1J        *Bvshi_c1J       *Bvsax_c1J       Z
+input
+
+
+
+
+
+b 
+output
+
+
+
+
+
+B
+ 
