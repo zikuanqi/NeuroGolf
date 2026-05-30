@@ -53,7 +53,6 @@ from .split_logic import solve_split_logic
 from .static_crop import solve_static_crop
 from .tile_h import solve_tile_h
 from .variable_kron import solve_variable_kron
-from .variable_shift import solve_variable_shift
 from .zero import solve_zero
 from .zero_color import solve_zero_color
 from .flood_fill_enclosure import solve_flood_fill_enclosure
@@ -78,7 +77,6 @@ ALL_SOLVERS: list[Solver] = [
     solve_scale_detector,
     solve_self_fractal,
     solve_rot_tile,
-    solve_variable_shift,
     solve_palindrome_h,
     solve_palindrome_v,
     solve_palindrome_2d,
