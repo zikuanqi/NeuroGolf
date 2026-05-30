@@ -393,11 +393,11 @@
   },
   {
     "task": 50,
-    "solver": "none",
-    "saved": false,
-    "points": 0.0,
-    "memory": null,
-    "params": null
+    "solver": "solve_connect_fill",
+    "saved": true,
+    "points": 12.025728361599162,
+    "memory": 431100,
+    "params": 76
   },
   {
     "task": 51,
@@ -2793,11 +2793,11 @@
   },
   {
     "task": 350,
-    "solver": "none",
-    "saved": false,
-    "points": 0.0,
-    "memory": null,
-    "params": null
+    "solver": "solve_connect_fill",
+    "saved": true,
+    "points": 12.025728361599162,
+    "memory": 431100,
+    "params": 76
   },
   {
     "task": 351,
@@ -2841,11 +2841,11 @@
   },
   {
     "task": 356,
-    "solver": "none",
-    "saved": false,
-    "points": 0.0,
-    "memory": null,
-    "params": null
+    "solver": "solve_connect_fill",
+    "saved": true,
+    "points": 12.025728361599162,
+    "memory": 431100,
+    "params": 76
   },
   {
     "task": 357,

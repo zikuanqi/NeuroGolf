@@ -562,3 +562,30 @@ def test_denoise_rejects_no_change():
     # nothing isolated -> grid unchanged -> decline.
     task = _make_task([([[2, 2], [0, 0]], [[2, 2], [0, 0]])])
     assert solve_denoise(task) is None
+
+
+def test_connect_fill_uses_fixed_colour():
+    import numpy as np
+    import onnxruntime as ort
+    from neurogolf.grids import from_onehot, to_onehot
+    from neurogolf.solvers.connect_fill import solve_connect_fill
+
+    # two 8s in a row; the gap is filled with colour 3 (not 8), endpoints kept.
+    inp = [[8, 0, 0, 8],
+           [0, 0, 0, 0]]
+    out = [[8, 3, 3, 8],
+           [0, 0, 0, 0]]
+    task = _make_task([(inp, out)])
+    model = solve_connect_fill(task)
+    assert model is not None and hasattr(model, "graph")
+
+    sess = ort.InferenceSession(model.SerializeToString())
+    res = sess.run(["output"], {"input": to_onehot(inp)})[0]
+    assert from_onehot((res > 0.0).astype(np.float32)) == out
+
+
+def test_connect_fill_rejects_no_change():
+    from neurogolf.solvers.connect_fill import solve_connect_fill
+    # single dot, nothing to connect -> decline.
+    task = _make_task([([[8, 0], [0, 0]], [[8, 0], [0, 0]])])
+    assert solve_connect_fill(task) is None
