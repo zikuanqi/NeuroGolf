@@ -617,11 +617,11 @@
   },
   {
     "task": 78,
-    "solver": "none",
-    "saved": false,
-    "points": 0.0,
-    "memory": null,
-    "params": null
+    "solver": "solve_gravity_up",
+    "saved": true,
+    "points": 13.108898407159279,
+    "memory": 145920,
+    "params": 42
   },
   {
     "task": 79,

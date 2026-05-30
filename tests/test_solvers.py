@@ -369,3 +369,32 @@ def test_rot_tile_rejects_mixed_sizes():
     task = _make_task([(g2, _rot_tile_expected(g2)),
                        (g3, _rot_tile_expected(g3))])
     assert solve_rot_tile(task) is None
+
+
+def test_gravity_up_preserves_column_order():
+    import numpy as np
+    import onnxruntime as ort
+    from neurogolf.grids import from_onehot, to_onehot
+    from neurogolf.solvers.gravity_up import solve_gravity_up
+
+    # A mixed-colour column must rise while preserving its top-to-bottom order.
+    task = _make_task([
+        ([[0, 0, 3],
+          [2, 0, 0],
+          [0, 0, 8]],
+         [[2, 0, 3],
+          [0, 0, 8],
+          [0, 0, 0]]),
+    ])
+    model = solve_gravity_up(task)
+    assert model is not None and hasattr(model, "graph")
+
+    sess = ort.InferenceSession(model.SerializeToString())
+    out = sess.run(["output"], {"input": to_onehot(task["train"][0]["input"])})[0]
+    assert from_onehot((out > 0.0).astype(np.float32)) == task["train"][0]["output"]
+
+
+def test_gravity_up_rejects_non_gravity():
+    from neurogolf.solvers.gravity_up import solve_gravity_up
+    task = _make_task([([[0, 0], [2, 0]], [[0, 0], [2, 0]])])
+    assert solve_gravity_up(task) is None

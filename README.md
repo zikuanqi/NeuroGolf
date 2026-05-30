@@ -11,7 +11,7 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![Last Commit](https://img.shields.io/github/last-commit/zikuanqi/NeuroGolf)](https://github.com/zikuanqi/NeuroGolf/commits/main)
 [![Tests](https://img.shields.io/badge/tests-passing-brightgreen)](tests/)
-[![Tasks Solved](https://img.shields.io/badge/tasks_solved-48%2F400-blue)](networks/)
+[![Tasks Solved](https://img.shields.io/badge/tasks_solved-49%2F400-blue)](networks/)
 
 </div>
 
@@ -48,7 +48,8 @@
 | v17 | + gravity-right-diag (per-channel center-of-mass diagonal shift with stay/shift mask) | 41 | ~628 (pending) |
 | v18 | + gravity-down (size-aware per-channel column sink via content-mask height + ramp threshold) | 45 | **697.88** |
 | v19 | + self-fractal (Tile × Kron-upscaled selector mask; fixed / most-frequent colour) | 47 | **726.38** |
-| v20 | + rot-tile (four-quadrant rotational tiling I / rot90 / rot180 / rot270) | 48 | ~743 (pending) |
+| v20 | + rot-tile (four-quadrant rotational tiling I / rot90 / rot180 / rot270) | 48 | **742.85** |
+| v21 | + gravity-up (stable column rise via TopK sort-key + GatherElements, multi-colour columns) | 49 | ~756 (pending) |
 
 ---
 
@@ -108,6 +109,7 @@ Each solver is a callable `(task: dict) → Optional[onnx.ModelProto]`. The pipe
 | `solve_variable_shift` | shift by fixed offset with zero-fill, variable input shape · 定偏移量平移零填充，变输入尺寸 | `Slice` + `Pad` + `Concat` | ~50 |
 | `solve_gravity_right` | each row's cells slide right until blocked · 重力向右：每行格子右移直到被挡住 | `ReduceSum` + `CumSum` + `Where` + `Mul` | ~94 |
 | `solve_gravity_down` | each column's cells fall to the bottom edge · 重力向下：每列格子下落堆积到底部 | `ReduceSum` + `ReduceMax` (content-mask height) + `Less` + `Mul` + `Slice` + `Concat` | ~66 |
+| `solve_gravity_up` | each column's cells rise to the top, preserving order (multi-colour) · 重力向上：每列保序上浮，支持多色列 | `ReduceSum` + sort-key + `TopK` + `Tile` + `GatherElements` | ~42 |
 | `solve_self_fractal` | N×N input tiles into an N²×N² self-similar fractal, keyed by a selector colour · N×N 输入自相似放大为 N²×N²，按选择色决定哪些块保留 | `Slice` + `Tile` + `Gather` ×2 (Kron mask) + `ArgMax` + `Mul` + `Pad` + `Concat` | ~57 |
 | `solve_rot_tile` | N×N square tiles into 2N×2N as four rotations (I / rot90 / rot180 / rot270) · N×N 方阵拼为 2N×2N 的四象限旋转 | `Slice` + `Transpose` + `Gather` ×4 (index-reverse) + `Concat` ×3 + `Pad` | ~23 |
 | `solve_gravity_right_diag` | per-channel diagonal slide: compute center-of-mass, shift non-rightmost cells toward it · 按通道对角线滑移：计算质心，将非最右像素移向质心方向 | `ReduceSum` + `ReduceMax` + `ArgMax` + `Mul` + `Slice` + `Concat` + `Min` + `Sub` | 150 |
