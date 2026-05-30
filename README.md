@@ -11,7 +11,7 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![Last Commit](https://img.shields.io/github/last-commit/zikuanqi/NeuroGolf)](https://github.com/zikuanqi/NeuroGolf/commits/main)
 [![Tests](https://img.shields.io/badge/tests-passing-brightgreen)](tests/)
-[![Tasks Solved](https://img.shields.io/badge/tasks_solved-62%2F400-blue)](networks/)
+[![Tasks Solved](https://img.shields.io/badge/tasks_solved-64%2F400-blue)](networks/)
 
 </div>
 
@@ -52,6 +52,7 @@
 | v21 | + gravity-up (stable column rise via TopK sort-key + GatherElements, multi-colour columns) | 49 | **755.96** |
 | v22 | + periodic-fill (period in-painting; static period enumeration + log-doubling shift-Max propagation) | 53 | **786.58** |
 | v23 | + split-logic (two-half boolean combine: and/or/xor/nor over L-R or T-B split, ± divider) | 62 | ~924 (pending) |
+| v24 | + connect-dots (fill the gap between the first and last same-colour dot per row/column) | 64 | ~949 (pending) |
 
 ---
 
@@ -108,6 +109,7 @@ Each solver is a callable `(task: dict) → Optional[onnx.ModelProto]`. The pipe
 | `solve_bbox_color_extract` | crop input to bbox of majority/rarest color · 按主色/稀有色外接矩形裁剪 | `ReduceSum` + `ArgMax`/`ArgMin` + `OneHot` + `Mul` + `Cast` + `Gather` + `Mod` + `Less` | ~66 |
 | `solve_split_and` | split input along a color-5 vertical separator, AND the two halves · 沿颜色5分隔列分割并对两半做AND | `Slice` + `Pad` + `Sub` + `Mul` + `Less` + `Cast` + `And` | ~8129 |
 | `solve_split_logic` | split into two halves (L-R or T-B, ± divider) and combine with and/or/xor/nor/nand · 切两半并做布尔运算 | `Slice` + `ReduceSum` + `Mul`/`Max`/`Sub` (boolean) + `Pad` + `Concat` | ~20 |
+| `solve_connect_dots` | fill the span between the first and last same-colour dot in each row/column · 连接每行/列首尾同色点之间的间隔 | `Slice` + `CumSum` + `Gather` (reverse) + `Greater` + `And` + `Concat` | ~37 |
 | `solve_scale_detector` | N× nearest-neighbor upscale or downscale · N 倍最近邻放大或缩小 | `Slice` + `Resize` | ~24 |
 | `solve_variable_shift` | shift by fixed offset with zero-fill, variable input shape · 定偏移量平移零填充，变输入尺寸 | `Slice` + `Pad` + `Concat` | ~50 |
 | `solve_gravity_right` | each row's cells slide right until blocked · 重力向右：每行格子右移直到被挡住 | `ReduceSum` + `CumSum` + `Where` + `Mul` | ~94 |

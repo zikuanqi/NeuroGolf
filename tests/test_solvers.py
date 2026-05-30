@@ -473,3 +473,32 @@ def test_split_logic_top_bottom_nor():
     sess = ort.InferenceSession(model.SerializeToString())
     res = sess.run(["output"], {"input": to_onehot(inp)})[0]
     assert from_onehot((res > 0.0).astype(np.float32)) == out
+
+
+def test_connect_dots_horizontal():
+    import numpy as np
+    import onnxruntime as ort
+    from neurogolf.grids import from_onehot, to_onehot
+    from neurogolf.solvers.connect_dots import solve_connect_dots
+
+    # two same-colour dots in a row get the gap between them filled.
+    inp = [[3, 0, 0, 0, 3],
+           [0, 2, 0, 2, 0],
+           [0, 0, 0, 0, 0]]
+    out = [[3, 3, 3, 3, 3],
+           [0, 2, 2, 2, 0],
+           [0, 0, 0, 0, 0]]
+    task = _make_task([(inp, out)])
+    model = solve_connect_dots(task)
+    assert model is not None and hasattr(model, "graph")
+
+    sess = ort.InferenceSession(model.SerializeToString())
+    res = sess.run(["output"], {"input": to_onehot(inp)})[0]
+    assert from_onehot((res > 0.0).astype(np.float32)) == out
+
+
+def test_connect_dots_rejects_unrelated():
+    from neurogolf.solvers.connect_dots import solve_connect_dots
+    # A lone dot (nothing to connect) leaves the grid unchanged -> decline.
+    task = _make_task([([[5, 0], [0, 0]], [[5, 0], [0, 0]])])
+    assert solve_connect_dots(task) is None

@@ -41,11 +41,11 @@
   },
   {
     "task": 6,
-    "solver": "solve_split_and",
+    "solver": "solve_split_logic",
     "saved": true,
-    "points": 15.29441475622485,
-    "memory": 8280,
-    "params": 8129
+    "points": 15.30452111119381,
+    "memory": 8100,
+    "params": 8144
   },
   {
     "task": 7,
@@ -201,11 +201,11 @@
   },
   {
     "task": 26,
-    "solver": "none",
-    "saved": false,
-    "points": 0.0,
-    "memory": null,
-    "params": null
+    "solver": "solve_split_logic",
+    "saved": true,
+    "points": 15.264694440704107,
+    "memory": 8760,
+    "params": 8144
   },
   {
     "task": 27,
@@ -321,11 +321,11 @@
   },
   {
     "task": 41,
-    "solver": "none",
-    "saved": false,
-    "points": 0.0,
-    "memory": null,
-    "params": null
+    "solver": "solve_connect_dots",
+    "saved": true,
+    "points": 12.621500421747358,
+    "memory": 237600,
+    "params": 37
   },
   {
     "task": 42,
@@ -353,11 +353,11 @@
   },
   {
     "task": 45,
-    "solver": "none",
-    "saved": false,
-    "points": 0.0,
-    "memory": null,
-    "params": null
+    "solver": "solve_connect_dots",
+    "saved": true,
+    "points": 12.621500421747358,
+    "memory": 237600,
+    "params": 37
   },
   {
     "task": 46,
@@ -569,11 +569,11 @@
   },
   {
     "task": 72,
-    "solver": "none",
-    "saved": false,
-    "points": 0.0,
-    "memory": null,
-    "params": null
+    "solver": "solve_split_logic",
+    "saved": true,
+    "points": 15.16350731628815,
+    "memory": 10560,
+    "params": 8144
   },
   {
     "task": 73,
@@ -1145,11 +1145,11 @@
   },
   {
     "task": 144,
-    "solver": "none",
-    "saved": false,
-    "points": 0.0,
-    "memory": null,
-    "params": null
+    "solver": "solve_split_logic",
+    "saved": true,
+    "points": 15.25856089941827,
+    "memory": 8864,
+    "params": 8144
   },
   {
     "task": 145,
@@ -1809,11 +1809,11 @@
   },
   {
     "task": 227,
-    "solver": "none",
-    "saved": false,
-    "points": 0.0,
-    "memory": null,
-    "params": null
+    "solver": "solve_split_logic",
+    "saved": true,
+    "points": 15.25856089941827,
+    "memory": 8864,
+    "params": 8144
   },
   {
     "task": 228,
@@ -1881,11 +1881,11 @@
   },
   {
     "task": 236,
-    "solver": "none",
-    "saved": false,
-    "points": 0.0,
-    "memory": null,
-    "params": null
+    "solver": "solve_split_logic",
+    "saved": true,
+    "points": 15.25106320731247,
+    "memory": 8992,
+    "params": 8144
   },
   {
     "task": 237,
@@ -2537,11 +2537,11 @@
   },
   {
     "task": 318,
-    "solver": "none",
-    "saved": false,
-    "points": 0.0,
-    "memory": null,
-    "params": null
+    "solver": "solve_split_logic",
+    "saved": true,
+    "points": 15.262330932158813,
+    "memory": 8800,
+    "params": 8144
   },
   {
     "task": 319,
@@ -2769,11 +2769,11 @@
   },
   {
     "task": 347,
-    "solver": "none",
-    "saved": false,
-    "points": 0.0,
-    "memory": null,
-    "params": null
+    "solver": "solve_split_logic",
+    "saved": true,
+    "points": 15.30452111119381,
+    "memory": 8100,
+    "params": 8144
   },
   {
     "task": 348,
@@ -3081,11 +3081,11 @@
   },
   {
     "task": 386,
-    "solver": "none",
-    "saved": false,
-    "points": 0.0,
-    "memory": null,
-    "params": null
+    "solver": "solve_split_logic",
+    "saved": true,
+    "points": 15.283324069530691,
+    "memory": 8448,
+    "params": 8144
   },
   {
     "task": 387,
@@ -3153,11 +3153,11 @@
   },
   {
     "task": 395,
-    "solver": "none",
-    "saved": false,
-    "points": 0.0,
-    "memory": null,
-    "params": null
+    "solver": "solve_split_logic",
+    "saved": true,
+    "points": 15.302307360443468,
+    "memory": 8136,
+    "params": 8144
   },
   {
     "task": 396,
