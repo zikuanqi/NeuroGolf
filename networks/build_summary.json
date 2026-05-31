@@ -2569,11 +2569,11 @@
   },
   {
     "task": 322,
-    "solver": "none",
-    "saved": false,
-    "points": 0.0,
-    "memory": null,
-    "params": null
+    "solver": "solve_ray_down",
+    "saved": true,
+    "points": 11.381484124542375,
+    "memory": 821100,
+    "params": 95
   },
   {
     "task": 323,

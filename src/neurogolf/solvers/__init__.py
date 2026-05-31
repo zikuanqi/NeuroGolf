@@ -50,6 +50,7 @@ from .nearest_wall import solve_nearest_wall
 from .outline import solve_outline
 from .palindrome import (solve_palindrome_2d, solve_palindrome_h,
                           solve_palindrome_v)
+from .ray_down import solve_ray_down
 from .recolor_fives import solve_recolor_fives
 from .remap import solve_remap
 from .repeat_top_rows import solve_repeat_top_rows
@@ -129,6 +130,7 @@ ALL_SOLVERS: list[Solver] = [
     solve_hspan_fill,
     solve_stamp,
     solve_outline,
+    solve_ray_down,
     solve_zero_color,
     solve_column_label,
     solve_gravity_down,

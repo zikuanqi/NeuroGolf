@@ -1085,3 +1085,34 @@ def test_outline_rejects_when_interior_kept():
     task = _make_task([([[5, 5, 5], [5, 5, 5], [5, 5, 5]],
                         [[5, 5, 5], [5, 5, 5], [5, 5, 5]])])
     assert solve_outline(task) is None
+
+
+def test_ray_down_fills_columns_downward():
+    import numpy as np
+    import onnxruntime as ort
+    from neurogolf.grids import from_onehot, to_onehot
+    from neurogolf.solvers.ray_down import solve_ray_down
+
+    # Each marker's colour is carried straight down its column.
+    inp = [[5, 0, 0],
+           [0, 0, 0],
+           [0, 2, 0],
+           [0, 0, 0]]
+    out = [[5, 0, 0],
+           [5, 0, 0],
+           [5, 2, 0],
+           [5, 2, 0]]
+    task = _make_task([(inp, out)])
+    model = solve_ray_down(task)
+    assert model is not None and hasattr(model, "graph")
+
+    sess = ort.InferenceSession(model.SerializeToString())
+    res = sess.run(["output"], {"input": to_onehot(inp)})[0]
+    assert from_onehot((res > 0.0).astype(np.float32)) == out
+
+
+def test_ray_down_rejects_when_not_filled():
+    from neurogolf.solvers.ray_down import solve_ray_down
+    # Output leaves the column unfilled -> not a downward fill -> decline.
+    task = _make_task([([[5, 0], [0, 0]], [[5, 0], [0, 0]])])
+    assert solve_ray_down(task) is None
