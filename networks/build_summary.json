@@ -2129,11 +2129,11 @@
   },
   {
     "task": 267,
-    "solver": "none",
-    "saved": false,
-    "points": 0.0,
-    "memory": null,
-    "params": null
+    "solver": "solve_blob_recolor",
+    "saved": true,
+    "points": 13.312407197172677,
+    "memory": 119064,
+    "params": 21
   },
   {
     "task": 268,

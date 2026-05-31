@@ -11,7 +11,7 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![Last Commit](https://img.shields.io/github/last-commit/zikuanqi/NeuroGolf)](https://github.com/zikuanqi/NeuroGolf/commits/main)
 [![Tests](https://img.shields.io/badge/tests-passing-brightgreen)](tests/)
-[![Tasks Solved](https://img.shields.io/badge/tasks_solved-78%2F400-blue)](networks/)
+[![Tasks Solved](https://img.shields.io/badge/tasks_solved-79%2F400-blue)](networks/)
 
 </div>
 
@@ -64,6 +64,7 @@
 | v33 | + colour-lines (colour-2 markers fire vertical lines; other colours fire horizontals drawn on top) | 76 | ~1102 (pending) |
 | v34 | + endpoint-bridge (bridge each row's two dots; nearer-dot colour each side, colour-5 midpoint) | 77 | **1113.94** |
 | v35 | + keep-majority (keep the most-frequent colour, recolour every other marker to 5) | 78 | ~1127 (pending) |
+| v36 | + blob-recolour (two-colour grid: repaint the majority blob with the lone key colour, clear the rest) | 79 | ~1140 (pending) |
 
 ---
 
@@ -132,6 +133,7 @@ Each solver is a callable `(task: dict) → Optional[onnx.ModelProto]`. The pipe
 | `solve_color_lines` | colour-2 markers fill their whole column (vertical line); every other colour fills its whole row (horizontal, drawn on top); off-line cells stay background · 颜色 2 标记填充整列，其他颜色填充整行（横线覆盖竖线） | `ReduceMax` (col-has-2 / per-row colour) + `Sub`/`Mul`/`Add` priority blend | ~32 |
 | `solve_endpoint_bridge` | bridge the two dots in each row: nearer-dot colour on each side, colour 5 at the floor-midpoint · 连接每行的两个点：两侧取较近点颜色，中点为颜色 5 | `ReduceMax` column ramps (find endpoints) + `Greater`/`Less` side masks + `Mul`/`Add` blend | ~117 |
 | `solve_keep_majority` | keep the most-frequent non-background colour; recolour every other marker to colour 5; background unchanged · 保留出现最多的非背景色，其余标记重涂为颜色 5 | `ReduceSum` (per-colour count) + `ReduceMax` + `Equal` (argmax) + `Mul`/`Add` blend | ~31 |
+| `solve_blob_recolor` | two non-bg colours: repaint the majority "blob" with the rarer "key" colour and clear everything else to background · 两种非背景色：用稀有"钥匙"色重涂多数"团块"，其余清为背景 | `ReduceSum` counts + `Equal` (argmax blob) + `Greater` (present) + `Sub`/`Mul`/`Add` blend | ~21 |
 | `solve_scale_detector` | N× nearest-neighbor upscale or downscale · N 倍最近邻放大或缩小 | `Slice` + `Resize` | ~24 |
 | `solve_variable_shift` | shift by fixed offset with zero-fill, variable input shape · 定偏移量平移零填充，变输入尺寸 | `Slice` + `Pad` + `Concat` | ~50 |
 | `solve_gravity_right` | each row's cells slide right until blocked · 重力向右：每行格子右移直到被挡住 | `ReduceSum` + `CumSum` + `Where` + `Mul` | ~94 |

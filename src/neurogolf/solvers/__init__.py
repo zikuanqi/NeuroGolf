@@ -15,6 +15,7 @@ from typing import Callable, Optional
 import onnx
 
 from .bbox_color_extract import solve_bbox_color_extract
+from .blob_recolor import solve_blob_recolor
 from .block_mask import solve_block_mask
 from .color_bbox_fill import solve_color_bbox_fill
 from .color_lines import solve_color_lines
@@ -115,6 +116,7 @@ ALL_SOLVERS: list[Solver] = [
     solve_color_lines,
     solve_endpoint_bridge,
     solve_keep_majority,
+    solve_blob_recolor,
     solve_zero_color,
     solve_column_label,
     solve_gravity_down,

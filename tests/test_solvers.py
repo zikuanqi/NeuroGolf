@@ -868,3 +868,32 @@ def test_keep_majority_rejects_tie():
     # Two colours tie for most frequent -> ambiguous -> decline.
     task = _make_task([([[1, 2], [0, 0]], [[1, 2], [0, 0]])])
     assert solve_keep_majority(task) is None
+
+
+def test_blob_recolor_paints_blob_with_key():
+    import numpy as np
+    import onnxruntime as ort
+    from neurogolf.grids import from_onehot, to_onehot
+    from neurogolf.solvers.blob_recolor import solve_blob_recolor
+
+    # blob colour 2 (frequent) repainted with key colour 4; key cell + bg cleared.
+    inp = [[2, 2, 2],
+           [2, 2, 0],
+           [0, 0, 4]]
+    out = [[4, 4, 4],
+           [4, 4, 0],
+           [0, 0, 0]]
+    task = _make_task([(inp, out)])
+    model = solve_blob_recolor(task)
+    assert model is not None and hasattr(model, "graph")
+
+    sess = ort.InferenceSession(model.SerializeToString())
+    res = sess.run(["output"], {"input": to_onehot(inp)})[0]
+    assert from_onehot((res > 0.0).astype(np.float32)) == out
+
+
+def test_blob_recolor_rejects_single_colour():
+    from neurogolf.solvers.blob_recolor import solve_blob_recolor
+    # Only one non-background colour -> no key to recolour with -> decline.
+    task = _make_task([([[2, 2], [0, 0]], [[2, 2], [0, 0]])])
+    assert solve_blob_recolor(task) is None
