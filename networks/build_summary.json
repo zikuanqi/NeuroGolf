@@ -313,11 +313,11 @@
   },
   {
     "task": 40,
-    "solver": "none",
-    "saved": false,
-    "points": 0.0,
-    "memory": null,
-    "params": null
+    "solver": "solve_nearest_wall",
+    "saved": true,
+    "points": 12.034362949890243,
+    "memory": 427394,
+    "params": 75
   },
   {
     "task": 41,

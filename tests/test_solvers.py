@@ -649,3 +649,60 @@ def test_color_bbox_fill_rejects_no_change():
     # already-solid single cell -> unchanged -> decline.
     task = _make_task([([[3, 0], [0, 0]], [[3, 0], [0, 0]])])
     assert solve_color_bbox_fill(task) is None
+
+
+def test_nearest_wall_recolors_to_nearer_wall():
+    import numpy as np
+    import onnxruntime as ort
+    from neurogolf.grids import from_onehot, to_onehot
+    from neurogolf.solvers.nearest_wall import solve_nearest_wall
+
+    # Left column = colour 1, right column = colour 2; each interior marker is
+    # repainted with the colour of the wall it sits closer to.
+    inp = [[1, 0, 3, 0, 0, 2],
+           [1, 0, 0, 0, 3, 2],
+           [1, 0, 0, 0, 0, 2]]
+    out = [[1, 0, 1, 0, 0, 2],
+           [1, 0, 0, 0, 2, 2],
+           [1, 0, 0, 0, 0, 2]]
+    task = _make_task([(inp, out)])
+    model = solve_nearest_wall(task)
+    assert model is not None and hasattr(model, "graph")
+
+    sess = ort.InferenceSession(model.SerializeToString())
+    res = sess.run(["output"], {"input": to_onehot(inp)})[0]
+    assert from_onehot((res > 0.0).astype(np.float32)) == out
+
+
+def test_nearest_wall_handles_horizontal_walls():
+    import numpy as np
+    import onnxruntime as ort
+    from neurogolf.grids import from_onehot, to_onehot
+    from neurogolf.solvers.nearest_wall import solve_nearest_wall
+
+    # Same network must also cope with top/bottom walls (colours 4 and 7).
+    inp = [[4, 4, 4],
+           [0, 3, 0],
+           [0, 0, 0],
+           [3, 0, 0],
+           [7, 7, 7]]
+    out = [[4, 4, 4],
+           [0, 4, 0],
+           [0, 0, 0],
+           [7, 0, 0],
+           [7, 7, 7]]
+    task = _make_task([(inp, out)])
+    model = solve_nearest_wall(task)
+    assert model is not None
+
+    sess = ort.InferenceSession(model.SerializeToString())
+    res = sess.run(["output"], {"input": to_onehot(inp)})[0]
+    assert from_onehot((res > 0.0).astype(np.float32)) == out
+
+
+def test_nearest_wall_rejects_without_facing_walls():
+    from neurogolf.solvers.nearest_wall import solve_nearest_wall
+    # Only the left column is a uniform wall -> no facing pair -> decline.
+    task = _make_task([([[1, 0, 3], [1, 0, 0], [1, 0, 0]],
+                        [[1, 0, 3], [1, 0, 0], [1, 0, 0]])])
+    assert solve_nearest_wall(task) is None

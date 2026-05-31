@@ -37,6 +37,7 @@ from .largest_bbox_fill import solve_largest_bbox_fill
 from .majority_fill import solve_majority_fill
 from .marker_crop import solve_marker_crop
 from .mirror_complete import solve_mirror_complete
+from .nearest_wall import solve_nearest_wall
 from .palindrome import (solve_palindrome_2d, solve_palindrome_h,
                           solve_palindrome_v)
 from .remap import solve_remap
@@ -103,6 +104,7 @@ ALL_SOLVERS: list[Solver] = [
     solve_mirror_complete,
     solve_denoise,
     solve_drop_into_wall,
+    solve_nearest_wall,
     solve_zero_color,
     solve_column_label,
     solve_gravity_down,
