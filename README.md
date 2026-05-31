@@ -71,7 +71,7 @@
 | v40 | + hspan-fill (fill each row-gap flanked left & right by a same-colour wall with a fixed colour) | 83 | **1195.21** |
 | v41 | + stamp (replace each marker with a fixed 3×3 colour motif detected from the task) | 84 | ~1208 (pending) |
 | v42 | + outline (keep each shape's perimeter, erase its interior) | 85 | ~1222 (pending) |
-| v43 | + ray-down (carry each marker's colour straight down its column) | 86 | ~1233 (pending) |
+| v43 | + ray-down (carry each marker's colour straight down its column) | 86 | **1232.92** |
 
 ---
 
