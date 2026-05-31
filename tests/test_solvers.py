@@ -773,3 +773,38 @@ def test_halo_rejects_when_not_a_halo():
     task = _make_task([([[0, 5, 0], [0, 0, 0], [0, 0, 0]],
                         [[0, 5, 0], [0, 0, 0], [0, 0, 0]])])
     assert solve_halo(task) is None
+
+
+def test_color_lines_vertical_two_horizontal_others():
+    import numpy as np
+    import onnxruntime as ort
+    from neurogolf.grids import from_onehot, to_onehot
+    from neurogolf.solvers.color_lines import solve_color_lines
+
+    # colour-2 marker -> its column becomes a vertical line; the colour-1 marker
+    # -> its row becomes a horizontal line, drawn on top of the vertical.
+    inp = [[0, 0, 0, 0, 0],
+           [0, 1, 0, 0, 0],
+           [0, 0, 0, 0, 0],
+           [0, 0, 0, 2, 0],
+           [0, 0, 0, 0, 0]]
+    out = [[0, 0, 0, 2, 0],
+           [1, 1, 1, 1, 1],
+           [0, 0, 0, 2, 0],
+           [0, 0, 0, 2, 0],
+           [0, 0, 0, 2, 0]]
+    task = _make_task([(inp, out)])
+    model = solve_color_lines(task)
+    assert model is not None and hasattr(model, "graph")
+
+    sess = ort.InferenceSession(model.SerializeToString())
+    res = sess.run(["output"], {"input": to_onehot(inp)})[0]
+    assert from_onehot((res > 0.0).astype(np.float32)) == out
+
+
+def test_color_lines_rejects_non_lines():
+    from neurogolf.solvers.color_lines import solve_color_lines
+    # A lone marker left unchanged is not the line transform -> decline.
+    task = _make_task([([[0, 1, 0], [0, 0, 0], [0, 0, 0]],
+                        [[0, 1, 0], [0, 0, 0], [0, 0, 0]])])
+    assert solve_color_lines(task) is None

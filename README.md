@@ -11,7 +11,7 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![Last Commit](https://img.shields.io/github/last-commit/zikuanqi/NeuroGolf)](https://github.com/zikuanqi/NeuroGolf/commits/main)
 [![Tests](https://img.shields.io/badge/tests-passing-brightgreen)](tests/)
-[![Tasks Solved](https://img.shields.io/badge/tasks_solved-75%2F400-blue)](networks/)
+[![Tasks Solved](https://img.shields.io/badge/tasks_solved-76%2F400-blue)](networks/)
 
 </div>
 
@@ -61,6 +61,7 @@
 | v30 | + nearest-wall (recolour each marker with the colour of the nearer of two facing walls) | 73 | ~1064 (pending) |
 | v31 | + cross-laser (each marker fires a full row + column "plus"; differing-colour crossings become 2) | 74 | **1076.16** |
 | v32 | + halo (keep each marker, ring its background neighbours with colour 1) | 75 | ~1089 (pending) |
+| v33 | + colour-lines (colour-2 markers fire vertical lines; other colours fire horizontals drawn on top) | 76 | ~1102 (pending) |
 
 ---
 
@@ -126,6 +127,7 @@ Each solver is a callable `(task: dict) → Optional[onnx.ModelProto]`. The pipe
 | `solve_nearest_wall` | recolour each marker with the colour of the nearer of two facing walls (L/R columns or T/B rows) · 将每个标记重涂为左右列或上下行两堵相对墙中较近一堵的颜色 | `ReduceSum`/`ReduceMax` (content, W/H, wall colour) + `Gather` (far wall by index) + `Less`/`Greater` half-masks + `Cast` + `Mul` + `Add` blend | ~75 |
 | `solve_cross_laser` | each marker fires a full row + column "plus"; cells where one marker's row meets a different marker's column become colour 2 · 每个标记射出整行整列十字，不同颜色十字交叉处变为颜色 2 | `ReduceMax` (per-row/col colour) + `ReduceSum` (same-colour test) + `Sub`/`Mul`/`Add` mask blend | ~31 |
 | `solve_halo` | keep each marker and ring its background neighbours with colour 1 (one-pixel 3×3 dilation) · 保留每个标记并在其背景邻居上围一圈颜色 1（3×3 膨胀） | 3×3 ones `Conv` (dilation) + `Greater` + `Cast` + `Sub`/`Mul`/`Add` mask blend | ~32 |
+| `solve_color_lines` | colour-2 markers fill their whole column (vertical line); every other colour fills its whole row (horizontal, drawn on top); off-line cells stay background · 颜色 2 标记填充整列，其他颜色填充整行（横线覆盖竖线） | `ReduceMax` (col-has-2 / per-row colour) + `Sub`/`Mul`/`Add` priority blend | ~32 |
 | `solve_scale_detector` | N× nearest-neighbor upscale or downscale · N 倍最近邻放大或缩小 | `Slice` + `Resize` | ~24 |
 | `solve_variable_shift` | shift by fixed offset with zero-fill, variable input shape · 定偏移量平移零填充，变输入尺寸 | `Slice` + `Pad` + `Concat` | ~50 |
 | `solve_gravity_right` | each row's cells slide right until blocked · 重力向右：每行格子右移直到被挡住 | `ReduceSum` + `CumSum` + `Where` + `Mul` | ~94 |

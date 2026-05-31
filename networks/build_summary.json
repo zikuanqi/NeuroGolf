@@ -185,11 +185,11 @@
   },
   {
     "task": 24,
-    "solver": "none",
-    "saved": false,
-    "points": 0.0,
-    "memory": null,
-    "params": null
+    "solver": "solve_color_lines",
+    "saved": true,
+    "points": 12.777502976055684,
+    "memory": 203280,
+    "params": 32
   },
   {
     "task": 25,
