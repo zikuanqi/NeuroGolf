@@ -753,11 +753,11 @@
   },
   {
     "task": 95,
-    "solver": "none",
-    "saved": false,
-    "points": 0.0,
-    "memory": null,
-    "params": null
+    "solver": "solve_halo",
+    "saved": true,
+    "points": 12.894123450949168,
+    "memory": 180900,
+    "params": 32
   },
   {
     "task": 96,

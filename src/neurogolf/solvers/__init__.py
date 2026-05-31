@@ -32,6 +32,7 @@ from .gravity_down import solve_gravity_down
 from .gravity_up import solve_gravity_up
 from .gravity_right import solve_gravity_right
 from .gravity_right_diag import solve_gravity_right_diag
+from .halo import solve_halo
 from .identity import solve_identity
 from .kron_scale import solve_kron_scale
 from .largest_bbox_fill import solve_largest_bbox_fill
@@ -107,6 +108,7 @@ ALL_SOLVERS: list[Solver] = [
     solve_drop_into_wall,
     solve_nearest_wall,
     solve_cross_laser,
+    solve_halo,
     solve_zero_color,
     solve_column_label,
     solve_gravity_down,
