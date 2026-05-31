@@ -1051,3 +1051,37 @@ def test_stamp_rejects_multi_colour_markers():
     # Two distinct marker colours -> not a single fixed stamp -> decline.
     task = _make_task([([[1, 0], [0, 2]], [[1, 0], [0, 2]])])
     assert solve_stamp(task) is None
+
+
+def test_outline_keeps_perimeter():
+    import numpy as np
+    import onnxruntime as ort
+    from neurogolf.grids import from_onehot, to_onehot
+    from neurogolf.solvers.outline import solve_outline
+
+    # Solid 3x3 block -> only the border survives, the centre is cleared.
+    inp = [[0, 0, 0, 0, 0],
+           [0, 5, 5, 5, 0],
+           [0, 5, 5, 5, 0],
+           [0, 5, 5, 5, 0],
+           [0, 0, 0, 0, 0]]
+    out = [[0, 0, 0, 0, 0],
+           [0, 5, 5, 5, 0],
+           [0, 5, 0, 5, 0],
+           [0, 5, 5, 5, 0],
+           [0, 0, 0, 0, 0]]
+    task = _make_task([(inp, out)])
+    model = solve_outline(task)
+    assert model is not None and hasattr(model, "graph")
+
+    sess = ort.InferenceSession(model.SerializeToString())
+    res = sess.run(["output"], {"input": to_onehot(inp)})[0]
+    assert from_onehot((res > 0.0).astype(np.float32)) == out
+
+
+def test_outline_rejects_when_interior_kept():
+    from neurogolf.solvers.outline import solve_outline
+    # Output keeps the solid interior -> not an outline transform -> decline.
+    task = _make_task([([[5, 5, 5], [5, 5, 5], [5, 5, 5]],
+                        [[5, 5, 5], [5, 5, 5], [5, 5, 5]])])
+    assert solve_outline(task) is None

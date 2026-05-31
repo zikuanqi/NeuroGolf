@@ -47,6 +47,7 @@ from .majority_fill import solve_majority_fill
 from .marker_crop import solve_marker_crop
 from .mirror_complete import solve_mirror_complete
 from .nearest_wall import solve_nearest_wall
+from .outline import solve_outline
 from .palindrome import (solve_palindrome_2d, solve_palindrome_h,
                           solve_palindrome_v)
 from .recolor_fives import solve_recolor_fives
@@ -127,6 +128,7 @@ ALL_SOLVERS: list[Solver] = [
     solve_count_bar,
     solve_hspan_fill,
     solve_stamp,
+    solve_outline,
     solve_zero_color,
     solve_column_label,
     solve_gravity_down,

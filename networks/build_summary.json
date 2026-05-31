@@ -777,11 +777,11 @@
   },
   {
     "task": 98,
-    "solver": "none",
-    "saved": false,
-    "points": 0.0,
-    "memory": null,
-    "params": null
+    "solver": "solve_outline",
+    "saved": true,
+    "points": 13.470010949603891,
+    "memory": 101700,
+    "params": 21
   },
   {
     "task": 99,
