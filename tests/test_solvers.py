@@ -706,3 +706,38 @@ def test_nearest_wall_rejects_without_facing_walls():
     task = _make_task([([[1, 0, 3], [1, 0, 0], [1, 0, 0]],
                         [[1, 0, 3], [1, 0, 0], [1, 0, 0]])])
     assert solve_nearest_wall(task) is None
+
+
+def test_cross_laser_plus_and_intersection():
+    import numpy as np
+    import onnxruntime as ort
+    from neurogolf.grids import from_onehot, to_onehot
+    from neurogolf.solvers.cross_laser import solve_cross_laser
+
+    # Two markers: a 3 and a 4. Each fires a full row+column; where the 3's row
+    # meets the 4's column (and vice-versa) the cell becomes colour 2.
+    inp = [[0, 0, 0, 0, 0],
+           [0, 0, 3, 0, 0],
+           [0, 0, 0, 0, 0],
+           [4, 0, 0, 0, 0],
+           [0, 0, 0, 0, 0]]
+    out = [[4, 0, 3, 0, 0],
+           [2, 3, 3, 3, 3],
+           [4, 0, 3, 0, 0],
+           [4, 4, 2, 4, 4],
+           [4, 0, 3, 0, 0]]
+    task = _make_task([(inp, out)])
+    model = solve_cross_laser(task)
+    assert model is not None and hasattr(model, "graph")
+
+    sess = ort.InferenceSession(model.SerializeToString())
+    res = sess.run(["output"], {"input": to_onehot(inp)})[0]
+    assert from_onehot((res > 0.0).astype(np.float32)) == out
+
+
+def test_cross_laser_rejects_non_cross():
+    from neurogolf.solvers.cross_laser import solve_cross_laser
+    # A lone marker left unchanged is not the plus-laser transform -> decline.
+    task = _make_task([([[0, 5, 0], [0, 0, 0], [0, 0, 0]],
+                        [[0, 5, 0], [0, 0, 0], [0, 0, 0]])])
+    assert solve_cross_laser(task) is None

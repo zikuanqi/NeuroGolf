@@ -20,6 +20,7 @@ from .color_bbox_fill import solve_color_bbox_fill
 from .column_label import solve_column_label
 from .connect_dots import solve_connect_dots
 from .connect_fill import solve_connect_fill
+from .cross_laser import solve_cross_laser
 from .denoise import solve_denoise
 from .drop_into_wall import solve_drop_into_wall
 from .bbox_strip import solve_bbox_strip
@@ -105,6 +106,7 @@ ALL_SOLVERS: list[Solver] = [
     solve_denoise,
     solve_drop_into_wall,
     solve_nearest_wall,
+    solve_cross_laser,
     solve_zero_color,
     solve_column_label,
     solve_gravity_down,

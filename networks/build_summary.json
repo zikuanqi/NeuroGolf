@@ -369,11 +369,11 @@
   },
   {
     "task": 47,
-    "solver": "none",
-    "saved": false,
-    "points": 0.0,
-    "memory": null,
-    "params": null
+    "solver": "solve_cross_laser",
+    "saved": true,
+    "points": 12.284369534026947,
+    "memory": 332880,
+    "params": 31
   },
   {
     "task": 48,

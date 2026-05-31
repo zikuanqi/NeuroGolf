@@ -11,7 +11,7 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![Last Commit](https://img.shields.io/github/last-commit/zikuanqi/NeuroGolf)](https://github.com/zikuanqi/NeuroGolf/commits/main)
 [![Tests](https://img.shields.io/badge/tests-passing-brightgreen)](tests/)
-[![Tasks Solved](https://img.shields.io/badge/tasks_solved-73%2F400-blue)](networks/)
+[![Tasks Solved](https://img.shields.io/badge/tasks_solved-74%2F400-blue)](networks/)
 
 </div>
 
@@ -59,6 +59,7 @@
 | v28 | + drop-into-wall (colour-1 cells fall into a full colour-5 wall row in their column) | 71 | ~1037 (pending) |
 | v29 | + color-bbox-fill (replace each colour's scattered cells with its solid bounding box) | 72 | ~1051 (pending) |
 | v30 | + nearest-wall (recolour each marker with the colour of the nearer of two facing walls) | 73 | ~1064 (pending) |
+| v31 | + cross-laser (each marker fires a full row + column "plus"; differing-colour crossings become 2) | 74 | ~1076 (pending) |
 
 ---
 
@@ -122,6 +123,7 @@ Each solver is a callable `(task: dict) → Optional[onnx.ModelProto]`. The pipe
 | `solve_drop_into_wall` | colour-1 cells fall into a full colour-5 wall row in their column · 颜色1沿列落入整行的颜色5墙 | `Gather` + `ReduceSum`/`ReduceMax` (wall + column detect) + `Mul` (outer product) + `Relu` + `Concat` | ~12 |
 | `solve_color_bbox_fill` | replace each colour's scattered cells with its solid bounding box · 用实心外接矩形填充每个颜色的散点 | `ReduceMax` (row/col span) + `CumSum` ×4 + `Greater` + `And` + `Mul` (outer) + `Concat` | ~80 |
 | `solve_nearest_wall` | recolour each marker with the colour of the nearer of two facing walls (L/R columns or T/B rows) · 将每个标记重涂为左右列或上下行两堵相对墙中较近一堵的颜色 | `ReduceSum`/`ReduceMax` (content, W/H, wall colour) + `Gather` (far wall by index) + `Less`/`Greater` half-masks + `Cast` + `Mul` + `Add` blend | ~75 |
+| `solve_cross_laser` | each marker fires a full row + column "plus"; cells where one marker's row meets a different marker's column become colour 2 · 每个标记射出整行整列十字，不同颜色十字交叉处变为颜色 2 | `ReduceMax` (per-row/col colour) + `ReduceSum` (same-colour test) + `Sub`/`Mul`/`Add` mask blend | ~31 |
 | `solve_scale_detector` | N× nearest-neighbor upscale or downscale · N 倍最近邻放大或缩小 | `Slice` + `Resize` | ~24 |
 | `solve_variable_shift` | shift by fixed offset with zero-fill, variable input shape · 定偏移量平移零填充，变输入尺寸 | `Slice` + `Pad` + `Concat` | ~50 |
 | `solve_gravity_right` | each row's cells slide right until blocked · 重力向右：每行格子右移直到被挡住 | `ReduceSum` + `CumSum` + `Where` + `Mul` | ~94 |
