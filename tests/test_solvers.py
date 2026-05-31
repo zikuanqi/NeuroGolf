@@ -1175,3 +1175,33 @@ def test_cc_size_recolor_rejects_inconsistent_size_map():
     task = _make_task([([[5, 5, 0], [0, 0, 0], [5, 5, 0]],
                         [[1, 1, 0], [0, 0, 0], [2, 2, 0]])])
     assert solve_cc_size_recolor(task) is None
+
+
+def test_cc_rank_recolor_by_size_rank():
+    import numpy as np
+    import onnxruntime as ort
+    from neurogolf.grids import from_onehot, to_onehot
+    from neurogolf.solvers.cc_rank_recolor import solve_cc_rank_recolor
+
+    # Three separated bars, sizes 3/2/1 -> ranks 0/1/2 -> colours 1/4/2.
+    inp = [[5, 0, 5, 0, 5],
+           [5, 0, 5, 0, 0],
+           [5, 0, 0, 0, 0]]
+    out = [[1, 0, 4, 0, 2],
+           [1, 0, 4, 0, 0],
+           [1, 0, 0, 0, 0]]
+    task = _make_task([(inp, out)])
+    model = solve_cc_rank_recolor(task)
+    assert model is not None and hasattr(model, "graph")
+
+    sess = ort.InferenceSession(model.SerializeToString())
+    res = sess.run(["output"], {"input": to_onehot(inp)})[0]
+    assert from_onehot((res > 0.0).astype(np.float32)) == out
+
+
+def test_cc_rank_recolor_rejects_ties():
+    from neurogolf.solvers.cc_rank_recolor import solve_cc_rank_recolor
+    # Two equal-size components -> ambiguous rank -> decline.
+    task = _make_task([([[5, 0, 5], [5, 0, 5], [0, 0, 0]],
+                        [[1, 0, 2], [1, 0, 2], [0, 0, 0]])])
+    assert solve_cc_rank_recolor(task) is None

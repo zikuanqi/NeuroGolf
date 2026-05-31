@@ -11,7 +11,7 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![Last Commit](https://img.shields.io/github/last-commit/zikuanqi/NeuroGolf)](https://github.com/zikuanqi/NeuroGolf/commits/main)
 [![Tests](https://img.shields.io/badge/tests-passing-brightgreen)](tests/)
-[![Tasks Solved](https://img.shields.io/badge/tasks_solved-91%2F400-blue)](networks/)
+[![Tasks Solved](https://img.shields.io/badge/tasks_solved-92%2F400-blue)](networks/)
 
 </div>
 
@@ -74,6 +74,7 @@
 | v43 | + ray-down (carry each marker's colour straight down its column) | 86 | **1232.92** |
 | v44 | + isolate-recolour (recolour cells by isolated-vs-connected; tasks 147 + 272) | 88 | ~1258 (pending) |
 | v45 | + cc-size-recolour (recolour each connected component by its cell count; tasks 169 + 196 + 330) | 91 | **1285.81** |
+| v46 | + cc-rank-recolour (recolour each connected component by its size-rank; task 374) | 92 | ~1294 (pending) |
 
 ---
 
@@ -152,6 +153,7 @@ Each solver is a callable `(task: dict) → Optional[onnx.ModelProto]`. The pipe
 | `solve_ray_down` | carry each marker's colour straight down its column (downward forward-fill) · 把每个标记的颜色沿所在列向下填充 | per-colour cumulative-max down (log-doubling `Pad`+`Slice`+`Max`) + `Equal`/`Greater` owner select | ~95 |
 | `solve_isolate_recolor` | recolour each cell by whether it is isolated (no same-colour 4-neighbour) or connected, via a per-task (colour, isolated) map · 按是否孤立（无同色四邻）对每个格重新着色 | depthwise 3×3 cross `Conv` (neighbour count) + `Less`/`Greater` + two 1×1 `Conv` remaps | ~291 |
 | `solve_cc_size_recolor` | recolour every same-colour connected component by its cell count, via a per-task size→colour map · 按连通分量的格数（大小）重新着色，大小→颜色映射按任务检测 | iterated same-colour max-propagation labelling (26×) + all-pairs label match for counts + size→colour map | ~1k |
+| `solve_cc_rank_recolor` | recolour every same-colour connected component by its size-rank (largest = rank 0), via a per-task rank→colour map · 按连通分量大小的名次重新着色（最大为 0），名次→颜色映射按任务检测 | cc-size labelling + a second all-pairs (size-compare × component reps) for ranks + rank→colour map | ~1k |
 | `solve_scale_detector` | N× nearest-neighbor upscale or downscale · N 倍最近邻放大或缩小 | `Slice` + `Resize` | ~24 |
 | `solve_variable_shift` | shift by fixed offset with zero-fill, variable input shape · 定偏移量平移零填充，变输入尺寸 | `Slice` + `Pad` + `Concat` | ~50 |
 | `solve_gravity_right` | each row's cells slide right until blocked · 重力向右：每行格子右移直到被挡住 | `ReduceSum` + `CumSum` + `Where` + `Mul` | ~94 |

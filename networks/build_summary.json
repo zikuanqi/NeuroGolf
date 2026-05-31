@@ -2985,11 +2985,11 @@
   },
   {
     "task": 374,
-    "solver": "none",
-    "saved": false,
-    "points": 0.0,
-    "memory": null,
-    "params": null
+    "solver": "solve_cc_rank_recolor",
+    "saved": true,
+    "points": 8.584983634570726,
+    "memory": 13456080,
+    "params": 1006
   },
   {
     "task": 375,
