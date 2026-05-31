@@ -961,3 +961,30 @@ def test_dilate_ones_rejects_colour_preserving():
     task = _make_task([([[0, 5, 0], [0, 0, 0], [0, 0, 0]],
                         [[0, 5, 0], [0, 0, 0], [0, 0, 0]])])
     assert solve_dilate_ones(task) is None
+
+
+def test_count_bar_counts_markers():
+    import numpy as np
+    import onnxruntime as ort
+    from neurogolf.grids import from_onehot, to_onehot
+    from neurogolf.solvers.count_bar import solve_count_bar
+
+    # Three colour-7 cells -> a 1x3 bar of colour 7.
+    inp = [[0, 7, 0],
+           [7, 0, 0],
+           [0, 0, 7]]
+    out = [[7, 7, 7]]
+    task = _make_task([(inp, out)])
+    model = solve_count_bar(task)
+    assert model is not None and hasattr(model, "graph")
+
+    sess = ort.InferenceSession(model.SerializeToString())
+    res = sess.run(["output"], {"input": to_onehot(inp)})[0]
+    assert from_onehot((res > 0.0).astype(np.float32)) == out
+
+
+def test_count_bar_rejects_multi_colour():
+    from neurogolf.solvers.count_bar import solve_count_bar
+    # Two marker colours -> ambiguous bar colour -> decline.
+    task = _make_task([([[1, 2], [0, 0]], [[1, 2]])])
+    assert solve_count_bar(task) is None

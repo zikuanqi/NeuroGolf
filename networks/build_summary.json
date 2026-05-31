@@ -2705,11 +2705,11 @@
   },
   {
     "task": 339,
-    "solver": "none",
-    "saved": false,
-    "points": 0.0,
-    "memory": null,
-    "params": null
+    "solver": "solve_count_bar",
+    "saved": true,
+    "points": 15.400594941283433,
+    "memory": 14684,
+    "params": 72
   },
   {
     "task": 340,

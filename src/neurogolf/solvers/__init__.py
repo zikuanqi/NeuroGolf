@@ -22,6 +22,7 @@ from .color_lines import solve_color_lines
 from .column_label import solve_column_label
 from .connect_dots import solve_connect_dots
 from .connect_fill import solve_connect_fill
+from .count_bar import solve_count_bar
 from .cross_laser import solve_cross_laser
 from .denoise import solve_denoise
 from .dilate_ones import solve_dilate_ones
@@ -121,6 +122,7 @@ ALL_SOLVERS: list[Solver] = [
     solve_blob_recolor,
     solve_recolor_fives,
     solve_dilate_ones,
+    solve_count_bar,
     solve_zero_color,
     solve_column_label,
     solve_gravity_down,
