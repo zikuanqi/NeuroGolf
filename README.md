@@ -62,7 +62,7 @@
 | v31 | + cross-laser (each marker fires a full row + column "plus"; differing-colour crossings become 2) | 74 | **1076.16** |
 | v32 | + halo (keep each marker, ring its background neighbours with colour 1) | 75 | ~1089 (pending) |
 | v33 | + colour-lines (colour-2 markers fire vertical lines; other colours fire horizontals drawn on top) | 76 | ~1102 (pending) |
-| v34 | + endpoint-bridge (bridge each row's two dots; nearer-dot colour each side, colour-5 midpoint) | 77 | ~1114 (pending) |
+| v34 | + endpoint-bridge (bridge each row's two dots; nearer-dot colour each side, colour-5 midpoint) | 77 | **1113.94** |
 
 ---
 
