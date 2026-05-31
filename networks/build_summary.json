@@ -2249,11 +2249,11 @@
   },
   {
     "task": 282,
-    "solver": "none",
-    "saved": false,
-    "points": 0.0,
-    "memory": null,
-    "params": null
+    "solver": "solve_stamp",
+    "saved": true,
+    "points": 12.850227901088987,
+    "memory": 189000,
+    "params": 51
   },
   {
     "task": 283,

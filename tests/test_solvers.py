@@ -1018,3 +1018,36 @@ def test_hspan_fill_rejects_without_span():
     task = _make_task([([[1, 0, 0], [0, 0, 0], [0, 0, 0]],
                         [[1, 0, 0], [0, 0, 0], [0, 0, 0]])])
     assert solve_hspan_fill(task) is None
+
+
+def test_stamp_paints_fixed_motif():
+    import numpy as np
+    import onnxruntime as ort
+    from neurogolf.grids import from_onehot, to_onehot
+    from neurogolf.solvers.stamp import solve_stamp
+
+    # Each marker becomes a fixed 3x3 motif (diagonal 5, orthogonal 1, centre 0).
+    inp = [[0, 0, 0, 0, 0],
+           [0, 0, 0, 0, 0],
+           [0, 0, 5, 0, 0],
+           [0, 0, 0, 0, 0],
+           [0, 0, 0, 0, 0]]
+    out = [[0, 0, 0, 0, 0],
+           [0, 5, 1, 5, 0],
+           [0, 1, 0, 1, 0],
+           [0, 5, 1, 5, 0],
+           [0, 0, 0, 0, 0]]
+    task = _make_task([(inp, out)])
+    model = solve_stamp(task)
+    assert model is not None and hasattr(model, "graph")
+
+    sess = ort.InferenceSession(model.SerializeToString())
+    res = sess.run(["output"], {"input": to_onehot(inp)})[0]
+    assert from_onehot((res > 0.0).astype(np.float32)) == out
+
+
+def test_stamp_rejects_multi_colour_markers():
+    from neurogolf.solvers.stamp import solve_stamp
+    # Two distinct marker colours -> not a single fixed stamp -> decline.
+    task = _make_task([([[1, 0], [0, 2]], [[1, 0], [0, 2]])])
+    assert solve_stamp(task) is None

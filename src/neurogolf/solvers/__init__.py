@@ -66,6 +66,7 @@ from .single_color import solve_single_color
 from .spatial import solve_transpose
 from .split_and import solve_split_and
 from .split_logic import solve_split_logic
+from .stamp import solve_stamp
 from .static_crop import solve_static_crop
 from .tile_h import solve_tile_h
 from .variable_kron import solve_variable_kron
@@ -125,6 +126,7 @@ ALL_SOLVERS: list[Solver] = [
     solve_dilate_ones,
     solve_count_bar,
     solve_hspan_fill,
+    solve_stamp,
     solve_zero_color,
     solve_column_label,
     solve_gravity_down,
