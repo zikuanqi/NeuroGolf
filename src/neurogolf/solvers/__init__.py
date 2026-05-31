@@ -40,6 +40,7 @@ from .gravity_right_diag import solve_gravity_right_diag
 from .halo import solve_halo
 from .hspan_fill import solve_hspan_fill
 from .identity import solve_identity
+from .isolate_recolor import solve_isolate_recolor
 from .keep_majority import solve_keep_majority
 from .kron_scale import solve_kron_scale
 from .largest_bbox_fill import solve_largest_bbox_fill
@@ -131,6 +132,7 @@ ALL_SOLVERS: list[Solver] = [
     solve_stamp,
     solve_outline,
     solve_ray_down,
+    solve_isolate_recolor,
     solve_zero_color,
     solve_column_label,
     solve_gravity_down,

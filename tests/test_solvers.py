@@ -1116,3 +1116,32 @@ def test_ray_down_rejects_when_not_filled():
     # Output leaves the column unfilled -> not a downward fill -> decline.
     task = _make_task([([[5, 0], [0, 0]], [[5, 0], [0, 0]])])
     assert solve_ray_down(task) is None
+
+
+def test_isolate_recolor_by_connectivity():
+    import numpy as np
+    import onnxruntime as ort
+    from neurogolf.grids import from_onehot, to_onehot
+    from neurogolf.solvers.isolate_recolor import solve_isolate_recolor
+
+    # Connected 3s become 8; isolated 3s stay 3.
+    inp = [[3, 3, 0],
+           [0, 3, 0],
+           [3, 0, 3]]
+    out = [[8, 8, 0],
+           [0, 8, 0],
+           [3, 0, 3]]
+    task = _make_task([(inp, out)])
+    model = solve_isolate_recolor(task)
+    assert model is not None and hasattr(model, "graph")
+
+    sess = ort.InferenceSession(model.SerializeToString())
+    res = sess.run(["output"], {"input": to_onehot(inp)})[0]
+    assert from_onehot((res > 0.0).astype(np.float32)) == out
+
+
+def test_isolate_recolor_rejects_inconsistent():
+    from neurogolf.solvers.isolate_recolor import solve_isolate_recolor
+    # Two isolated cells of the same colour map to different colours -> decline.
+    task = _make_task([([[1, 0], [0, 1]], [[2, 0], [0, 3]])])
+    assert solve_isolate_recolor(task) is None

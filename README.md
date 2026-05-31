@@ -11,7 +11,7 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![Last Commit](https://img.shields.io/github/last-commit/zikuanqi/NeuroGolf)](https://github.com/zikuanqi/NeuroGolf/commits/main)
 [![Tests](https://img.shields.io/badge/tests-passing-brightgreen)](tests/)
-[![Tasks Solved](https://img.shields.io/badge/tasks_solved-86%2F400-blue)](networks/)
+[![Tasks Solved](https://img.shields.io/badge/tasks_solved-88%2F400-blue)](networks/)
 
 </div>
 
@@ -72,6 +72,7 @@
 | v41 | + stamp (replace each marker with a fixed 3×3 colour motif detected from the task) | 84 | ~1208 (pending) |
 | v42 | + outline (keep each shape's perimeter, erase its interior) | 85 | ~1222 (pending) |
 | v43 | + ray-down (carry each marker's colour straight down its column) | 86 | **1232.92** |
+| v44 | + isolate-recolour (recolour cells by isolated-vs-connected; tasks 147 + 272) | 88 | ~1258 (pending) |
 
 ---
 
@@ -148,6 +149,7 @@ Each solver is a callable `(task: dict) → Optional[onnx.ModelProto]`. The pipe
 | `solve_stamp` | replace each marker with a fixed 3×3 colour motif (the stamp is detected from the task and baked in) · 用从任务检测出的固定 3×3 图案替换每个标记 | per-colour 3×3 `Conv` (180-flipped stamp kernel) + `Greater` + `Mul`/`Sub`/`Add` blend | ~51 |
 | `solve_outline` | keep each shape's perimeter (cells touching background or the grid edge) and erase the interior; colours preserved · 保留每个形状的边缘（接触背景或网格边的格），擦除内部 | 3×3 cross `Conv` (4-neighbour count) + `Greater` + `Mul`/`Sub`/`Add` | ~21 |
 | `solve_ray_down` | carry each marker's colour straight down its column (downward forward-fill) · 把每个标记的颜色沿所在列向下填充 | per-colour cumulative-max down (log-doubling `Pad`+`Slice`+`Max`) + `Equal`/`Greater` owner select | ~95 |
+| `solve_isolate_recolor` | recolour each cell by whether it is isolated (no same-colour 4-neighbour) or connected, via a per-task (colour, isolated) map · 按是否孤立（无同色四邻）对每个格重新着色 | depthwise 3×3 cross `Conv` (neighbour count) + `Less`/`Greater` + two 1×1 `Conv` remaps | ~291 |
 | `solve_scale_detector` | N× nearest-neighbor upscale or downscale · N 倍最近邻放大或缩小 | `Slice` + `Resize` | ~24 |
 | `solve_variable_shift` | shift by fixed offset with zero-fill, variable input shape · 定偏移量平移零填充，变输入尺寸 | `Slice` + `Pad` + `Concat` | ~50 |
 | `solve_gravity_right` | each row's cells slide right until blocked · 重力向右：每行格子右移直到被挡住 | `ReduceSum` + `CumSum` + `Where` + `Mul` | ~94 |
