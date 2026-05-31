@@ -11,7 +11,7 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![Last Commit](https://img.shields.io/github/last-commit/zikuanqi/NeuroGolf)](https://github.com/zikuanqi/NeuroGolf/commits/main)
 [![Tests](https://img.shields.io/badge/tests-passing-brightgreen)](tests/)
-[![Tasks Solved](https://img.shields.io/badge/tasks_solved-82%2F400-blue)](networks/)
+[![Tasks Solved](https://img.shields.io/badge/tasks_solved-83%2F400-blue)](networks/)
 
 </div>
 
@@ -68,6 +68,7 @@
 | v37 | + recolour-fives (repaint every colour-5 cell with its row's marker colour) | 80 | ~1153 (pending) |
 | v38 | + dilate-ones (expand every marker into a filled 3×3 block of colour 1) | 81 | ~1167 (pending) |
 | v39 | + count-bar (output a 1×N bar of the marker colour, N = number of marker cells) | 82 | ~1182 (pending) |
+| v40 | + hspan-fill (fill each row-gap flanked left & right by a same-colour wall with a fixed colour) | 83 | ~1195 (pending) |
 
 ---
 
@@ -140,6 +141,7 @@ Each solver is a callable `(task: dict) → Optional[onnx.ModelProto]`. The pipe
 | `solve_recolor_fives` | repaint every colour-5 cell with its row's marker colour (the row's other non-background colour) · 把每个颜色-5 单元重涂为所在行的标记色 | `Gather` (ch5) + `ReduceMax` (per-row marker) + `Sub`/`Mul`/`Add` blend | ~21 |
 | `solve_dilate_ones` | expand every marker into a filled 3×3 block of colour 1; everything else becomes background · 把每个标记膨胀为颜色 1 的实心 3×3 块，其余为背景 | 3×3 ones `Conv` (dilation) + `Greater` + `Cast` + `Mul`/`Sub`/`Add` blend | ~31 |
 | `solve_count_bar` | output one row of length N in the marker colour, where N counts the marker cells (a histogram bar) · 输出一行长度为标记数 N 的条形，颜色为标记色 | `ReduceSum` (count + colour) + `Less` (column ramp < N) + `Mul` | ~72 |
+| `solve_hspan_fill` | fill each background cell flanked left and right (same row) by a wall colour with a fixed fill colour; both colours detected per task · 用固定色填充每行被同色墙左右夹住的背景格（墙色与填充色按任务检测） | `Gather` + exclusive/reverse `CumSum` (left/right wall) + `Mul`/`Sub`/`Add` | ~24 |
 | `solve_scale_detector` | N× nearest-neighbor upscale or downscale · N 倍最近邻放大或缩小 | `Slice` + `Resize` | ~24 |
 | `solve_variable_shift` | shift by fixed offset with zero-fill, variable input shape · 定偏移量平移零填充，变输入尺寸 | `Slice` + `Pad` + `Concat` | ~50 |
 | `solve_gravity_right` | each row's cells slide right until blocked · 重力向右：每行格子右移直到被挡住 | `ReduceSum` + `CumSum` + `Where` + `Mul` | ~94 |

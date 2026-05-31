@@ -2057,11 +2057,11 @@
   },
   {
     "task": 258,
-    "solver": "none",
-    "saved": false,
-    "points": 0.0,
-    "memory": null,
-    "params": null
+    "solver": "solve_hspan_fill",
+    "saved": true,
+    "points": 13.160479489079393,
+    "memory": 138600,
+    "params": 24
   },
   {
     "task": 259,

@@ -988,3 +988,33 @@ def test_count_bar_rejects_multi_colour():
     # Two marker colours -> ambiguous bar colour -> decline.
     task = _make_task([([[1, 2], [0, 0]], [[1, 2]])])
     assert solve_count_bar(task) is None
+
+
+def test_hspan_fill_fills_between_walls():
+    import numpy as np
+    import onnxruntime as ort
+    from neurogolf.grids import from_onehot, to_onehot
+    from neurogolf.solvers.hspan_fill import solve_hspan_fill
+
+    # Background cells flanked left and right by colour-1 walls become colour 2.
+    inp = [[1, 0, 1, 0, 0],
+           [0, 0, 0, 0, 0],
+           [0, 1, 0, 1, 0]]
+    out = [[1, 2, 1, 0, 0],
+           [0, 0, 0, 0, 0],
+           [0, 1, 2, 1, 0]]
+    task = _make_task([(inp, out)])
+    model = solve_hspan_fill(task)
+    assert model is not None and hasattr(model, "graph")
+
+    sess = ort.InferenceSession(model.SerializeToString())
+    res = sess.run(["output"], {"input": to_onehot(inp)})[0]
+    assert from_onehot((res > 0.0).astype(np.float32)) == out
+
+
+def test_hspan_fill_rejects_without_span():
+    from neurogolf.solvers.hspan_fill import solve_hspan_fill
+    # A lone wall with nothing to flank -> no fill colour to infer -> decline.
+    task = _make_task([([[1, 0, 0], [0, 0, 0], [0, 0, 0]],
+                        [[1, 0, 0], [0, 0, 0], [0, 0, 0]])])
+    assert solve_hspan_fill(task) is None

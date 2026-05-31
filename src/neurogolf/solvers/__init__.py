@@ -38,6 +38,7 @@ from .gravity_up import solve_gravity_up
 from .gravity_right import solve_gravity_right
 from .gravity_right_diag import solve_gravity_right_diag
 from .halo import solve_halo
+from .hspan_fill import solve_hspan_fill
 from .identity import solve_identity
 from .keep_majority import solve_keep_majority
 from .kron_scale import solve_kron_scale
@@ -123,6 +124,7 @@ ALL_SOLVERS: list[Solver] = [
     solve_recolor_fives,
     solve_dilate_ones,
     solve_count_bar,
+    solve_hspan_fill,
     solve_zero_color,
     solve_column_label,
     solve_gravity_down,
