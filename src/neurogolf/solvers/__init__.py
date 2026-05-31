@@ -17,6 +17,7 @@ import onnx
 from .bbox_color_extract import solve_bbox_color_extract
 from .blob_recolor import solve_blob_recolor
 from .block_mask import solve_block_mask
+from .cc_size_recolor import solve_cc_size_recolor
 from .color_bbox_fill import solve_color_bbox_fill
 from .color_lines import solve_color_lines
 from .column_label import solve_column_label
@@ -133,6 +134,7 @@ ALL_SOLVERS: list[Solver] = [
     solve_outline,
     solve_ray_down,
     solve_isolate_recolor,
+    solve_cc_size_recolor,
     solve_zero_color,
     solve_column_label,
     solve_gravity_down,

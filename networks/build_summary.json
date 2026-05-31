@@ -1345,11 +1345,11 @@
   },
   {
     "task": 169,
-    "solver": "none",
-    "saved": false,
-    "points": 0.0,
-    "memory": null,
-    "params": null
+    "solver": "solve_cc_size_recolor",
+    "saved": true,
+    "points": 9.368918073134342,
+    "memory": 6143580,
+    "params": 1006
   },
   {
     "task": 170,
@@ -1561,11 +1561,11 @@
   },
   {
     "task": 196,
-    "solver": "none",
-    "saved": false,
-    "points": 0.0,
-    "memory": null,
-    "params": null
+    "solver": "solve_cc_size_recolor",
+    "saved": true,
+    "points": 9.223579778825078,
+    "memory": 7104780,
+    "params": 1008
   },
   {
     "task": 197,
@@ -2633,11 +2633,11 @@
   },
   {
     "task": 330,
-    "solver": "none",
-    "saved": false,
-    "points": 0.0,
-    "memory": null,
-    "params": null
+    "solver": "solve_cc_size_recolor",
+    "saved": true,
+    "points": 9.31808952339751,
+    "memory": 6463980,
+    "params": 1000
   },
   {
     "task": 331,

@@ -1145,3 +1145,33 @@ def test_isolate_recolor_rejects_inconsistent():
     # Two isolated cells of the same colour map to different colours -> decline.
     task = _make_task([([[1, 0], [0, 1]], [[2, 0], [0, 3]])])
     assert solve_isolate_recolor(task) is None
+
+
+def test_cc_size_recolor_by_component_size():
+    import numpy as np
+    import onnxruntime as ort
+    from neurogolf.grids import from_onehot, to_onehot
+    from neurogolf.solvers.cc_size_recolor import solve_cc_size_recolor
+
+    # A size-2 component -> colour 3; a size-1 component -> colour 4.
+    inp = [[5, 5, 0, 5],
+           [0, 0, 0, 0],
+           [0, 0, 0, 0]]
+    out = [[3, 3, 0, 4],
+           [0, 0, 0, 0],
+           [0, 0, 0, 0]]
+    task = _make_task([(inp, out)])
+    model = solve_cc_size_recolor(task)
+    assert model is not None and hasattr(model, "graph")
+
+    sess = ort.InferenceSession(model.SerializeToString())
+    res = sess.run(["output"], {"input": to_onehot(inp)})[0]
+    assert from_onehot((res > 0.0).astype(np.float32)) == out
+
+
+def test_cc_size_recolor_rejects_inconsistent_size_map():
+    from neurogolf.solvers.cc_size_recolor import solve_cc_size_recolor
+    # Two size-2 components map to different colours -> decline.
+    task = _make_task([([[5, 5, 0], [0, 0, 0], [5, 5, 0]],
+                        [[1, 1, 0], [0, 0, 0], [2, 2, 0]])])
+    assert solve_cc_size_recolor(task) is None
