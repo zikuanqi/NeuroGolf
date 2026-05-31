@@ -59,7 +59,7 @@
 | v28 | + drop-into-wall (colour-1 cells fall into a full colour-5 wall row in their column) | 71 | ~1037 (pending) |
 | v29 | + color-bbox-fill (replace each colour's scattered cells with its solid bounding box) | 72 | ~1051 (pending) |
 | v30 | + nearest-wall (recolour each marker with the colour of the nearer of two facing walls) | 73 | ~1064 (pending) |
-| v31 | + cross-laser (each marker fires a full row + column "plus"; differing-colour crossings become 2) | 74 | ~1076 (pending) |
+| v31 | + cross-laser (each marker fires a full row + column "plus"; differing-colour crossings become 2) | 74 | **1076.16** |
 
 ---
 
