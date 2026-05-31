@@ -73,7 +73,7 @@
 | v42 | + outline (keep each shape's perimeter, erase its interior) | 85 | ~1222 (pending) |
 | v43 | + ray-down (carry each marker's colour straight down its column) | 86 | **1232.92** |
 | v44 | + isolate-recolour (recolour cells by isolated-vs-connected; tasks 147 + 272) | 88 | ~1258 (pending) |
-| v45 | + cc-size-recolour (recolour each connected component by its cell count; tasks 169 + 196 + 330) | 91 | ~1286 (pending) |
+| v45 | + cc-size-recolour (recolour each connected component by its cell count; tasks 169 + 196 + 330) | 91 | **1285.81** |
 
 ---
 
