@@ -24,6 +24,7 @@ from .connect_fill import solve_connect_fill
 from .cross_laser import solve_cross_laser
 from .denoise import solve_denoise
 from .drop_into_wall import solve_drop_into_wall
+from .endpoint_bridge import solve_endpoint_bridge
 from .bbox_strip import solve_bbox_strip
 from .conv3x3 import solve_conv3x3
 from .conv3x3_masked import (solve_conv1x1_masked, solve_conv3x3_masked,
@@ -111,6 +112,7 @@ ALL_SOLVERS: list[Solver] = [
     solve_cross_laser,
     solve_halo,
     solve_color_lines,
+    solve_endpoint_bridge,
     solve_zero_color,
     solve_column_label,
     solve_gravity_down,

@@ -473,11 +473,11 @@
   },
   {
     "task": 60,
-    "solver": "none",
-    "saved": false,
-    "points": 0.0,
-    "memory": null,
-    "params": null
+    "solver": "solve_endpoint_bridge",
+    "saved": true,
+    "points": 12.111747596825866,
+    "memory": 395520,
+    "params": 117
   },
   {
     "task": 61,

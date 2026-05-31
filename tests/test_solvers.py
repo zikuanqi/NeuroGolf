@@ -808,3 +808,34 @@ def test_color_lines_rejects_non_lines():
     task = _make_task([([[0, 1, 0], [0, 0, 0], [0, 0, 0]],
                         [[0, 1, 0], [0, 0, 0], [0, 0, 0]])])
     assert solve_color_lines(task) is None
+
+
+def test_endpoint_bridge_fills_between_two_dots():
+    import numpy as np
+    import onnxruntime as ort
+    from neurogolf.grids import from_onehot, to_onehot
+    from neurogolf.solvers.endpoint_bridge import solve_endpoint_bridge
+
+    # Row with dots colour 3 (left) and 4 (right): left half -> 3, right half -> 4,
+    # midpoint (floor((0+6)/2)=3) -> 5.
+    inp = [[0, 0, 0, 0, 0, 0, 0],
+           [3, 0, 0, 0, 0, 0, 4],
+           [0, 0, 0, 0, 0, 0, 0]]
+    out = [[0, 0, 0, 0, 0, 0, 0],
+           [3, 3, 3, 5, 4, 4, 4],
+           [0, 0, 0, 0, 0, 0, 0]]
+    task = _make_task([(inp, out)])
+    model = solve_endpoint_bridge(task)
+    assert model is not None and hasattr(model, "graph")
+
+    sess = ort.InferenceSession(model.SerializeToString())
+    res = sess.run(["output"], {"input": to_onehot(inp)})[0]
+    assert from_onehot((res > 0.0).astype(np.float32)) == out
+
+
+def test_endpoint_bridge_rejects_lone_dot():
+    from neurogolf.solvers.endpoint_bridge import solve_endpoint_bridge
+    # A row with a single dot has no pair to bridge -> decline.
+    task = _make_task([([[5, 0, 0], [0, 0, 0], [0, 0, 0]],
+                        [[5, 0, 0], [0, 0, 0], [0, 0, 0]])])
+    assert solve_endpoint_bridge(task) is None
