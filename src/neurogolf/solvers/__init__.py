@@ -46,6 +46,7 @@ from .mirror_complete import solve_mirror_complete
 from .nearest_wall import solve_nearest_wall
 from .palindrome import (solve_palindrome_2d, solve_palindrome_h,
                           solve_palindrome_v)
+from .recolor_fives import solve_recolor_fives
 from .remap import solve_remap
 from .repeat_top_rows import solve_repeat_top_rows
 from .resize_scale import solve_resize_scale
@@ -117,6 +118,7 @@ ALL_SOLVERS: list[Solver] = [
     solve_endpoint_bridge,
     solve_keep_majority,
     solve_blob_recolor,
+    solve_recolor_fives,
     solve_zero_color,
     solve_column_label,
     solve_gravity_down,

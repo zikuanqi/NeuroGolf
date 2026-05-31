@@ -897,3 +897,33 @@ def test_blob_recolor_rejects_single_colour():
     # Only one non-background colour -> no key to recolour with -> decline.
     task = _make_task([([[2, 2], [0, 0]], [[2, 2], [0, 0]])])
     assert solve_blob_recolor(task) is None
+
+
+def test_recolor_fives_takes_row_marker():
+    import numpy as np
+    import onnxruntime as ort
+    from neurogolf.grids import from_onehot, to_onehot
+    from neurogolf.solvers.recolor_fives import solve_recolor_fives
+
+    # Each row's 5s become that row's marker colour (1, then 2); marker stays.
+    inp = [[1, 0, 5, 5, 0, 0],
+           [2, 0, 0, 0, 5, 5],
+           [0, 0, 0, 0, 0, 0]]
+    out = [[1, 0, 1, 1, 0, 0],
+           [2, 0, 0, 0, 2, 2],
+           [0, 0, 0, 0, 0, 0]]
+    task = _make_task([(inp, out)])
+    model = solve_recolor_fives(task)
+    assert model is not None and hasattr(model, "graph")
+
+    sess = ort.InferenceSession(model.SerializeToString())
+    res = sess.run(["output"], {"input": to_onehot(inp)})[0]
+    assert from_onehot((res > 0.0).astype(np.float32)) == out
+
+
+def test_recolor_fives_rejects_marker_less_fives():
+    from neurogolf.solvers.recolor_fives import solve_recolor_fives
+    # A row with 5s but no marker has no colour to take -> decline.
+    task = _make_task([([[5, 5, 0], [0, 0, 0], [0, 0, 0]],
+                        [[5, 5, 0], [0, 0, 0], [0, 0, 0]])])
+    assert solve_recolor_fives(task) is None

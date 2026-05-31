@@ -2489,11 +2489,11 @@
   },
   {
     "task": 312,
-    "solver": "none",
-    "saved": false,
-    "points": 0.0,
-    "memory": null,
-    "params": null
+    "solver": "solve_recolor_fives",
+    "saved": true,
+    "points": 13.089500479544379,
+    "memory": 148800,
+    "params": 21
   },
   {
     "task": 313,
