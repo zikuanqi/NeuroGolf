@@ -74,7 +74,7 @@
 | v43 | + ray-down (carry each marker's colour straight down its column) | 86 | **1232.92** |
 | v44 | + isolate-recolour (recolour cells by isolated-vs-connected; tasks 147 + 272) | 88 | ~1258 (pending) |
 | v45 | + cc-size-recolour (recolour each connected component by its cell count; tasks 169 + 196 + 330) | 91 | **1285.81** |
-| v46 | + cc-rank-recolour (recolour each connected component by its size-rank; task 374) | 92 | ~1294 (pending) |
+| v46 | + cc-rank-recolour (recolour each connected component by its size-rank; task 374) | 92 | **1294.40** |
 
 ---
 
