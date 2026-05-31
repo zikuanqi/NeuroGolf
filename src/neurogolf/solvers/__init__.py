@@ -36,6 +36,7 @@ from .gravity_right import solve_gravity_right
 from .gravity_right_diag import solve_gravity_right_diag
 from .halo import solve_halo
 from .identity import solve_identity
+from .keep_majority import solve_keep_majority
 from .kron_scale import solve_kron_scale
 from .largest_bbox_fill import solve_largest_bbox_fill
 from .majority_fill import solve_majority_fill
@@ -113,6 +114,7 @@ ALL_SOLVERS: list[Solver] = [
     solve_halo,
     solve_color_lines,
     solve_endpoint_bridge,
+    solve_keep_majority,
     solve_zero_color,
     solve_column_label,
     solve_gravity_down,

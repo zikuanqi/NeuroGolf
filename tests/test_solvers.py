@@ -839,3 +839,32 @@ def test_endpoint_bridge_rejects_lone_dot():
     task = _make_task([([[5, 0, 0], [0, 0, 0], [0, 0, 0]],
                         [[5, 0, 0], [0, 0, 0], [0, 0, 0]])])
     assert solve_endpoint_bridge(task) is None
+
+
+def test_keep_majority_recolours_minority_to_5():
+    import numpy as np
+    import onnxruntime as ort
+    from neurogolf.grids import from_onehot, to_onehot
+    from neurogolf.solvers.keep_majority import solve_keep_majority
+
+    # colour 2 is the most frequent -> kept; the 1 and 8s become colour 5.
+    inp = [[2, 2, 2],
+           [2, 1, 8],
+           [2, 8, 8]]
+    out = [[2, 2, 2],
+           [2, 5, 5],
+           [2, 5, 5]]
+    task = _make_task([(inp, out)])
+    model = solve_keep_majority(task)
+    assert model is not None and hasattr(model, "graph")
+
+    sess = ort.InferenceSession(model.SerializeToString())
+    res = sess.run(["output"], {"input": to_onehot(inp)})[0]
+    assert from_onehot((res > 0.0).astype(np.float32)) == out
+
+
+def test_keep_majority_rejects_tie():
+    from neurogolf.solvers.keep_majority import solve_keep_majority
+    # Two colours tie for most frequent -> ambiguous -> decline.
+    task = _make_task([([[1, 2], [0, 0]], [[1, 2], [0, 0]])])
+    assert solve_keep_majority(task) is None
