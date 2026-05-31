@@ -68,7 +68,7 @@
 | v37 | + recolour-fives (repaint every colour-5 cell with its row's marker colour) | 80 | ~1153 (pending) |
 | v38 | + dilate-ones (expand every marker into a filled 3×3 block of colour 1) | 81 | ~1167 (pending) |
 | v39 | + count-bar (output a 1×N bar of the marker colour, N = number of marker cells) | 82 | ~1182 (pending) |
-| v40 | + hspan-fill (fill each row-gap flanked left & right by a same-colour wall with a fixed colour) | 83 | ~1195 (pending) |
+| v40 | + hspan-fill (fill each row-gap flanked left & right by a same-colour wall with a fixed colour) | 83 | **1195.21** |
 
 ---
 
