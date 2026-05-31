@@ -24,6 +24,7 @@ from .connect_dots import solve_connect_dots
 from .connect_fill import solve_connect_fill
 from .cross_laser import solve_cross_laser
 from .denoise import solve_denoise
+from .dilate_ones import solve_dilate_ones
 from .drop_into_wall import solve_drop_into_wall
 from .endpoint_bridge import solve_endpoint_bridge
 from .bbox_strip import solve_bbox_strip
@@ -119,6 +120,7 @@ ALL_SOLVERS: list[Solver] = [
     solve_keep_majority,
     solve_blob_recolor,
     solve_recolor_fives,
+    solve_dilate_ones,
     solve_zero_color,
     solve_column_label,
     solve_gravity_down,

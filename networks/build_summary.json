@@ -2529,11 +2529,11 @@
   },
   {
     "task": 317,
-    "solver": "none",
-    "saved": false,
-    "points": 0.0,
-    "memory": null,
-    "params": null
+    "solver": "solve_dilate_ones",
+    "saved": true,
+    "points": 13.505941400287846,
+    "memory": 98100,
+    "params": 31
   },
   {
     "task": 318,

@@ -927,3 +927,37 @@ def test_recolor_fives_rejects_marker_less_fives():
     task = _make_task([([[5, 5, 0], [0, 0, 0], [0, 0, 0]],
                         [[5, 5, 0], [0, 0, 0], [0, 0, 0]])])
     assert solve_recolor_fives(task) is None
+
+
+def test_dilate_ones_fills_3x3_block():
+    import numpy as np
+    import onnxruntime as ort
+    from neurogolf.grids import from_onehot, to_onehot
+    from neurogolf.solvers.dilate_ones import solve_dilate_ones
+
+    # The lone 5 expands into a filled 3x3 of colour 1; the rest is background.
+    inp = [[0, 0, 0, 0, 0],
+           [0, 0, 0, 0, 0],
+           [0, 0, 5, 0, 0],
+           [0, 0, 0, 0, 0],
+           [0, 0, 0, 0, 0]]
+    out = [[0, 0, 0, 0, 0],
+           [0, 1, 1, 1, 0],
+           [0, 1, 1, 1, 0],
+           [0, 1, 1, 1, 0],
+           [0, 0, 0, 0, 0]]
+    task = _make_task([(inp, out)])
+    model = solve_dilate_ones(task)
+    assert model is not None and hasattr(model, "graph")
+
+    sess = ort.InferenceSession(model.SerializeToString())
+    res = sess.run(["output"], {"input": to_onehot(inp)})[0]
+    assert from_onehot((res > 0.0).astype(np.float32)) == out
+
+
+def test_dilate_ones_rejects_colour_preserving():
+    from neurogolf.solvers.dilate_ones import solve_dilate_ones
+    # Output keeps the original colour rather than dilating to 1 -> decline.
+    task = _make_task([([[0, 5, 0], [0, 0, 0], [0, 0, 0]],
+                        [[0, 5, 0], [0, 0, 0], [0, 0, 0]])])
+    assert solve_dilate_ones(task) is None
