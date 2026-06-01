@@ -81,6 +81,7 @@ from .flood_fill_enclosure import solve_flood_fill_enclosure
 from .symmetry_classify import solve_symmetry_classify
 from .shape_classify import solve_shape_classify
 from .count_pattern import solve_count_pattern
+from .colorcount_pattern import solve_colorcount_pattern
 from .spatial_classify import solve_spatial_classify
 from .scattered_color import solve_scattered_color
 
@@ -154,6 +155,7 @@ ALL_SOLVERS: list[Solver] = [
     solve_conv1x1_masked,
     solve_conv3x3_masked,
     solve_conv5x5_masked,
+    solve_colorcount_pattern,
     solve_count_pattern,
     solve_shape_classify,
     solve_scattered_color,

@@ -1,10 +1,10 @@
 [
   {
-    "task": 186,
-    "solver": "solve_count_pattern",
+    "task": 167,
+    "solver": "solve_colorcount_pattern",
     "saved": true,
-    "points": 12.310097869374406,
-    "memory": 288432,
-    "params": 36023
+    "points": 12.597304385465081,
+    "memory": 216436,
+    "params": 27021
   }
 ]
