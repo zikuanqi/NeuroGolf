@@ -1,6 +1,238 @@
 [
   {
-    "task": 261,
+    "task": 1,
+    "solver": "solve_block_mask",
+    "saved": true,
+    "points": 15.14093466501662,
+    "memory": 19053,
+    "params": 78
+  },
+  {
+    "task": 2,
+    "solver": "solve_flood_fill_enclosure",
+    "saved": true,
+    "points": 10.999424983771076,
+    "memory": 1201468,
+    "params": 1828
+  },
+  {
+    "task": 3,
+    "solver": "solve_repeat_top_rows",
+    "saved": true,
+    "points": 13.912594402216662,
+    "memory": 65314,
+    "params": 29
+  },
+  {
+    "task": 4,
+    "solver": "solve_gravity_right_diag",
+    "saved": true,
+    "points": 12.258048207639728,
+    "memory": 341640,
+    "params": 150
+  },
+  {
+    "task": 5,
+    "solver": "none",
+    "saved": false,
+    "points": 0.0,
+    "memory": null,
+    "params": null
+  },
+  {
+    "task": 6,
+    "solver": "solve_split_logic",
+    "saved": true,
+    "points": 15.30452111119381,
+    "memory": 8100,
+    "params": 8144
+  },
+  {
+    "task": 7,
+    "solver": "none",
+    "saved": false,
+    "points": 0.0,
+    "memory": null,
+    "params": null
+  },
+  {
+    "task": 8,
+    "solver": "none",
+    "saved": false,
+    "points": 0.0,
+    "memory": null,
+    "params": null
+  },
+  {
+    "task": 9,
+    "solver": "none",
+    "saved": false,
+    "points": 0.0,
+    "memory": null,
+    "params": null
+  },
+  {
+    "task": 10,
+    "solver": "solve_column_label",
+    "saved": true,
+    "points": 13.993078468516549,
+    "memory": 60210,
+    "params": 80
+  },
+  {
+    "task": 11,
+    "solver": "none",
+    "saved": false,
+    "points": 0.0,
+    "memory": null,
+    "params": null
+  },
+  {
+    "task": 12,
+    "solver": "none",
+    "saved": false,
+    "points": 0.0,
+    "memory": null,
+    "params": null
+  },
+  {
+    "task": 13,
+    "solver": "none",
+    "saved": false,
+    "points": 0.0,
+    "memory": null,
+    "params": null
+  },
+  {
+    "task": 14,
+    "solver": "solve_bbox_color_extract",
+    "saved": true,
+    "points": 13.314559236134658,
+    "memory": 118681,
+    "params": 148
+  },
+  {
+    "task": 15,
+    "solver": "none",
+    "saved": false,
+    "points": 0.0,
+    "memory": null,
+    "params": null
+  },
+  {
+    "task": 16,
+    "solver": "solve_remap",
+    "saved": true,
+    "points": 20.394829814011906,
+    "memory": 0,
+    "params": 100
+  },
+  {
+    "task": 17,
+    "solver": "solve_periodic_fill",
+    "saved": true,
+    "points": 7.654344587038995,
+    "memory": 34125998,
+    "params": 2913
+  },
+  {
+    "task": 18,
+    "solver": "none",
+    "saved": false,
+    "points": 0.0,
+    "memory": null,
+    "params": null
+  },
+  {
+    "task": 19,
+    "solver": "none",
+    "saved": false,
+    "points": 0.0,
+    "memory": null,
+    "params": null
+  },
+  {
+    "task": 20,
+    "solver": "none",
+    "saved": false,
+    "points": 0.0,
+    "memory": null,
+    "params": null
+  },
+  {
+    "task": 21,
+    "solver": "none",
+    "saved": false,
+    "points": 0.0,
+    "memory": null,
+    "params": null
+  },
+  {
+    "task": 22,
+    "solver": "none",
+    "saved": false,
+    "points": 0.0,
+    "memory": null,
+    "params": null
+  },
+  {
+    "task": 23,
+    "solver": "none",
+    "saved": false,
+    "points": 0.0,
+    "memory": null,
+    "params": null
+  },
+  {
+    "task": 24,
+    "solver": "solve_color_lines",
+    "saved": true,
+    "points": 12.777502976055684,
+    "memory": 203280,
+    "params": 32
+  },
+  {
+    "task": 25,
+    "solver": "none",
+    "saved": false,
+    "points": 0.0,
+    "memory": null,
+    "params": null
+  },
+  {
+    "task": 26,
+    "solver": "solve_split_logic",
+    "saved": true,
+    "points": 15.264694440704107,
+    "memory": 8760,
+    "params": 8144
+  },
+  {
+    "task": 27,
+    "solver": "none",
+    "saved": false,
+    "points": 0.0,
+    "memory": null,
+    "params": null
+  },
+  {
+    "task": 28,
+    "solver": "none",
+    "saved": false,
+    "points": 0.0,
+    "memory": null,
+    "params": null
+  },
+  {
+    "task": 29,
+    "solver": "none",
+    "saved": false,
+    "points": 0.0,
+    "memory": null,
+    "params": null
+  },
+  {
+    "task": 30,
     "solver": "none",
     "saved": false,
     "points": 0.0,
