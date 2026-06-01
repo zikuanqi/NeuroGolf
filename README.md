@@ -75,13 +75,13 @@ ARC task (JSON)
       │
       │  grids.py: to_onehot()           every grid → float tensor (1, 10, 30, 30)
       ▼                                  channel = colour 0‑9; real grid top‑left, rest 0‑padded
- ┌───────────────────────────────────────────────────────────────────┐
- │  pipeline.build_one(task)                                          │
- │    for solver in ALL_SOLVERS:          ~48 pattern‑specific solvers │
- │        model = solver(task)            None if the pattern doesn't fit
- │        score = verify(model, task)     clean‑room official scorer   │
- │    keep the highest‑scoring model that passes EVERY example         │
- └───────────────────────────────────────────────────────────────────┘
+ ┌────────────────────────────────────────────────────────────────────────┐
+ │  pipeline.build_one(task)                                              │
+ │    for solver in ALL_SOLVERS:          ~48 pattern‑specific solvers    │
+ │        model = solver(task)            None if the pattern doesn't fit │
+ │        score = verify(model, task)     clean‑room official scorer      │
+ │    keep the highest‑scoring model that passes EVERY example            │
+ └────────────────────────────────────────────────────────────────────────┘
       │
       ▼
  networks/taskNNN.onnx   +   networks/build_summary.json
