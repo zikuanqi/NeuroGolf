@@ -1,10 +1,10 @@
 [
   {
-    "task": 262,
-    "solver": "solve_position_color",
+    "task": 140,
+    "solver": "solve_rot180_aware",
     "saved": true,
-    "points": 11.447270793471896,
-    "memory": 687708,
-    "params": 81202
+    "points": 13.326300126323913,
+    "memory": 117368,
+    "params": 74
   }
 ]
