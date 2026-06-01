@@ -78,6 +78,7 @@ from .variable_kron import solve_variable_kron
 from .zero import solve_zero
 from .zero_color import solve_zero_color
 from .flood_fill_enclosure import solve_flood_fill_enclosure
+from .symmetry_classify import solve_symmetry_classify
 
 Solver = Callable[[dict], Optional[onnx.ModelProto]]
 
@@ -150,4 +151,5 @@ ALL_SOLVERS: list[Solver] = [
     solve_conv3x3_masked,
     solve_conv5x5_masked,
     solve_flood_fill_enclosure,
+    solve_symmetry_classify,
 ]
