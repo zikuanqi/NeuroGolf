@@ -86,6 +86,7 @@ from .position_color import solve_position_color
 from .spatial_classify import solve_spatial_classify
 from .scattered_color import solve_scattered_color
 from .shift_down_recolor import solve_shift_down_recolor
+from .learned_conv import solve_learned_conv
 
 Solver = Callable[[dict], Optional[onnx.ModelProto]]
 
@@ -165,4 +166,5 @@ ALL_SOLVERS: list[Solver] = [
     solve_flood_fill_enclosure,
     solve_symmetry_classify,
     solve_spatial_classify,
+    solve_learned_conv,
 ]
