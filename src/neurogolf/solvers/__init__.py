@@ -79,6 +79,9 @@ from .zero import solve_zero
 from .zero_color import solve_zero_color
 from .flood_fill_enclosure import solve_flood_fill_enclosure
 from .symmetry_classify import solve_symmetry_classify
+from .shape_classify import solve_shape_classify
+from .spatial_classify import solve_spatial_classify
+from .scattered_color import solve_scattered_color
 
 Solver = Callable[[dict], Optional[onnx.ModelProto]]
 
@@ -150,6 +153,9 @@ ALL_SOLVERS: list[Solver] = [
     solve_conv1x1_masked,
     solve_conv3x3_masked,
     solve_conv5x5_masked,
+    solve_shape_classify,
+    solve_scattered_color,
     solve_flood_fill_enclosure,
     solve_symmetry_classify,
+    solve_spatial_classify,
 ]
