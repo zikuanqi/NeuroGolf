@@ -1,10 +1,10 @@
 [
   {
-    "task": 140,
-    "solver": "solve_rot180_aware",
-    "saved": true,
-    "points": 13.326300126323913,
-    "memory": 117368,
-    "params": 74
+    "task": 261,
+    "solver": "none",
+    "saved": false,
+    "points": 0.0,
+    "memory": null,
+    "params": null
   }
 ]
