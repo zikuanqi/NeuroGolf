@@ -11,8 +11,9 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![Last Commit](https://img.shields.io/github/last-commit/zikuanqi/NeuroGolf)](https://github.com/zikuanqi/NeuroGolf/commits/main)
 [![Tests](https://img.shields.io/badge/tests-88%20passing-brightgreen)](tests/)
-[![Tasks Solved](https://img.shields.io/badge/tasks_solved-92%2F400-blue)](networks/)
-[![Public Score](https://img.shields.io/badge/public_score-1294.40-success)](https://www.kaggle.com/competitions/neurogolf-2026)
+[![Tasks Solved](https://img.shields.io/badge/tasks_solved-97%2F400-blue)](networks/)
+[![Local Score](https://img.shields.io/badge/local_score-1356.61-success)](networks/build_summary.json)
+[![Public Score](https://img.shields.io/badge/public_score-1294.40_%28v46%29-blue)](https://www.kaggle.com/competitions/neurogolf-2026)
 
 </div>
 
@@ -55,14 +56,15 @@
 
 | Metric · 指标 | Value · 数值 |
 |---|---|
-| **Public score · 公开分数** | **1294.40** |
-| **Tasks solved · 通过任务** | **92 / 400** |
-| Solvers · 求解器 | 68, in 8 families · 共 68 个，分 8 类 |
+| **Tasks solved · 通过任务** | **97 / 400** |
+| **Local score · 本地总分** | **1356.61** — clean-room scorer over `build_summary.json` · 独立评分器统计 |
+| Public score · 公开分数 (Kaggle) | **1294.40** — last leaderboard-confirmed (v46, 92/400) · 排行榜最新确认 |
+| Solvers · 求解器 | 76, in 9 families · 共 76 个，分 9 类 |
 | Unit tests · 单元测试 | 88 passing · 88 个全部通过 |
-| Networks · 网络文件 | one `networks/taskNNN.onnx` per solved task |
+| Networks · 网络文件 | 97 × `networks/taskNNN.onnx` (one per solved task) · 每个解出任务一个 |
 
-> The full submission-by-submission progression (v1 → v46) lives in [Submission history](#history).
-> 逐次提交的成绩进展（v1 → v46）见 [提交历史](#history)。
+> The leaderboard-confirmed progression (v1 → v46) lives in [Submission history](#history); local development has since reached **1356.61 / 97 tasks** (pending submission).
+> 排行榜确认的进展（v1 → v46）见 [提交历史](#history)；本地开发已推进至 **1356.61 / 97 解**（待提交确认）。
 
 ---
 
@@ -77,7 +79,7 @@ ARC task (JSON)
       ▼                                  channel = colour 0‑9; real grid top‑left, rest 0‑padded
  ┌────────────────────────────────────────────────────────────────────────┐
  │  pipeline.build_one(task)                                              │
- │    for solver in ALL_SOLVERS:          ~48 pattern‑specific solvers    │
+ │    for solver in ALL_SOLVERS:          ~76 pattern‑specific solvers    │
  │        model = solver(task)            None if the pattern doesn't fit │
  │        score = verify(model, task)     clean‑room official scorer      │
  │    keep the highest‑scoring model that passes EVERY example            │
@@ -130,9 +132,9 @@ python scripts/submit.py submissions/submission.zip "describe your run"
 
 ## 🧩 Solvers by family · 求解器分类
 
-68 solvers in 8 families. Each is verified against the official scorer; `Params` is the parameter count of a representative network (it can vary slightly per task because detected constants differ).
+76 solvers in 9 families. Each is verified against the official scorer; `Params` is the parameter count of a representative network (it can vary slightly per task because detected constants differ). A few solvers are registered as capabilities but currently win no task (dominated or non-matching on the present set); these are marked `—†`.
 
-68 个求解器分为 8 类。`Params` 列为代表性网络的参数量（不同任务因检测出的常量不同会略有差异）。
+76 个求解器分为 9 类。`Params` 列为代表性网络的参数量（不同任务因检测出的常量不同会略有差异）。少数求解器已登记但当前未中标（被更省的求解器击败或不匹配现有任务），以 `—†` 标记。
 
 ### 1 · Rigid moves — identity, flip, rotate, transpose, shift · 刚性变换
 
@@ -145,7 +147,6 @@ python scripts/submit.py submissions/submission.zip "describe your run"
 | `solve_rot180_aware` | two stacked shape-aware flips · 双轴形状感知翻转 | flip-h ∘ flip-v | ~74 |
 | `solve_rot90_ccw_aware` / `solve_rot90_cw_aware` | shape-aware 90° rotation · 形状感知 90° 旋转 | `Transpose` ∘ flip-v | ~37 |
 | `solve_shift` | constant-shape translation with colour-0 fill · 定形平移并以色 0 填充 | `Slice`+`Concat`(init fill)+`Pad` | ~50 |
-| `solve_variable_shift` | fixed-offset shift, variable input shape · 定偏移量平移，变输入尺寸 | `Slice`+`Pad`+`Concat` | ~50 |
 
 ### 2 · Crop & extract — output is a sub-region · 裁剪与提取
 
@@ -237,6 +238,26 @@ python scripts/submit.py submissions/submission.zip "describe your run"
 | `solve_split_logic` | split into two halves (L-R or T-B, ± divider) and combine with and/or/xor/nor/nand · 两半布尔运算 | `Slice`+`ReduceSum`+`Mul`/`Max`/`Sub`+`Pad`+`Concat` | ~20 |
 | `solve_conv3x3` | least-squares fit of a 3×3 conv (no bias) · 无偏置3×3卷积拟合 | 3×3 `Conv` | 900 |
 | `solve_conv1x1_masked` / `solve_conv3x3_masked` / `solve_conv5x5_masked` | K×K conv + bias, masked to non-padding cells · 带偏置的 K×K 卷积+掩码 | `Conv`+`ReduceSum`+`Mul` | 100 / 910 / 2510 |
+| `solve_learned_conv` | learn a K×K conv kernel (no bias) by `lstsq` over im2col patches; a learned fallback · im2col+最小二乘拟合 K×K 卷积核 | `Conv` (learned `W`) | —† |
+
+### 9 · Classification & feature hashing — small grid → fixed / 1×1 answer · 分类与特征哈希
+
+These tasks have a tiny (often 3×3) grid and an answer that depends on a **global property** — symmetry, shape, pixel / colour counts, scatter, marker position — rather than a per-cell transform. Each detects the property and bakes a feature → output lookup, so params run high (≈18k–81k) for ~11–14 points.
+
+这些任务输入极小（常为 3×3），答案取决于**全局属性**（对称性、形状、像素/颜色计数、分散度、标记位置）而非逐格变换。每个求解器检测属性并烘焙「特征 → 输出」查表，因此参数量较大（约 18k–81k），得分约 11–14。
+
+| Solver | Pattern · 识别模式 | Key ONNX ops | Params |
+|---|---|---|---|
+| `solve_symmetry_classify` | 1×1 output: colour 1 if the grid has both H&V symmetry, else 7 · H&V 对称输出 1，否则 7 | content `Slice`+`Gather` flips+`Sub`+`Abs`+`ReduceMax`+`Clip` | ~18k |
+| `solve_shape_classify` | hash a small grid's colour-invariant ink layout → output colour · 颜色无关的形状哈希→颜色 | `Slice`+`ReduceSum`(ink)+weighted-sum hash+`Equal`+`Cast`+`Mul`+`Add` | ~45k |
+| `solve_count_pattern` | map the number of marker cells to a fixed output motif · 标记计数→固定图案 | `ReduceSum`(count)+`Equal`+`Mul`+`Add` | ~36k |
+| `solve_colorcount_pattern` | distinct non-bg colours → fixed 5-pattern (1→top row, 2→diagonal, 3→anti-diagonal) · distinct 色数→图案 | distinct-colour count+`Equal`+`Mul`+`Add` | ~27k |
+| `solve_position_color` | map a marker's position to an output colour · 标记位置→颜色 | position detect+`Equal`/`Gather`+`Mul`+`Add` | ~81k |
+| `solve_scattered_color` | of two non-bg colours, output the more "scattered" one (fewest pixels per component) · 输出更分散的颜色 | 4-neighbour `Conv`+`ReduceSum`+`ArgMax` | —† |
+| `solve_spatial_classify` | hash which positions of a small grid are non-zero → 1×1 output colour · 像素布局哈希→单像素颜色 | `Slice`+`ReduceSum`+weighted-sum hash+`Equal`+`Cast`+`Mul`+`Add` | —† |
+
+> **†** Registered as a capability but currently wins no task on the present set (dominated by a cheaper solver, or no current task matches), so it has no representative built network.
+> **†** 已登记但当前未中标（被更省的求解器击败，或暂无任务匹配），故没有代表性网络。
 
 ---
 
@@ -280,7 +301,7 @@ NeuroGolf/
 │   ├── onnx_ops.py       # ONNX graph helpers             · ONNX 图构建辅助
 │   ├── verify.py         # clean-room official scorer      · 评分器独立实现
 │   ├── pipeline.py       # run all solvers, keep the best  · 求解器调度
-│   └── solvers/          # 68 pattern-specific solvers     · 各类求解器
+│   └── solvers/          # 76 pattern-specific solvers     · 各类求解器
 │       ├── __init__.py   #   ALL_SOLVERS registry          · 求解器登记表
 │       └── *.py          #   one module per solver family
 ├── scripts/
@@ -387,6 +408,10 @@ The suite covers the one-hot round-trip contract and, for each solver family, a 
 
 Bold = score confirmed on the Kaggle leaderboard; `~` = local estimate from `build_summary.json` (the local clean-room scorer matches the official score to two decimals).
 
+**Beyond v46 (local, not yet leaderboard-confirmed):** added the new **classification & feature-hash family** — `symmetry_classify` (103), `shape_classify` (56), `count_pattern` (186), `colorcount_pattern` (167), `position_color` (262) — plus `remap` / `rot180` hits on tasks 276 / 140, and the unused `scattered_color` / `spatial_classify` / `learned_conv` capabilities. The local `build_summary.json` total is now **1356.61 across 97 / 400 tasks**.
+
+**v46 之后（本地，尚未在排行榜确认）：** 新增**分类与特征哈希家族** —— `symmetry_classify`（103）、`shape_classify`（56）、`count_pattern`（186）、`colorcount_pattern`（167）、`position_color`（262），以及 `remap` / `rot180` 解出 276 / 140，外加暂未中标的 `scattered_color` / `spatial_classify` / `learned_conv`。本地 `build_summary.json` 总分现为 **1356.61，共解出 97 / 400**。
+
 </details>
 
 ---
@@ -399,7 +424,7 @@ The pattern families above cover every ARC transformation that reduces to a **de
 
 上表已覆盖所有"可检测、可用静态 ONNX 图表达"的变换（含连通分量的标注/计数/排名）。剩余任务需要另一类推理：
 
-- [ ] **Spatial classification** for the 1×1-answer tasks (e.g. tasks 48 / 56 / 103 / 291 / 346 / 355) — the answer depends on shape / symmetry, not on colour counts. · 形状/对称性分类
+- [x] **Small-grid classification** — family 9 (symmetry / shape / count / colour-count / position) now solves tasks 56 / 103 / 167 / 186 / 262. The remaining 1×1-answer tasks **48 / 291 / 346 / 355** still resist a clean, statically-expressible feature hash. · 小网格分类（已部分完成，余 48/291/346/355）
 - [ ] **Object / template matching & copying** — locate a shape and stamp it elsewhere. · 物体匹配与复制
 - [ ] **Multi-step composition / search** — chain several primitive operations. · 多步组合
 - [ ] **Memory trimming** — fuse the `(1,10,30,30)` intermediates in the connected-component solvers to lift their ~9-point scores. · 削减中间张量内存
