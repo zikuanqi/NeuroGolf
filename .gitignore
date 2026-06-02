@@ -36,3 +36,15 @@ reference/
 .idea/
 *.swp
 .DS_Store
+
+# Local scratch: ad-hoc debug / scan / analysis / experiment scripts (root only)
+/debug_*.py
+/scan_*.py
+/analyze_*.py
+/check_*.py
+/inspect_*.py
+/deep_dive_*.py
+/find_*.py
+/perceptron_*.py
+/test_*.py
+/test_*.onnx
