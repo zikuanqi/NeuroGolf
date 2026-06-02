@@ -13,7 +13,7 @@
 [![Tests](https://img.shields.io/badge/tests-88%20passing-brightgreen)](tests/)
 [![Tasks Solved](https://img.shields.io/badge/tasks_solved-98%2F400-blue)](networks/)
 [![Local Score](https://img.shields.io/badge/local_score-1368.84-success)](networks/build_summary.json)
-[![Public Score](https://img.shields.io/badge/public_score-1294.40_%28v46%29-blue)](https://www.kaggle.com/competitions/neurogolf-2026)
+[![Public Score](https://img.shields.io/badge/public_score-1368.34_%28v46%29-blue)](https://www.kaggle.com/competitions/neurogolf-2026)
 
 </div>
 
