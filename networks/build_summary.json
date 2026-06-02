@@ -49,11 +49,11 @@
   },
   {
     "task": 7,
-    "solver": "none",
-    "saved": false,
-    "points": 0.0,
-    "memory": null,
-    "params": null
+    "solver": "solve_diag_tile",
+    "saved": true,
+    "points": 12.222382995669129,
+    "memory": 350583,
+    "params": 3617
   },
   {
     "task": 8,

@@ -27,6 +27,7 @@ from .connect_fill import solve_connect_fill
 from .count_bar import solve_count_bar
 from .cross_laser import solve_cross_laser
 from .denoise import solve_denoise
+from .diag_tile import solve_diag_tile
 from .dilate_ones import solve_dilate_ones
 from .drop_into_wall import solve_drop_into_wall
 from .endpoint_bridge import solve_endpoint_bridge
@@ -148,6 +149,7 @@ ALL_SOLVERS: list[Solver] = [
     solve_cc_rank_recolor,
     solve_zero_color,
     solve_column_label,
+    solve_diag_tile,
     solve_gravity_down,
     solve_gravity_up,
     solve_gravity_right,

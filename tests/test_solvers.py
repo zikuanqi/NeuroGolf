@@ -1205,3 +1205,27 @@ def test_cc_rank_recolor_rejects_ties():
     task = _make_task([([[5, 0, 5], [5, 0, 5], [0, 0, 0]],
                         [[1, 0, 2], [1, 0, 2], [0, 0, 0]])])
     assert solve_cc_rank_recolor(task) is None
+
+
+def test_diag_tile_picks_diagonal_cyclic():
+    import numpy as np
+    import onnxruntime as ort
+    from neurogolf.grids import from_onehot, to_onehot
+    from neurogolf.solvers.diag_tile import solve_diag_tile
+
+    # 3-colour diagonal cyclic tiling: out[i][j] = order[(i + j) % 3]
+    grid = [[1, 2, 3], [2, 3, 1], [3, 1, 2]]
+    task = _make_task([(grid, grid)])
+    model = solve_diag_tile(task)
+    assert model is not None and hasattr(model, "graph")
+
+    sess = ort.InferenceSession(model.SerializeToString())
+    res = sess.run(["output"], {"input": to_onehot(grid)})[0]
+    assert from_onehot((res > 0.0).astype(np.float32)) == grid
+
+
+def test_diag_tile_rejects_plain_recolor():
+    from neurogolf.solvers.diag_tile import solve_diag_tile
+    # A uniform recolour is not a diagonal tiling -> decline.
+    task = _make_task([([[1, 1], [1, 1]], [[2, 2], [2, 2]])])
+    assert solve_diag_tile(task) is None
