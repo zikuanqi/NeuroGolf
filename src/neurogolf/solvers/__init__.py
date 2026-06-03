@@ -14,6 +14,7 @@ from typing import Callable, Optional
 
 import onnx
 
+from .axis_gather import solve_axis_gather
 from .bbox_color_extract import solve_bbox_color_extract
 from .blob_recolor import solve_blob_recolor
 from .block_mask import solve_block_mask
@@ -27,6 +28,7 @@ from .connect_fill import solve_connect_fill
 from .count_bar import solve_count_bar
 from .cross_laser import solve_cross_laser
 from .denoise import solve_denoise
+from .diag_ray import solve_diag_ray
 from .diag_tile import solve_diag_tile
 from .dilate_ones import solve_dilate_ones
 from .drop_into_wall import solve_drop_into_wall
@@ -94,6 +96,7 @@ Solver = Callable[[dict], Optional[onnx.ModelProto]]
 ALL_SOLVERS: list[Solver] = [
     solve_identity,
     solve_zero,
+    solve_axis_gather,
     solve_single_color,
     solve_remap,
     solve_repeat_top_rows,
@@ -149,6 +152,7 @@ ALL_SOLVERS: list[Solver] = [
     solve_cc_rank_recolor,
     solve_zero_color,
     solve_column_label,
+    solve_diag_ray,
     solve_diag_tile,
     solve_gravity_down,
     solve_gravity_up,
