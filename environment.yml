@@ -1,0 +1,11 @@
+name: neurogolf
+channels:
+  - conda-forge
+dependencies:
+  - python=3.13
+  - pip
+  - pip:
+      # Installs the project itself (editable) plus all runtime deps from
+      # pyproject.toml, and pytest via the `dev` extra. Run from the repo root:
+      #   conda env create -f environment.yml
+      - -e .[dev]

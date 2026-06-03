@@ -1,0 +1,31 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "neurogolf"
+version = "0.1.0"
+description = "Tiny ONNX networks that solve ARC-AGI puzzles (NeuroGolf 2026)"
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "MIT" }
+authors = [{ name = "zikuanqi" }]
+dependencies = [
+    "numpy>=1.26",
+    "onnx>=1.15",
+    "onnxruntime>=1.17",
+    "onnx_tool>=0.9",
+    "kaggle>=1.6",
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=7"]
+
+[project.urls]
+Homepage = "https://github.com/zikuanqi/NeuroGolf"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
