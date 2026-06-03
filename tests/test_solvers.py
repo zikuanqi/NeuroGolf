@@ -1354,3 +1354,33 @@ def test_block_count_bar_rejects_non_count():
     from neurogolf.solvers.block_count_bar import solve_block_count_bar
     task = _make_task([([[1, 2], [3, 4]], [[1, 2], [3, 4]])])
     assert solve_block_count_bar(task) is None
+
+
+def test_odd_panel_picks_unique_quadrant():
+    import numpy as np
+    import onnxruntime as ort
+    from neurogolf.grids import from_onehot, to_onehot
+    from neurogolf.solvers.odd_panel import solve_odd_panel
+
+    # 5x5 with blank middle row/col -> four 2x2 panels; BR differs (task 207).
+    g = [
+        [0, 2, 0, 0, 2],
+        [2, 2, 0, 2, 2],
+        [0, 0, 0, 0, 0],
+        [0, 2, 0, 2, 2],
+        [2, 2, 0, 2, 0],
+    ]
+    out = [[2, 2], [2, 0]]
+    task = _make_task([(g, out)])
+    model = solve_odd_panel(task)
+    assert model is not None and hasattr(model, "graph")
+
+    sess = ort.InferenceSession(model.SerializeToString())
+    res = sess.run(["output"], {"input": to_onehot(g)})[0]
+    assert from_onehot((res > 0.0).astype(np.float32)) == out
+
+
+def test_odd_panel_rejects_non_panel():
+    from neurogolf.solvers.odd_panel import solve_odd_panel
+    task = _make_task([([[1, 2], [3, 4]], [[1, 2], [3, 4]])])
+    assert solve_odd_panel(task) is None

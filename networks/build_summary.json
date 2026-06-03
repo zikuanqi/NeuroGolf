@@ -1649,11 +1649,11 @@
   },
   {
     "task": 207,
-    "solver": "none",
-    "saved": false,
-    "points": 0.0,
-    "memory": null,
-    "params": null
+    "solver": "solve_odd_panel",
+    "saved": true,
+    "points": 16.74911885529935,
+    "memory": 3786,
+    "params": 45
   },
   {
     "task": 208,
