@@ -106,8 +106,12 @@ ARC task (JSON)
 ## 🚀 Quick start · 快速开始
 
 ```bash
-# 1. Install deps · 安装依赖
-pip install -r requirements.txt
+# 1. Set up the environment · 配置环境
+#    A) conda — reproducible, recommended · conda（可复现，推荐）
+conda env create -f environment.yml    # builds the `neurogolf` env (Python 3.13)
+conda activate neurogolf               # project installed editable → `import neurogolf`
+#    B) pip / venv · pip / venv
+pip install -e .                        # editable install (or: pip install -r requirements.txt)
 
 # 2. Download competition data · 下载竞赛数据
 python scripts/download.py
