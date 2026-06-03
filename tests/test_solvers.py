@@ -1493,3 +1493,34 @@ def test_stripe_seeds_rejects_non_two_seeds():
     from neurogolf.solvers.stripe_seeds import solve_stripe_seeds
     task = _make_task([([[1, 1], [1, 1]], [[1, 1], [1, 1]])])
     assert solve_stripe_seeds(task) is None
+
+
+def test_slide_to_wall():
+    import numpy as np
+    import onnxruntime as ort
+    from neurogolf.grids import from_onehot, to_onehot
+    from neurogolf.solvers.slide_to_wall import solve_slide_to_wall, _ref
+
+    # mover (2) above wall (8) -> slides down until adjacent
+    gv = [[0, 2, 2, 0],
+          [0, 2, 2, 0],
+          [0, 0, 0, 0],
+          [0, 0, 0, 0],
+          [0, 8, 8, 0]]
+    # mover (2) left of wall (8) -> slides right until adjacent
+    gh = [[2, 0, 0, 0, 8],
+          [2, 0, 0, 0, 8]]
+    task = _make_task([(gv, _ref(gv)), (gh, _ref(gh))])
+    model = solve_slide_to_wall(task)
+    assert model is not None and hasattr(model, "graph")
+
+    sess = ort.InferenceSession(model.SerializeToString())
+    for g in (gv, gh):
+        res = sess.run(["output"], {"input": to_onehot(g)})[0]
+        assert from_onehot((res > 0.0).astype(np.float32)) == _ref(g)
+
+
+def test_slide_to_wall_rejects_other():
+    from neurogolf.solvers.slide_to_wall import solve_slide_to_wall
+    task = _make_task([([[1, 2], [3, 4]], [[1, 2], [3, 4]])])
+    assert solve_slide_to_wall(task) is None

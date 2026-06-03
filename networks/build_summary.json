@@ -57,11 +57,11 @@
   },
   {
     "task": 8,
-    "solver": "none",
-    "saved": false,
-    "points": 0.0,
-    "memory": null,
-    "params": null
+    "solver": "solve_slide_to_wall",
+    "saved": true,
+    "points": 14.277261390108201,
+    "memory": 45288,
+    "params": 88
   },
   {
     "task": 9,

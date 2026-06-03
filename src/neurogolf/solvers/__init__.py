@@ -41,6 +41,7 @@ from .conv3x3_masked import (solve_conv1x1_masked, solve_conv3x3_masked,
                               solve_conv5x5_masked)
 from .filled_rect import solve_filled_rect
 from .gravity_down import solve_gravity_down
+from .slide_to_wall import solve_slide_to_wall
 from .gravity_up import solve_gravity_up
 from .gravity_right import solve_gravity_right
 from .gravity_right_diag import solve_gravity_right_diag
@@ -167,6 +168,7 @@ ALL_SOLVERS: list[Solver] = [
     solve_diag_ray,
     solve_diag_tile,
     solve_gravity_down,
+    solve_slide_to_wall,
     solve_gravity_up,
     solve_gravity_right,
     solve_gravity_right_diag,
