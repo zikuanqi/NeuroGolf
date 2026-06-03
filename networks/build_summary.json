@@ -297,11 +297,11 @@
   },
   {
     "task": 38,
-    "solver": "none",
-    "saved": false,
-    "points": 0.0,
-    "memory": null,
-    "params": null
+    "solver": "solve_block_count_bar",
+    "saved": true,
+    "points": 14.9537116488322,
+    "memory": 22123,
+    "params": 947
   },
   {
     "task": 39,

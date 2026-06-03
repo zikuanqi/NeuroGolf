@@ -1316,3 +1316,41 @@ def test_rot_tile_aware_rejects_non_tiling():
     from neurogolf.solvers.rot_tile_aware import solve_rot_tile_aware
     task = _make_task([([[1, 2], [3, 4]], [[1, 2], [3, 4]])])
     assert solve_rot_tile_aware(task) is None
+
+
+def test_block_count_bar_counts_2x2_blocks():
+    import numpy as np
+    import onnxruntime as ort
+    from neurogolf.grids import from_onehot, to_onehot
+    from neurogolf.solvers.block_count_bar import solve_block_count_bar
+
+    # Two 2x2 colour-1 blocks -> 1x5 bar with two 1s (task 38 shape).
+    g1 = [
+        [1, 1, 0, 0, 0],
+        [1, 1, 0, 1, 1],
+        [0, 0, 0, 1, 1],
+        [0, 0, 0, 0, 0],
+        [2, 2, 0, 0, 0],
+    ]
+    # One 2x2 colour-1 block -> one 1.
+    g2 = [
+        [0, 0, 0, 0, 0],
+        [0, 1, 1, 0, 0],
+        [0, 1, 1, 0, 2],
+        [0, 0, 0, 0, 2],
+        [0, 0, 0, 0, 0],
+    ]
+    task = _make_task([(g1, [[1, 1, 0, 0, 0]]), (g2, [[1, 0, 0, 0, 0]])])
+    model = solve_block_count_bar(task)
+    assert model is not None and hasattr(model, "graph")
+
+    sess = ort.InferenceSession(model.SerializeToString())
+    for g, exp in ((g1, [[1, 1, 0, 0, 0]]), (g2, [[1, 0, 0, 0, 0]])):
+        res = sess.run(["output"], {"input": to_onehot(g)})[0]
+        assert from_onehot((res > 0.0).astype(np.float32)) == exp
+
+
+def test_block_count_bar_rejects_non_count():
+    from neurogolf.solvers.block_count_bar import solve_block_count_bar
+    task = _make_task([([[1, 2], [3, 4]], [[1, 2], [3, 4]])])
+    assert solve_block_count_bar(task) is None
