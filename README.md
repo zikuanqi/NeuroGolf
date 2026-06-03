@@ -10,10 +10,10 @@
 [![Kaggle](https://img.shields.io/badge/Kaggle-NeuroGolf%202026-20BEFF?logo=kaggle&logoColor=white)](https://www.kaggle.com/competitions/neurogolf-2026)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![Last Commit](https://img.shields.io/github/last-commit/zikuanqi/NeuroGolf)](https://github.com/zikuanqi/NeuroGolf/commits/main)
-[![Tests](https://img.shields.io/badge/tests-102%20passing-brightgreen)](tests/)
-[![Tasks Solved](https://img.shields.io/badge/tasks_solved-104%2F400-blue)](networks/)
-[![Local Score](https://img.shields.io/badge/local_score-1481.68-success)](networks/build_summary.json)
-[![Public Score](https://img.shields.io/badge/public_score-1481.67-blue)](https://www.kaggle.com/competitions/neurogolf-2026)
+[![Tests](https://img.shields.io/badge/tests-104%20passing-brightgreen)](tests/)
+[![Tasks Solved](https://img.shields.io/badge/tasks_solved-105%2F400-blue)](networks/)
+[![Local Score](https://img.shields.io/badge/local_score-1493.35-success)](networks/build_summary.json)
+[![Public Score](https://img.shields.io/badge/public_score-1493.34-blue)](https://www.kaggle.com/competitions/neurogolf-2026)
 
 </div>
 
@@ -56,15 +56,15 @@
 
 | Metric · 指标 | Value · 数值 |
 |---|---|
-| **Tasks solved · 通过任务** | **104 / 400** |
-| **Local score · 本地总分** | **1481.68** — clean-room scorer over `build_summary.json` · 独立评分器统计 |
-| **Public score · 公开分数 (Kaggle)** | **1481.67** — leaderboard-confirmed (104/400); local ≈ official to 2 decimals · 排行榜确认 |
-| Solvers · 求解器 | 83, in 9 families · 共 83 个，分 9 类 |
-| Unit tests · 单元测试 | 102 passing · 102 个全部通过 |
-| Networks · 网络文件 | 104 × `networks/taskNNN.onnx` (one per solved task) · 每个解出任务一个 |
+| **Tasks solved · 通过任务** | **105 / 400** |
+| **Local score · 本地总分** | **1493.35** — clean-room scorer over `build_summary.json` · 独立评分器统计 |
+| **Public score · 公开分数 (Kaggle)** | **1493.34** — leaderboard-confirmed (105/400); local ≈ official to 2 decimals · 排行榜确认 |
+| Solvers · 求解器 | 84, in 9 families · 共 84 个，分 9 类 |
+| Unit tests · 单元测试 | 104 passing · 104 个全部通过 |
+| Networks · 网络文件 | 105 × `networks/taskNNN.onnx` (one per solved task) · 每个解出任务一个 |
 
-> Latest Kaggle submission **1481.67 / 104 tasks** (2026-06-03) — the clean-room local scorer (**1481.68**) matches the official public score to two decimals. The v1 → v46 progression lives in [Submission history](#history).
-> 最新 Kaggle 提交 **1481.67 / 104 解**（2026-06-03）—— 本地独立评分器（**1481.68**）与官方分数小数点后两位一致。v1 → v46 进展见 [提交历史](#history)。
+> Latest Kaggle submission **1493.34 / 105 tasks** (2026-06-03) — the clean-room local scorer (**1493.35**) matches the official public score to two decimals. The v1 → v46 progression lives in [Submission history](#history).
+> 最新 Kaggle 提交 **1493.34 / 105 解**（2026-06-03）—— 本地独立评分器（**1493.35**）与官方分数小数点后两位一致。v1 → v46 进展见 [提交历史](#history)。
 
 ---
 
@@ -79,7 +79,7 @@ ARC task (JSON)
       ▼                                  channel = colour 0‑9; real grid top‑left, rest 0‑padded
  ┌────────────────────────────────────────────────────────────────────────┐
  │  pipeline.build_one(task)                                              │
- │    for solver in ALL_SOLVERS:          ~83 pattern‑specific solvers    │
+ │    for solver in ALL_SOLVERS:          ~84 pattern‑specific solvers    │
  │        model = solver(task)            None if the pattern doesn't fit │
  │        score = verify(model, task)     clean‑room official scorer      │
  │    keep the highest‑scoring model that passes EVERY example            │
@@ -136,9 +136,9 @@ python scripts/submit.py submissions/submission.zip "describe your run"
 
 ## 🧩 Solvers by family · 求解器分类
 
-83 solvers in 9 families. Each is verified against the official scorer; `Params` is the parameter count of a representative network (it can vary slightly per task because detected constants differ). A few solvers are registered as capabilities but currently win no task (dominated or non-matching on the present set); these are marked `—†`.
+84 solvers in 9 families. Each is verified against the official scorer; `Params` is the parameter count of a representative network (it can vary slightly per task because detected constants differ). A few solvers are registered as capabilities but currently win no task (dominated or non-matching on the present set); these are marked `—†`.
 
-83 个求解器分为 9 类。`Params` 列为代表性网络的参数量（不同任务因检测出的常量不同会略有差异）。少数求解器已登记但当前未中标（被更省的求解器击败或不匹配现有任务），以 `—†` 标记。
+84 个求解器分为 9 类。`Params` 列为代表性网络的参数量（不同任务因检测出的常量不同会略有差异）。少数求解器已登记但当前未中标（被更省的求解器击败或不匹配现有任务），以 `—†` 标记。
 
 ### 1 · Rigid moves — identity, flip, rotate, transpose, shift · 刚性变换
 
@@ -170,6 +170,7 @@ python scripts/submit.py submissions/submission.zip "describe your run"
 | `solve_scale_detector` | N× nearest upscale **or** downscale · N 倍最近邻放大或缩小 | `Slice`+`Resize` | ~24 |
 | `solve_variable_kron` | scale by N = `count(non-zero)` / `count(distinct)` · 变 N 倍（N 来自输入特征） | `ReduceSum`+`Cast`+`Div`+`Min`+`Gather`×2+`Less`+`Mul` | ~138 |
 | `solve_tile_h` | horizontal tile-N, variable width · 变宽 N 倍水平复刻 | `ReduceSum`+`ReduceMax`+`Mod`+`Gather`+`Less`+`Mul` | ~67 |
+| `solve_period_extend_h` | continue the column period (p=1/2/3) to 2× width: `out[r][c]=in[r][c%p]` (task 231) · 按列周期延展到 2 倍宽 | per-period fixed `Gather` candidates + smallest-valid-period select (`Sub`/`Mul`/`ReduceSum`/`Less`) + 2W `Less` mask | ~123 |
 | `solve_palindrome_h` / `solve_palindrome_v` | mirror-concat to the right / bottom edge · 镜像拼接 | shape-aware `Where`+`Gather`+`Less` mask | ~68 |
 | `solve_palindrome_2d` | four-quadrant 2D mirror · 四象限二维镜像 | palindrome-h ∘ palindrome-v | ~133 |
 | `solve_axis_gather` | constant-shape row / column gather — any fixed line shuffle (e.g. mirror-stack `[flip_v(in); in]`); subsumes constant-shape palindromes · 定形行/列重排（含镜像堆叠），并接管定形回文 | single `Gather` (baked index) | 30 |
@@ -312,7 +313,7 @@ NeuroGolf/
 │   ├── onnx_ops.py       # ONNX graph helpers             · ONNX 图构建辅助
 │   ├── verify.py         # clean-room official scorer      · 评分器独立实现
 │   ├── pipeline.py       # run all solvers, keep the best  · 求解器调度
-│   └── solvers/          # 83 pattern-specific solvers     · 各类求解器
+│   └── solvers/          # 84 pattern-specific solvers     · 各类求解器
 │       ├── __init__.py   #   ALL_SOLVERS registry          · 求解器登记表
 │       └── *.py          #   one module per solver family
 ├── scripts/
@@ -352,7 +353,7 @@ NeuroGolf/
 ## 🔬 Tests · 单元测试
 
 ```bash
-python -m pytest tests/ -q        # 102 passing
+python -m pytest tests/ -q        # 104 passing
 ```
 
 The suite covers the one-hot round-trip contract and, for each solver family, a **positive** case (the built network reproduces the expected grid through ONNX Runtime) plus a **negative** case (the solver declines a task outside its pattern).
@@ -419,9 +420,9 @@ The suite covers the one-hot round-trip contract and, for each solver family, a 
 
 Bold = score confirmed on the Kaggle leaderboard; `~` = local estimate from `build_summary.json` (the local clean-room scorer matches the official score to two decimals).
 
-**Beyond v46 (local, not yet leaderboard-confirmed):** added the new **classification & feature-hash family** — `symmetry_classify` (103), `shape_classify` (56), `count_pattern` (186), `colorcount_pattern` (167), `position_color` (262) — plus `remap` / `rot180` hits on tasks 276 / 140, and the unused `scattered_color` / `spatial_classify` / `learned_conv` capabilities. Local development has since added `diag_tile` (task 7 diagonal tiling), `axis_gather` (constant-shape row/column gather — solves task 116 and replaces the costlier constant-shape palindromes on 164 / 210 / 311 at 21.60 pts each), `diag_ray` (task 327 down-right diagonal extrusion), and `rot_tile_aware` (shape-aware rotational tiling for task 106, where N varies across examples), `block_count_bar` (count 2×2 colour blocks → fixed-width unary bar, task 38), `odd_panel` (pick the odd-one-out of four panels, task 207), and `odd_panel_aware` (shape-aware odd-one-out for variable-size task 65); the `build_summary.json` total is now **1481.68 across 104 / 400 tasks**, Kaggle-confirmed at **1481.67** (2026-06-03).
+**Beyond v46 (local, not yet leaderboard-confirmed):** added the new **classification & feature-hash family** — `symmetry_classify` (103), `shape_classify` (56), `count_pattern` (186), `colorcount_pattern` (167), `position_color` (262) — plus `remap` / `rot180` hits on tasks 276 / 140, and the unused `scattered_color` / `spatial_classify` / `learned_conv` capabilities. Local development has since added `diag_tile` (task 7 diagonal tiling), `axis_gather` (constant-shape row/column gather — solves task 116 and replaces the costlier constant-shape palindromes on 164 / 210 / 311 at 21.60 pts each), `diag_ray` (task 327 down-right diagonal extrusion), and `rot_tile_aware` (shape-aware rotational tiling for task 106, where N varies across examples), `block_count_bar` (count 2×2 colour blocks → fixed-width unary bar, task 38), `odd_panel` (pick the odd-one-out of four panels, task 207), `odd_panel_aware` (shape-aware odd-one-out for variable-size task 65), and `period_extend_h` (continue a column period to 2× width, task 231); the `build_summary.json` total is now **1493.35 across 105 / 400 tasks**, Kaggle-confirmed at **1493.34** (2026-06-03).
 
-**v46 之后（本地，尚未在排行榜确认）：** 新增**分类与特征哈希家族** —— `symmetry_classify`（103）、`shape_classify`（56）、`count_pattern`（186）、`colorcount_pattern`（167）、`position_color`（262），以及 `remap` / `rot180` 解出 276 / 140，外加暂未中标的 `scattered_color` / `spatial_classify` / `learned_conv`。再加 `diag_tile`（task 7 对角平铺）、`axis_gather`（定形行/列重排 —— 解出 116，并以 21.60 分接管 164 / 210 / 311 的定形回文）、`diag_ray`（task 327 右下对角线延展）、`rot_tile_aware`（形状感知旋转拼接，解出 N 随样例变化的 task 106）、`block_count_bar`（数 2×2 色块 → 定宽计数条，解出 task 38）、`odd_panel`（四面板中挑出唯一不同的一个，解出 task 207）、`odd_panel_aware`（形状感知版，解出尺寸可变的 task 65）；本地 `build_summary.json` 总分现为 **1481.68，共解出 104 / 400**，Kaggle 确认 **1481.67**（2026-06-03）。
+**v46 之后（本地，尚未在排行榜确认）：** 新增**分类与特征哈希家族** —— `symmetry_classify`（103）、`shape_classify`（56）、`count_pattern`（186）、`colorcount_pattern`（167）、`position_color`（262），以及 `remap` / `rot180` 解出 276 / 140，外加暂未中标的 `scattered_color` / `spatial_classify` / `learned_conv`。再加 `diag_tile`（task 7 对角平铺）、`axis_gather`（定形行/列重排 —— 解出 116，并以 21.60 分接管 164 / 210 / 311 的定形回文）、`diag_ray`（task 327 右下对角线延展）、`rot_tile_aware`（形状感知旋转拼接，解出 N 随样例变化的 task 106）、`block_count_bar`（数 2×2 色块 → 定宽计数条，解出 task 38）、`odd_panel`（四面板中挑出唯一不同的一个，解出 task 207）、`odd_panel_aware`（形状感知版，解出尺寸可变的 task 65）、`period_extend_h`（按列周期延展到 2 倍宽，解出 task 231）；本地 `build_summary.json` 总分现为 **1493.35，共解出 105 / 400**，Kaggle 确认 **1493.34**（2026-06-03）。
 
 </details>
 
