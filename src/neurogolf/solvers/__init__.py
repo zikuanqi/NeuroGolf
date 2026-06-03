@@ -55,6 +55,7 @@ from .marker_crop import solve_marker_crop
 from .mirror_complete import solve_mirror_complete
 from .nearest_wall import solve_nearest_wall
 from .odd_panel import solve_odd_panel
+from .odd_panel_aware import solve_odd_panel_aware
 from .outline import solve_outline
 from .palindrome import (solve_palindrome_2d, solve_palindrome_h,
                           solve_palindrome_v)
@@ -132,6 +133,7 @@ ALL_SOLVERS: list[Solver] = [
     solve_split_and,
     solve_split_logic,
     solve_odd_panel,
+    solve_odd_panel_aware,
     solve_connect_dots,
     solve_connect_fill,
     solve_color_bbox_fill,

@@ -513,11 +513,11 @@
   },
   {
     "task": 65,
-    "solver": "none",
-    "saved": false,
-    "points": 0.0,
-    "memory": null,
-    "params": null
+    "solver": "solve_odd_panel_aware",
+    "saved": true,
+    "points": 11.135924065033798,
+    "memory": 1049698,
+    "params": 66
   },
   {
     "task": 66,

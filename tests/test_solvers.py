@@ -1384,3 +1384,48 @@ def test_odd_panel_rejects_non_panel():
     from neurogolf.solvers.odd_panel import solve_odd_panel
     task = _make_task([([[1, 2], [3, 4]], [[1, 2], [3, 4]])])
     assert solve_odd_panel(task) is None
+
+
+def test_odd_panel_aware_variable_size():
+    import numpy as np
+    import onnxruntime as ort
+    from neurogolf.grids import from_onehot, to_onehot
+    from neurogolf.solvers.odd_panel import solve_odd_panel
+    from neurogolf.solvers.odd_panel_aware import solve_odd_panel_aware
+
+    # 5x5 (n=2): BL panel differs.
+    g5 = [
+        [8, 8, 3, 8, 8],
+        [8, 8, 3, 8, 8],
+        [3, 3, 3, 3, 3],
+        [8, 8, 3, 8, 8],
+        [4, 8, 3, 8, 8],
+    ]
+    o5 = [[8, 8], [4, 8]]
+    # 7x7 (n=3): TR panel differs.
+    g7 = [
+        [4, 4, 4, 2, 4, 4, 4],
+        [4, 4, 4, 2, 4, 1, 4],
+        [4, 4, 4, 2, 4, 4, 4],
+        [2, 2, 2, 2, 2, 2, 2],
+        [4, 4, 4, 2, 4, 4, 4],
+        [4, 4, 4, 2, 4, 4, 4],
+        [4, 4, 4, 2, 4, 4, 4],
+    ]
+    o7 = [[4, 4, 4], [4, 1, 4], [4, 4, 4]]
+    task = _make_task([(g5, o5), (g7, o7)])
+    # mixed sizes -> the static solver must decline
+    assert solve_odd_panel(task) is None
+    model = solve_odd_panel_aware(task)
+    assert model is not None and hasattr(model, "graph")
+
+    sess = ort.InferenceSession(model.SerializeToString())
+    for g, exp in ((g5, o5), (g7, o7)):
+        res = sess.run(["output"], {"input": to_onehot(g)})[0]
+        assert from_onehot((res > 0.0).astype(np.float32)) == exp
+
+
+def test_odd_panel_aware_rejects_non_panel():
+    from neurogolf.solvers.odd_panel_aware import solve_odd_panel_aware
+    task = _make_task([([[1, 2], [3, 4]], [[1, 2], [3, 4]])])
+    assert solve_odd_panel_aware(task) is None
