@@ -841,11 +841,11 @@
   },
   {
     "task": 106,
-    "solver": "none",
-    "saved": false,
-    "points": 0.0,
-    "memory": null,
-    "params": null
+    "solver": "solve_rot_tile_aware",
+    "saved": true,
+    "points": 11.56793086181913,
+    "memory": 681250,
+    "params": 262
   },
   {
     "task": 107,

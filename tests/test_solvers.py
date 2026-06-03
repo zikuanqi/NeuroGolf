@@ -1287,3 +1287,32 @@ def test_diag_ray_rejects_non_diagonal():
     # Same-shape recolour is not a 2N diagonal extrusion -> decline.
     task = _make_task([([[1, 0], [0, 1]], [[2, 0], [0, 2]])])
     assert solve_diag_ray(task) is None
+
+
+def test_rot_tile_aware_variable_size():
+    import numpy as np
+    import onnxruntime as ort
+    from neurogolf.grids import from_onehot, to_onehot
+    from neurogolf.solvers.rot_tile import _rot_tile
+    from neurogolf.solvers.rot_tile_aware import solve_rot_tile_aware
+    from neurogolf.solvers.rot_tile import solve_rot_tile
+
+    # Two different grid sizes -> the static (single-N) solver must decline,
+    # the shape-aware one handles both (task 106).
+    g2 = [[1, 2], [3, 4]]
+    g3 = [[1, 2, 3], [4, 5, 6], [7, 8, 9]]
+    task = _make_task([(g2, _rot_tile(g2)), (g3, _rot_tile(g3))])
+    assert solve_rot_tile(task) is None
+    model = solve_rot_tile_aware(task)
+    assert model is not None and hasattr(model, "graph")
+
+    sess = ort.InferenceSession(model.SerializeToString())
+    for g in (g2, g3):
+        res = sess.run(["output"], {"input": to_onehot(g)})[0]
+        assert from_onehot((res > 0.0).astype(np.float32)) == _rot_tile(g)
+
+
+def test_rot_tile_aware_rejects_non_tiling():
+    from neurogolf.solvers.rot_tile_aware import solve_rot_tile_aware
+    task = _make_task([([[1, 2], [3, 4]], [[1, 2], [3, 4]])])
+    assert solve_rot_tile_aware(task) is None
