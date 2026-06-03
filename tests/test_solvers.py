@@ -1229,3 +1229,61 @@ def test_diag_tile_rejects_plain_recolor():
     # A uniform recolour is not a diagonal tiling -> decline.
     task = _make_task([([[1, 1], [1, 1]], [[2, 2], [2, 2]])])
     assert solve_diag_tile(task) is None
+
+
+def test_axis_gather_vertical_mirror_stack():
+    import numpy as np
+    import onnxruntime as ort
+    from neurogolf.grids import from_onehot, to_onehot
+    from neurogolf.solvers.axis_gather import solve_axis_gather
+
+    # output = [flip_v(input); input] -- a constant row gather (task 116).
+    grid = [[1, 2, 3], [4, 5, 6]]
+    out = [[4, 5, 6], [1, 2, 3], [1, 2, 3], [4, 5, 6]]
+    task = _make_task([(grid, out)])
+    model = solve_axis_gather(task)
+    assert model is not None and hasattr(model, "graph")
+    assert model.graph.node[0].op_type == "Gather"
+
+    sess = ort.InferenceSession(model.SerializeToString())
+    res = sess.run(["output"], {"input": to_onehot(grid)})[0]
+    assert from_onehot((res > 0.0).astype(np.float32)) == out
+
+
+def test_axis_gather_rejects_identity():
+    from neurogolf.solvers.axis_gather import solve_axis_gather
+    # A pure identity is not a non-trivial gather -> decline.
+    task = _make_task([([[1, 2], [3, 4]], [[1, 2], [3, 4]])])
+    assert solve_axis_gather(task) is None
+
+
+def test_diag_ray_down_right():
+    import numpy as np
+    import onnxruntime as ort
+    from neurogolf.grids import from_onehot, to_onehot
+    from neurogolf.solvers.diag_ray import solve_diag_ray
+
+    # Each marker emits a down-right ray in a 2N x 2N output (task 327).
+    grid = [[6, 1, 0], [3, 0, 0], [0, 0, 0]]
+    out = [
+        [6, 1, 0, 0, 0, 0],
+        [3, 6, 1, 0, 0, 0],
+        [0, 3, 6, 1, 0, 0],
+        [0, 0, 3, 6, 1, 0],
+        [0, 0, 0, 3, 6, 1],
+        [0, 0, 0, 0, 3, 6],
+    ]
+    task = _make_task([(grid, out)])
+    model = solve_diag_ray(task)
+    assert model is not None and hasattr(model, "graph")
+
+    sess = ort.InferenceSession(model.SerializeToString())
+    res = sess.run(["output"], {"input": to_onehot(grid)})[0]
+    assert from_onehot((res > 0.0).astype(np.float32)) == out
+
+
+def test_diag_ray_rejects_non_diagonal():
+    from neurogolf.solvers.diag_ray import solve_diag_ray
+    # Same-shape recolour is not a 2N diagonal extrusion -> decline.
+    task = _make_task([([[1, 0], [0, 1]], [[2, 0], [0, 2]])])
+    assert solve_diag_ray(task) is None

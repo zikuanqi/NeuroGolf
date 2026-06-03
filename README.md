@@ -10,9 +10,9 @@
 [![Kaggle](https://img.shields.io/badge/Kaggle-NeuroGolf%202026-20BEFF?logo=kaggle&logoColor=white)](https://www.kaggle.com/competitions/neurogolf-2026)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![Last Commit](https://img.shields.io/github/last-commit/zikuanqi/NeuroGolf)](https://github.com/zikuanqi/NeuroGolf/commits/main)
-[![Tests](https://img.shields.io/badge/tests-88%20passing-brightgreen)](tests/)
-[![Tasks Solved](https://img.shields.io/badge/tasks_solved-98%2F400-blue)](networks/)
-[![Local Score](https://img.shields.io/badge/local_score-1368.84-success)](networks/build_summary.json)
+[![Tests](https://img.shields.io/badge/tests-94%20passing-brightgreen)](tests/)
+[![Tasks Solved](https://img.shields.io/badge/tasks_solved-100%2F400-blue)](networks/)
+[![Local Score](https://img.shields.io/badge/local_score-1427.27-success)](networks/build_summary.json)
 [![Public Score](https://img.shields.io/badge/public_score-1368.34_%28v46%29-blue)](https://www.kaggle.com/competitions/neurogolf-2026)
 
 </div>
@@ -56,15 +56,15 @@
 
 | Metric · 指标 | Value · 数值 |
 |---|---|
-| **Tasks solved · 通过任务** | **98 / 400** |
-| **Local score · 本地总分** | **1368.84** — clean-room scorer over `build_summary.json` · 独立评分器统计 |
+| **Tasks solved · 通过任务** | **100 / 400** |
+| **Local score · 本地总分** | **1427.27** — clean-room scorer over `build_summary.json` · 独立评分器统计 |
 | Public score · 公开分数 (Kaggle) | **1294.40** — last leaderboard-confirmed (v46, 92/400) · 排行榜最新确认 |
-| Solvers · 求解器 | 77, in 9 families · 共 77 个，分 9 类 |
-| Unit tests · 单元测试 | 90 passing · 90 个全部通过 |
-| Networks · 网络文件 | 98 × `networks/taskNNN.onnx` (one per solved task) · 每个解出任务一个 |
+| Solvers · 求解器 | 79, in 9 families · 共 79 个，分 9 类 |
+| Unit tests · 单元测试 | 94 passing · 94 个全部通过 |
+| Networks · 网络文件 | 100 × `networks/taskNNN.onnx` (one per solved task) · 每个解出任务一个 |
 
-> The leaderboard-confirmed progression (v1 → v46) lives in [Submission history](#history); local development has since reached **1368.84 / 98 tasks** (pending submission).
-> 排行榜确认的进展（v1 → v46）见 [提交历史](#history)；本地开发已推进至 **1368.84 / 98 解**（待提交确认）。
+> The leaderboard-confirmed progression (v1 → v46) lives in [Submission history](#history); local development has since reached **1427.27 / 100 tasks** (pending submission).
+> 排行榜确认的进展（v1 → v46）见 [提交历史](#history)；本地开发已推进至 **1427.27 / 100 解**（待提交确认）。
 
 ---
 
@@ -79,7 +79,7 @@ ARC task (JSON)
       ▼                                  channel = colour 0‑9; real grid top‑left, rest 0‑padded
  ┌────────────────────────────────────────────────────────────────────────┐
  │  pipeline.build_one(task)                                              │
- │    for solver in ALL_SOLVERS:          ~77 pattern‑specific solvers    │
+ │    for solver in ALL_SOLVERS:          ~79 pattern‑specific solvers    │
  │        model = solver(task)            None if the pattern doesn't fit │
  │        score = verify(model, task)     clean‑room official scorer      │
  │    keep the highest‑scoring model that passes EVERY example            │
@@ -132,9 +132,9 @@ python scripts/submit.py submissions/submission.zip "describe your run"
 
 ## 🧩 Solvers by family · 求解器分类
 
-77 solvers in 9 families. Each is verified against the official scorer; `Params` is the parameter count of a representative network (it can vary slightly per task because detected constants differ). A few solvers are registered as capabilities but currently win no task (dominated or non-matching on the present set); these are marked `—†`.
+79 solvers in 9 families. Each is verified against the official scorer; `Params` is the parameter count of a representative network (it can vary slightly per task because detected constants differ). A few solvers are registered as capabilities but currently win no task (dominated or non-matching on the present set); these are marked `—†`.
 
-77 个求解器分为 9 类。`Params` 列为代表性网络的参数量（不同任务因检测出的常量不同会略有差异）。少数求解器已登记但当前未中标（被更省的求解器击败或不匹配现有任务），以 `—†` 标记。
+79 个求解器分为 9 类。`Params` 列为代表性网络的参数量（不同任务因检测出的常量不同会略有差异）。少数求解器已登记但当前未中标（被更省的求解器击败或不匹配现有任务），以 `—†` 标记。
 
 ### 1 · Rigid moves — identity, flip, rotate, transpose, shift · 刚性变换
 
@@ -168,6 +168,7 @@ python scripts/submit.py submissions/submission.zip "describe your run"
 | `solve_tile_h` | horizontal tile-N, variable width · 变宽 N 倍水平复刻 | `ReduceSum`+`ReduceMax`+`Mod`+`Gather`+`Less`+`Mul` | ~67 |
 | `solve_palindrome_h` / `solve_palindrome_v` | mirror-concat to the right / bottom edge · 镜像拼接 | shape-aware `Where`+`Gather`+`Less` mask | ~68 |
 | `solve_palindrome_2d` | four-quadrant 2D mirror · 四象限二维镜像 | palindrome-h ∘ palindrome-v | ~133 |
+| `solve_axis_gather` | constant-shape row / column gather — any fixed line shuffle (e.g. mirror-stack `[flip_v(in); in]`); subsumes constant-shape palindromes · 定形行/列重排（含镜像堆叠），并接管定形回文 | single `Gather` (baked index) | 30 |
 | `solve_rot_tile` | N×N → 2N×2N as four rotations (I/90/180/270) · 四象限旋转拼接 | `Slice`+`Transpose`+`Gather`×4+`Concat`×3+`Pad` | ~23 |
 | `solve_self_fractal` | N×N → N²×N² self-similar fractal keyed by a selector colour · 自相似分形放大 | `Slice`+`Tile`+`Gather`×2 (Kron mask)+`ArgMax`+`Mul`+`Pad`+`Concat` | ~57 |
 | `solve_block_mask` | N×N → N²×N² masked tiling + channel-0 recovery · 块掩码平铺 | `Slice`+`ReduceSum`+`Less`+`Tile`+`Mul`+`Add` | ~78 |
@@ -202,6 +203,7 @@ python scripts/submit.py submissions/submission.zip "describe your run"
 | `solve_color_lines` | colour-2 markers fill their column; other colours fill their row (drawn on top) · 颜色2竖线，其余横线覆盖 | `ReduceMax`(col-has-2 / row colour)+`Sub`/`Mul`/`Add` priority blend | ~32 |
 | `solve_cross_laser` | each marker fires a full row+column "plus"; differing-colour crossings → 2 · 十字射线，异色交叉为 2 | `ReduceMax`(row/col colour)+`ReduceSum`(same-colour test)+`Sub`/`Mul`/`Add` | ~31 |
 | `solve_ray_down` | carry each marker's colour straight down its column · 颜色沿列向下填充 | per-colour cumulative-max down (log-doubling `Pad`+`Slice`+`Max`)+`Equal`/`Greater` | ~95 |
+| `solve_diag_ray` | each non-zero cell emits a down-right diagonal ray across a 2N×2N output (input top-left) · 每个标记沿右下对角线发射射线（2N×2N） | channel-1‑9 `Slice`+diagonal log-doubling `Pad`+`Slice`+`Max`+`ReduceSum`+`Greater`+`Sub`(bg)+`Concat`+`Pad` | ~74 |
 | `solve_drop_into_wall` | colour-1 cells fall into a full colour-5 wall row in their column · 颜色1落入颜色5的墙 | `Gather`+`ReduceSum`/`ReduceMax`+`Mul`(outer)+`Relu`+`Concat` | ~12 |
 | `solve_nearest_wall` | recolour each marker with the colour of the nearer of two facing walls · 重涂为较近一堵墙的颜色 | `ReduceSum`/`ReduceMax`+`Gather`(far wall)+`Less`/`Greater` half-masks+`Mul`/`Add` | ~75 |
 | `solve_flood_fill_enclosure` | fill colour-0 cells fully enclosed by a single source colour · 填充被单色完全包围的色0 | `ArgMax`+`Equal`+58×(`Pad`+`Conv`+`Greater`+`Max`) border BFS+`Gather`+`Sub`+`Slice`+`Concat` | ~1.8k |
@@ -302,7 +304,7 @@ NeuroGolf/
 │   ├── onnx_ops.py       # ONNX graph helpers             · ONNX 图构建辅助
 │   ├── verify.py         # clean-room official scorer      · 评分器独立实现
 │   ├── pipeline.py       # run all solvers, keep the best  · 求解器调度
-│   └── solvers/          # 77 pattern-specific solvers     · 各类求解器
+│   └── solvers/          # 79 pattern-specific solvers     · 各类求解器
 │       ├── __init__.py   #   ALL_SOLVERS registry          · 求解器登记表
 │       └── *.py          #   one module per solver family
 ├── scripts/
@@ -342,7 +344,7 @@ NeuroGolf/
 ## 🔬 Tests · 单元测试
 
 ```bash
-python -m pytest tests/ -q        # 88 passing
+python -m pytest tests/ -q        # 94 passing
 ```
 
 The suite covers the one-hot round-trip contract and, for each solver family, a **positive** case (the built network reproduces the expected grid through ONNX Runtime) plus a **negative** case (the solver declines a task outside its pattern).
@@ -409,9 +411,9 @@ The suite covers the one-hot round-trip contract and, for each solver family, a 
 
 Bold = score confirmed on the Kaggle leaderboard; `~` = local estimate from `build_summary.json` (the local clean-room scorer matches the official score to two decimals).
 
-**Beyond v46 (local, not yet leaderboard-confirmed):** added the new **classification & feature-hash family** — `symmetry_classify` (103), `shape_classify` (56), `count_pattern` (186), `colorcount_pattern` (167), `position_color` (262) — plus `remap` / `rot180` hits on tasks 276 / 140, and the unused `scattered_color` / `spatial_classify` / `learned_conv` capabilities. Local development has since added `diag_tile` (task 7 diagonal tiling); the `build_summary.json` total is now **1368.84 across 98 / 400 tasks**.
+**Beyond v46 (local, not yet leaderboard-confirmed):** added the new **classification & feature-hash family** — `symmetry_classify` (103), `shape_classify` (56), `count_pattern` (186), `colorcount_pattern` (167), `position_color` (262) — plus `remap` / `rot180` hits on tasks 276 / 140, and the unused `scattered_color` / `spatial_classify` / `learned_conv` capabilities. Local development has since added `diag_tile` (task 7 diagonal tiling), `axis_gather` (constant-shape row/column gather — solves task 116 and replaces the costlier constant-shape palindromes on 164 / 210 / 311 at 21.60 pts each), and `diag_ray` (task 327 down-right diagonal extrusion); the `build_summary.json` total is now **1427.27 across 100 / 400 tasks**.
 
-**v46 之后（本地，尚未在排行榜确认）：** 新增**分类与特征哈希家族** —— `symmetry_classify`（103）、`shape_classify`（56）、`count_pattern`（186）、`colorcount_pattern`（167）、`position_color`（262），以及 `remap` / `rot180` 解出 276 / 140，外加暂未中标的 `scattered_color` / `spatial_classify` / `learned_conv`。再加 `diag_tile`（task 7 对角平铺）；本地 `build_summary.json` 总分现为 **1368.84，共解出 98 / 400**。
+**v46 之后（本地，尚未在排行榜确认）：** 新增**分类与特征哈希家族** —— `symmetry_classify`（103）、`shape_classify`（56）、`count_pattern`（186）、`colorcount_pattern`（167）、`position_color`（262），以及 `remap` / `rot180` 解出 276 / 140，外加暂未中标的 `scattered_color` / `spatial_classify` / `learned_conv`。再加 `diag_tile`（task 7 对角平铺）、`axis_gather`（定形行/列重排 —— 解出 116，并以 21.60 分接管 164 / 210 / 311 的定形回文）、`diag_ray`（task 327 右下对角线延展）；本地 `build_summary.json` 总分现为 **1427.27，共解出 100 / 400**。
 
 </details>
 

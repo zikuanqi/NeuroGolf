@@ -921,11 +921,11 @@
   },
   {
     "task": 116,
-    "solver": "none",
-    "saved": false,
-    "points": 0.0,
-    "memory": null,
-    "params": null
+    "solver": "solve_axis_gather",
+    "saved": true,
+    "points": 21.598802618337846,
+    "memory": 0,
+    "params": 30
   },
   {
     "task": 117,
@@ -1305,11 +1305,11 @@
   },
   {
     "task": 164,
-    "solver": "solve_palindrome_h",
+    "solver": "solve_axis_gather",
     "saved": true,
-    "points": 14.373709381996417,
-    "memory": 41136,
-    "params": 68
+    "points": 21.598802618337846,
+    "memory": 0,
+    "params": 30
   },
   {
     "task": 165,
@@ -1673,11 +1673,11 @@
   },
   {
     "task": 210,
-    "solver": "solve_palindrome_v",
+    "solver": "solve_axis_gather",
     "saved": true,
-    "points": 14.373709381996417,
-    "memory": 41136,
-    "params": 68
+    "points": 21.598802618337846,
+    "memory": 0,
+    "params": 30
   },
   {
     "task": 211,
@@ -2481,11 +2481,11 @@
   },
   {
     "task": 311,
-    "solver": "solve_palindrome_h",
+    "solver": "solve_axis_gather",
     "saved": true,
-    "points": 14.373709381996417,
-    "memory": 41136,
-    "params": 68
+    "points": 21.598802618337846,
+    "memory": 0,
+    "params": 30
   },
   {
     "task": 312,
@@ -2609,11 +2609,11 @@
   },
   {
     "task": 327,
-    "solver": "none",
-    "saved": false,
-    "points": 0.0,
-    "memory": null,
-    "params": null
+    "solver": "solve_diag_ray",
+    "saved": true,
+    "points": 15.16254541806831,
+    "memory": 18648,
+    "params": 74
   },
   {
     "task": 328,
