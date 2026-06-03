@@ -419,12 +419,18 @@ The suite covers the one-hot round-trip contract and, for each solver family, a 
 | v44 | + isolate-recolour (147, 272) | 88 | ~1258 |
 | v45 | + cc-size-recolour (169, 196, 330) | 91 | **1285.81** |
 | v46 | + cc-rank-recolour (374) | 92 | **1294.40** |
+| v47 | + classification & feature-hash family (56 / 103 / 167 / 186 / 262), remap (276), rot180 (140), diag-tile (7) | 98 | **1368.83** |
+| v48 | + axis-gather (116; ↑ 164 / 210 / 311), diag-ray (327), rot-tile-aware (106), block-count-bar (38), odd-panel (207) | 103 | **1470.54** |
+| v49 | + odd-panel-aware (65) | 104 | **1481.67** |
+| v50 | + period-extend-h (231) | 105 | **1493.34** |
+| v51 | + stripe-seeds (13) | 106 | **1506.55** |
+| v52 | + slide-to-wall (8) | 107 | **1520.83** |
 
 Bold = score confirmed on the Kaggle leaderboard; `~` = local estimate from `build_summary.json` (the local clean-room scorer matches the official score to two decimals).
 
-**Beyond v46 (local, not yet leaderboard-confirmed):** added the new **classification & feature-hash family** — `symmetry_classify` (103), `shape_classify` (56), `count_pattern` (186), `colorcount_pattern` (167), `position_color` (262) — plus `remap` / `rot180` hits on tasks 276 / 140, and the unused `scattered_color` / `spatial_classify` / `learned_conv` capabilities. Local development has since added `diag_tile` (task 7 diagonal tiling), `axis_gather` (constant-shape row/column gather — solves task 116 and replaces the costlier constant-shape palindromes on 164 / 210 / 311 at 21.60 pts each), `diag_ray` (task 327 down-right diagonal extrusion), and `rot_tile_aware` (shape-aware rotational tiling for task 106, where N varies across examples), `block_count_bar` (count 2×2 colour blocks → fixed-width unary bar, task 38), `odd_panel` (pick the odd-one-out of four panels, task 207), `odd_panel_aware` (shape-aware odd-one-out for variable-size task 65), `period_extend_h` (continue a column period to 2× width, task 231), `stripe_seeds` (periodic alternating stripes from two edge seeds, task 13), and `slide_to_wall` (slide an object until it touches a wall, task 8); the `build_summary.json` total is now **1520.83 across 107 / 400 tasks**, Kaggle-confirmed at **1520.83** (2026-06-03).
+**Post-v46 (all Kaggle-confirmed).** v47 built out the **classification & feature-hash family** (family 9 — symmetry / shape / count / colour-count / position). v48–v52 then added a run of geometric & object solvers — shape-aware rotational tiling, diagonal rays, horizontal period extension, odd-one-out panels, two-seed stripes and object-slide — lifting the leaderboard score from **1294.40** to **1520.83 (107 / 400)**. Per-solver details live in [Solvers by family](#solvers).
 
-**v46 之后（本地，尚未在排行榜确认）：** 新增**分类与特征哈希家族** —— `symmetry_classify`（103）、`shape_classify`（56）、`count_pattern`（186）、`colorcount_pattern`（167）、`position_color`（262），以及 `remap` / `rot180` 解出 276 / 140，外加暂未中标的 `scattered_color` / `spatial_classify` / `learned_conv`。再加 `diag_tile`（task 7 对角平铺）、`axis_gather`（定形行/列重排 —— 解出 116，并以 21.60 分接管 164 / 210 / 311 的定形回文）、`diag_ray`（task 327 右下对角线延展）、`rot_tile_aware`（形状感知旋转拼接，解出 N 随样例变化的 task 106）、`block_count_bar`（数 2×2 色块 → 定宽计数条，解出 task 38）、`odd_panel`（四面板中挑出唯一不同的一个，解出 task 207）、`odd_panel_aware`（形状感知版，解出尺寸可变的 task 65）、`period_extend_h`（按列周期延展到 2 倍宽，解出 task 231）、`stripe_seeds`（两个边缘种子生成周期交替条纹，解出 task 13）、`slide_to_wall`（物体滑向墙壁直至相邻，解出 task 8）；本地 `build_summary.json` 总分现为 **1520.83，共解出 107 / 400**，Kaggle 确认 **1520.83**（2026-06-03）。
+**v46 之后（均已在排行榜确认）。** v47 补全**分类与特征哈希家族**（第 9 类 —— 对称/形状/计数/色数/位置）；v48–v52 再加入一批几何与物体类求解器 —— 形状感知旋转拼接、对角射线、水平周期延展、四面板择异、双种子条纹、物体滑移 —— 将排行榜分数从 **1294.40** 提升到 **1520.83（107 / 400）**。各求解器详见 [求解器分类](#solvers)。
 
 </details>
 
@@ -439,7 +445,8 @@ The pattern families above cover every ARC transformation that reduces to a **de
 上表已覆盖所有"可检测、可用静态 ONNX 图表达"的变换（含连通分量的标注/计数/排名）。剩余任务需要另一类推理：
 
 - [x] **Small-grid classification** — family 9 (symmetry / shape / count / colour-count / position) now solves tasks 56 / 103 / 167 / 186 / 262. The remaining 1×1-answer tasks **48 / 291 / 346 / 355** still resist a clean, statically-expressible feature hash. · 小网格分类（已部分完成，余 48/291/346/355）
-- [ ] **Object / template matching & copying** — locate a shape and stamp it elsewhere. · 物体匹配与复制
+- [x] **Object motion & periodic generation** — `slide_to_wall` (8) slides an object to a wall; `stripe_seeds` (13) and `period_extend_h` (231) generate periodic patterns from seeds. · 物体移动与周期生成（已部分完成）
+- [ ] **Object / template matching & copying** — locate a shape and stamp it at a *found* location (beyond the fixed `stamp` solver). · 物体匹配与复制
 - [ ] **Multi-step composition / search** — chain several primitive operations. · 多步组合
 - [ ] **Memory trimming** — fuse the `(1,10,30,30)` intermediates in the connected-component solvers to lift their ~9-point scores. · 削减中间张量内存
 
