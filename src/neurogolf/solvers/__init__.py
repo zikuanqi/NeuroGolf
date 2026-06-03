@@ -17,6 +17,7 @@ import onnx
 from .axis_gather import solve_axis_gather
 from .bbox_color_extract import solve_bbox_color_extract
 from .blob_recolor import solve_blob_recolor
+from .block_count_bar import solve_block_count_bar
 from .block_mask import solve_block_mask
 from .cc_rank_recolor import solve_cc_rank_recolor
 from .cc_size_recolor import solve_cc_size_recolor
@@ -145,6 +146,7 @@ ALL_SOLVERS: list[Solver] = [
     solve_recolor_fives,
     solve_dilate_ones,
     solve_count_bar,
+    solve_block_count_bar,
     solve_hspan_fill,
     solve_stamp,
     solve_outline,
