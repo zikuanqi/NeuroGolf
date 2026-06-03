@@ -69,6 +69,7 @@ from .scale_detector import solve_scale_detector
 from .self_fractal import solve_self_fractal
 from .rot_tile import solve_rot_tile
 from .rot_tile_aware import solve_rot_tile_aware
+from .period_extend_h import solve_period_extend_h
 from .periodic_fill import solve_periodic_fill
 from .shape_aware_flip import (solve_flip_h_aware, solve_flip_v_aware,
                                 solve_rot90_ccw_aware, solve_rot90_cw_aware,
@@ -113,6 +114,7 @@ ALL_SOLVERS: list[Solver] = [
     solve_marker_crop,
     solve_shift,
     solve_tile_h,
+    solve_period_extend_h,
     solve_scale_detector,
     solve_self_fractal,
     solve_rot_tile,

@@ -1841,11 +1841,11 @@
   },
   {
     "task": 231,
-    "solver": "none",
-    "saved": false,
-    "points": 0.0,
-    "memory": null,
-    "params": null
+    "solver": "solve_period_extend_h",
+    "saved": true,
+    "points": 11.668475166785925,
+    "memory": 616199,
+    "params": 123
   },
   {
     "task": 232,

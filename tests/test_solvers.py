@@ -1429,3 +1429,31 @@ def test_odd_panel_aware_rejects_non_panel():
     from neurogolf.solvers.odd_panel_aware import solve_odd_panel_aware
     task = _make_task([([[1, 2], [3, 4]], [[1, 2], [3, 4]])])
     assert solve_odd_panel_aware(task) is None
+
+
+def test_period_extend_h():
+    import numpy as np
+    import onnxruntime as ort
+    from neurogolf.grids import from_onehot, to_onehot
+    from neurogolf.solvers.period_extend_h import solve_period_extend_h
+
+    def tile(g, p):
+        a = np.array(g)
+        return a[:, [c % p for c in range(2 * a.shape[1])]].tolist()
+
+    g2 = [[2, 8, 2, 8], [8, 2, 8, 2]]            # fundamental period 2
+    g3 = [[1, 2, 3, 1, 2, 3], [3, 1, 2, 3, 1, 2]]  # fundamental period 3
+    task = _make_task([(g2, tile(g2, 2)), (g3, tile(g3, 3))])
+    model = solve_period_extend_h(task)
+    assert model is not None and hasattr(model, "graph")
+
+    sess = ort.InferenceSession(model.SerializeToString())
+    for g, p in ((g2, 2), (g3, 3)):
+        res = sess.run(["output"], {"input": to_onehot(g)})[0]
+        assert from_onehot((res > 0.0).astype(np.float32)) == tile(g, p)
+
+
+def test_period_extend_h_rejects_same_shape():
+    from neurogolf.solvers.period_extend_h import solve_period_extend_h
+    task = _make_task([([[1, 2], [3, 4]], [[1, 2], [3, 4]])])
+    assert solve_period_extend_h(task) is None
