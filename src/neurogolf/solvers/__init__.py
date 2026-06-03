@@ -23,6 +23,7 @@ from .cc_rank_recolor import solve_cc_rank_recolor
 from .cc_size_recolor import solve_cc_size_recolor
 from .color_bbox_fill import solve_color_bbox_fill
 from .color_lines import solve_color_lines
+from .stripe_seeds import solve_stripe_seeds
 from .column_label import solve_column_label
 from .connect_dots import solve_connect_dots
 from .connect_fill import solve_connect_fill
@@ -146,6 +147,7 @@ ALL_SOLVERS: list[Solver] = [
     solve_cross_laser,
     solve_halo,
     solve_color_lines,
+    solve_stripe_seeds,
     solve_endpoint_bridge,
     solve_keep_majority,
     solve_blob_recolor,

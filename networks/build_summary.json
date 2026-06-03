@@ -97,11 +97,11 @@
   },
   {
     "task": 13,
-    "solver": "none",
-    "saved": false,
-    "points": 0.0,
-    "memory": null,
-    "params": null
+    "solver": "solve_stripe_seeds",
+    "saved": true,
+    "points": 13.207701890449131,
+    "memory": 132148,
+    "params": 82
   },
   {
     "task": 14,

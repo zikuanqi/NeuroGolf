@@ -1457,3 +1457,39 @@ def test_period_extend_h_rejects_same_shape():
     from neurogolf.solvers.period_extend_h import solve_period_extend_h
     task = _make_task([([[1, 2], [3, 4]], [[1, 2], [3, 4]])])
     assert solve_period_extend_h(task) is None
+
+
+def test_stripe_seeds_vertical_and_horizontal():
+    import numpy as np
+    import onnxruntime as ort
+    from neurogolf.grids import from_onehot, to_onehot
+    from neurogolf.solvers.stripe_seeds import solve_stripe_seeds, _ref
+
+    # Vertical: seeds on top & bottom rows -> full-height stripes, period = col gap.
+    gv = [[0, 2, 0, 0, 0],
+          [0, 0, 0, 0, 0],
+          [0, 0, 0, 0, 0],
+          [0, 0, 0, 0, 0],
+          [0, 0, 0, 8, 0]]  # seeds (0,1)=2 col1, (4,3)=8 col3 ; p=2
+    # Horizontal: seeds on left & right cols (interior rows) -> full-width
+    # stripes, period = row gap.
+    gh = [[0, 0, 0, 0, 0, 0],
+          [3, 0, 0, 0, 0, 0],
+          [0, 0, 0, 0, 0, 0],
+          [0, 0, 0, 0, 0, 0],
+          [0, 0, 0, 0, 0, 1],
+          [0, 0, 0, 0, 0, 0]]  # seeds (1,0)=3 col0, (4,5)=1 col5 ; p=3
+    task = _make_task([(gv, _ref(gv)), (gh, _ref(gh))])
+    model = solve_stripe_seeds(task)
+    assert model is not None and hasattr(model, "graph")
+
+    sess = ort.InferenceSession(model.SerializeToString())
+    for g in (gv, gh):
+        res = sess.run(["output"], {"input": to_onehot(g)})[0]
+        assert from_onehot((res > 0.0).astype(np.float32)) == _ref(g)
+
+
+def test_stripe_seeds_rejects_non_two_seeds():
+    from neurogolf.solvers.stripe_seeds import solve_stripe_seeds
+    task = _make_task([([[1, 1], [1, 1]], [[1, 1], [1, 1]])])
+    assert solve_stripe_seeds(task) is None
