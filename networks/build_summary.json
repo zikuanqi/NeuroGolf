@@ -265,11 +265,11 @@
   },
   {
     "task": 34,
-    "solver": "none",
-    "saved": false,
-    "points": 0.0,
-    "memory": null,
-    "params": null
+    "solver": "solve_diag_block_slide",
+    "saved": true,
+    "points": 12.113457695168496,
+    "memory": 394538,
+    "params": 423
   },
   {
     "task": 35,

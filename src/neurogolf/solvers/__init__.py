@@ -1,10 +1,10 @@
-"""Per-family solvers.
+﻿"""Per-family solvers.
 
 A solver is a callable `(task: dict) -> Optional[onnx.ModelProto]`. It returns
 `None` if it can't handle this task, otherwise a candidate model that the
 pipeline will verify.
 
-Order matters only for tie-breaking — the pipeline picks whichever passing
+Order matters only for tie-breaking - the pipeline picks whichever passing
 candidate has the most points, so cheaper solvers should come first to keep
 build time down when many candidates would pass.
 """
@@ -31,6 +31,7 @@ from .count_bar import solve_count_bar
 from .cross_laser import solve_cross_laser
 from .denoise import solve_denoise
 from .diag_ray import solve_diag_ray
+from .diag_block_slide import solve_diag_block_slide
 from .diag_tile import solve_diag_tile
 from .dilate_ones import solve_dilate_ones
 from .drop_into_wall import solve_drop_into_wall
@@ -173,6 +174,7 @@ ALL_SOLVERS: list[Solver] = [
     solve_zero_color,
     solve_column_label,
     solve_diag_ray,
+    solve_diag_block_slide,
     solve_diag_tile,
     solve_gravity_down,
     solve_slide_to_wall,

@@ -1636,3 +1636,31 @@ def test_largest_comp_crop_rejects_same_shape():
     from neurogolf.solvers.largest_comp_crop import solve_largest_comp_crop
     task = _make_task([([[1, 2], [3, 4]], [[1, 2], [3, 4]])])
     assert solve_largest_comp_crop(task) is None
+
+
+def test_diag_block_slide():
+    import numpy as np
+    import onnxruntime as ort
+    from neurogolf.grids import from_onehot, to_onehot
+    from neurogolf.solvers.diag_block_slide import solve_diag_block_slide, _ref
+
+    # 2x2 block of 4 with a 2 at the top-right -> slide up-right, trail of 4s
+    g = [
+        [0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0],
+        [0, 4, 2, 0, 0],
+        [0, 4, 4, 0, 0],
+        [0, 0, 0, 0, 0],
+    ]
+    task = _make_task([(g, _ref(np.array(g)).tolist())])
+    model = solve_diag_block_slide(task)
+    assert model is not None and hasattr(model, "graph")
+    sess = ort.InferenceSession(model.SerializeToString())
+    res = sess.run(["output"], {"input": to_onehot(g)})[0]
+    assert from_onehot((res > 0.0).astype(np.float32)) == _ref(np.array(g)).tolist()
+
+
+def test_diag_block_slide_rejects_non_block():
+    from neurogolf.solvers.diag_block_slide import solve_diag_block_slide
+    task = _make_task([([[1, 2], [3, 4]], [[1, 2], [3, 4]])])
+    assert solve_diag_block_slide(task) is None
