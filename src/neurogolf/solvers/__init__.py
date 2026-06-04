@@ -73,6 +73,7 @@ from .self_fractal import solve_self_fractal
 from .rot_tile import solve_rot_tile
 from .rot_tile_aware import solve_rot_tile_aware
 from .period_extend_h import solve_period_extend_h
+from .untile_half import solve_untile_half
 from .periodic_fill import solve_periodic_fill
 from .shape_aware_flip import (solve_flip_h_aware, solve_flip_v_aware,
                                 solve_rot90_ccw_aware, solve_rot90_cw_aware,
@@ -118,6 +119,7 @@ ALL_SOLVERS: list[Solver] = [
     solve_shift,
     solve_tile_h,
     solve_period_extend_h,
+    solve_untile_half,
     solve_scale_detector,
     solve_downscale_majority,
     solve_self_fractal,

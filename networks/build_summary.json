@@ -1497,11 +1497,11 @@
   },
   {
     "task": 188,
-    "solver": "none",
-    "saved": false,
-    "points": 0.0,
-    "memory": null,
-    "params": null
+    "solver": "solve_untile_half",
+    "saved": true,
+    "points": 12.295117633382421,
+    "memory": 329287,
+    "params": 65
   },
   {
     "task": 189,

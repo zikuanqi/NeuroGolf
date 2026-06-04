@@ -1554,3 +1554,26 @@ def test_downscale_majority_rejects_same_shape():
     from neurogolf.solvers.downscale_majority import solve_downscale_majority
     task = _make_task([([[1, 2], [3, 4]], [[1, 2], [3, 4]])])
     assert solve_downscale_majority(task) is None
+
+
+def test_untile_half():
+    import numpy as np
+    import onnxruntime as ort
+    from neurogolf.grids import from_onehot, to_onehot
+    from neurogolf.solvers.untile_half import solve_untile_half
+
+    gh = [[1, 2, 1, 2], [3, 4, 3, 4]]            # horizontal 2x tile
+    gv = [[5, 6], [7, 8], [5, 6], [7, 8]]        # vertical 2x tile
+    task = _make_task([(gh, [[1, 2], [3, 4]]), (gv, [[5, 6], [7, 8]])])
+    model = solve_untile_half(task)
+    assert model is not None and hasattr(model, "graph")
+    sess = ort.InferenceSession(model.SerializeToString())
+    for g, exp in ((gh, [[1, 2], [3, 4]]), (gv, [[5, 6], [7, 8]])):
+        res = sess.run(["output"], {"input": to_onehot(g)})[0]
+        assert from_onehot((res > 0.0).astype(np.float32)) == exp
+
+
+def test_untile_half_rejects_non_tile():
+    from neurogolf.solvers.untile_half import solve_untile_half
+    task = _make_task([([[1, 2], [3, 4]], [[1, 2], [3, 4]])])
+    assert solve_untile_half(task) is None
