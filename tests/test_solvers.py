@@ -1725,3 +1725,57 @@ def test_framed_regions_rejects_one_marker():
     from neurogolf.solvers.framed_regions import solve_framed_regions
     task = _make_task([([[5, 0], [0, 0]], [[5, 0], [0, 0]])])
     assert solve_framed_regions(task) is None
+
+
+def test_diag_connect():
+    import numpy as np
+    import onnxruntime as ort
+    from neurogolf.grids import from_onehot, to_onehot
+    from neurogolf.solvers.diag_connect import solve_diag_connect, _ref
+
+    g = [
+        [2, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0],
+        [0, 0, 2, 0, 0],
+        [6, 0, 0, 0, 0],
+        [0, 6, 0, 0, 0],
+    ]  # two non-crossing diagonal pairs (colours 2 and 6)
+    task = _make_task([(g, _ref(np.array(g)).tolist())])
+    model = solve_diag_connect(task)
+    assert model is not None and hasattr(model, "graph")
+    sess = ort.InferenceSession(model.SerializeToString())
+    res = sess.run(["output"], {"input": to_onehot(g)})[0]
+    assert from_onehot((res > 0.0).astype(np.float32)) == _ref(np.array(g)).tolist()
+
+
+def test_diag_connect_rejects_non_pair():
+    from neurogolf.solvers.diag_connect import solve_diag_connect
+    task = _make_task([([[1, 2], [3, 4]], [[1, 2], [3, 4]])])
+    assert solve_diag_connect(task) is None
+
+
+def test_stamp_top_row():
+    import numpy as np
+    import onnxruntime as ort
+    from neurogolf.grids import from_onehot, to_onehot
+    from neurogolf.solvers.stamp_top_row import solve_stamp_top_row, _ref
+
+    g = [
+        [5, 0, 5, 0, 0],
+        [0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 5],
+        [0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 5],
+    ]
+    task = _make_task([(g, _ref(np.array(g)).tolist())])
+    model = solve_stamp_top_row(task)
+    assert model is not None and hasattr(model, "graph")
+    sess = ort.InferenceSession(model.SerializeToString())
+    res = sess.run(["output"], {"input": to_onehot(g)})[0]
+    assert from_onehot((res > 0.0).astype(np.float32)) == _ref(np.array(g)).tolist()
+
+
+def test_stamp_top_row_rejects_plain():
+    from neurogolf.solvers.stamp_top_row import solve_stamp_top_row
+    task = _make_task([([[1, 2], [3, 4]], [[1, 2], [3, 4]])])
+    assert solve_stamp_top_row(task) is None

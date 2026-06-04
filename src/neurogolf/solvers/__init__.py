@@ -32,6 +32,8 @@ from .cross_laser import solve_cross_laser
 from .denoise import solve_denoise
 from .diag_ray import solve_diag_ray
 from .diag_block_slide import solve_diag_block_slide
+from .diag_connect import solve_diag_connect
+from .stamp_top_row import solve_stamp_top_row
 from .diag_tile import solve_diag_tile
 from .dilate_ones import solve_dilate_ones
 from .drop_into_wall import solve_drop_into_wall
@@ -177,6 +179,8 @@ ALL_SOLVERS: list[Solver] = [
     solve_column_label,
     solve_diag_ray,
     solve_diag_block_slide,
+    solve_diag_connect,
+    solve_stamp_top_row,
     solve_diag_tile,
     solve_gravity_down,
     solve_slide_to_wall,

@@ -289,11 +289,11 @@
   },
   {
     "task": 37,
-    "solver": "none",
-    "saved": false,
-    "points": 0.0,
-    "memory": null,
-    "params": null
+    "solver": "solve_diag_connect",
+    "saved": true,
+    "points": 10.308322615069756,
+    "memory": 2401344,
+    "params": 332
   },
   {
     "task": 38,
@@ -337,11 +337,11 @@
   },
   {
     "task": 43,
-    "solver": "none",
-    "saved": false,
-    "points": 0.0,
-    "memory": null,
-    "params": null
+    "solver": "solve_stamp_top_row",
+    "saved": true,
+    "points": 14.160811322069893,
+    "memory": 50910,
+    "params": 70
   },
   {
     "task": 44,
