@@ -1524,3 +1524,33 @@ def test_slide_to_wall_rejects_other():
     from neurogolf.solvers.slide_to_wall import solve_slide_to_wall
     task = _make_task([([[1, 2], [3, 4]], [[1, 2], [3, 4]])])
     assert solve_slide_to_wall(task) is None
+
+
+def test_downscale_majority():
+    import numpy as np
+    import onnxruntime as ort
+    from neurogolf.grids import from_onehot, to_onehot
+    from neurogolf.solvers.downscale_majority import solve_downscale_majority
+
+    # 6x6 -> 3x3, each 2x2 block's majority colour (ties -> lowest index)
+    g = [
+        [2, 2, 0, 0, 3, 3],
+        [2, 0, 0, 0, 3, 3],
+        [4, 4, 5, 5, 0, 0],
+        [4, 4, 5, 0, 0, 0],
+        [1, 1, 1, 7, 8, 8],
+        [1, 0, 7, 7, 8, 8],
+    ]
+    exp = [[2, 0, 3], [4, 5, 0], [1, 7, 8]]
+    task = _make_task([(g, exp)])
+    model = solve_downscale_majority(task)
+    assert model is not None and hasattr(model, "graph")
+    sess = ort.InferenceSession(model.SerializeToString())
+    res = sess.run(["output"], {"input": to_onehot(g)})[0]
+    assert from_onehot((res > 0.0).astype(np.float32)) == exp
+
+
+def test_downscale_majority_rejects_same_shape():
+    from neurogolf.solvers.downscale_majority import solve_downscale_majority
+    task = _make_task([([[1, 2], [3, 4]], [[1, 2], [3, 4]])])
+    assert solve_downscale_majority(task) is None

@@ -1033,11 +1033,11 @@
   },
   {
     "task": 130,
-    "solver": "none",
-    "saved": false,
-    "points": 0.0,
-    "memory": null,
-    "params": null
+    "solver": "solve_downscale_majority",
+    "saved": true,
+    "points": 16.505052417531083,
+    "memory": 4864,
+    "params": 26
   },
   {
     "task": 131,

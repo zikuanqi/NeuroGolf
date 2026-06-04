@@ -68,6 +68,7 @@ from .repeat_top_rows import solve_repeat_top_rows
 from .resize_scale import solve_resize_scale
 from .row_uniform_indicator import solve_row_uniform_indicator
 from .scale_detector import solve_scale_detector
+from .downscale_majority import solve_downscale_majority
 from .self_fractal import solve_self_fractal
 from .rot_tile import solve_rot_tile
 from .rot_tile_aware import solve_rot_tile_aware
@@ -118,6 +119,7 @@ ALL_SOLVERS: list[Solver] = [
     solve_tile_h,
     solve_period_extend_h,
     solve_scale_detector,
+    solve_downscale_majority,
     solve_self_fractal,
     solve_rot_tile,
     solve_rot_tile_aware,
