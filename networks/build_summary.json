@@ -193,11 +193,11 @@
   },
   {
     "task": 25,
-    "solver": "none",
-    "saved": false,
-    "points": 0.0,
-    "memory": null,
-    "params": null
+    "solver": "solve_slide_to_line",
+    "saved": true,
+    "points": 11.399062326667124,
+    "memory": 806820,
+    "params": 66
   },
   {
     "task": 26,

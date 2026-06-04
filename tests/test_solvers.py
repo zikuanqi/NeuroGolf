@@ -1577,3 +1577,33 @@ def test_untile_half_rejects_non_tile():
     from neurogolf.solvers.untile_half import solve_untile_half
     task = _make_task([([[1, 2], [3, 4]], [[1, 2], [3, 4]])])
     assert solve_untile_half(task) is None
+
+
+def test_slide_to_line():
+    import numpy as np
+    import onnxruntime as ort
+    from neurogolf.grids import from_onehot, to_onehot
+    from neurogolf.solvers.slide_to_line import solve_slide_to_line, _ref
+
+    # horizontal 2-line: a full row of 2 (row3) and stray 2s above/below slide
+    # adjacent; a 4-marker has no line -> removed.
+    g = [
+        [0, 0, 2, 0, 0],
+        [0, 4, 0, 0, 0],
+        [0, 0, 0, 0, 0],
+        [2, 2, 2, 2, 2],
+        [0, 0, 0, 0, 0],
+        [0, 0, 0, 2, 0],
+    ]
+    task = _make_task([(g, _ref(np.array(g)).tolist())])
+    model = solve_slide_to_line(task)
+    assert model is not None and hasattr(model, "graph")
+    sess = ort.InferenceSession(model.SerializeToString())
+    res = sess.run(["output"], {"input": to_onehot(g)})[0]
+    assert from_onehot((res > 0.0).astype(np.float32)) == _ref(np.array(g)).tolist()
+
+
+def test_slide_to_line_rejects_no_line():
+    from neurogolf.solvers.slide_to_line import solve_slide_to_line
+    task = _make_task([([[1, 2], [3, 4]], [[1, 2], [3, 4]])])
+    assert solve_slide_to_line(task) is None
