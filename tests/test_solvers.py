@@ -1664,3 +1664,31 @@ def test_diag_block_slide_rejects_non_block():
     from neurogolf.solvers.diag_block_slide import solve_diag_block_slide
     task = _make_task([([[1, 2], [3, 4]], [[1, 2], [3, 4]])])
     assert solve_diag_block_slide(task) is None
+
+
+def test_project_to_block():
+    import numpy as np
+    import onnxruntime as ort
+    from neurogolf.grids import from_onehot, to_onehot
+    from neurogolf.solvers.project_to_block import solve_project_to_block, _ref
+
+    # colour-8 block with border markers projecting onto its edges
+    g = [
+        [0, 9, 0, 0],
+        [0, 0, 0, 0],
+        [0, 8, 8, 0],
+        [6, 8, 8, 4],
+        [0, 0, 0, 0],
+    ]
+    task = _make_task([(g, _ref(np.array(g)).tolist())])
+    model = solve_project_to_block(task)
+    assert model is not None and hasattr(model, "graph")
+    sess = ort.InferenceSession(model.SerializeToString())
+    res = sess.run(["output"], {"input": to_onehot(g)})[0]
+    assert from_onehot((res > 0.0).astype(np.float32)) == _ref(np.array(g)).tolist()
+
+
+def test_project_to_block_rejects_no_block():
+    from neurogolf.solvers.project_to_block import solve_project_to_block
+    task = _make_task([([[1, 2], [3, 4]], [[1, 2], [3, 4]])])
+    assert solve_project_to_block(task) is None

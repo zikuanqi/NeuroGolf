@@ -273,11 +273,11 @@
   },
   {
     "task": 35,
-    "solver": "none",
-    "saved": false,
-    "points": 0.0,
-    "memory": null,
-    "params": null
+    "solver": "solve_project_to_block",
+    "saved": true,
+    "points": 12.970044200356282,
+    "memory": 167612,
+    "params": 92
   },
   {
     "task": 36,

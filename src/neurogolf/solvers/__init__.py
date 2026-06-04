@@ -45,6 +45,7 @@ from .filled_rect import solve_filled_rect
 from .gravity_down import solve_gravity_down
 from .slide_to_wall import solve_slide_to_wall
 from .slide_to_line import solve_slide_to_line
+from .project_to_block import solve_project_to_block
 from .gravity_up import solve_gravity_up
 from .gravity_right import solve_gravity_right
 from .gravity_right_diag import solve_gravity_right_diag
@@ -179,6 +180,7 @@ ALL_SOLVERS: list[Solver] = [
     solve_gravity_down,
     solve_slide_to_wall,
     solve_slide_to_line,
+    solve_project_to_block,
     solve_gravity_up,
     solve_gravity_right,
     solve_gravity_right_diag,
