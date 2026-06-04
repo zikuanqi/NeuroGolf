@@ -1607,3 +1607,32 @@ def test_slide_to_line_rejects_no_line():
     from neurogolf.solvers.slide_to_line import solve_slide_to_line
     task = _make_task([([[1, 2], [3, 4]], [[1, 2], [3, 4]])])
     assert solve_slide_to_line(task) is None
+
+
+def test_largest_comp_crop():
+    import numpy as np
+    import onnxruntime as ort
+    from neurogolf.grids import from_onehot, to_onehot
+    from neurogolf.solvers.largest_comp_crop import solve_largest_comp_crop
+
+    # one solid blob + scattered single-cell noise -> crop the blob's bbox
+    g = [
+        [0, 0, 0, 5, 0, 0],
+        [0, 3, 3, 0, 0, 1],
+        [0, 3, 0, 0, 0, 0],
+        [0, 3, 3, 0, 7, 0],
+        [2, 0, 0, 0, 0, 0],
+    ]
+    exp = [[3, 3], [3, 0], [3, 3]]
+    task = _make_task([(g, exp)])
+    model = solve_largest_comp_crop(task)
+    assert model is not None and hasattr(model, "graph")
+    sess = ort.InferenceSession(model.SerializeToString())
+    res = sess.run(["output"], {"input": to_onehot(g)})[0]
+    assert from_onehot((res > 0.0).astype(np.float32)) == exp
+
+
+def test_largest_comp_crop_rejects_same_shape():
+    from neurogolf.solvers.largest_comp_crop import solve_largest_comp_crop
+    task = _make_task([([[1, 2], [3, 4]], [[1, 2], [3, 4]])])
+    assert solve_largest_comp_crop(task) is None

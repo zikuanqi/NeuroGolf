@@ -36,6 +36,7 @@ from .dilate_ones import solve_dilate_ones
 from .drop_into_wall import solve_drop_into_wall
 from .endpoint_bridge import solve_endpoint_bridge
 from .bbox_strip import solve_bbox_strip
+from .largest_comp_crop import solve_largest_comp_crop
 from .conv3x3 import solve_conv3x3
 from .conv3x3_masked import (solve_conv1x1_masked, solve_conv3x3_masked,
                               solve_conv5x5_masked)
@@ -138,6 +139,7 @@ ALL_SOLVERS: list[Solver] = [
     solve_rot90_ccw_aware,
     solve_rot90_cw_aware,
     solve_bbox_strip,
+    solve_largest_comp_crop,
     solve_bbox_color_extract,
     solve_split_and,
     solve_split_logic,

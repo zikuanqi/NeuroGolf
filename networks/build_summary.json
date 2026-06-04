@@ -281,11 +281,11 @@
   },
   {
     "task": 36,
-    "solver": "none",
-    "saved": false,
-    "points": 0.0,
-    "memory": null,
-    "params": null
+    "solver": "solve_largest_comp_crop",
+    "saved": true,
+    "points": 9.422216629318449,
+    "memory": 5824616,
+    "params": 1047
   },
   {
     "task": 37,
