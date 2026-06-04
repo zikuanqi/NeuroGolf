@@ -433,11 +433,11 @@
   },
   {
     "task": 55,
-    "solver": "none",
-    "saved": false,
-    "points": 0.0,
-    "memory": null,
-    "params": null
+    "solver": "solve_plus_panels",
+    "saved": true,
+    "points": 12.16544136923829,
+    "memory": 374880,
+    "params": 74
   },
   {
     "task": 56,
