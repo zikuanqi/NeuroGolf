@@ -217,11 +217,11 @@
   },
   {
     "task": 28,
-    "solver": "none",
-    "saved": false,
-    "points": 0.0,
-    "memory": null,
-    "params": null
+    "solver": "solve_framed_regions",
+    "saved": true,
+    "points": 13.02208344760758,
+    "memory": 157360,
+    "params": 1840
   },
   {
     "task": 29,

@@ -42,6 +42,7 @@ from .conv3x3 import solve_conv3x3
 from .conv3x3_masked import (solve_conv1x1_masked, solve_conv3x3_masked,
                               solve_conv5x5_masked)
 from .filled_rect import solve_filled_rect
+from .framed_regions import solve_framed_regions
 from .gravity_down import solve_gravity_down
 from .slide_to_wall import solve_slide_to_wall
 from .slide_to_line import solve_slide_to_line
@@ -185,6 +186,7 @@ ALL_SOLVERS: list[Solver] = [
     solve_gravity_right,
     solve_gravity_right_diag,
     solve_filled_rect,
+    solve_framed_regions,
     solve_periodic_fill,
     solve_conv3x3,
     solve_conv1x1_masked,

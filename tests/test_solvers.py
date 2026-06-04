@@ -1692,3 +1692,36 @@ def test_project_to_block_rejects_no_block():
     from neurogolf.solvers.project_to_block import solve_project_to_block
     task = _make_task([([[1, 2], [3, 4]], [[1, 2], [3, 4]])])
     assert solve_project_to_block(task) is None
+
+
+def test_framed_regions():
+    import numpy as np
+    import onnxruntime as ort
+    from neurogolf.grids import from_onehot, to_onehot
+    from neurogolf.solvers.framed_regions import solve_framed_regions
+
+    # two examples sharing one fixed template, recoloured by two markers
+    def make(a, b):
+        g = [[0] * 5 for _ in range(6)]
+        g[1][2] = a
+        g[4][2] = b
+        o = [[0] * 5 for _ in range(6)]
+        for c in range(5):
+            o[0][c] = a; o[5][c] = b
+        o[1][0] = o[1][4] = a
+        o[4][0] = o[4][4] = b
+        return g, o
+    task = _make_task([make(6, 7), make(3, 8)])
+    model = solve_framed_regions(task)
+    assert model is not None and hasattr(model, "graph")
+    sess = ort.InferenceSession(model.SerializeToString())
+    for a, b in ((6, 7), (3, 8)):
+        g, o = make(a, b)
+        res = sess.run(["output"], {"input": to_onehot(g)})[0]
+        assert from_onehot((res > 0.0).astype(np.float32)) == o
+
+
+def test_framed_regions_rejects_one_marker():
+    from neurogolf.solvers.framed_regions import solve_framed_regions
+    task = _make_task([([[5, 0], [0, 0]], [[5, 0], [0, 0]])])
+    assert solve_framed_regions(task) is None
