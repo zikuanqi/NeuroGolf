@@ -1779,3 +1779,34 @@ def test_stamp_top_row_rejects_plain():
     from neurogolf.solvers.stamp_top_row import solve_stamp_top_row
     task = _make_task([([[1, 2], [3, 4]], [[1, 2], [3, 4]])])
     assert solve_stamp_top_row(task) is None
+
+
+def test_plus_panels():
+    import numpy as np
+    import onnxruntime as ort
+    from neurogolf.grids import from_onehot, to_onehot
+    from neurogolf.solvers.plus_panels import solve_plus_panels, _ref
+
+    # two colour-8 rows (2, 4) and columns (2, 4) split a 7x7 grid into 3x3
+    g = [
+        [0, 0, 8, 0, 8, 0, 0],
+        [0, 0, 8, 0, 8, 0, 0],
+        [8, 8, 8, 8, 8, 8, 8],
+        [0, 0, 8, 0, 8, 0, 0],
+        [8, 8, 8, 8, 8, 8, 8],
+        [0, 0, 8, 0, 8, 0, 0],
+        [0, 0, 8, 0, 8, 0, 0],
+    ]
+    expected = _ref(np.array(g)).tolist()
+    task = _make_task([(g, expected)])
+    model = solve_plus_panels(task)
+    assert model is not None and hasattr(model, "graph")
+    sess = ort.InferenceSession(model.SerializeToString())
+    res = sess.run(["output"], {"input": to_onehot(g)})[0]
+    assert from_onehot((res > 0.0).astype(np.float32)) == expected
+
+
+def test_plus_panels_rejects_plain():
+    from neurogolf.solvers.plus_panels import solve_plus_panels
+    task = _make_task([([[1, 2], [3, 4]], [[1, 2], [3, 4]])])
+    assert solve_plus_panels(task) is None
