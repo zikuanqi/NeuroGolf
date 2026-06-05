@@ -2289,11 +2289,11 @@
   },
   {
     "task": 287,
-    "solver": "none",
-    "saved": false,
-    "points": 0.0,
-    "memory": null,
-    "params": null
+    "solver": "solve_rot180_repair",
+    "saved": true,
+    "points": 13.117741049565039,
+    "memory": 144640,
+    "params": 37
   },
   {
     "task": 288,

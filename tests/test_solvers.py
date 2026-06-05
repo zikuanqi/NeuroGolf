@@ -1810,3 +1810,33 @@ def test_plus_panels_rejects_plain():
     from neurogolf.solvers.plus_panels import solve_plus_panels
     task = _make_task([([[1, 2], [3, 4]], [[1, 2], [3, 4]])])
     assert solve_plus_panels(task) is None
+
+
+def test_rot180_repair():
+    import numpy as np
+    import onnxruntime as ort
+    from neurogolf.grids import from_onehot, to_onehot
+    from neurogolf.solvers.rot180_repair import solve_rot180_repair
+
+    # a 4x4 rot180-symmetric image with a colour-7 occluder over two cells
+    base = [
+        [1, 2, 3, 1],
+        [4, 5, 6, 8],
+        [8, 6, 5, 4],
+        [1, 3, 2, 1],
+    ]
+    occ = [row[:] for row in base]
+    occ[1][2] = 7  # hides the 6; partner (2,1)=6 restores it
+    occ[1][3] = 7  # hides the 8; partner (2,0)=8 restores it
+    task = _make_task([(occ, base)])
+    model = solve_rot180_repair(task)
+    assert model is not None and hasattr(model, "graph")
+    sess = ort.InferenceSession(model.SerializeToString())
+    res = sess.run(["output"], {"input": to_onehot(occ)})[0]
+    assert from_onehot((res > 0.0).astype(np.float32)) == base
+
+
+def test_rot180_repair_rejects_plain():
+    from neurogolf.solvers.rot180_repair import solve_rot180_repair
+    task = _make_task([([[1, 2], [3, 4]], [[1, 2], [3, 4]])])
+    assert solve_rot180_repair(task) is None
