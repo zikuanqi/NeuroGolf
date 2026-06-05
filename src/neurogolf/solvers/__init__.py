@@ -53,6 +53,8 @@ from .connect_box_markers import solve_connect_box_markers
 from .recolor_in_block import solve_recolor_in_block
 from .corner_rays import solve_corner_rays
 from .divider_fold import solve_divider_fold
+from .band_sort import solve_band_sort
+from .interior_recolor import solve_interior_recolor
 from .gravity_down import solve_gravity_down
 from .slide_to_wall import solve_slide_to_wall
 from .slide_to_line import solve_slide_to_line
@@ -207,6 +209,8 @@ ALL_SOLVERS: list[Solver] = [
     solve_recolor_in_block,
     solve_corner_rays,
     solve_divider_fold,
+    solve_band_sort,
+    solve_interior_recolor,
     solve_periodic_fill,
     solve_conv3x3,
     solve_conv1x1_masked,

@@ -913,11 +913,11 @@
   },
   {
     "task": 115,
-    "solver": "none",
-    "saved": false,
-    "points": 0.0,
-    "memory": null,
-    "params": null
+    "solver": "solve_band_sort",
+    "saved": true,
+    "points": 12.696505768888658,
+    "memory": 220363,
+    "params": 102
   },
   {
     "task": 116,
@@ -953,11 +953,11 @@
   },
   {
     "task": 120,
-    "solver": "none",
-    "saved": false,
-    "points": 0.0,
-    "memory": null,
-    "params": null
+    "solver": "solve_interior_recolor",
+    "saved": true,
+    "points": 11.778571682552617,
+    "memory": 552000,
+    "params": 69
   },
   {
     "task": 121,

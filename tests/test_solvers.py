@@ -2029,3 +2029,64 @@ def test_divider_fold_rejects_plain():
     from neurogolf.solvers.divider_fold import solve_divider_fold
     task = _make_task([([[1, 2], [3, 4]], [[1, 2], [3, 4]])])
     assert solve_divider_fold(task) is None
+
+
+def test_band_sort():
+    import numpy as np
+    import onnxruntime as ort
+    from neurogolf.grids import from_onehot, to_onehot
+    from neurogolf.solvers.band_sort import solve_band_sort, _ref
+
+    # vertical bands 4|2|8 -> row strip "428"
+    gv = [[4, 4, 2, 2, 8, 8],
+          [4, 4, 2, 2, 8, 8],
+          [4, 4, 2, 2, 8, 8]]
+    assert _ref(np.array(gv)).tolist() == [[4, 2, 8]]
+    # horizontal bands 2/8/5 -> column strip
+    gh = [[2, 2, 2],
+          [2, 2, 2],
+          [8, 8, 8],
+          [5, 5, 5]]
+    assert _ref(np.array(gh)).tolist() == [[2], [8], [5]]
+    for g, exp in ((gv, [[4, 2, 8]]), (gh, [[2], [8], [5]])):
+        task = _make_task([(g, exp)])
+        model = solve_band_sort(task)
+        assert model is not None and hasattr(model, "graph")
+        sess = ort.InferenceSession(model.SerializeToString())
+        res = sess.run(["output"], {"input": to_onehot(g)})[0]
+        assert from_onehot((res > 0.0).astype(np.float32)) == exp
+
+
+def test_band_sort_rejects_uniform():
+    from neurogolf.solvers.band_sort import solve_band_sort
+    task = _make_task([([[3, 3], [3, 3]], [[3]])])
+    assert solve_band_sort(task) is None
+
+
+def test_interior_recolor():
+    import numpy as np
+    import onnxruntime as ort
+    from neurogolf.grids import from_onehot, to_onehot
+    from neurogolf.solvers.interior_recolor import solve_interior_recolor, _ref
+
+    # two solid rectangles; their interiors become 8, borders keep colour
+    g = [[0, 0, 0, 0, 0, 0],
+         [0, 2, 2, 2, 0, 0],
+         [0, 2, 2, 2, 0, 0],
+         [0, 2, 2, 2, 0, 0],
+         [0, 0, 0, 0, 0, 0]]
+    expected = _ref(np.array(g)).tolist()
+    assert expected[2][2] == 8           # interior recoloured
+    assert expected[1][1] == 2           # border stays
+    task = _make_task([(g, expected)])
+    model = solve_interior_recolor(task)
+    assert model is not None and hasattr(model, "graph")
+    sess = ort.InferenceSession(model.SerializeToString())
+    res = sess.run(["output"], {"input": to_onehot(g)})[0]
+    assert from_onehot((res > 0.0).astype(np.float32)) == expected
+
+
+def test_interior_recolor_rejects_plain():
+    from neurogolf.solvers.interior_recolor import solve_interior_recolor
+    task = _make_task([([[1, 2], [3, 4]], [[1, 2], [3, 4]])])
+    assert solve_interior_recolor(task) is None
