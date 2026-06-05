@@ -305,11 +305,11 @@
   },
   {
     "task": 39,
-    "solver": "none",
-    "saved": false,
-    "points": 0.0,
-    "memory": null,
-    "params": null
+    "solver": "solve_quadrant_crop",
+    "saved": true,
+    "points": 14.382411341821141,
+    "memory": 40820,
+    "params": 27
   },
   {
     "task": 40,
@@ -505,11 +505,11 @@
   },
   {
     "task": 64,
-    "solver": "none",
-    "saved": false,
-    "points": 0.0,
-    "memory": null,
-    "params": null
+    "solver": "solve_connect_box_markers",
+    "saved": true,
+    "points": 10.072973432292443,
+    "memory": 3038438,
+    "params": 524
   },
   {
     "task": 65,

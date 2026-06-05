@@ -1873,3 +1873,71 @@ def test_lattice_count_rejects_plain():
     from neurogolf.solvers.lattice_count import solve_lattice_count
     task = _make_task([([[1, 2], [2, 1]], [[1, 2], [2, 1]])])
     assert solve_lattice_count(task) is None
+
+
+def test_quadrant_crop():
+    import numpy as np
+    import onnxruntime as ort
+    from neurogolf.grids import from_onehot, to_onehot
+    from neurogolf.solvers.quadrant_crop import solve_quadrant_crop, _quadrant
+
+    # a 4x4 block placed at an offset; output = its top-left 2x2 quadrant
+    g = [[0] * 8 for _ in range(8)]
+    block = [[1, 2, 3, 4],
+             [5, 6, 7, 8],
+             [8, 7, 6, 5],
+             [4, 3, 2, 1]]
+    for i in range(4):
+        for j in range(4):
+            g[2 + i][3 + j] = block[i][j]
+    quad, h = _quadrant(np.array(g))
+    assert h == 2 and quad.tolist() == [[1, 2], [5, 6]]
+    task = _make_task([(g, quad.tolist())])
+    model = solve_quadrant_crop(task)
+    assert model is not None and hasattr(model, "graph")
+    sess = ort.InferenceSession(model.SerializeToString())
+    res = sess.run(["output"], {"input": to_onehot(g)})[0]
+    assert from_onehot((res > 0.0).astype(np.float32)) == quad.tolist()
+
+
+def test_quadrant_crop_rejects_odd():
+    from neurogolf.solvers.quadrant_crop import solve_quadrant_crop
+    # 3x3 block -> odd bbox, not a clean quadrant
+    g = [[0, 0, 0, 0, 0],
+         [0, 1, 2, 3, 0],
+         [0, 4, 5, 6, 0],
+         [0, 7, 8, 9, 0],
+         [0, 0, 0, 0, 0]]
+    task = _make_task([(g, [[1]])])
+    assert solve_quadrant_crop(task) is None
+
+
+def test_connect_box_markers():
+    import numpy as np
+    import onnxruntime as ort
+    from neurogolf.grids import from_onehot, to_onehot
+    from neurogolf.solvers.connect_box_markers import solve_connect_box_markers, _ref
+
+    # background 8, a 2x2 box of colour 3, a marker 4 aligned on a box row to the
+    # right, and a marker 2 aligned on a box column below -> both get connected
+    g = [[8, 8, 8, 8, 8, 8, 8],
+         [8, 3, 3, 8, 8, 4, 8],
+         [8, 3, 3, 8, 8, 8, 8],
+         [8, 8, 8, 8, 8, 8, 8],
+         [8, 2, 8, 8, 8, 8, 8],
+         [8, 8, 8, 8, 8, 8, 8]]
+    expected = _ref(np.array(g)).tolist()
+    assert expected[1][3] == 4 and expected[1][4] == 4   # line to the 4 marker
+    assert expected[3][1] == 2 and expected[4][1] == 2   # line down to the 2 marker
+    task = _make_task([(g, expected)])
+    model = solve_connect_box_markers(task)
+    assert model is not None and hasattr(model, "graph")
+    sess = ort.InferenceSession(model.SerializeToString())
+    res = sess.run(["output"], {"input": to_onehot(g)})[0]
+    assert from_onehot((res > 0.0).astype(np.float32)) == expected
+
+
+def test_connect_box_markers_rejects_plain():
+    from neurogolf.solvers.connect_box_markers import solve_connect_box_markers
+    task = _make_task([([[1, 2], [3, 4]], [[1, 2], [3, 4]])])
+    assert solve_connect_box_markers(task) is None
