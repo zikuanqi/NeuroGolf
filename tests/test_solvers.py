@@ -2090,3 +2090,57 @@ def test_interior_recolor_rejects_plain():
     from neurogolf.solvers.interior_recolor import solve_interior_recolor
     task = _make_task([([[1, 2], [3, 4]], [[1, 2], [3, 4]])])
     assert solve_interior_recolor(task) is None
+
+
+def test_float_up():
+    import numpy as np
+    import onnxruntime as ort
+    from neurogolf.grids import from_onehot, to_onehot
+    from neurogolf.solvers.float_up import solve_float_up, _ref
+
+    # a height-2 bar (colour 5) at the bottom floats up by 2 rows
+    g = [[0, 0, 0],
+         [0, 0, 0],
+         [0, 5, 0],
+         [0, 5, 0]]
+    expected = _ref(np.array(g)).tolist()
+    assert expected[0][1] == 5 and expected[1][1] == 5      # moved up by 2
+    assert expected[2][1] == 0 and expected[3][1] == 0      # original cleared
+    task = _make_task([(g, expected)])
+    model = solve_float_up(task)
+    assert model is not None and hasattr(model, "graph")
+    sess = ort.InferenceSession(model.SerializeToString())
+    res = sess.run(["output"], {"input": to_onehot(g)})[0]
+    assert from_onehot((res > 0.0).astype(np.float32)) == expected
+
+
+def test_float_up_rejects_static():
+    from neurogolf.solvers.float_up import solve_float_up
+    task = _make_task([([[1, 0], [0, 2]], [[1, 0], [0, 2]])])
+    assert solve_float_up(task) is None
+
+
+def test_diag_x():
+    import numpy as np
+    import onnxruntime as ort
+    from neurogolf.grids import from_onehot, to_onehot
+    from neurogolf.solvers.diag_x import solve_diag_x, _ref
+
+    # single marker (colour 7) at (2,2) of a 5x5 grid -> diagonal X
+    g = [[0] * 5 for _ in range(5)]
+    g[2][2] = 7
+    expected = _ref(np.array(g)).tolist()
+    assert expected[0][0] == 7 and expected[0][4] == 7 and expected[4][0] == 7
+    assert expected[2][2] == 7 and expected[0][2] == 0
+    task = _make_task([(g, expected)])
+    model = solve_diag_x(task)
+    assert model is not None and hasattr(model, "graph")
+    sess = ort.InferenceSession(model.SerializeToString())
+    res = sess.run(["output"], {"input": to_onehot(g)})[0]
+    assert from_onehot((res > 0.0).astype(np.float32)) == expected
+
+
+def test_diag_x_rejects_two_markers():
+    from neurogolf.solvers.diag_x import solve_diag_x
+    task = _make_task([([[5, 0], [0, 5]], [[5, 0], [0, 5]])])
+    assert solve_diag_x(task) is None
