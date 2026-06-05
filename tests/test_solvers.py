@@ -1999,3 +1999,33 @@ def test_corner_rays_rejects_plain():
     from neurogolf.solvers.corner_rays import solve_corner_rays
     task = _make_task([([[1, 2], [3, 4]], [[1, 2], [3, 4]])])
     assert solve_corner_rays(task) is None
+
+
+def test_divider_fold():
+    import numpy as np
+    import onnxruntime as ort
+    from neurogolf.grids import from_onehot, to_onehot
+    from neurogolf.solvers.divider_fold import solve_divider_fold, _ref
+
+    # 5x5: divider colour 2 (row 2, col 2), shape colour 1 in the top-left.
+    # Output folds the shape into all quadrants, recolours it to 2, drops the
+    # divider -> 4x4.
+    g = [[0, 1, 2, 0, 0],
+         [1, 1, 2, 0, 0],
+         [2, 2, 2, 2, 2],
+         [0, 0, 2, 0, 0],
+         [0, 0, 2, 0, 0]]
+    expected = _ref(np.array(g)).tolist()
+    assert len(expected) == 4 and len(expected[0]) == 4
+    task = _make_task([(g, expected)])
+    model = solve_divider_fold(task)
+    assert model is not None and hasattr(model, "graph")
+    sess = ort.InferenceSession(model.SerializeToString())
+    res = sess.run(["output"], {"input": to_onehot(g)})[0]
+    assert from_onehot((res > 0.0).astype(np.float32)) == expected
+
+
+def test_divider_fold_rejects_plain():
+    from neurogolf.solvers.divider_fold import solve_divider_fold
+    task = _make_task([([[1, 2], [3, 4]], [[1, 2], [3, 4]])])
+    assert solve_divider_fold(task) is None

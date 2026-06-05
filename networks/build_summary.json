@@ -865,11 +865,11 @@
   },
   {
     "task": 109,
-    "solver": "none",
-    "saved": false,
-    "points": 0.0,
-    "memory": null,
-    "params": null
+    "solver": "solve_divider_fold",
+    "saved": true,
+    "points": 11.50409571207215,
+    "memory": 726276,
+    "params": 159
   },
   {
     "task": 110,
