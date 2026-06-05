@@ -50,6 +50,7 @@ from .rot180_repair import solve_rot180_repair
 from .lattice_count import solve_lattice_count
 from .quadrant_crop import solve_quadrant_crop
 from .connect_box_markers import solve_connect_box_markers
+from .recolor_in_block import solve_recolor_in_block
 from .gravity_down import solve_gravity_down
 from .slide_to_wall import solve_slide_to_wall
 from .slide_to_line import solve_slide_to_line
@@ -201,6 +202,7 @@ ALL_SOLVERS: list[Solver] = [
     solve_lattice_count,
     solve_quadrant_crop,
     solve_connect_box_markers,
+    solve_recolor_in_block,
     solve_periodic_fill,
     solve_conv3x3,
     solve_conv1x1_masked,

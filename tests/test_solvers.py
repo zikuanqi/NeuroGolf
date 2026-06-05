@@ -1941,3 +1941,32 @@ def test_connect_box_markers_rejects_plain():
     from neurogolf.solvers.connect_box_markers import solve_connect_box_markers
     task = _make_task([([[1, 2], [3, 4]], [[1, 2], [3, 4]])])
     assert solve_connect_box_markers(task) is None
+
+
+def test_recolor_in_block():
+    import numpy as np
+    import onnxruntime as ort
+    from neurogolf.grids import from_onehot, to_onehot
+    from neurogolf.solvers.recolor_in_block import solve_recolor_in_block, _ref
+
+    # an 8-region frame; the colour-1 cells inside its bbox become colour 3
+    g = [[1, 1, 1, 1, 1, 1],
+         [1, 8, 8, 8, 1, 1],
+         [1, 8, 1, 8, 1, 1],
+         [1, 8, 8, 8, 1, 1],
+         [1, 1, 1, 1, 1, 1]]
+    expected = _ref(np.array(g), 8, 1, 3).tolist()
+    assert expected[2][2] == 3        # the interior 1 became 3
+    assert expected[0][0] == 1        # outside the bbox stays 1
+    task = _make_task([(g, expected)])
+    model = solve_recolor_in_block(task)
+    assert model is not None and hasattr(model, "graph")
+    sess = ort.InferenceSession(model.SerializeToString())
+    res = sess.run(["output"], {"input": to_onehot(g)})[0]
+    assert from_onehot((res > 0.0).astype(np.float32)) == expected
+
+
+def test_recolor_in_block_rejects_plain():
+    from neurogolf.solvers.recolor_in_block import solve_recolor_in_block
+    task = _make_task([([[1, 1], [1, 1]], [[1, 1], [1, 1]])])
+    assert solve_recolor_in_block(task) is None

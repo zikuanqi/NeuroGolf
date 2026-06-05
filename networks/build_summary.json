@@ -553,11 +553,11 @@
   },
   {
     "task": 70,
-    "solver": "none",
-    "saved": false,
-    "points": 0.0,
-    "memory": null,
-    "params": null
+    "solver": "solve_recolor_in_block",
+    "saved": true,
+    "points": 14.017626788979795,
+    "memory": 58576,
+    "params": 252
   },
   {
     "task": 71,
@@ -1321,11 +1321,11 @@
   },
   {
     "task": 166,
-    "solver": "none",
-    "saved": false,
-    "points": 0.0,
-    "memory": null,
-    "params": null
+    "solver": "solve_recolor_in_block",
+    "saved": true,
+    "points": 14.017626788979795,
+    "memory": 58576,
+    "params": 252
   },
   {
     "task": 167,
