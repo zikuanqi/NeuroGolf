@@ -51,6 +51,7 @@ from .lattice_count import solve_lattice_count
 from .quadrant_crop import solve_quadrant_crop
 from .connect_box_markers import solve_connect_box_markers
 from .recolor_in_block import solve_recolor_in_block
+from .corner_rays import solve_corner_rays
 from .gravity_down import solve_gravity_down
 from .slide_to_wall import solve_slide_to_wall
 from .slide_to_line import solve_slide_to_line
@@ -203,6 +204,7 @@ ALL_SOLVERS: list[Solver] = [
     solve_quadrant_crop,
     solve_connect_box_markers,
     solve_recolor_in_block,
+    solve_corner_rays,
     solve_periodic_fill,
     solve_conv3x3,
     solve_conv1x1_masked,

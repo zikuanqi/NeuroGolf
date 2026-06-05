@@ -1970,3 +1970,32 @@ def test_recolor_in_block_rejects_plain():
     from neurogolf.solvers.recolor_in_block import solve_recolor_in_block
     task = _make_task([([[1, 1], [1, 1]], [[1, 1], [1, 1]])])
     assert solve_recolor_in_block(task) is None
+
+
+def test_corner_rays():
+    import numpy as np
+    import onnxruntime as ort
+    from neurogolf.grids import from_onehot, to_onehot
+    from neurogolf.solvers.corner_rays import solve_corner_rays, _ref
+
+    # a colour-6 line down column 0 of a 4x4 grid
+    g = [[6, 0, 0, 0],
+         [6, 0, 0, 0],
+         [6, 0, 0, 0],
+         [6, 0, 0, 0]]
+    expected = _ref(np.array(g)).tolist()
+    assert expected[0][3] == 2 and expected[1][2] == 2          # anti-diagonal
+    assert expected[3][1] == 4 and expected[3][3] == 4          # bottom row
+    assert expected[3][0] == 6                                  # line stays
+    task = _make_task([(g, expected)])
+    model = solve_corner_rays(task)
+    assert model is not None and hasattr(model, "graph")
+    sess = ort.InferenceSession(model.SerializeToString())
+    res = sess.run(["output"], {"input": to_onehot(g)})[0]
+    assert from_onehot((res > 0.0).astype(np.float32)) == expected
+
+
+def test_corner_rays_rejects_plain():
+    from neurogolf.solvers.corner_rays import solve_corner_rays
+    task = _make_task([([[1, 2], [3, 4]], [[1, 2], [3, 4]])])
+    assert solve_corner_rays(task) is None

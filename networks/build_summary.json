@@ -665,11 +665,11 @@
   },
   {
     "task": 84,
-    "solver": "none",
-    "saved": false,
-    "points": 0.0,
-    "memory": null,
-    "params": null
+    "solver": "solve_corner_rays",
+    "saved": true,
+    "points": 13.136065612717665,
+    "memory": 141968,
+    "params": 82
   },
   {
     "task": 85,
