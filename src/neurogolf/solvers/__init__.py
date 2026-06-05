@@ -47,6 +47,7 @@ from .filled_rect import solve_filled_rect
 from .framed_regions import solve_framed_regions
 from .plus_panels import solve_plus_panels
 from .rot180_repair import solve_rot180_repair
+from .lattice_count import solve_lattice_count
 from .gravity_down import solve_gravity_down
 from .slide_to_wall import solve_slide_to_wall
 from .slide_to_line import solve_slide_to_line
@@ -195,6 +196,7 @@ ALL_SOLVERS: list[Solver] = [
     solve_framed_regions,
     solve_plus_panels,
     solve_rot180_repair,
+    solve_lattice_count,
     solve_periodic_fill,
     solve_conv3x3,
     solve_conv1x1_masked,

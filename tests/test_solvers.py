@@ -1840,3 +1840,36 @@ def test_rot180_repair_rejects_plain():
     from neurogolf.solvers.rot180_repair import solve_rot180_repair
     task = _make_task([([[1, 2], [3, 4]], [[1, 2], [3, 4]])])
     assert solve_rot180_repair(task) is None
+
+
+def test_lattice_count():
+    import numpy as np
+    import onnxruntime as ort
+    from neurogolf.grids import from_onehot, to_onehot
+    from neurogolf.solvers.lattice_count import solve_lattice_count, _ref
+
+    # 7x7 with one horizontal (row 3) and one vertical (col 3) divider of 8,
+    # background 3 -> 2 row-bands x 2 col-bands = 2x2 block of colour 3
+    g = [
+        [3, 3, 3, 8, 3, 3, 3],
+        [3, 3, 3, 8, 3, 3, 3],
+        [3, 3, 3, 8, 3, 3, 3],
+        [8, 8, 8, 8, 8, 8, 8],
+        [3, 3, 3, 8, 3, 3, 3],
+        [3, 3, 3, 8, 3, 3, 3],
+        [3, 3, 3, 8, 3, 3, 3],
+    ]
+    expected = _ref(np.array(g)).tolist()
+    assert expected == [[3, 3], [3, 3]]
+    task = _make_task([(g, expected)])
+    model = solve_lattice_count(task)
+    assert model is not None and hasattr(model, "graph")
+    sess = ort.InferenceSession(model.SerializeToString())
+    res = sess.run(["output"], {"input": to_onehot(g)})[0]
+    assert from_onehot((res > 0.0).astype(np.float32)) == expected
+
+
+def test_lattice_count_rejects_plain():
+    from neurogolf.solvers.lattice_count import solve_lattice_count
+    task = _make_task([([[1, 2], [2, 1]], [[1, 2], [2, 1]])])
+    assert solve_lattice_count(task) is None

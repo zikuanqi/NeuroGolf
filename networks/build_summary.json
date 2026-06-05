@@ -161,11 +161,11 @@
   },
   {
     "task": 21,
-    "solver": "none",
-    "saved": false,
-    "points": 0.0,
-    "memory": null,
-    "params": null
+    "solver": "solve_lattice_count",
+    "saved": true,
+    "points": 15.638140980384907,
+    "memory": 11574,
+    "params": 62
   },
   {
     "task": 22,
