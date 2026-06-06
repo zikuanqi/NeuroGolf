@@ -2144,3 +2144,26 @@ def test_diag_x_rejects_two_markers():
     from neurogolf.solvers.diag_x import solve_diag_x
     task = _make_task([([[5, 0], [0, 5]], [[5, 0], [0, 5]])])
     assert solve_diag_x(task) is None
+
+
+def test_staircase():
+    import numpy as np
+    import onnxruntime as ort
+    from neurogolf.grids import from_onehot, to_onehot
+    from neurogolf.solvers.staircase import solve_staircase, _ref
+
+    g = [[1, 1, 0, 0, 0, 0]]   # K=2, W=6 -> 3x6 staircase
+    expected = _ref(np.array(g)).tolist()
+    assert expected == [[1, 1, 0, 0, 0, 0], [1, 1, 1, 0, 0, 0], [1, 1, 1, 1, 0, 0]]
+    task = _make_task([(g, expected)])
+    model = solve_staircase(task)
+    assert model is not None and hasattr(model, "graph")
+    sess = ort.InferenceSession(model.SerializeToString())
+    res = sess.run(["output"], {"input": to_onehot(g)})[0]
+    assert from_onehot((res > 0.0).astype(np.float32)) == expected
+
+
+def test_staircase_rejects_multirow():
+    from neurogolf.solvers.staircase import solve_staircase
+    task = _make_task([([[1, 0], [0, 1]], [[1, 0], [0, 1]])])
+    assert solve_staircase(task) is None

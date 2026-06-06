@@ -2353,11 +2353,11 @@
   },
   {
     "task": 295,
-    "solver": "none",
-    "saved": false,
-    "points": 0.0,
-    "memory": null,
-    "params": null
+    "solver": "solve_staircase",
+    "saved": true,
+    "points": 13.498095038313236,
+    "memory": 98822,
+    "params": 82
   },
   {
     "task": 296,

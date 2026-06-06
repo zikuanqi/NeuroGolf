@@ -57,6 +57,7 @@ from .band_sort import solve_band_sort
 from .interior_recolor import solve_interior_recolor
 from .float_up import solve_float_up
 from .diag_x import solve_diag_x
+from .staircase import solve_staircase
 from .gravity_down import solve_gravity_down
 from .slide_to_wall import solve_slide_to_wall
 from .slide_to_line import solve_slide_to_line
@@ -215,6 +216,7 @@ ALL_SOLVERS: list[Solver] = [
     solve_interior_recolor,
     solve_float_up,
     solve_diag_x,
+    solve_staircase,
     solve_periodic_fill,
     solve_conv3x3,
     solve_conv1x1_masked,
