@@ -2729,11 +2729,11 @@
   },
   {
     "task": 342,
-    "solver": "none",
-    "saved": false,
-    "points": 0.0,
-    "memory": null,
-    "params": null
+    "solver": "solve_block_quadrant",
+    "saved": true,
+    "points": 11.823055638587233,
+    "memory": 527956,
+    "params": 93
   },
   {
     "task": 343,
@@ -2817,11 +2817,11 @@
   },
   {
     "task": 353,
-    "solver": "none",
-    "saved": false,
-    "points": 0.0,
-    "memory": null,
-    "params": null
+    "solver": "solve_move_toward",
+    "saved": true,
+    "points": 12.855100876904647,
+    "memory": 188020,
+    "params": 112
   },
   {
     "task": 354,

@@ -72,6 +72,8 @@ from .ring_recolor import solve_ring_recolor
 from .line_cross_swap import solve_line_cross_swap
 from .explode_corners import solve_explode_corners
 from .l_connect import solve_l_connect
+from .block_quadrant import solve_block_quadrant
+from .move_toward import solve_move_toward
 from .gravity_down import solve_gravity_down
 from .slide_to_wall import solve_slide_to_wall
 from .slide_to_line import solve_slide_to_line
@@ -245,6 +247,8 @@ ALL_SOLVERS: list[Solver] = [
     solve_line_cross_swap,
     solve_explode_corners,
     solve_l_connect,
+    solve_block_quadrant,
+    solve_move_toward,
     solve_periodic_fill,
     solve_conv3x3,
     solve_conv1x1_masked,

@@ -2548,3 +2548,56 @@ def test_l_connect_rejects_no_markers():
     from neurogolf.solvers.l_connect import solve_l_connect
     task = _make_task([([[1, 3], [3, 1]], [[1, 3], [3, 1]])])
     assert solve_l_connect(task) is None
+
+
+def test_block_quadrant():
+    import numpy as np
+    import onnxruntime as ort
+    from neurogolf.grids import from_onehot, to_onehot
+    from neurogolf.solvers.block_quadrant import solve_block_quadrant, _ref
+
+    g = [[6, 0, 0, 0, 0, 7],          # markers in the four quadrants
+         [0, 0, 0, 0, 0, 0],
+         [0, 0, 8, 8, 0, 0],          # 2x2 block of 8
+         [0, 0, 8, 8, 0, 0],
+         [0, 0, 0, 0, 0, 0],
+         [4, 0, 0, 0, 0, 9]]
+    expected = _ref(np.array(g)).tolist()
+    assert expected[2] == [0, 0, 6, 7, 0, 0] and expected[3] == [0, 0, 4, 9, 0, 0]
+    task = _make_task([(g, expected)])
+    model = solve_block_quadrant(task)
+    assert model is not None and hasattr(model, "graph")
+    sess = ort.InferenceSession(model.SerializeToString())
+    res = sess.run(["output"], {"input": to_onehot(g)})[0]
+    assert from_onehot((res > 0.5).astype(np.float32)) == expected
+
+
+def test_block_quadrant_rejects_no_block():
+    from neurogolf.solvers.block_quadrant import solve_block_quadrant
+    task = _make_task([([[1, 2], [3, 4]], [[1, 2], [3, 4]])])
+    assert solve_block_quadrant(task) is None
+
+
+def test_move_toward():
+    import numpy as np
+    import onnxruntime as ort
+    from neurogolf.grids import from_onehot, to_onehot
+    from neurogolf.solvers.move_toward import solve_move_toward, _ref
+
+    g = [[3, 0, 0],
+         [0, 0, 0],
+         [0, 0, 4]]
+    expected = _ref(np.array(g)).tolist()          # 3 steps diagonally toward 4
+    assert expected == [[0, 0, 0], [0, 3, 0], [0, 0, 4]]
+    task = _make_task([(g, expected)])
+    model = solve_move_toward(task)
+    assert model is not None and hasattr(model, "graph")
+    sess = ort.InferenceSession(model.SerializeToString())
+    res = sess.run(["output"], {"input": to_onehot(g)})[0]
+    assert from_onehot((res > 0.5).astype(np.float32)) == expected
+
+
+def test_move_toward_rejects_no_markers():
+    from neurogolf.solvers.move_toward import solve_move_toward
+    task = _make_task([([[1, 2], [5, 6]], [[1, 2], [5, 6]])])
+    assert solve_move_toward(task) is None
