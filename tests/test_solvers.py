@@ -2167,3 +2167,32 @@ def test_staircase_rejects_multirow():
     from neurogolf.solvers.staircase import solve_staircase
     task = _make_task([([[1, 0], [0, 1]], [[1, 0], [0, 1]])])
     assert solve_staircase(task) is None
+
+
+def test_box_stretch():
+    import numpy as np
+    import onnxruntime as ort
+    from neurogolf.grids import from_onehot, to_onehot
+    from neurogolf.solvers.box_stretch import solve_box_stretch, _ref
+
+    # 3x3 box (border 2, interior 1) with a marker 8 below it -> stretch down
+    g = [[2, 2, 2, 0, 0],
+         [2, 1, 2, 0, 0],
+         [2, 2, 2, 0, 0],
+         [0, 0, 0, 0, 0],
+         [0, 8, 0, 0, 0]]
+    expected = _ref(np.array(g)).tolist()
+    assert expected[4][0] == 2 and expected[4][1] == 2          # new bottom frame at marker row
+    assert expected[4][2] == 2 and expected[3][1] == 1          # interior extended
+    task = _make_task([(g, expected)])
+    model = solve_box_stretch(task)
+    assert model is not None and hasattr(model, "graph")
+    sess = ort.InferenceSession(model.SerializeToString())
+    res = sess.run(["output"], {"input": to_onehot(g)})[0]
+    assert from_onehot((res > 0.0).astype(np.float32)) == expected
+
+
+def test_box_stretch_rejects_plain():
+    from neurogolf.solvers.box_stretch import solve_box_stretch
+    task = _make_task([([[1, 2], [3, 4]], [[1, 2], [3, 4]])])
+    assert solve_box_stretch(task) is None

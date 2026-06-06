@@ -2241,11 +2241,11 @@
   },
   {
     "task": 281,
-    "solver": "none",
-    "saved": false,
-    "points": 0.0,
-    "memory": null,
-    "params": null
+    "solver": "solve_box_stretch",
+    "saved": true,
+    "points": 12.348309275587894,
+    "memory": 312208,
+    "params": 83
   },
   {
     "task": 282,
