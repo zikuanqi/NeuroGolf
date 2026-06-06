@@ -65,6 +65,7 @@ from .cross_move import solve_cross_move
 from .row_checker import solve_row_checker
 from .five_isolate import solve_five_isolate
 from .color_sort_column import solve_color_sort_column
+from .rect_interior_rank import solve_rect_interior_rank
 from .gravity_down import solve_gravity_down
 from .slide_to_wall import solve_slide_to_wall
 from .slide_to_line import solve_slide_to_line
@@ -231,6 +232,7 @@ ALL_SOLVERS: list[Solver] = [
     solve_row_checker,
     solve_five_isolate,
     solve_color_sort_column,
+    solve_rect_interior_rank,
     solve_periodic_fill,
     solve_conv3x3,
     solve_conv1x1_masked,

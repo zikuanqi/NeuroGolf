@@ -1241,11 +1241,11 @@
   },
   {
     "task": 156,
-    "solver": "none",
-    "saved": false,
-    "points": 0.0,
-    "memory": null,
-    "params": null
+    "solver": "solve_rect_interior_rank",
+    "saved": true,
+    "points": 11.6307546699034,
+    "memory": 639921,
+    "params": 93
   },
   {
     "task": 157,

@@ -2358,3 +2358,36 @@ def test_color_sort_column_rejects_tie():
     from neurogolf.solvers.color_sort_column import solve_color_sort_column
     task = _make_task([([[2, 3], [2, 3]], [[2], [3]])])
     assert solve_color_sort_column(task) is None
+
+
+def test_rect_interior_rank():
+    import numpy as np
+    import onnxruntime as ort
+    from neurogolf.grids import from_onehot, to_onehot
+    from neurogolf.solvers.rect_interior_rank import solve_rect_interior_rank, _ref
+
+    g = [[4, 4, 4, 4, 0, 0],          # top rect 4x4 = 16 (smaller)
+         [4, 4, 4, 4, 0, 0],
+         [4, 4, 4, 4, 0, 0],
+         [4, 4, 4, 4, 0, 0],
+         [0, 0, 0, 0, 0, 0],
+         [4, 4, 4, 4, 4, 4],          # bottom rect 4x6 = 24 (larger)
+         [4, 4, 4, 4, 4, 4],
+         [4, 4, 4, 4, 4, 4],
+         [4, 4, 4, 4, 4, 4]]
+    expected = _ref(np.array(g)).tolist()
+    assert expected[1][1] == 1 and expected[2][2] == 1     # smaller interior -> 1
+    assert expected[6][1] == 2 and expected[7][4] == 2     # larger interior -> 2
+    task = _make_task([(g, expected)])
+    model = solve_rect_interior_rank(task)
+    assert model is not None and hasattr(model, "graph")
+    sess = ort.InferenceSession(model.SerializeToString())
+    res = sess.run(["output"], {"input": to_onehot(g)})[0]
+    assert from_onehot((res > 0.5).astype(np.float32)) == expected
+
+
+def test_rect_interior_rank_rejects_single():
+    from neurogolf.solvers.rect_interior_rank import solve_rect_interior_rank
+    g = [[4, 4, 4], [4, 4, 4], [4, 4, 4]]
+    task = _make_task([(g, g)])
+    assert solve_rect_interior_rank(task) is None
