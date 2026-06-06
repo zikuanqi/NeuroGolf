@@ -2673,11 +2673,11 @@
   },
   {
     "task": 335,
-    "solver": "none",
-    "saved": false,
-    "points": 0.0,
-    "memory": null,
-    "params": null
+    "solver": "solve_l_connect",
+    "saved": true,
+    "points": 13.330412725016394,
+    "memory": 116868,
+    "params": 92
   },
   {
     "task": 336,

@@ -2522,3 +2522,29 @@ def test_explode_corners_rejects_non_2x2():
     g = [[5, 5, 5], [5, 5, 5], [5, 5, 5]]
     task = _make_task([(g, g)])
     assert solve_explode_corners(task) is None
+
+
+def test_l_connect():
+    import numpy as np
+    import onnxruntime as ort
+    from neurogolf.grids import from_onehot, to_onehot
+    from neurogolf.solvers.l_connect import solve_l_connect, _ref
+
+    g = [[0, 8, 0, 0, 0],
+         [0, 0, 0, 0, 0],
+         [0, 0, 0, 0, 0],
+         [0, 0, 0, 0, 2]]
+    expected = _ref(np.array(g)).tolist()       # down col1, then across row3 to the 2
+    assert expected[0] == [0, 8, 0, 0, 0] and expected[3] == [0, 4, 4, 4, 2]
+    task = _make_task([(g, expected)])
+    model = solve_l_connect(task)
+    assert model is not None and hasattr(model, "graph")
+    sess = ort.InferenceSession(model.SerializeToString())
+    res = sess.run(["output"], {"input": to_onehot(g)})[0]
+    assert from_onehot((res > 0.5).astype(np.float32)) == expected
+
+
+def test_l_connect_rejects_no_markers():
+    from neurogolf.solvers.l_connect import solve_l_connect
+    task = _make_task([([[1, 3], [3, 1]], [[1, 3], [3, 1]])])
+    assert solve_l_connect(task) is None
