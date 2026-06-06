@@ -2196,3 +2196,89 @@ def test_box_stretch_rejects_plain():
     from neurogolf.solvers.box_stretch import solve_box_stretch
     task = _make_task([([[1, 2], [3, 4]], [[1, 2], [3, 4]])])
     assert solve_box_stretch(task) is None
+
+
+def test_gap_fill():
+    import numpy as np
+    import onnxruntime as ort
+    from neurogolf.grids import from_onehot, to_onehot
+    from neurogolf.solvers.gap_fill import solve_gap_fill, _ref
+
+    # two rectangles separated vertically; gap filled with 8 over interior cols
+    g = [[2, 2, 2, 2, 0],
+         [2, 2, 2, 2, 0],
+         [0, 0, 0, 0, 0],
+         [0, 0, 0, 0, 0],
+         [3, 3, 3, 3, 0],
+         [3, 3, 3, 3, 0]]
+    expected = _ref(np.array(g)).tolist()
+    assert expected[2][1] == 8 and expected[2][2] == 8       # gap filled, interior cols
+    assert expected[2][0] == 0 and expected[2][3] == 0       # edge cols not filled
+    task = _make_task([(g, expected)])
+    model = solve_gap_fill(task)
+    assert model is not None and hasattr(model, "graph")
+    sess = ort.InferenceSession(model.SerializeToString())
+    res = sess.run(["output"], {"input": to_onehot(g)})[0]
+    assert from_onehot((res > 0.0).astype(np.float32)) == expected
+
+
+def test_gap_fill_rejects_one_rect():
+    from neurogolf.solvers.gap_fill import solve_gap_fill
+    task = _make_task([([[2, 2], [2, 2]], [[2, 2], [2, 2]])])
+    assert solve_gap_fill(task) is None
+
+
+def test_merge_pair():
+    import numpy as np
+    import onnxruntime as ort
+    from neurogolf.grids import from_onehot, to_onehot
+    from neurogolf.solvers.merge_pair import solve_merge_pair, _ref
+
+    # a 3 next to a 2 -> 3 becomes 8, 2 erased; isolated 3 and 2 unchanged
+    g = [[3, 2, 0, 0],
+         [0, 0, 0, 0],
+         [3, 0, 2, 0]]
+    expected = _ref(np.array(g)).tolist()
+    assert expected[0][0] == 8 and expected[0][1] == 0       # merged pair
+    assert expected[2][0] == 3 and expected[2][2] == 2       # isolated stay
+    task = _make_task([(g, expected)])
+    model = solve_merge_pair(task)
+    assert model is not None and hasattr(model, "graph")
+    sess = ort.InferenceSession(model.SerializeToString())
+    res = sess.run(["output"], {"input": to_onehot(g)})[0]
+    assert from_onehot((res > 0.0).astype(np.float32)) == expected
+
+
+def test_merge_pair_rejects_plain():
+    from neurogolf.solvers.merge_pair import solve_merge_pair
+    task = _make_task([([[1, 4], [4, 1]], [[1, 4], [4, 1]])])
+    assert solve_merge_pair(task) is None
+
+
+def test_cross_move():
+    import numpy as np
+    import onnxruntime as ort
+    from neurogolf.grids import from_onehot, to_onehot
+    from neurogolf.solvers.cross_move import solve_cross_move, _ref
+
+    # colour-3 cross at (row2, col2) with two 5-markers -> moves to (row4, col0)
+    g = [[0, 0, 3, 0, 5],
+         [0, 0, 3, 0, 5],
+         [3, 3, 3, 3, 3],
+         [0, 0, 3, 0, 0],
+         [0, 0, 3, 0, 0]]
+    expected = _ref(np.array(g)).tolist()
+    assert expected[4] == [3, 3, 3, 3, 3]            # horizontal line moved down 2
+    assert all(row[0] == 3 for row in expected)      # vertical line moved left 2
+    task = _make_task([(g, expected)])
+    model = solve_cross_move(task)
+    assert model is not None and hasattr(model, "graph")
+    sess = ort.InferenceSession(model.SerializeToString())
+    res = sess.run(["output"], {"input": to_onehot(g)})[0]
+    assert from_onehot((res > 0.0).astype(np.float32)) == expected
+
+
+def test_cross_move_rejects_plain():
+    from neurogolf.solvers.cross_move import solve_cross_move
+    task = _make_task([([[1, 2], [3, 4]], [[1, 2], [3, 4]])])
+    assert solve_cross_move(task) is None

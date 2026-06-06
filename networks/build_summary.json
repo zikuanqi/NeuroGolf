@@ -2721,11 +2721,11 @@
   },
   {
     "task": 341,
-    "solver": "none",
-    "saved": false,
-    "points": 0.0,
-    "memory": null,
-    "params": null
+    "solver": "solve_gap_fill",
+    "saved": true,
+    "points": 13.278443786834503,
+    "memory": 122909,
+    "params": 290
   },
   {
     "task": 342,
@@ -2745,11 +2745,11 @@
   },
   {
     "task": 344,
-    "solver": "none",
-    "saved": false,
-    "points": 0.0,
-    "memory": null,
-    "params": null
+    "solver": "solve_merge_pair",
+    "saved": true,
+    "points": 12.78056700276799,
+    "memory": 202560,
+    "params": 130
   },
   {
     "task": 345,
@@ -2889,11 +2889,11 @@
   },
   {
     "task": 362,
-    "solver": "none",
-    "saved": false,
-    "points": 0.0,
-    "memory": null,
-    "params": null
+    "solver": "solve_cross_move",
+    "saved": true,
+    "points": 13.106899884852563,
+    "memory": 146160,
+    "params": 94
   },
   {
     "task": 363,
