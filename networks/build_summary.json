@@ -1793,11 +1793,11 @@
   },
   {
     "task": 225,
-    "solver": "none",
-    "saved": false,
-    "points": 0.0,
-    "memory": null,
-    "params": null
+    "solver": "solve_explode_corners",
+    "saved": true,
+    "points": 10.706960449498412,
+    "memory": 1611880,
+    "params": 206
   },
   {
     "task": 226,

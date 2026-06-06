@@ -2493,3 +2493,32 @@ def test_line_cross_swap_rejects_tie():
     from neurogolf.solvers.line_cross_swap import solve_line_cross_swap
     task = _make_task([([[1, 1], [2, 2]], [[1, 1], [2, 2]])])
     assert solve_line_cross_swap(task) is None
+
+
+def test_explode_corners():
+    import numpy as np
+    import onnxruntime as ort
+    from neurogolf.grids import from_onehot, to_onehot
+    from neurogolf.solvers.explode_corners import solve_explode_corners, _ref
+
+    g = [[0, 0, 0, 0, 0, 0],
+         [0, 0, 0, 0, 0, 0],
+         [0, 0, 9, 3, 0, 0],
+         [0, 0, 7, 8, 0, 0],
+         [0, 0, 0, 0, 0, 0],
+         [0, 0, 0, 0, 0, 0]]
+    expected = _ref(np.array(g)).tolist()
+    assert expected[0] == [8, 8, 0, 0, 7, 7] and expected[5] == [3, 3, 0, 0, 9, 9]
+    task = _make_task([(g, expected)])
+    model = solve_explode_corners(task)
+    assert model is not None and hasattr(model, "graph")
+    sess = ort.InferenceSession(model.SerializeToString())
+    res = sess.run(["output"], {"input": to_onehot(g)})[0]
+    assert from_onehot((res > 0.5).astype(np.float32)) == expected
+
+
+def test_explode_corners_rejects_non_2x2():
+    from neurogolf.solvers.explode_corners import solve_explode_corners
+    g = [[5, 5, 5], [5, 5, 5], [5, 5, 5]]
+    task = _make_task([(g, g)])
+    assert solve_explode_corners(task) is None
