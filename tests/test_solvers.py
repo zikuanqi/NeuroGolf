@@ -2282,3 +2282,79 @@ def test_cross_move_rejects_plain():
     from neurogolf.solvers.cross_move import solve_cross_move
     task = _make_task([([[1, 2], [3, 4]], [[1, 2], [3, 4]])])
     assert solve_cross_move(task) is None
+
+
+def test_row_checker():
+    import numpy as np
+    import onnxruntime as ort
+    from neurogolf.grids import from_onehot, to_onehot
+    from neurogolf.solvers.row_checker import solve_row_checker, _ref
+
+    g = [[3, 3, 3, 3, 3, 3],
+         [9, 9, 9, 9, 9, 9]]
+    expected = _ref(np.array(g)).tolist()
+    assert expected[0] == [3, 9, 3, 9, 3, 9]
+    assert expected[1] == [9, 3, 9, 3, 9, 3]
+    task = _make_task([(g, expected)])
+    model = solve_row_checker(task)
+    assert model is not None and hasattr(model, "graph")
+    sess = ort.InferenceSession(model.SerializeToString())
+    res = sess.run(["output"], {"input": to_onehot(g)})[0]
+    assert from_onehot((res > 0.0).astype(np.float32)) == expected
+
+
+def test_row_checker_rejects_three_rows():
+    from neurogolf.solvers.row_checker import solve_row_checker
+    task = _make_task([([[1, 1], [2, 2], [3, 3]], [[1, 1], [2, 2], [3, 3]])])
+    assert solve_row_checker(task) is None
+
+
+def test_five_isolate():
+    import numpy as np
+    import onnxruntime as ort
+    from neurogolf.grids import from_onehot, to_onehot
+    from neurogolf.solvers.five_isolate import solve_five_isolate, _ref
+
+    g = [[4, 5, 4],
+         [5, 5, 5],
+         [4, 5, 4]]
+    expected = _ref(np.array(g)).tolist()
+    assert expected == [[0, 4, 0], [4, 4, 4], [0, 4, 0]]
+    task = _make_task([(g, expected)])
+    model = solve_five_isolate(task)
+    assert model is not None and hasattr(model, "graph")
+    sess = ort.InferenceSession(model.SerializeToString())
+    res = sess.run(["output"], {"input": to_onehot(g)})[0]
+    assert from_onehot((res > 0.0).astype(np.float32)) == expected
+
+
+def test_five_isolate_rejects_no_marker():
+    from neurogolf.solvers.five_isolate import solve_five_isolate
+    task = _make_task([([[1, 2], [3, 4]], [[1, 2], [3, 4]])])
+    assert solve_five_isolate(task) is None
+
+
+def test_color_sort_column():
+    import numpy as np
+    import onnxruntime as ort
+    from neurogolf.grids import from_onehot, to_onehot
+    from neurogolf.solvers.color_sort_column import solve_color_sort_column, _ref
+
+    g = [[2, 2, 3, 3],
+         [2, 2, 3, 0],
+         [8, 0, 0, 0],
+         [0, 0, 0, 0]]
+    expected = _ref(np.array(g)).tolist()        # counts 2->4, 3->3, 8->1
+    assert expected == [[2], [3], [8]]
+    task = _make_task([(g, expected)])
+    model = solve_color_sort_column(task)
+    assert model is not None and hasattr(model, "graph")
+    sess = ort.InferenceSession(model.SerializeToString())
+    res = sess.run(["output"], {"input": to_onehot(g)})[0]
+    assert from_onehot((res > 0.0).astype(np.float32)) == expected
+
+
+def test_color_sort_column_rejects_tie():
+    from neurogolf.solvers.color_sort_column import solve_color_sort_column
+    task = _make_task([([[2, 3], [2, 3]], [[2], [3]])])
+    assert solve_color_sort_column(task) is None
