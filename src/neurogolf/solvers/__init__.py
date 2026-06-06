@@ -62,6 +62,9 @@ from .box_stretch import solve_box_stretch
 from .gap_fill import solve_gap_fill
 from .merge_pair import solve_merge_pair
 from .cross_move import solve_cross_move
+from .row_checker import solve_row_checker
+from .five_isolate import solve_five_isolate
+from .color_sort_column import solve_color_sort_column
 from .gravity_down import solve_gravity_down
 from .slide_to_wall import solve_slide_to_wall
 from .slide_to_line import solve_slide_to_line
@@ -225,6 +228,9 @@ ALL_SOLVERS: list[Solver] = [
     solve_gap_fill,
     solve_merge_pair,
     solve_cross_move,
+    solve_row_checker,
+    solve_five_isolate,
+    solve_color_sort_column,
     solve_periodic_fill,
     solve_conv3x3,
     solve_conv1x1_masked,
