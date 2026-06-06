@@ -39,6 +39,7 @@ from .dilate_ones import solve_dilate_ones
 from .drop_into_wall import solve_drop_into_wall
 from .endpoint_bridge import solve_endpoint_bridge
 from .bbox_strip import solve_bbox_strip
+from .bbox_strip_zero import solve_bbox_strip_zero
 from .largest_comp_crop import solve_largest_comp_crop
 from .conv3x3 import solve_conv3x3
 from .conv3x3_masked import (solve_conv1x1_masked, solve_conv3x3_masked,
@@ -55,6 +56,7 @@ from .corner_rays import solve_corner_rays
 from .divider_fold import solve_divider_fold
 from .band_sort import solve_band_sort
 from .interior_recolor import solve_interior_recolor
+from .interior_recolor_aware import solve_interior_recolor_aware
 from .float_up import solve_float_up
 from .diag_x import solve_diag_x
 from .staircase import solve_staircase
@@ -66,6 +68,8 @@ from .row_checker import solve_row_checker
 from .five_isolate import solve_five_isolate
 from .color_sort_column import solve_color_sort_column
 from .rect_interior_rank import solve_rect_interior_rank
+from .ring_recolor import solve_ring_recolor
+from .line_cross_swap import solve_line_cross_swap
 from .gravity_down import solve_gravity_down
 from .slide_to_wall import solve_slide_to_wall
 from .slide_to_line import solve_slide_to_line
@@ -165,6 +169,7 @@ ALL_SOLVERS: list[Solver] = [
     solve_rot90_ccw_aware,
     solve_rot90_cw_aware,
     solve_bbox_strip,
+    solve_bbox_strip_zero,
     solve_largest_comp_crop,
     solve_bbox_color_extract,
     solve_split_and,
@@ -222,6 +227,7 @@ ALL_SOLVERS: list[Solver] = [
     solve_divider_fold,
     solve_band_sort,
     solve_interior_recolor,
+    solve_interior_recolor_aware,
     solve_float_up,
     solve_diag_x,
     solve_staircase,
@@ -233,6 +239,8 @@ ALL_SOLVERS: list[Solver] = [
     solve_five_isolate,
     solve_color_sort_column,
     solve_rect_interior_rank,
+    solve_ring_recolor,
+    solve_line_cross_swap,
     solve_periodic_fill,
     solve_conv3x3,
     solve_conv1x1_masked,

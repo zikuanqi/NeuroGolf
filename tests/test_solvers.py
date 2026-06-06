@@ -2391,3 +2391,105 @@ def test_rect_interior_rank_rejects_single():
     g = [[4, 4, 4], [4, 4, 4], [4, 4, 4]]
     task = _make_task([(g, g)])
     assert solve_rect_interior_rank(task) is None
+
+
+def test_bbox_strip_zero():
+    import numpy as np
+    import onnxruntime as ort
+    from neurogolf.grids import from_onehot, to_onehot
+    from neurogolf.solvers.bbox_strip_zero import solve_bbox_strip_zero
+
+    g = [[1, 1, 1, 1, 1],          # background is the majority colour 1
+         [1, 2, 2, 2, 1],
+         [1, 2, 1, 2, 1],
+         [1, 1, 1, 1, 1]]
+    expected = [[2, 2, 2], [2, 0, 2]]   # crop to non-1 bbox, the inner 1 -> 0
+    task = _make_task([(g, expected)])
+    model = solve_bbox_strip_zero(task)
+    assert model is not None and hasattr(model, "graph")
+    sess = ort.InferenceSession(model.SerializeToString())
+    res = sess.run(["output"], {"input": to_onehot(g)})[0]
+    assert from_onehot((res > 0.5).astype(np.float32)) == expected
+
+
+def test_bbox_strip_zero_rejects_recolor():
+    from neurogolf.solvers.bbox_strip_zero import solve_bbox_strip_zero
+    task = _make_task([([[5, 5], [5, 5]], [[7, 7], [7, 7]])])
+    assert solve_bbox_strip_zero(task) is None
+
+
+def test_ring_recolor():
+    import numpy as np
+    import onnxruntime as ort
+    from neurogolf.grids import from_onehot, to_onehot
+    from neurogolf.solvers.ring_recolor import solve_ring_recolor, _ref
+
+    g = [[5, 5, 5, 5],
+         [5, 5, 5, 5],
+         [5, 5, 5, 5],
+         [5, 5, 5, 5]]
+    expected = _ref(np.array(g)).tolist()
+    assert expected == [[1, 4, 4, 1], [4, 2, 2, 4], [4, 2, 2, 4], [1, 4, 4, 1]]
+    task = _make_task([(g, expected)])
+    model = solve_ring_recolor(task)
+    assert model is not None and hasattr(model, "graph")
+    sess = ort.InferenceSession(model.SerializeToString())
+    res = sess.run(["output"], {"input": to_onehot(g)})[0]
+    assert from_onehot((res > 0.5).astype(np.float32)) == expected
+
+
+def test_ring_recolor_rejects_plain():
+    from neurogolf.solvers.ring_recolor import solve_ring_recolor
+    task = _make_task([([[1, 2], [3, 4]], [[1, 2], [3, 4]])])
+    assert solve_ring_recolor(task) is None
+
+
+def test_interior_recolor_aware():
+    import numpy as np
+    import onnxruntime as ort
+    from neurogolf.grids import from_onehot, to_onehot
+    from neurogolf.solvers.interior_recolor_aware import solve_interior_recolor_aware, _ref
+
+    g = [[5, 5, 5, 5],
+         [5, 5, 5, 5],
+         [5, 5, 5, 5]]
+    expected = _ref(np.array(g), 2).tolist()      # interior eroded cells -> 2
+    assert expected == [[5, 5, 5, 5], [5, 2, 2, 5], [5, 5, 5, 5]]
+    task = _make_task([(g, expected)])
+    model = solve_interior_recolor_aware(task)
+    assert model is not None and hasattr(model, "graph")
+    sess = ort.InferenceSession(model.SerializeToString())
+    res = sess.run(["output"], {"input": to_onehot(g)})[0]
+    assert from_onehot((res > 0.5).astype(np.float32)) == expected
+
+
+def test_interior_recolor_aware_rejects_plain():
+    from neurogolf.solvers.interior_recolor_aware import solve_interior_recolor_aware
+    task = _make_task([([[1, 2], [3, 4]], [[1, 2], [3, 4]])])
+    assert solve_interior_recolor_aware(task) is None
+
+
+def test_line_cross_swap():
+    import numpy as np
+    import onnxruntime as ort
+    from neurogolf.grids import from_onehot, to_onehot
+    from neurogolf.solvers.line_cross_swap import solve_line_cross_swap, _ref
+
+    g = [[0, 8, 0, 0],
+         [0, 8, 0, 0],
+         [3, 8, 3, 3],          # horizontal 3-line, vertical 8 drawn on top at (2,1)
+         [0, 8, 0, 0]]
+    expected = _ref(np.array(g)).tolist()
+    assert expected[2] == [3, 3, 3, 3]            # crossing now shows the horizontal line
+    task = _make_task([(g, expected)])
+    model = solve_line_cross_swap(task)
+    assert model is not None and hasattr(model, "graph")
+    sess = ort.InferenceSession(model.SerializeToString())
+    res = sess.run(["output"], {"input": to_onehot(g)})[0]
+    assert from_onehot((res > 0.5).astype(np.float32)) == expected
+
+
+def test_line_cross_swap_rejects_tie():
+    from neurogolf.solvers.line_cross_swap import solve_line_cross_swap
+    task = _make_task([([[1, 1], [2, 2]], [[1, 1], [2, 2]])])
+    assert solve_line_cross_swap(task) is None

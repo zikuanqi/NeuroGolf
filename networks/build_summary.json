@@ -2065,11 +2065,11 @@
   },
   {
     "task": 259,
-    "solver": "none",
-    "saved": false,
-    "points": 0.0,
-    "memory": null,
-    "params": null
+    "solver": "solve_bbox_strip_zero",
+    "saved": true,
+    "points": 12.792148936792415,
+    "memory": 200268,
+    "params": 88
   },
   {
     "task": 260,
@@ -2257,11 +2257,11 @@
   },
   {
     "task": 283,
-    "solver": "none",
-    "saved": false,
-    "points": 0.0,
-    "memory": null,
-    "params": null
+    "solver": "solve_ring_recolor",
+    "saved": true,
+    "points": 12.21711457184874,
+    "memory": 355980,
+    "params": 91
   },
   {
     "task": 284,
@@ -2337,19 +2337,19 @@
   },
   {
     "task": 293,
-    "solver": "none",
-    "saved": false,
-    "points": 0.0,
-    "memory": null,
-    "params": null
+    "solver": "solve_line_cross_swap",
+    "saved": true,
+    "points": 12.79492785480341,
+    "memory": 199788,
+    "params": 12
   },
   {
     "task": 294,
-    "solver": "none",
-    "saved": false,
-    "points": 0.0,
-    "memory": null,
-    "params": null
+    "solver": "solve_interior_recolor_aware",
+    "saved": true,
+    "points": 11.778571682552617,
+    "memory": 552000,
+    "params": 69
   },
   {
     "task": 295,
