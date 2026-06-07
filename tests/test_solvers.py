@@ -2601,3 +2601,28 @@ def test_move_toward_rejects_no_markers():
     from neurogolf.solvers.move_toward import solve_move_toward
     task = _make_task([([[1, 2], [5, 6]], [[1, 2], [5, 6]])])
     assert solve_move_toward(task) is None
+
+
+def test_cut_diagonals():
+    import numpy as np
+    import onnxruntime as ort
+    from neurogolf.grids import from_onehot, to_onehot
+    from neurogolf.solvers.cut_diagonals import solve_cut_diagonals, _ref
+
+    g = [[1, 1, 1],
+         [1, 1, 1],
+         [1, 1, 1]]
+    expected = _ref(np.array(g)).tolist()         # both diagonals -> 0
+    assert expected == [[0, 1, 0], [1, 0, 1], [0, 1, 0]]
+    task = _make_task([(g, expected)])
+    model = solve_cut_diagonals(task)
+    assert model is not None and hasattr(model, "graph")
+    sess = ort.InferenceSession(model.SerializeToString())
+    res = sess.run(["output"], {"input": to_onehot(g)})[0]
+    assert from_onehot((res > 0.5).astype(np.float32)) == expected
+
+
+def test_cut_diagonals_rejects_nonsquare():
+    from neurogolf.solvers.cut_diagonals import solve_cut_diagonals
+    task = _make_task([([[1, 1, 1], [1, 1, 1]], [[0, 1, 0], [1, 1, 1]])])
+    assert solve_cut_diagonals(task) is None

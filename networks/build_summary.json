@@ -2993,11 +2993,11 @@
   },
   {
     "task": 375,
-    "solver": "none",
-    "saved": false,
-    "points": 0.0,
-    "memory": null,
-    "params": null
+    "solver": "solve_cut_diagonals",
+    "saved": true,
+    "points": 13.35854060896554,
+    "memory": 113644,
+    "params": 72
   },
   {
     "task": 376,
