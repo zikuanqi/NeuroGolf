@@ -1569,11 +1569,11 @@
   },
   {
     "task": 197,
-    "solver": "none",
-    "saved": false,
-    "points": 0.0,
-    "memory": null,
-    "params": null
+    "solver": "solve_column_template",
+    "saved": true,
+    "points": 14.026797013506256,
+    "memory": 58216,
+    "params": 75
   },
   {
     "task": 198,
