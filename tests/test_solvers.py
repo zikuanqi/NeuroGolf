@@ -2832,3 +2832,30 @@ def test_odd_col_recolor_rejects_nochange():
     from neurogolf.solvers.odd_col_recolor import solve_odd_col_recolor
     task = _make_task([([[2, 0], [0, 0]], [[2, 0], [0, 0]])])
     assert solve_odd_col_recolor(task) is None
+
+
+def test_triangle_diag():
+    import numpy as np
+    import onnxruntime as ort
+    from neurogolf.grids import from_onehot, to_onehot
+    from neurogolf.solvers.triangle_diag import solve_triangle_diag, _ref
+
+    g = [[0, 0, 0, 0, 0],
+         [0, 0, 0, 0, 0],
+         [2, 2, 0, 0, 0],          # 2-segment at row 2, ends col 1
+         [0, 0, 0, 0, 0],
+         [0, 0, 0, 0, 0]]
+    expected = _ref(np.array(g)).tolist()
+    assert expected[0] == [3, 3, 3, 3, 0] and expected[2] == [2, 2, 0, 0, 0] and expected[3] == [1, 0, 0, 0, 0]
+    task = _make_task([(g, expected)])
+    model = solve_triangle_diag(task)
+    assert model is not None and hasattr(model, "graph")
+    sess = ort.InferenceSession(model.SerializeToString())
+    res = sess.run(["output"], {"input": to_onehot(g)})[0]
+    assert from_onehot((res > 0.5).astype(np.float32)) == expected
+
+
+def test_triangle_diag_rejects_no_two():
+    from neurogolf.solvers.triangle_diag import solve_triangle_diag
+    task = _make_task([([[1, 3], [3, 1]], [[1, 3], [3, 1]])])
+    assert solve_triangle_diag(task) is None

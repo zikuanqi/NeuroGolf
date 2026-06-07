@@ -2041,11 +2041,11 @@
   },
   {
     "task": 256,
-    "solver": "none",
-    "saved": false,
-    "points": 0.0,
-    "memory": null,
-    "params": null
+    "solver": "solve_triangle_diag",
+    "saved": true,
+    "points": 12.540080025580611,
+    "memory": 257682,
+    "params": 113
   },
   {
     "task": 257,

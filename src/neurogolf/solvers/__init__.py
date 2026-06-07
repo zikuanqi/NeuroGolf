@@ -83,6 +83,7 @@ from .column_template import solve_column_template
 from .fractal_blocks import solve_fractal_blocks
 from .diagonal_markers import solve_diagonal_markers
 from .odd_col_recolor import solve_odd_col_recolor
+from .triangle_diag import solve_triangle_diag
 from .gravity_down import solve_gravity_down
 from .slide_to_wall import solve_slide_to_wall
 from .slide_to_line import solve_slide_to_line
@@ -267,6 +268,7 @@ ALL_SOLVERS: list[Solver] = [
     solve_fractal_blocks,
     solve_diagonal_markers,
     solve_odd_col_recolor,
+    solve_triangle_diag,
     solve_periodic_fill,
     solve_conv3x3,
     solve_conv1x1_masked,
