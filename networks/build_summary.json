@@ -1833,11 +1833,11 @@
   },
   {
     "task": 230,
-    "solver": "none",
-    "saved": false,
-    "points": 0.0,
-    "memory": null,
-    "params": null
+    "solver": "solve_diagonal_markers",
+    "saved": true,
+    "points": 12.06250702493839,
+    "memory": 415456,
+    "params": 150
   },
   {
     "task": 231,

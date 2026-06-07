@@ -2780,3 +2780,30 @@ def test_fractal_blocks_rejects_non_div3():
     from neurogolf.solvers.fractal_blocks import solve_fractal_blocks
     task = _make_task([([[5, 5], [5, 5]], [[5, 5], [5, 5]])])
     assert solve_fractal_blocks(task) is None
+
+
+def test_diagonal_markers():
+    import numpy as np
+    import onnxruntime as ort
+    from neurogolf.grids import from_onehot, to_onehot
+    from neurogolf.solvers.diagonal_markers import solve_diagonal_markers, _ref
+
+    g = [[0, 0, 0, 0, 0],
+         [0, 0, 0, 0, 0],
+         [0, 0, 5, 5, 0],
+         [0, 0, 5, 5, 0],
+         [0, 0, 0, 0, 0]]
+    expected = _ref(np.array(g)).tolist()      # 1/2/3/4 at the block's diagonal corners
+    assert expected[1] == [0, 1, 0, 0, 2] and expected[4] == [0, 3, 0, 0, 4]
+    task = _make_task([(g, expected)])
+    model = solve_diagonal_markers(task)
+    assert model is not None and hasattr(model, "graph")
+    sess = ort.InferenceSession(model.SerializeToString())
+    res = sess.run(["output"], {"input": to_onehot(g)})[0]
+    assert from_onehot((res > 0.5).astype(np.float32)) == expected
+
+
+def test_diagonal_markers_rejects_no_block():
+    from neurogolf.solvers.diagonal_markers import solve_diagonal_markers
+    task = _make_task([([[1, 2], [3, 4]], [[1, 2], [3, 4]])])
+    assert solve_diagonal_markers(task) is None
