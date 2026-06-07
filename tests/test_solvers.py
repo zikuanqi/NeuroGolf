@@ -2703,3 +2703,30 @@ def test_connect_pairs_rejects_diagonal():
     from neurogolf.solvers.connect_pairs import solve_connect_pairs
     task = _make_task([([[3, 0], [0, 3]], [[3, 0], [0, 3]])])
     assert solve_connect_pairs(task) is None
+
+
+def test_panel_summary():
+    import numpy as np
+    import onnxruntime as ort
+    from neurogolf.grids import from_onehot, to_onehot
+    from neurogolf.solvers.panel_summary import solve_panel_summary, _ref
+
+    g = [[1, 1, 0, 8, 8],          # 2x2 panels separated by a blank row/col
+         [1, 1, 0, 8, 8],
+         [0, 0, 0, 0, 0],
+         [6, 6, 0, 1, 1],
+         [6, 6, 0, 1, 1]]
+    expected = _ref(np.array(g)).tolist()
+    assert expected == [[1, 8], [6, 1]]
+    task = _make_task([(g, expected)])
+    model = solve_panel_summary(task)
+    assert model is not None and hasattr(model, "graph")
+    sess = ort.InferenceSession(model.SerializeToString())
+    res = sess.run(["output"], {"input": to_onehot(g)})[0]
+    assert from_onehot((res > 0.5).astype(np.float32)) == expected
+
+
+def test_panel_summary_rejects_single():
+    from neurogolf.solvers.panel_summary import solve_panel_summary
+    task = _make_task([([[5, 5], [5, 5]], [[5, 5], [5, 5]])])
+    assert solve_panel_summary(task) is None
