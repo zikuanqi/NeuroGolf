@@ -1001,11 +1001,11 @@
   },
   {
     "task": 126,
-    "solver": "none",
-    "saved": false,
-    "points": 0.0,
-    "memory": null,
-    "params": null
+    "solver": "solve_pocket_drop",
+    "saved": true,
+    "points": 13.275275085416219,
+    "memory": 123514,
+    "params": 76
   },
   {
     "task": 127,

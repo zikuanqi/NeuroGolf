@@ -2859,3 +2859,29 @@ def test_triangle_diag_rejects_no_two():
     from neurogolf.solvers.triangle_diag import solve_triangle_diag
     task = _make_task([([[1, 3], [3, 1]], [[1, 3], [3, 1]])])
     assert solve_triangle_diag(task) is None
+
+
+def test_pocket_drop():
+    import numpy as np
+    import onnxruntime as ort
+    from neurogolf.grids import from_onehot, to_onehot
+    from neurogolf.solvers.pocket_drop import solve_pocket_drop, _ref
+
+    g = [[0, 6, 6, 6, 0],          # downward-opening staple, gap at col 2
+         [0, 6, 0, 6, 0],
+         [0, 0, 0, 0, 0],
+         [0, 0, 0, 0, 0]]
+    expected = _ref(np.array(g)).tolist()
+    assert expected[3] == [0, 0, 4, 0, 0] and expected[1] == [0, 6, 0, 6, 0]
+    task = _make_task([(g, expected)])
+    model = solve_pocket_drop(task)
+    assert model is not None and hasattr(model, "graph")
+    sess = ort.InferenceSession(model.SerializeToString())
+    res = sess.run(["output"], {"input": to_onehot(g)})[0]
+    assert from_onehot((res > 0.5).astype(np.float32)) == expected
+
+
+def test_pocket_drop_rejects_no_pocket():
+    from neurogolf.solvers.pocket_drop import solve_pocket_drop
+    task = _make_task([([[6, 6], [6, 0]], [[6, 6], [6, 0]])])
+    assert solve_pocket_drop(task) is None
