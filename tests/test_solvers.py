@@ -2626,3 +2626,80 @@ def test_cut_diagonals_rejects_nonsquare():
     from neurogolf.solvers.cut_diagonals import solve_cut_diagonals
     task = _make_task([([[1, 1, 1], [1, 1, 1]], [[0, 1, 0], [1, 1, 1]])])
     assert solve_cut_diagonals(task) is None
+
+
+def test_odd_panel_shape():
+    import numpy as np
+    import onnxruntime as ort
+    from neurogolf.grids import from_onehot, to_onehot
+    from neurogolf.solvers.odd_panel_shape import solve_odd_panel_shape, _ref
+
+    g = [[5, 0, 5], [0, 5, 0], [5, 0, 5],   # panel 0 (shape X)
+         [5, 0, 5], [0, 5, 0], [5, 0, 5],   # panel 1 (shape X)
+         [5, 5, 5], [5, 0, 5], [5, 5, 5]]   # panel 2 (odd shape Y)
+    expected = _ref(np.array(g)).tolist()
+    assert expected == [[5, 5, 5], [5, 0, 5], [5, 5, 5]]
+    task = _make_task([(g, expected)])
+    model = solve_odd_panel_shape(task)
+    assert model is not None and hasattr(model, "graph")
+    sess = ort.InferenceSession(model.SerializeToString())
+    res = sess.run(["output"], {"input": to_onehot(g)})[0]
+    assert from_onehot((res > 0.5).astype(np.float32)) == expected
+
+
+def test_odd_panel_shape_rejects_nonpanel():
+    from neurogolf.solvers.odd_panel_shape import solve_odd_panel_shape
+    task = _make_task([([[1, 2], [3, 4]], [[1, 2], [3, 4]])])
+    assert solve_odd_panel_shape(task) is None
+
+
+def test_band_majority():
+    import numpy as np
+    import onnxruntime as ort
+    from neurogolf.grids import from_onehot, to_onehot
+    from neurogolf.solvers.band_majority import solve_band_majority, _ref
+
+    g = [[5, 5, 5],
+         [5, 2, 5],          # noisy 5-band
+         [2, 2, 2]]
+    expected = _ref(np.array(g)).tolist()       # row-majority: noise -> band colour
+    assert expected == [[5, 5, 5], [5, 5, 5], [2, 2, 2]]
+    task = _make_task([(g, expected)])
+    model = solve_band_majority(task)
+    assert model is not None and hasattr(model, "graph")
+    sess = ort.InferenceSession(model.SerializeToString())
+    res = sess.run(["output"], {"input": to_onehot(g)})[0]
+    assert from_onehot((res > 0.5).astype(np.float32)) == expected
+
+
+def test_band_majority_rejects_uniform():
+    from neurogolf.solvers.band_majority import solve_band_majority
+    task = _make_task([([[5, 5], [5, 5]], [[5, 5], [5, 5]])])
+    assert solve_band_majority(task) is None
+
+
+def test_connect_pairs():
+    import numpy as np
+    import onnxruntime as ort
+    from neurogolf.grids import from_onehot, to_onehot
+    from neurogolf.solvers.connect_pairs import solve_connect_pairs, _ref
+
+    g = [[0, 0, 4, 0, 0],
+         [0, 0, 0, 0, 0],
+         [3, 0, 0, 0, 3],          # horizontal 3-pair
+         [0, 0, 0, 0, 0],
+         [0, 0, 4, 0, 0]]          # vertical 4-pair (col2)
+    expected = _ref(np.array(g)).tolist()
+    assert expected[2] == [3, 3, 4, 3, 3]            # crossing: vertical 4 on top
+    task = _make_task([(g, expected)])
+    model = solve_connect_pairs(task)
+    assert model is not None and hasattr(model, "graph")
+    sess = ort.InferenceSession(model.SerializeToString())
+    res = sess.run(["output"], {"input": to_onehot(g)})[0]
+    assert from_onehot((res > 0.5).astype(np.float32)) == expected
+
+
+def test_connect_pairs_rejects_diagonal():
+    from neurogolf.solvers.connect_pairs import solve_connect_pairs
+    task = _make_task([([[3, 0], [0, 3]], [[3, 0], [0, 3]])])
+    assert solve_connect_pairs(task) is None

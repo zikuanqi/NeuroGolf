@@ -75,6 +75,9 @@ from .l_connect import solve_l_connect
 from .block_quadrant import solve_block_quadrant
 from .move_toward import solve_move_toward
 from .cut_diagonals import solve_cut_diagonals
+from .odd_panel_shape import solve_odd_panel_shape
+from .band_majority import solve_band_majority
+from .connect_pairs import solve_connect_pairs
 from .gravity_down import solve_gravity_down
 from .slide_to_wall import solve_slide_to_wall
 from .slide_to_line import solve_slide_to_line
@@ -251,6 +254,9 @@ ALL_SOLVERS: list[Solver] = [
     solve_block_quadrant,
     solve_move_toward,
     solve_cut_diagonals,
+    solve_odd_panel_shape,
+    solve_band_majority,
+    solve_connect_pairs,
     solve_periodic_fill,
     solve_conv3x3,
     solve_conv1x1_masked,
