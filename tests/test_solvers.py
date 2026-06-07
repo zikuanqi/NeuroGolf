@@ -2885,3 +2885,55 @@ def test_pocket_drop_rejects_no_pocket():
     from neurogolf.solvers.pocket_drop import solve_pocket_drop
     task = _make_task([([[6, 6], [6, 0]], [[6, 6], [6, 0]])])
     assert solve_pocket_drop(task) is None
+
+
+def test_square_complete():
+    import numpy as np
+    import onnxruntime as ort
+    from neurogolf.grids import from_onehot, to_onehot
+    from neurogolf.solvers.square_complete import solve_square_complete, _ref
+
+    g = [[0, 0, 0, 0],
+         [0, 8, 0, 0],          # L-tromino, missing corner at (1, 2)
+         [0, 8, 8, 0],
+         [0, 0, 0, 0]]
+    expected = _ref(np.array(g)).tolist()
+    assert expected[1] == [0, 8, 1, 0]
+    task = _make_task([(g, expected)])
+    model = solve_square_complete(task)
+    assert model is not None and hasattr(model, "graph")
+    sess = ort.InferenceSession(model.SerializeToString())
+    res = sess.run(["output"], {"input": to_onehot(g)})[0]
+    assert from_onehot((res > 0.5).astype(np.float32)) == expected
+
+
+def test_square_complete_rejects_single():
+    from neurogolf.solvers.square_complete import solve_square_complete
+    task = _make_task([([[8, 0, 0], [0, 0, 0], [0, 0, 0]],
+                        [[8, 0, 0], [0, 0, 0], [0, 0, 0]])])
+    assert solve_square_complete(task) is None
+
+
+def test_midpoint_plus():
+    import numpy as np
+    import onnxruntime as ort
+    from neurogolf.grids import from_onehot, to_onehot
+    from neurogolf.solvers.midpoint_plus import solve_midpoint_plus, _ref
+
+    g = [[1, 0, 0, 0, 1],          # markers row 0, cols 0 & 4 -> midpoint (0, 2)
+         [0, 0, 0, 0, 0],
+         [0, 0, 0, 0, 0]]
+    expected = _ref(np.array(g)).tolist()
+    assert expected[0] == [1, 3, 3, 3, 1] and expected[1] == [0, 0, 3, 0, 0]
+    task = _make_task([(g, expected)])
+    model = solve_midpoint_plus(task)
+    assert model is not None and hasattr(model, "graph")
+    sess = ort.InferenceSession(model.SerializeToString())
+    res = sess.run(["output"], {"input": to_onehot(g)})[0]
+    assert from_onehot((res > 0.5).astype(np.float32)) == expected
+
+
+def test_midpoint_plus_rejects_single():
+    from neurogolf.solvers.midpoint_plus import solve_midpoint_plus
+    task = _make_task([([[1, 0], [0, 0]], [[1, 0], [0, 0]])])
+    assert solve_midpoint_plus(task) is None

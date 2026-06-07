@@ -85,6 +85,8 @@ from .diagonal_markers import solve_diagonal_markers
 from .odd_col_recolor import solve_odd_col_recolor
 from .triangle_diag import solve_triangle_diag
 from .pocket_drop import solve_pocket_drop
+from .square_complete import solve_square_complete
+from .midpoint_plus import solve_midpoint_plus
 from .gravity_down import solve_gravity_down
 from .slide_to_wall import solve_slide_to_wall
 from .slide_to_line import solve_slide_to_line
@@ -271,6 +273,8 @@ ALL_SOLVERS: list[Solver] = [
     solve_odd_col_recolor,
     solve_triangle_diag,
     solve_pocket_drop,
+    solve_square_complete,
+    solve_midpoint_plus,
     solve_periodic_fill,
     solve_conv3x3,
     solve_conv1x1_masked,

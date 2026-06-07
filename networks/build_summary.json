@@ -641,11 +641,11 @@
   },
   {
     "task": 81,
-    "solver": "none",
-    "saved": false,
-    "points": 0.0,
-    "memory": null,
-    "params": null
+    "solver": "solve_square_complete",
+    "saved": true,
+    "points": 12.893670344676947,
+    "memory": 180960,
+    "params": 54
   },
   {
     "task": 82,
@@ -2961,11 +2961,11 @@
   },
   {
     "task": 371,
-    "solver": "none",
-    "saved": false,
-    "points": 0.0,
-    "memory": null,
-    "params": null
+    "solver": "solve_midpoint_plus",
+    "saved": true,
+    "points": 13.432813648303334,
+    "memory": 105500,
+    "params": 76
   },
   {
     "task": 372,
