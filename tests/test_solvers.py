@@ -2755,3 +2755,28 @@ def test_column_template_rejects_identity():
     from neurogolf.solvers.column_template import solve_column_template
     task = _make_task([([[1, 2], [3, 4]], [[1, 2], [3, 4]])])
     assert solve_column_template(task) is None
+
+
+def test_fractal_blocks():
+    import numpy as np
+    import onnxruntime as ort
+    from neurogolf.grids import from_onehot, to_onehot
+    from neurogolf.solvers.fractal_blocks import solve_fractal_blocks, _ref
+
+    g = [[5, 0, 5],            # X meta (block size 1) -> 9x9 self-fractal
+         [0, 5, 0],
+         [5, 0, 5]]
+    expected = _ref(np.array(g)).tolist()
+    assert len(expected) == 9 and expected[0] == [5, 0, 5, 0, 0, 0, 5, 0, 5]
+    task = _make_task([(g, expected)])
+    model = solve_fractal_blocks(task)
+    assert model is not None and hasattr(model, "graph")
+    sess = ort.InferenceSession(model.SerializeToString())
+    res = sess.run(["output"], {"input": to_onehot(g)})[0]
+    assert from_onehot((res > 0.5).astype(np.float32)) == expected
+
+
+def test_fractal_blocks_rejects_non_div3():
+    from neurogolf.solvers.fractal_blocks import solve_fractal_blocks
+    task = _make_task([([[5, 5], [5, 5]], [[5, 5], [5, 5]])])
+    assert solve_fractal_blocks(task) is None

@@ -1553,11 +1553,11 @@
   },
   {
     "task": 195,
-    "solver": "none",
-    "saved": false,
-    "points": 0.0,
-    "memory": null,
-    "params": null
+    "solver": "solve_fractal_blocks",
+    "saved": true,
+    "points": 14.070578384293748,
+    "memory": 55683,
+    "params": 111
   },
   {
     "task": 196,
@@ -1729,11 +1729,11 @@
   },
   {
     "task": 217,
-    "solver": "none",
-    "saved": false,
-    "points": 0.0,
-    "memory": null,
-    "params": null
+    "solver": "solve_fractal_blocks",
+    "saved": true,
+    "points": 14.070578384293748,
+    "memory": 55683,
+    "params": 111
   },
   {
     "task": 218,

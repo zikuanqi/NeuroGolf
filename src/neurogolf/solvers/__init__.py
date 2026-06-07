@@ -80,6 +80,7 @@ from .band_majority import solve_band_majority
 from .connect_pairs import solve_connect_pairs
 from .panel_summary import solve_panel_summary
 from .column_template import solve_column_template
+from .fractal_blocks import solve_fractal_blocks
 from .gravity_down import solve_gravity_down
 from .slide_to_wall import solve_slide_to_wall
 from .slide_to_line import solve_slide_to_line
@@ -261,6 +262,7 @@ ALL_SOLVERS: list[Solver] = [
     solve_connect_pairs,
     solve_panel_summary,
     solve_column_template,
+    solve_fractal_blocks,
     solve_periodic_fill,
     solve_conv3x3,
     solve_conv1x1_masked,
