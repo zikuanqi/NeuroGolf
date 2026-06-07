@@ -2807,3 +2807,28 @@ def test_diagonal_markers_rejects_no_block():
     from neurogolf.solvers.diagonal_markers import solve_diagonal_markers
     task = _make_task([([[1, 2], [3, 4]], [[1, 2], [3, 4]])])
     assert solve_diagonal_markers(task) is None
+
+
+def test_odd_col_recolor():
+    import numpy as np
+    import onnxruntime as ort
+    from neurogolf.grids import from_onehot, to_onehot
+    from neurogolf.solvers.odd_col_recolor import solve_odd_col_recolor, _ref
+
+    g = [[2, 0, 0],
+         [0, 2, 0],          # (1,1): odd column -> 4
+         [0, 0, 2]]
+    expected = _ref(np.array(g)).tolist()
+    assert expected == [[2, 0, 0], [0, 4, 0], [0, 0, 2]]
+    task = _make_task([(g, expected)])
+    model = solve_odd_col_recolor(task)
+    assert model is not None and hasattr(model, "graph")
+    sess = ort.InferenceSession(model.SerializeToString())
+    res = sess.run(["output"], {"input": to_onehot(g)})[0]
+    assert from_onehot((res > 0.5).astype(np.float32)) == expected
+
+
+def test_odd_col_recolor_rejects_nochange():
+    from neurogolf.solvers.odd_col_recolor import solve_odd_col_recolor
+    task = _make_task([([[2, 0], [0, 0]], [[2, 0], [0, 0]])])
+    assert solve_odd_col_recolor(task) is None

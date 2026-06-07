@@ -2009,11 +2009,11 @@
   },
   {
     "task": 252,
-    "solver": "none",
-    "saved": false,
-    "points": 0.0,
-    "memory": null,
-    "params": null
+    "solver": "solve_odd_col_recolor",
+    "saved": true,
+    "points": 13.314374113279872,
+    "memory": 118800,
+    "params": 51
   },
   {
     "task": 253,
