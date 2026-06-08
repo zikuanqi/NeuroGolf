@@ -3177,3 +3177,29 @@ def test_key_cycle_rejects_short():
     from neurogolf.solvers.key_cycle import solve_key_cycle
     task = _make_task([([[2, 1], [5, 5]], [[2, 1], [5, 5]])])
     assert solve_key_cycle(task) is None
+
+
+def test_laser_cross():
+    import numpy as np
+    import onnxruntime as ort
+    from neurogolf.grids import from_onehot, to_onehot
+    from neurogolf.solvers.laser_cross import solve_laser_cross, _ref
+
+    g = [[0, 0, 0, 0, 8, 0],          # 8 column at col 4, 2 row at row 2
+         [0, 0, 0, 0, 8, 0],
+         [2, 2, 0, 0, 0, 0],
+         [0, 0, 0, 0, 0, 0]]
+    expected = _ref(np.array(g)).tolist()
+    assert expected[2] == [2, 2, 2, 2, 4, 2] and expected[0][4] == 8 and expected[3][4] == 8
+    task = _make_task([(g, expected)])
+    model = solve_laser_cross(task)
+    assert model is not None and hasattr(model, "graph")
+    sess = ort.InferenceSession(model.SerializeToString())
+    res = sess.run(["output"], {"input": to_onehot(g)})[0]
+    assert from_onehot((res > 0.5).astype(np.float32)) == expected
+
+
+def test_laser_cross_rejects_no_pair():
+    from neurogolf.solvers.laser_cross import solve_laser_cross
+    task = _make_task([([[8, 0], [0, 0]], [[8, 0], [0, 0]])])
+    assert solve_laser_cross(task) is None

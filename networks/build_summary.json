@@ -2385,11 +2385,11 @@
   },
   {
     "task": 299,
-    "solver": "none",
-    "saved": false,
-    "points": 0.0,
-    "memory": null,
-    "params": null
+    "solver": "solve_laser_cross",
+    "saved": true,
+    "points": 12.547551768885766,
+    "memory": 255840,
+    "params": 36
   },
   {
     "task": 300,
