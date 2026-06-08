@@ -3072,3 +3072,28 @@ def test_ring_reverse_rejects_flat():
     from neurogolf.solvers.ring_reverse import solve_ring_reverse
     task = _make_task([([[1, 2], [3, 4]], [[1, 2], [3, 4]])])
     assert solve_ring_reverse(task) is None
+
+
+def test_corner_burst():
+    import numpy as np
+    import onnxruntime as ort
+    from neurogolf.grids import from_onehot, to_onehot
+    from neurogolf.solvers.corner_burst import solve_corner_burst, _ref
+
+    g = [[0, 0, 0],
+         [0, 2, 0],          # 2 bursts into 3/6/8/7 corners
+         [0, 0, 0]]
+    expected = _ref(np.array(g)).tolist()
+    assert expected == [[3, 0, 6], [0, 0, 0], [8, 0, 7]]
+    task = _make_task([(g, expected)])
+    model = solve_corner_burst(task)
+    assert model is not None and hasattr(model, "graph")
+    sess = ort.InferenceSession(model.SerializeToString())
+    res = sess.run(["output"], {"input": to_onehot(g)})[0]
+    assert from_onehot((res > 0.5).astype(np.float32)) == expected
+
+
+def test_corner_burst_rejects_no_two():
+    from neurogolf.solvers.corner_burst import solve_corner_burst
+    task = _make_task([([[0, 0], [0, 0]], [[0, 0], [0, 0]])])
+    assert solve_corner_burst(task) is None

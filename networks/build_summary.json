@@ -2121,11 +2121,11 @@
   },
   {
     "task": 266,
-    "solver": "none",
-    "saved": false,
-    "points": 0.0,
-    "memory": null,
-    "params": null
+    "solver": "solve_corner_burst",
+    "saved": true,
+    "points": 11.949175589777987,
+    "memory": 465376,
+    "params": 104
   },
   {
     "task": 267,

@@ -92,6 +92,7 @@ from .mirror_quad import solve_mirror_quad
 from .arrow_ray import solve_arrow_ray
 from .diag_shoot import solve_diag_shoot
 from .ring_reverse import solve_ring_reverse
+from .corner_burst import solve_corner_burst
 from .gravity_down import solve_gravity_down
 from .slide_to_wall import solve_slide_to_wall
 from .slide_to_line import solve_slide_to_line
@@ -285,6 +286,7 @@ ALL_SOLVERS: list[Solver] = [
     solve_arrow_ray,
     solve_diag_shoot,
     solve_ring_reverse,
+    solve_corner_burst,
     solve_periodic_fill,
     solve_conv3x3,
     solve_conv1x1_masked,
