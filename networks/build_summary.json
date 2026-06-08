@@ -2369,11 +2369,11 @@
   },
   {
     "task": 297,
-    "solver": "none",
-    "saved": false,
-    "points": 0.0,
-    "memory": null,
-    "params": null
+    "solver": "solve_key_cycle",
+    "saved": true,
+    "points": 13.619315332259495,
+    "memory": 87518,
+    "params": 95
   },
   {
     "task": 298,

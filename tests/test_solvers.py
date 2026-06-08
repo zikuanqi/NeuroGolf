@@ -3150,3 +3150,30 @@ def test_vperiod3_rejects_full():
     from neurogolf.solvers.vperiod3 import solve_vperiod3
     task = _make_task([([[5, 5], [5, 5]], [[5, 5], [5, 5]])])
     assert solve_vperiod3(task) is None
+
+
+def test_key_cycle():
+    import numpy as np
+    import onnxruntime as ort
+    from neurogolf.grids import from_onehot, to_onehot
+    from neurogolf.solvers.key_cycle import solve_key_cycle, _ref
+
+    g = [[2, 1, 4],          # key row + separator -> cycled solid bands
+         [5, 5, 5],
+         [0, 0, 0],
+         [0, 0, 0],
+         [0, 0, 0]]
+    expected = _ref(np.array(g)).tolist()
+    assert expected[2] == [2, 2, 2] and expected[3] == [1, 1, 1] and expected[4] == [4, 4, 4]
+    task = _make_task([(g, expected)])
+    model = solve_key_cycle(task)
+    assert model is not None and hasattr(model, "graph")
+    sess = ort.InferenceSession(model.SerializeToString())
+    res = sess.run(["output"], {"input": to_onehot(g)})[0]
+    assert from_onehot((res > 0.5).astype(np.float32)) == expected
+
+
+def test_key_cycle_rejects_short():
+    from neurogolf.solvers.key_cycle import solve_key_cycle
+    task = _make_task([([[2, 1], [5, 5]], [[2, 1], [5, 5]])])
+    assert solve_key_cycle(task) is None
