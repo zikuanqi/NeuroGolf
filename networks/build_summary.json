@@ -401,11 +401,11 @@
   },
   {
     "task": 51,
-    "solver": "none",
-    "saved": false,
-    "points": 0.0,
-    "memory": null,
-    "params": null
+    "solver": "solve_arrow_ray",
+    "saved": true,
+    "points": 12.622430844314705,
+    "memory": 237349,
+    "params": 67
   },
   {
     "task": 52,

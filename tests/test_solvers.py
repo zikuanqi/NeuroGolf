@@ -2991,3 +2991,30 @@ def test_mirror_quad_rejects_no_block():
     from neurogolf.solvers.mirror_quad import solve_mirror_quad
     task = _make_task([([[2, 0], [0, 0]], [[2, 0], [0, 0]])])
     assert solve_mirror_quad(task) is None
+
+
+def test_arrow_ray():
+    import numpy as np
+    import onnxruntime as ort
+    from neurogolf.grids import from_onehot, to_onehot
+    from neurogolf.solvers.arrow_ray import solve_arrow_ray, _ref
+
+    g = [[0, 2, 0, 0, 0],          # triangle of 2 points right; marker 1 at (2,0)
+         [2, 2, 0, 0, 0],
+         [1, 2, 2, 0, 0],
+         [2, 2, 0, 0, 0],
+         [0, 2, 0, 0, 0]]
+    expected = _ref(np.array(g)).tolist()
+    assert expected[2] == [1, 2, 2, 1, 1]
+    task = _make_task([(g, expected)])
+    model = solve_arrow_ray(task)
+    assert model is not None and hasattr(model, "graph")
+    sess = ort.InferenceSession(model.SerializeToString())
+    res = sess.run(["output"], {"input": to_onehot(g)})[0]
+    assert from_onehot((res > 0.5).astype(np.float32)) == expected
+
+
+def test_arrow_ray_rejects_no_marker():
+    from neurogolf.solvers.arrow_ray import solve_arrow_ray
+    task = _make_task([([[2, 2], [2, 2]], [[2, 2], [2, 2]])])
+    assert solve_arrow_ray(task) is None
