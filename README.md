@@ -13,7 +13,7 @@
 [![Tests](https://img.shields.io/badge/tests-234%20passing-brightgreen)](tests/)
 [![Tasks Solved](https://img.shields.io/badge/tasks_solved-175%2F400-blue)](networks/)
 [![Local Score](https://img.shields.io/badge/local_score-2389.93-success)](networks/build_summary.json)
-[![Public Score](https://img.shields.io/badge/public_score-2296.32-blue)](https://www.kaggle.com/competitions/neurogolf-2026)
+[![Public Score](https://img.shields.io/badge/public_score-2389.93-blue)](https://www.kaggle.com/competitions/neurogolf-2026)
 
 </div>
 
@@ -58,13 +58,13 @@
 |---|---|
 | **Tasks solved · 通过任务** | **175 / 400** |
 | **Local score · 本地总分** | **2389.93** — clean-room scorer over `build_summary.json` · 独立评分器统计 |
-| **Public score · 公开分数 (Kaggle)** | **2296.32** — leaderboard-confirmed at 167/400; tasks 168–175 built/verified locally, queued for the next daily reset · 已确认 167/400；168–175 已本地验证，待额度重置后提交 |
+| **Public score · 公开分数 (Kaggle)** | **2389.93** — leaderboard-confirmed at 175/400 (exact match to local) · 已确认 175/400（与本地完全一致） |
 | Solvers · 求解器 | 152, in 9 families · 共 152 个，分 9 类 |
 | Unit tests · 单元测试 | 234 passing · 234 个全部通过 |
 | Networks · 网络文件 | 157 × `networks/taskNNN.onnx` (one per solved task) · 每个解出任务一个 |
 
-> Local score is **2389.93 / 175 tasks**; the Kaggle leaderboard is confirmed at **2296.32 / 167** (matching local to ~0.01), with tasks 168–175 awaiting the next submission window. The v1 → v46 progression lives in [Submission history](#history).
-> 本地分数 **2389.93 / 175 解**；Kaggle 排行榜确认 **2296.32 / 167**（与本地一致，误差 ~0.01），168–175 待下次提交窗口。v1 → v46 进展见 [提交历史](#history)。
+> Local score is **2389.93 / 175 tasks**; the Kaggle leaderboard is confirmed at **2389.93 / 175** (exact match to local). The v1 → v46 progression lives in [Submission history](#history).
+> 本地分数 **2389.93 / 175 解**；Kaggle 排行榜确认 **2389.93 / 175**（与本地完全一致）。v1 → v46 进展见 [提交历史](#history)。
 
 ---
 
@@ -538,20 +538,20 @@ The suite covers the one-hot round-trip contract and, for each solver family, a 
 | v97 | + ring-reverse (203) | 165 | **2270.70** |
 | v98 | + corner-burst (266) | 166 | **2282.65** |
 | v99 | + col3-recolor (292) | 167 | **2296.32** |
-| v100 | + vperiod3 (215) | 168 | _2309.19 local · submit pending_ |
-| v101 | + key-cycle (297) | 169 | _2322.81 local · submit pending_ |
-| v102 | + laser-cross (299) | 170 | _2335.35 local · submit pending_ |
-| v103 | + enclosure-recolor (279, first CC) | 171 | _2345.85 local · submit pending_ |
-| v104 | + key-flood (354, CC) | 172 | _2357.10 local · submit pending_ |
-| v105 | + hole-size-fill (302, CC) | 173 | _2367.65 local · submit pending_ |
-| v106 | + hole-parity-fill (204, CC) | 174 | _2378.20 local · submit pending_ |
-| v107 | + blob-size-color (369, CC) | 175 | _2389.93 local · submit pending_ |
+| v100 | + vperiod3 (215) | 168 | _2309.19 local · folded into v107 batch_ |
+| v101 | + key-cycle (297) | 169 | _2322.81 local · folded into v107 batch_ |
+| v102 | + laser-cross (299) | 170 | _2335.35 local · folded into v107 batch_ |
+| v103 | + enclosure-recolor (279, first CC) | 171 | _2345.85 local · folded into v107 batch_ |
+| v104 | + key-flood (354, CC) | 172 | _2357.10 local · folded into v107 batch_ |
+| v105 | + hole-size-fill (302, CC) | 173 | _2367.65 local · folded into v107 batch_ |
+| v106 | + hole-parity-fill (204, CC) | 174 | _2378.20 local · folded into v107 batch_ |
+| v107 | + blob-size-color (369, CC) | 175 | **2389.93** |
 
 Bold = score confirmed on the Kaggle leaderboard; `~` = local estimate from `build_summary.json` (the local clean-room scorer matches the official score to two decimals).
 
-**Post-v46 (all Kaggle-confirmed).** v47 built out the **classification & feature-hash family** (family 9 — symmetry / shape / count / colour-count / position). v48–v52 then added a run of geometric & object solvers — shape-aware rotational tiling, diagonal rays, horizontal period extension, odd-one-out panels, two-seed stripes and object-slide — lifting the leaderboard score from **1294.40** to **1520.83 (107 / 400)**. v53+ (`downscale-majority`, `untile-half`, `slide-to-line`, `largest-comp-crop`, `diag-block-slide`, `project-to-block`, `framed-regions`, `diag-connect`, `stamp-top-row`, `plus-panels`, `rot180-repair`, `lattice-count`, `quadrant-crop`, `connect-box-markers`, `recolor-in-block`, `corner-rays`, `divider-fold`, `band-sort`, `interior-recolor`, `float-up`, `diag-x`, `staircase`, `box-stretch`, `gap-fill`, `merge-pair`, `cross-move`, `row-checker`, `five-isolate`, `colour-sort`, `rect-interior-rank`, `bbox-strip-zero`, `ring-recolor`, `interior-recolor-aware`, `line-cross-swap`, `explode-corners`, `l-connect`, `block-quadrant`, `move-toward`, `cut-diagonals`, `odd-panel-shape`, `band-majority`, `connect-pairs`, `panel-summary`, `column-template`, `fractal-blocks`, …) are on `main` and Kaggle-confirmed; the `diagonal-markers`, `odd-col-recolor`, `triangle-diag`, `pocket-drop`, `square-complete`, `midpoint-plus`, `elbow-connect`, `mirror-quad`, `arrow-ray`, `diag-shoot`, `ring-reverse`, `corner-burst` & `col3-recolor` batch (155–167) lifts the leaderboard to **2296.32 / 167** (matches local 2296.33 to ~0.01); `vperiod3`, `key-cycle`, `laser-cross`, `enclosure-recolor`, `key-flood`, `hole-size-fill`, `hole-parity-fill` & `blob-size-color` (168–175, **2389.93 local**; the last five are **connected-components** solvers via iterative flood-fill) are built and awaiting the next submission window. Per-solver details live in [Solvers by family](#solvers).
+**Post-v46 (all Kaggle-confirmed).** v47 built out the **classification & feature-hash family** (family 9 — symmetry / shape / count / colour-count / position). v48–v52 then added a run of geometric & object solvers — shape-aware rotational tiling, diagonal rays, horizontal period extension, odd-one-out panels, two-seed stripes and object-slide — lifting the leaderboard score from **1294.40** to **1520.83 (107 / 400)**. v53+ (`downscale-majority`, `untile-half`, `slide-to-line`, `largest-comp-crop`, `diag-block-slide`, `project-to-block`, `framed-regions`, `diag-connect`, `stamp-top-row`, `plus-panels`, `rot180-repair`, `lattice-count`, `quadrant-crop`, `connect-box-markers`, `recolor-in-block`, `corner-rays`, `divider-fold`, `band-sort`, `interior-recolor`, `float-up`, `diag-x`, `staircase`, `box-stretch`, `gap-fill`, `merge-pair`, `cross-move`, `row-checker`, `five-isolate`, `colour-sort`, `rect-interior-rank`, `bbox-strip-zero`, `ring-recolor`, `interior-recolor-aware`, `line-cross-swap`, `explode-corners`, `l-connect`, `block-quadrant`, `move-toward`, `cut-diagonals`, `odd-panel-shape`, `band-majority`, `connect-pairs`, `panel-summary`, `column-template`, `fractal-blocks`, …) are on `main` and Kaggle-confirmed; the `diagonal-markers`, `odd-col-recolor`, `triangle-diag`, `pocket-drop`, `square-complete`, `midpoint-plus`, `elbow-connect`, `mirror-quad`, `arrow-ray`, `diag-shoot`, `ring-reverse`, `corner-burst` & `col3-recolor` batch (155–167) lifts the leaderboard to **2296.32 / 167** (matches local 2296.33 to ~0.01); the `vperiod3`, `key-cycle`, `laser-cross`, `enclosure-recolor`, `key-flood`, `hole-size-fill`, `hole-parity-fill` & `blob-size-color` batch (168–175; the last five are **connected-components** solvers via iterative flood-fill) lifts the leaderboard to **2389.93 / 175** (exact match to local). Per-solver details live in [Solvers by family](#solvers).
 
-**v46 之后（均已在排行榜确认）。** v47 补全**分类与特征哈希家族**（第 9 类 —— 对称/形状/计数/色数/位置）；v48–v52 再加入一批几何与物体类求解器 —— 形状感知旋转拼接、对角射线、水平周期延展、四面板择异、双种子条纹、物体滑移 —— 将排行榜分数从 **1294.40** 提升到 **1520.83（107 / 400）**。v53 起（`downscale-majority`、`untile-half`、`slide-to-line`、`largest-comp-crop`、`diag-block-slide`、`project-to-block`、`framed-regions`、`diag-connect`、`stamp-top-row`、`plus-panels`、`rot180-repair`、`lattice-count`、`quadrant-crop`、`connect-box-markers`、`recolor-in-block`、`corner-rays`、`divider-fold`、`band-sort`、`interior-recolor`、`float-up`、`diag-x`、`staircase`、`box-stretch`、`gap-fill`、`merge-pair`、`cross-move`、`row-checker`、`five-isolate`、`colour-sort`、`rect-interior-rank`、`bbox-strip-zero`、`ring-recolor`、`interior-recolor-aware`、`line-cross-swap`、`explode-corners`、`l-connect`、`block-quadrant`、`move-toward`、`cut-diagonals`、`odd-panel-shape`、`band-majority`、`connect-pairs`、`panel-summary`、`column-template`、`fractal-blocks` 等）已合入 `main` 并经 Kaggle 确认；`diagonal-markers`、`odd-col-recolor`、`triangle-diag`、`pocket-drop`、`square-complete`、`midpoint-plus`、`elbow-connect`、`mirror-quad`、`arrow-ray`、`diag-shoot`、`ring-reverse`、`corner-burst`、`col3-recolor`（155–167）批次将排行榜提升到 **2296.32 / 167**（与本地 2296.33 一致）；`vperiod3`、`key-cycle`、`laser-cross`、`enclosure-recolor`、`key-flood`、`hole-size-fill`、`hole-parity-fill`、`blob-size-color`（168–175，**本地 2389.93**；后五个是**连通域**求解器，用迭代洪泛填充）已构建，待下次提交。各求解器详见 [求解器分类](#solvers)。
+**v46 之后（均已在排行榜确认）。** v47 补全**分类与特征哈希家族**（第 9 类 —— 对称/形状/计数/色数/位置）；v48–v52 再加入一批几何与物体类求解器 —— 形状感知旋转拼接、对角射线、水平周期延展、四面板择异、双种子条纹、物体滑移 —— 将排行榜分数从 **1294.40** 提升到 **1520.83（107 / 400）**。v53 起（`downscale-majority`、`untile-half`、`slide-to-line`、`largest-comp-crop`、`diag-block-slide`、`project-to-block`、`framed-regions`、`diag-connect`、`stamp-top-row`、`plus-panels`、`rot180-repair`、`lattice-count`、`quadrant-crop`、`connect-box-markers`、`recolor-in-block`、`corner-rays`、`divider-fold`、`band-sort`、`interior-recolor`、`float-up`、`diag-x`、`staircase`、`box-stretch`、`gap-fill`、`merge-pair`、`cross-move`、`row-checker`、`five-isolate`、`colour-sort`、`rect-interior-rank`、`bbox-strip-zero`、`ring-recolor`、`interior-recolor-aware`、`line-cross-swap`、`explode-corners`、`l-connect`、`block-quadrant`、`move-toward`、`cut-diagonals`、`odd-panel-shape`、`band-majority`、`connect-pairs`、`panel-summary`、`column-template`、`fractal-blocks` 等）已合入 `main` 并经 Kaggle 确认；`diagonal-markers`、`odd-col-recolor`、`triangle-diag`、`pocket-drop`、`square-complete`、`midpoint-plus`、`elbow-connect`、`mirror-quad`、`arrow-ray`、`diag-shoot`、`ring-reverse`、`corner-burst`、`col3-recolor`（155–167）批次将排行榜提升到 **2296.32 / 167**（与本地 2296.33 一致）；`vperiod3`、`key-cycle`、`laser-cross`、`enclosure-recolor`、`key-flood`、`hole-size-fill`、`hole-parity-fill`、`blob-size-color`（168–175；后五个是**连通域**求解器，用迭代洪泛填充）批次将排行榜提升到 **2389.93 / 175**（与本地完全一致）。各求解器详见 [求解器分类](#solvers)。
 
 </details>
 
