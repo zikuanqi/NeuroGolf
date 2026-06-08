@@ -2937,3 +2937,28 @@ def test_midpoint_plus_rejects_single():
     from neurogolf.solvers.midpoint_plus import solve_midpoint_plus
     task = _make_task([([[1, 0], [0, 0]], [[1, 0], [0, 0]])])
     assert solve_midpoint_plus(task) is None
+
+
+def test_elbow_connect():
+    import numpy as np
+    import onnxruntime as ort
+    from neurogolf.grids import from_onehot, to_onehot
+    from neurogolf.solvers.elbow_connect import solve_elbow_connect, _ref
+
+    g = [[0, 2, 0, 0],          # 2 at (0,1), 3 at (2,3)
+         [0, 0, 0, 0],
+         [0, 0, 0, 3]]
+    expected = _ref(np.array(g)).tolist()
+    assert expected[0] == [0, 2, 8, 8] and expected[1] == [0, 0, 0, 8] and expected[2] == [0, 0, 0, 3]
+    task = _make_task([(g, expected)])
+    model = solve_elbow_connect(task)
+    assert model is not None and hasattr(model, "graph")
+    sess = ort.InferenceSession(model.SerializeToString())
+    res = sess.run(["output"], {"input": to_onehot(g)})[0]
+    assert from_onehot((res > 0.5).astype(np.float32)) == expected
+
+
+def test_elbow_connect_rejects_no_three():
+    from neurogolf.solvers.elbow_connect import solve_elbow_connect
+    task = _make_task([([[2, 0], [0, 0]], [[2, 0], [0, 0]])])
+    assert solve_elbow_connect(task) is None

@@ -1961,11 +1961,11 @@
   },
   {
     "task": 246,
-    "solver": "none",
-    "saved": false,
-    "points": 0.0,
-    "memory": null,
-    "params": null
+    "solver": "solve_elbow_connect",
+    "saved": true,
+    "points": 13.214242175828327,
+    "memory": 131292,
+    "params": 76
   },
   {
     "task": 247,
