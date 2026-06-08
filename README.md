@@ -13,7 +13,7 @@
 [![Tests](https://img.shields.io/badge/tests-126%20passing-brightgreen)](tests/)
 [![Tasks Solved](https://img.shields.io/badge/tasks_solved-164%2F400-blue)](networks/)
 [![Local Score](https://img.shields.io/badge/local_score-2257.26-success)](networks/build_summary.json)
-[![Public Score](https://img.shields.io/badge/public_score-2128.66-blue)](https://www.kaggle.com/competitions/neurogolf-2026)
+[![Public Score](https://img.shields.io/badge/public_score-2257.25-blue)](https://www.kaggle.com/competitions/neurogolf-2026)
 
 </div>
 
@@ -58,13 +58,13 @@
 |---|---|
 | **Tasks solved · 通过任务** | **164 / 400** |
 | **Local score · 本地总分** | **2257.26** — clean-room scorer over `build_summary.json` · 独立评分器统计 |
-| **Public score · 公开分数 (Kaggle)** | **2128.66** — leaderboard-confirmed at 154/400; tasks 155–164 (diagonal-markers, odd-col-recolor, triangle-diag, pocket-drop, square-complete, midpoint-plus, elbow-connect, mirror-quad, arrow-ray, diag-shoot) are built/verified locally, submission queued for the next daily reset · 已确认 154/400；155–164 已本地验证，待额度重置后提交 |
+| **Public score · 公开分数 (Kaggle)** | **2257.25** — leaderboard-confirmed at 164/400, matching local 2257.26 to ~0.01 · 已确认 164/400，与本地 2257.26 一致（误差 ~0.01） |
 | Solvers · 求解器 | 141, in 9 families · 共 141 个，分 9 类 |
 | Unit tests · 单元测试 | 212 passing · 212 个全部通过 |
 | Networks · 网络文件 | 157 × `networks/taskNNN.onnx` (one per solved task) · 每个解出任务一个 |
 
-> Local score is **2257.26 / 164 tasks**; the Kaggle leaderboard is confirmed at **2128.66 / 154** (matching local to ~0.01), with tasks 155–164 awaiting the next submission window. The v1 → v46 progression lives in [Submission history](#history).
-> 本地分数 **2257.26 / 164 解**；Kaggle 排行榜确认 **2128.66 / 154**（与本地一致，误差 ~0.01），155–164 待下次提交窗口。v1 → v46 进展见 [提交历史](#history)。
+> Local score is **2257.26 / 164 tasks**; the Kaggle leaderboard is confirmed at **2257.25 / 164** (matching local to ~0.01). The v1 → v46 progression lives in [Submission history](#history).
+> 本地分数 **2257.26 / 164 解**；Kaggle 排行榜确认 **2257.25 / 164**（与本地一致，误差 ~0.01）。v1 → v46 进展见 [提交历史](#history)。
 
 ---
 
@@ -514,22 +514,22 @@ The suite covers the one-hot round-trip contract and, for each solver family, a 
 | v84 | + panel-summary (184) | 151 | 2086.49 |
 | v85 | + column-template (197) | 152 | 2100.52 |
 | v86 | + fractal-blocks (195, 217) | 154 | **2128.66** |
-| v87 | + diagonal-markers (230) | 155 | _2140.73 local · submit pending_ |
-| v88 | + odd-col-recolor (252) | 156 | _2154.04 local · submit pending_ |
-| v89 | + triangle-diag (256) | 157 | _2166.58 local · submit pending_ |
-| v90 | + pocket-drop (126) | 158 | _2179.86 local · submit pending_ |
-| v91 | + square-complete (81) | 159 | _2192.75 local · submit pending_ |
-| v92 | + midpoint-plus (371) | 160 | _2206.19 local · submit pending_ |
-| v93 | + elbow-connect (246) | 161 | _2219.40 local · submit pending_ |
-| v94 | + mirror-quad (112) | 162 | _2232.64 local · submit pending_ |
-| v95 | + arrow-ray (51) | 163 | _2245.26 local · submit pending_ |
-| v96 | + diag-shoot (190) | 164 | _2257.26 local · submit pending_ |
+| v87 | + diagonal-markers (230) | 155 | _2140.73 local · folded into v89 batch_ |
+| v88 | + odd-col-recolor (252) | 156 | _2154.04 local · folded into v89 batch_ |
+| v89 | + triangle-diag (256) | 157 | **2166.58** |
+| v90 | + pocket-drop (126) | 158 | _2179.86 local · folded into v96 batch_ |
+| v91 | + square-complete (81) | 159 | _2192.75 local · folded into v96 batch_ |
+| v92 | + midpoint-plus (371) | 160 | _2206.19 local · folded into v96 batch_ |
+| v93 | + elbow-connect (246) | 161 | _2219.40 local · folded into v96 batch_ |
+| v94 | + mirror-quad (112) | 162 | _2232.64 local · folded into v96 batch_ |
+| v95 | + arrow-ray (51) | 163 | _2245.26 local · folded into v96 batch_ |
+| v96 | + diag-shoot (190) | 164 | **2257.25** |
 
 Bold = score confirmed on the Kaggle leaderboard; `~` = local estimate from `build_summary.json` (the local clean-room scorer matches the official score to two decimals).
 
-**Post-v46 (all Kaggle-confirmed).** v47 built out the **classification & feature-hash family** (family 9 — symmetry / shape / count / colour-count / position). v48–v52 then added a run of geometric & object solvers — shape-aware rotational tiling, diagonal rays, horizontal period extension, odd-one-out panels, two-seed stripes and object-slide — lifting the leaderboard score from **1294.40** to **1520.83 (107 / 400)**. v53+ (`downscale-majority`, `untile-half`, `slide-to-line`, `largest-comp-crop`, `diag-block-slide`, `project-to-block`, `framed-regions`, `diag-connect`, `stamp-top-row`, `plus-panels`, `rot180-repair`, `lattice-count`, `quadrant-crop`, `connect-box-markers`, `recolor-in-block`, `corner-rays`, `divider-fold`, `band-sort`, `interior-recolor`, `float-up`, `diag-x`, `staircase`, `box-stretch`, `gap-fill`, `merge-pair`, `cross-move`, `row-checker`, `five-isolate`, `colour-sort`, `rect-interior-rank`, `bbox-strip-zero`, `ring-recolor`, `interior-recolor-aware`, `line-cross-swap`, `explode-corners`, `l-connect`, `block-quadrant`, `move-toward`, `cut-diagonals`, `odd-panel-shape`, `band-majority`, `connect-pairs`, `panel-summary`, `column-template`, `fractal-blocks`, …) are on `main` and Kaggle-confirmed at **2128.66 / 154** (local 2128.67, ~0.01); `diagonal-markers`, `odd-col-recolor`, `triangle-diag`, `pocket-drop`, `square-complete`, `midpoint-plus`, `elbow-connect`, `mirror-quad`, `arrow-ray` & `diag-shoot` (155–164, **2257.26 local**) are built and awaiting the next submission window. Per-solver details live in [Solvers by family](#solvers).
+**Post-v46 (all Kaggle-confirmed).** v47 built out the **classification & feature-hash family** (family 9 — symmetry / shape / count / colour-count / position). v48–v52 then added a run of geometric & object solvers — shape-aware rotational tiling, diagonal rays, horizontal period extension, odd-one-out panels, two-seed stripes and object-slide — lifting the leaderboard score from **1294.40** to **1520.83 (107 / 400)**. v53+ (`downscale-majority`, `untile-half`, `slide-to-line`, `largest-comp-crop`, `diag-block-slide`, `project-to-block`, `framed-regions`, `diag-connect`, `stamp-top-row`, `plus-panels`, `rot180-repair`, `lattice-count`, `quadrant-crop`, `connect-box-markers`, `recolor-in-block`, `corner-rays`, `divider-fold`, `band-sort`, `interior-recolor`, `float-up`, `diag-x`, `staircase`, `box-stretch`, `gap-fill`, `merge-pair`, `cross-move`, `row-checker`, `five-isolate`, `colour-sort`, `rect-interior-rank`, `bbox-strip-zero`, `ring-recolor`, `interior-recolor-aware`, `line-cross-swap`, `explode-corners`, `l-connect`, `block-quadrant`, `move-toward`, `cut-diagonals`, `odd-panel-shape`, `band-majority`, `connect-pairs`, `panel-summary`, `column-template`, `fractal-blocks`, …) are on `main` and Kaggle-confirmed; the `diagonal-markers`, `odd-col-recolor`, `triangle-diag`, `pocket-drop`, `square-complete`, `midpoint-plus`, `elbow-connect`, `mirror-quad`, `arrow-ray` & `diag-shoot` batch (155–164) lifts the leaderboard to **2257.25 / 164** (local 2257.26, ~0.01). Per-solver details live in [Solvers by family](#solvers).
 
-**v46 之后（均已在排行榜确认）。** v47 补全**分类与特征哈希家族**（第 9 类 —— 对称/形状/计数/色数/位置）；v48–v52 再加入一批几何与物体类求解器 —— 形状感知旋转拼接、对角射线、水平周期延展、四面板择异、双种子条纹、物体滑移 —— 将排行榜分数从 **1294.40** 提升到 **1520.83（107 / 400）**。v53 起（`downscale-majority`、`untile-half`、`slide-to-line`、`largest-comp-crop`、`diag-block-slide`、`project-to-block`、`framed-regions`、`diag-connect`、`stamp-top-row`、`plus-panels`、`rot180-repair`、`lattice-count`、`quadrant-crop`、`connect-box-markers`、`recolor-in-block`、`corner-rays`、`divider-fold`、`band-sort`、`interior-recolor`、`float-up`、`diag-x`、`staircase`、`box-stretch`、`gap-fill`、`merge-pair`、`cross-move`、`row-checker`、`five-isolate`、`colour-sort`、`rect-interior-rank`、`bbox-strip-zero`、`ring-recolor`、`interior-recolor-aware`、`line-cross-swap`、`explode-corners`、`l-connect`、`block-quadrant`、`move-toward`、`cut-diagonals`、`odd-panel-shape`、`band-majority`、`connect-pairs`、`panel-summary`、`column-template`、`fractal-blocks` 等）已合入 `main` 并经 Kaggle 确认，分数 **2128.66 / 154**（本地 2128.67，误差 ~0.01）；`diagonal-markers`、`odd-col-recolor`、`triangle-diag`、`pocket-drop`、`square-complete`、`midpoint-plus`、`elbow-connect`、`mirror-quad`、`arrow-ray`、`diag-shoot`（155–164，**本地 2257.26**）已构建，待下次提交。各求解器详见 [求解器分类](#solvers)。
+**v46 之后（均已在排行榜确认）。** v47 补全**分类与特征哈希家族**（第 9 类 —— 对称/形状/计数/色数/位置）；v48–v52 再加入一批几何与物体类求解器 —— 形状感知旋转拼接、对角射线、水平周期延展、四面板择异、双种子条纹、物体滑移 —— 将排行榜分数从 **1294.40** 提升到 **1520.83（107 / 400）**。v53 起（`downscale-majority`、`untile-half`、`slide-to-line`、`largest-comp-crop`、`diag-block-slide`、`project-to-block`、`framed-regions`、`diag-connect`、`stamp-top-row`、`plus-panels`、`rot180-repair`、`lattice-count`、`quadrant-crop`、`connect-box-markers`、`recolor-in-block`、`corner-rays`、`divider-fold`、`band-sort`、`interior-recolor`、`float-up`、`diag-x`、`staircase`、`box-stretch`、`gap-fill`、`merge-pair`、`cross-move`、`row-checker`、`five-isolate`、`colour-sort`、`rect-interior-rank`、`bbox-strip-zero`、`ring-recolor`、`interior-recolor-aware`、`line-cross-swap`、`explode-corners`、`l-connect`、`block-quadrant`、`move-toward`、`cut-diagonals`、`odd-panel-shape`、`band-majority`、`connect-pairs`、`panel-summary`、`column-template`、`fractal-blocks` 等）已合入 `main` 并经 Kaggle 确认；`diagonal-markers`、`odd-col-recolor`、`triangle-diag`、`pocket-drop`、`square-complete`、`midpoint-plus`、`elbow-connect`、`mirror-quad`、`arrow-ray`、`diag-shoot`（155–164）批次将排行榜提升到 **2257.25 / 164**（本地 2257.26，误差 ~0.01）。各求解器详见 [求解器分类](#solvers)。
 
 </details>
 
