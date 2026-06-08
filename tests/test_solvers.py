@@ -3097,3 +3097,28 @@ def test_corner_burst_rejects_no_two():
     from neurogolf.solvers.corner_burst import solve_corner_burst
     task = _make_task([([[0, 0], [0, 0]], [[0, 0], [0, 0]])])
     assert solve_corner_burst(task) is None
+
+
+def test_col3_recolor():
+    import numpy as np
+    import onnxruntime as ort
+    from neurogolf.grids import from_onehot, to_onehot
+    from neurogolf.solvers.col3_recolor import solve_col3_recolor, _ref
+
+    g = [[4, 0, 4, 0, 4, 0, 4],          # 4-cells in cols 0,3,6 -> 6
+         [4, 4, 4, 4, 4, 4, 4],
+         [0, 4, 0, 4, 0, 4, 0]]
+    expected = _ref(np.array(g)).tolist()
+    assert expected[0] == [6, 0, 4, 0, 4, 0, 6] and expected[1] == [6, 4, 4, 6, 4, 4, 6]
+    task = _make_task([(g, expected)])
+    model = solve_col3_recolor(task)
+    assert model is not None and hasattr(model, "graph")
+    sess = ort.InferenceSession(model.SerializeToString())
+    res = sess.run(["output"], {"input": to_onehot(g)})[0]
+    assert from_onehot((res > 0.5).astype(np.float32)) == expected
+
+
+def test_col3_recolor_rejects_no_match():
+    from neurogolf.solvers.col3_recolor import solve_col3_recolor
+    task = _make_task([([[0, 4], [0, 4]], [[0, 4], [0, 4]])])
+    assert solve_col3_recolor(task) is None

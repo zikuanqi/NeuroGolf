@@ -2329,11 +2329,11 @@
   },
   {
     "task": 292,
-    "solver": "none",
-    "saved": false,
-    "points": 0.0,
-    "memory": null,
-    "params": null
+    "solver": "solve_col3_recolor",
+    "saved": true,
+    "points": 13.675285399803958,
+    "memory": 82800,
+    "params": 44
   },
   {
     "task": 293,
