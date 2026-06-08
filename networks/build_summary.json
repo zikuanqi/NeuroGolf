@@ -1713,11 +1713,11 @@
   },
   {
     "task": 215,
-    "solver": "none",
-    "saved": false,
-    "points": 0.0,
-    "memory": null,
-    "params": null
+    "solver": "solve_vperiod3",
+    "saved": true,
+    "points": 12.858833943336014,
+    "memory": 187330,
+    "params": 101
   },
   {
     "task": 216,
