@@ -3314,3 +3314,28 @@ def test_hole_parity_fill_rejects_open():
     task = _make_task([([[0, 0, 0], [0, 1, 0], [0, 0, 0]],
                         [[0, 0, 0], [0, 1, 0], [0, 0, 0]])])
     assert solve_hole_parity_fill(task) is None
+
+
+def test_blob_size_color():
+    import numpy as np
+    import onnxruntime as ort
+    from neurogolf.grids import from_onehot, to_onehot
+    from neurogolf.solvers.blob_size_color import solve_blob_size_color, _ref
+
+    g = [[5, 5, 5, 5, 5],          # blob size1@(1,1)->3, size2@(1,3-4)->2
+         [5, 0, 5, 0, 0],
+         [5, 5, 5, 5, 5]]
+    expected = _ref(np.array(g)).tolist()
+    assert expected[1] == [5, 3, 5, 2, 2]
+    task = _make_task([(g, expected)])
+    model = solve_blob_size_color(task)
+    assert model is not None and hasattr(model, "graph")
+    sess = ort.InferenceSession(model.SerializeToString())
+    res = sess.run(["output"], {"input": to_onehot(g)})[0]
+    assert from_onehot((res > 0.5).astype(np.float32)) == expected
+
+
+def test_blob_size_color_rejects_uniform():
+    from neurogolf.solvers.blob_size_color import solve_blob_size_color
+    task = _make_task([([[5, 5], [5, 5]], [[5, 5], [5, 5]])])
+    assert solve_blob_size_color(task) is None

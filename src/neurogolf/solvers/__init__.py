@@ -101,6 +101,7 @@ from .enclosure_recolor import solve_enclosure_recolor
 from .key_flood import solve_key_flood
 from .hole_size_fill import solve_hole_size_fill
 from .hole_parity_fill import solve_hole_parity_fill
+from .blob_size_color import solve_blob_size_color
 from .gravity_down import solve_gravity_down
 from .slide_to_wall import solve_slide_to_wall
 from .slide_to_line import solve_slide_to_line
@@ -303,6 +304,7 @@ ALL_SOLVERS: list[Solver] = [
     solve_key_flood,
     solve_hole_size_fill,
     solve_hole_parity_fill,
+    solve_blob_size_color,
     solve_periodic_fill,
     solve_conv3x3,
     solve_conv1x1_masked,

@@ -2945,11 +2945,11 @@
   },
   {
     "task": 369,
-    "solver": "none",
-    "saved": false,
-    "points": 0.0,
-    "memory": null,
-    "params": null
+    "solver": "solve_blob_size_color",
+    "saved": true,
+    "points": 11.731500257482256,
+    "memory": 578618,
+    "params": 59
   },
   {
     "task": 370,
