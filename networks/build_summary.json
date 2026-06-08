@@ -889,11 +889,11 @@
   },
   {
     "task": 112,
-    "solver": "none",
-    "saved": false,
-    "points": 0.0,
-    "memory": null,
-    "params": null
+    "solver": "solve_mirror_quad",
+    "saved": true,
+    "points": 13.236642718358146,
+    "memory": 128308,
+    "params": 150
   },
   {
     "task": 113,

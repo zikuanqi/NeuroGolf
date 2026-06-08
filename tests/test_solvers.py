@@ -2962,3 +2962,32 @@ def test_elbow_connect_rejects_no_three():
     from neurogolf.solvers.elbow_connect import solve_elbow_connect
     task = _make_task([([[2, 0], [0, 0]], [[2, 0], [0, 0]])])
     assert solve_elbow_connect(task) is None
+
+
+def test_mirror_quad():
+    import numpy as np
+    import onnxruntime as ort
+    from neurogolf.grids import from_onehot, to_onehot
+    from neurogolf.solvers.mirror_quad import solve_mirror_quad, _ref
+
+    g = [[2, 2, 0, 0, 0, 0],          # 2-L at top-left, 3-block centre (2.5, 2.5)
+         [2, 0, 0, 0, 0, 0],
+         [0, 0, 3, 3, 0, 0],
+         [0, 0, 3, 3, 0, 0],
+         [0, 0, 0, 0, 0, 0],
+         [0, 0, 0, 0, 0, 0]]
+    expected = _ref(np.array(g)).tolist()
+    assert expected[0] == [2, 2, 0, 0, 2, 2] and expected[5] == [2, 2, 0, 0, 2, 2]
+    assert expected[2] == [0, 0, 3, 3, 0, 0]
+    task = _make_task([(g, expected)])
+    model = solve_mirror_quad(task)
+    assert model is not None and hasattr(model, "graph")
+    sess = ort.InferenceSession(model.SerializeToString())
+    res = sess.run(["output"], {"input": to_onehot(g)})[0]
+    assert from_onehot((res > 0.5).astype(np.float32)) == expected
+
+
+def test_mirror_quad_rejects_no_block():
+    from neurogolf.solvers.mirror_quad import solve_mirror_quad
+    task = _make_task([([[2, 0], [0, 0]], [[2, 0], [0, 0]])])
+    assert solve_mirror_quad(task) is None
