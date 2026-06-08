@@ -3046,3 +3046,29 @@ def test_diag_shoot_rejects_no_satellite():
     from neurogolf.solvers.diag_shoot import solve_diag_shoot
     task = _make_task([([[3, 3], [3, 3]], [[3, 3], [3, 3]])])
     assert solve_diag_shoot(task) is None
+
+
+def test_ring_reverse():
+    import numpy as np
+    import onnxruntime as ort
+    from neurogolf.grids import from_onehot, to_onehot
+    from neurogolf.solvers.ring_reverse import solve_ring_reverse, _ref
+
+    g = [[4, 4, 4, 4],          # outer ring 4, inner 2 -> swapped
+         [4, 2, 2, 4],
+         [4, 2, 2, 4],
+         [4, 4, 4, 4]]
+    expected = _ref(np.array(g)).tolist()
+    assert expected[0] == [2, 2, 2, 2] and expected[1] == [2, 4, 4, 2]
+    task = _make_task([(g, expected)])
+    model = solve_ring_reverse(task)
+    assert model is not None and hasattr(model, "graph")
+    sess = ort.InferenceSession(model.SerializeToString())
+    res = sess.run(["output"], {"input": to_onehot(g)})[0]
+    assert from_onehot((res > 0.5).astype(np.float32)) == expected
+
+
+def test_ring_reverse_rejects_flat():
+    from neurogolf.solvers.ring_reverse import solve_ring_reverse
+    task = _make_task([([[1, 2], [3, 4]], [[1, 2], [3, 4]])])
+    assert solve_ring_reverse(task) is None

@@ -1617,11 +1617,11 @@
   },
   {
     "task": 203,
-    "solver": "none",
-    "saved": false,
-    "points": 0.0,
-    "memory": null,
-    "params": null
+    "solver": "solve_ring_reverse",
+    "saved": true,
+    "points": 13.448469395918705,
+    "memory": 102972,
+    "params": 964
   },
   {
     "task": 204,
