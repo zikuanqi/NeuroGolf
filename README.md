@@ -10,10 +10,10 @@
 [![Kaggle](https://img.shields.io/badge/Kaggle-NeuroGolf%202026-20BEFF?logo=kaggle&logoColor=white)](https://www.kaggle.com/competitions/neurogolf-2026)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![Last Commit](https://img.shields.io/github/last-commit/zikuanqi/NeuroGolf)](https://github.com/zikuanqi/NeuroGolf/commits/main)
-[![Tests](https://img.shields.io/badge/tests-126%20passing-brightgreen)](tests/)
-[![Tasks Solved](https://img.shields.io/badge/tasks_solved-166%2F400-blue)](networks/)
-[![Local Score](https://img.shields.io/badge/local_score-2282.65-success)](networks/build_summary.json)
-[![Public Score](https://img.shields.io/badge/public_score-2282.65-blue)](https://www.kaggle.com/competitions/neurogolf-2026)
+[![Tests](https://img.shields.io/badge/tests-218%20passing-brightgreen)](tests/)
+[![Tasks Solved](https://img.shields.io/badge/tasks_solved-167%2F400-blue)](networks/)
+[![Local Score](https://img.shields.io/badge/local_score-2296.33-success)](networks/build_summary.json)
+[![Public Score](https://img.shields.io/badge/public_score-2296.32-blue)](https://www.kaggle.com/competitions/neurogolf-2026)
 
 </div>
 
@@ -56,15 +56,15 @@
 
 | Metric · 指标 | Value · 数值 |
 |---|---|
-| **Tasks solved · 通过任务** | **166 / 400** |
-| **Local score · 本地总分** | **2282.65** — clean-room scorer over `build_summary.json` · 独立评分器统计 |
-| **Public score · 公开分数 (Kaggle)** | **2282.65** — leaderboard-confirmed at 166/400 (exact match to local) · 已确认 166/400（与本地一致） |
-| Solvers · 求解器 | 143, in 9 families · 共 143 个，分 9 类 |
-| Unit tests · 单元测试 | 216 passing · 216 个全部通过 |
+| **Tasks solved · 通过任务** | **167 / 400** |
+| **Local score · 本地总分** | **2296.33** — clean-room scorer over `build_summary.json` · 独立评分器统计 |
+| **Public score · 公开分数 (Kaggle)** | **2296.32** — leaderboard-confirmed at 167/400 (matches local 2296.33 to ~0.01) · 已确认 167/400（与本地 2296.33 一致） |
+| Solvers · 求解器 | 144, in 9 families · 共 144 个，分 9 类 |
+| Unit tests · 单元测试 | 218 passing · 218 个全部通过 |
 | Networks · 网络文件 | 157 × `networks/taskNNN.onnx` (one per solved task) · 每个解出任务一个 |
 
-> Local score is **2282.65 / 166 tasks**; the Kaggle leaderboard is confirmed at **2282.65 / 166** (exact match to local). The v1 → v46 progression lives in [Submission history](#history).
-> 本地分数 **2282.65 / 166 解**；Kaggle 排行榜确认 **2282.65 / 166**（与本地完全一致）。v1 → v46 进展见 [提交历史](#history)。
+> Local score is **2296.33 / 167 tasks**; the Kaggle leaderboard is confirmed at **2296.32 / 167** (matching local to ~0.01). The v1 → v46 progression lives in [Submission history](#history).
+> 本地分数 **2296.33 / 167 解**；Kaggle 排行榜确认 **2296.32 / 167**（与本地一致，误差 ~0.01）。v1 → v46 进展见 [提交历史](#history)。
 
 ---
 
@@ -79,7 +79,7 @@ ARC task (JSON)
       ▼                                  channel = colour 0‑9; real grid top‑left, rest 0‑padded
  ┌────────────────────────────────────────────────────────────────────────┐
  │  pipeline.build_one(task)                                              │
- │    for solver in ALL_SOLVERS:          ~143 pattern‑specific solvers   │
+ │    for solver in ALL_SOLVERS:          ~144 pattern‑specific solvers   │
  │        model = solver(task)            None if the pattern doesn't fit │
  │        score = verify(model, task)     clean‑room official scorer      │
  │    keep the highest‑scoring model that passes EVERY example            │
@@ -136,9 +136,9 @@ python scripts/submit.py submissions/submission.zip "describe your run"
 
 ## 🧩 Solvers by family · 求解器分类
 
-143 solvers in 9 families. Each is verified against the official scorer; `Params` is the parameter count of a representative network (it can vary slightly per task because detected constants differ). A few solvers are registered as capabilities but currently win no task (dominated or non-matching on the present set); these are marked `—†`.
+144 solvers in 9 families. Each is verified against the official scorer; `Params` is the parameter count of a representative network (it can vary slightly per task because detected constants differ). A few solvers are registered as capabilities but currently win no task (dominated or non-matching on the present set); these are marked `—†`.
 
-143 个求解器分为 9 类。`Params` 列为代表性网络的参数量（不同任务因检测出的常量不同会略有差异）。少数求解器已登记但当前未中标（被更省的求解器击败或不匹配现有任务），以 `—†` 标记。
+144 个求解器分为 9 类。`Params` 列为代表性网络的参数量（不同任务因检测出的常量不同会略有差异）。少数求解器已登记但当前未中标（被更省的求解器击败或不匹配现有任务），以 `—†` 标记。
 
 ### 1 · Rigid moves — identity, flip, rotate, transpose, shift · 刚性变换
 
@@ -229,6 +229,7 @@ python scripts/submit.py submissions/submission.zip "describe your run"
 | `solve_diag_shoot` | satellite cells off a 2×2 block shoot diagonal rays away from it to the edge (task 190) · 方块旁的卫星格朝外射出对角射线 | isolated-cell + diagonal-neighbour split into 4 directions → log-step doubling-scan propagation → paint runtime colour | ~3 |
 | `solve_ring_reverse` | reverse the colour order of concentric square rings (task 203) · 同心方环颜色顺序反转 | ring depth `d`, diagonal palette `in[k,k]` → `Gather` by mirror depth `D−d` | ~3 |
 | `solve_corner_burst` | a 2-marker bursts into four fixed-colour diagonal corners (UL 3 / UR 6 / DL 8 / DR 7) (task 266) · 2 标记炸成四个对角定色角 | four diagonal Pad+Slice shifts of the 2-mask → paint `e_3/e_6/e_8/e_7`, clear the 2 | ~5 |
+| `solve_col3_recolor` | recolour colour-4 cells in every third column (col % 3 == 0) to 6 (task 292) · 每隔三列的 4 改为 6 | baked column mask `col%3==0` × channel-4 mask → paint `e_6` | ~6 |
 | `solve_blob_recolor` | two non-bg colours: repaint the majority "blob" with the rarer "key" colour, clear the rest · 用稀有色重涂多数团块 | `ReduceSum` counts+`Equal`+`Greater`+`Sub`/`Mul`/`Add` | ~21 |
 | `solve_recolor_fives` | repaint every colour-5 cell with its row's marker colour · 颜色-5 取所在行标记色 | `Gather`(ch5)+`ReduceMax`(row marker)+`Sub`/`Mul`/`Add` | ~21 |
 | `solve_filled_rect` | replace a monochromatic filled rectangle with a new colour (or crop it) · 纯色矩形替换/裁剪 | constant output via `Sub`+`Add` | ~9k |
@@ -372,7 +373,7 @@ NeuroGolf/
 │   ├── onnx_ops.py       # ONNX graph helpers             · ONNX 图构建辅助
 │   ├── verify.py         # clean-room official scorer      · 评分器独立实现
 │   ├── pipeline.py       # run all solvers, keep the best  · 求解器调度
-│   └── solvers/          # 143 pattern-specific solvers    · 各类求解器
+│   └── solvers/          # 144 pattern-specific solvers    · 各类求解器
 │       ├── __init__.py   #   ALL_SOLVERS registry          · 求解器登记表
 │       └── *.py          #   one module per solver family
 ├── scripts/
@@ -412,7 +413,7 @@ NeuroGolf/
 ## 🔬 Tests · 单元测试
 
 ```bash
-python -m pytest tests/ -q        # 216 passing
+python -m pytest tests/ -q        # 218 passing
 ```
 
 The suite covers the one-hot round-trip contract and, for each solver family, a **positive** case (the built network reproduces the expected grid through ONNX Runtime) plus a **negative** case (the solver declines a task outside its pattern).
@@ -528,12 +529,13 @@ The suite covers the one-hot round-trip contract and, for each solver family, a 
 | v96 | + diag-shoot (190) | 164 | **2257.25** |
 | v97 | + ring-reverse (203) | 165 | **2270.70** |
 | v98 | + corner-burst (266) | 166 | **2282.65** |
+| v99 | + col3-recolor (292) | 167 | **2296.32** |
 
 Bold = score confirmed on the Kaggle leaderboard; `~` = local estimate from `build_summary.json` (the local clean-room scorer matches the official score to two decimals).
 
-**Post-v46 (all Kaggle-confirmed).** v47 built out the **classification & feature-hash family** (family 9 — symmetry / shape / count / colour-count / position). v48–v52 then added a run of geometric & object solvers — shape-aware rotational tiling, diagonal rays, horizontal period extension, odd-one-out panels, two-seed stripes and object-slide — lifting the leaderboard score from **1294.40** to **1520.83 (107 / 400)**. v53+ (`downscale-majority`, `untile-half`, `slide-to-line`, `largest-comp-crop`, `diag-block-slide`, `project-to-block`, `framed-regions`, `diag-connect`, `stamp-top-row`, `plus-panels`, `rot180-repair`, `lattice-count`, `quadrant-crop`, `connect-box-markers`, `recolor-in-block`, `corner-rays`, `divider-fold`, `band-sort`, `interior-recolor`, `float-up`, `diag-x`, `staircase`, `box-stretch`, `gap-fill`, `merge-pair`, `cross-move`, `row-checker`, `five-isolate`, `colour-sort`, `rect-interior-rank`, `bbox-strip-zero`, `ring-recolor`, `interior-recolor-aware`, `line-cross-swap`, `explode-corners`, `l-connect`, `block-quadrant`, `move-toward`, `cut-diagonals`, `odd-panel-shape`, `band-majority`, `connect-pairs`, `panel-summary`, `column-template`, `fractal-blocks`, …) are on `main` and Kaggle-confirmed; the `diagonal-markers`, `odd-col-recolor`, `triangle-diag`, `pocket-drop`, `square-complete`, `midpoint-plus`, `elbow-connect`, `mirror-quad`, `arrow-ray`, `diag-shoot`, `ring-reverse` & `corner-burst` batch (155–166) lifts the leaderboard to **2282.65 / 166** (exact match to local). Per-solver details live in [Solvers by family](#solvers).
+**Post-v46 (all Kaggle-confirmed).** v47 built out the **classification & feature-hash family** (family 9 — symmetry / shape / count / colour-count / position). v48–v52 then added a run of geometric & object solvers — shape-aware rotational tiling, diagonal rays, horizontal period extension, odd-one-out panels, two-seed stripes and object-slide — lifting the leaderboard score from **1294.40** to **1520.83 (107 / 400)**. v53+ (`downscale-majority`, `untile-half`, `slide-to-line`, `largest-comp-crop`, `diag-block-slide`, `project-to-block`, `framed-regions`, `diag-connect`, `stamp-top-row`, `plus-panels`, `rot180-repair`, `lattice-count`, `quadrant-crop`, `connect-box-markers`, `recolor-in-block`, `corner-rays`, `divider-fold`, `band-sort`, `interior-recolor`, `float-up`, `diag-x`, `staircase`, `box-stretch`, `gap-fill`, `merge-pair`, `cross-move`, `row-checker`, `five-isolate`, `colour-sort`, `rect-interior-rank`, `bbox-strip-zero`, `ring-recolor`, `interior-recolor-aware`, `line-cross-swap`, `explode-corners`, `l-connect`, `block-quadrant`, `move-toward`, `cut-diagonals`, `odd-panel-shape`, `band-majority`, `connect-pairs`, `panel-summary`, `column-template`, `fractal-blocks`, …) are on `main` and Kaggle-confirmed; the `diagonal-markers`, `odd-col-recolor`, `triangle-diag`, `pocket-drop`, `square-complete`, `midpoint-plus`, `elbow-connect`, `mirror-quad`, `arrow-ray`, `diag-shoot`, `ring-reverse`, `corner-burst` & `col3-recolor` batch (155–167) lifts the leaderboard to **2296.32 / 167** (matches local 2296.33 to ~0.01). Per-solver details live in [Solvers by family](#solvers).
 
-**v46 之后（均已在排行榜确认）。** v47 补全**分类与特征哈希家族**（第 9 类 —— 对称/形状/计数/色数/位置）；v48–v52 再加入一批几何与物体类求解器 —— 形状感知旋转拼接、对角射线、水平周期延展、四面板择异、双种子条纹、物体滑移 —— 将排行榜分数从 **1294.40** 提升到 **1520.83（107 / 400）**。v53 起（`downscale-majority`、`untile-half`、`slide-to-line`、`largest-comp-crop`、`diag-block-slide`、`project-to-block`、`framed-regions`、`diag-connect`、`stamp-top-row`、`plus-panels`、`rot180-repair`、`lattice-count`、`quadrant-crop`、`connect-box-markers`、`recolor-in-block`、`corner-rays`、`divider-fold`、`band-sort`、`interior-recolor`、`float-up`、`diag-x`、`staircase`、`box-stretch`、`gap-fill`、`merge-pair`、`cross-move`、`row-checker`、`five-isolate`、`colour-sort`、`rect-interior-rank`、`bbox-strip-zero`、`ring-recolor`、`interior-recolor-aware`、`line-cross-swap`、`explode-corners`、`l-connect`、`block-quadrant`、`move-toward`、`cut-diagonals`、`odd-panel-shape`、`band-majority`、`connect-pairs`、`panel-summary`、`column-template`、`fractal-blocks` 等）已合入 `main` 并经 Kaggle 确认；`diagonal-markers`、`odd-col-recolor`、`triangle-diag`、`pocket-drop`、`square-complete`、`midpoint-plus`、`elbow-connect`、`mirror-quad`、`arrow-ray`、`diag-shoot`、`ring-reverse`、`corner-burst`（155–166）批次将排行榜提升到 **2282.65 / 166**（与本地完全一致）。各求解器详见 [求解器分类](#solvers)。
+**v46 之后（均已在排行榜确认）。** v47 补全**分类与特征哈希家族**（第 9 类 —— 对称/形状/计数/色数/位置）；v48–v52 再加入一批几何与物体类求解器 —— 形状感知旋转拼接、对角射线、水平周期延展、四面板择异、双种子条纹、物体滑移 —— 将排行榜分数从 **1294.40** 提升到 **1520.83（107 / 400）**。v53 起（`downscale-majority`、`untile-half`、`slide-to-line`、`largest-comp-crop`、`diag-block-slide`、`project-to-block`、`framed-regions`、`diag-connect`、`stamp-top-row`、`plus-panels`、`rot180-repair`、`lattice-count`、`quadrant-crop`、`connect-box-markers`、`recolor-in-block`、`corner-rays`、`divider-fold`、`band-sort`、`interior-recolor`、`float-up`、`diag-x`、`staircase`、`box-stretch`、`gap-fill`、`merge-pair`、`cross-move`、`row-checker`、`five-isolate`、`colour-sort`、`rect-interior-rank`、`bbox-strip-zero`、`ring-recolor`、`interior-recolor-aware`、`line-cross-swap`、`explode-corners`、`l-connect`、`block-quadrant`、`move-toward`、`cut-diagonals`、`odd-panel-shape`、`band-majority`、`connect-pairs`、`panel-summary`、`column-template`、`fractal-blocks` 等）已合入 `main` 并经 Kaggle 确认；`diagonal-markers`、`odd-col-recolor`、`triangle-diag`、`pocket-drop`、`square-complete`、`midpoint-plus`、`elbow-connect`、`mirror-quad`、`arrow-ray`、`diag-shoot`、`ring-reverse`、`corner-burst`、`col3-recolor`（155–167）批次将排行榜提升到 **2296.32 / 167**（与本地 2296.33 一致）。各求解器详见 [求解器分类](#solvers)。
 
 </details>
 
