@@ -3018,3 +3018,31 @@ def test_arrow_ray_rejects_no_marker():
     from neurogolf.solvers.arrow_ray import solve_arrow_ray
     task = _make_task([([[2, 2], [2, 2]], [[2, 2], [2, 2]])])
     assert solve_arrow_ray(task) is None
+
+
+def test_diag_shoot():
+    import numpy as np
+    import onnxruntime as ort
+    from neurogolf.grids import from_onehot, to_onehot
+    from neurogolf.solvers.diag_shoot import solve_diag_shoot, _ref
+
+    g = [[3, 3, 0, 0, 0, 0],          # 2x2 block + satellite (2,2) -> ray down-right
+         [3, 3, 0, 0, 0, 0],
+         [0, 0, 3, 0, 0, 0],
+         [0, 0, 0, 0, 0, 0],
+         [0, 0, 0, 0, 0, 0],
+         [0, 0, 0, 0, 0, 0]]
+    expected = _ref(np.array(g)).tolist()
+    assert expected[3] == [0, 0, 0, 3, 0, 0] and expected[5] == [0, 0, 0, 0, 0, 3]
+    task = _make_task([(g, expected)])
+    model = solve_diag_shoot(task)
+    assert model is not None and hasattr(model, "graph")
+    sess = ort.InferenceSession(model.SerializeToString())
+    res = sess.run(["output"], {"input": to_onehot(g)})[0]
+    assert from_onehot((res > 0.5).astype(np.float32)) == expected
+
+
+def test_diag_shoot_rejects_no_satellite():
+    from neurogolf.solvers.diag_shoot import solve_diag_shoot
+    task = _make_task([([[3, 3], [3, 3]], [[3, 3], [3, 3]])])
+    assert solve_diag_shoot(task) is None

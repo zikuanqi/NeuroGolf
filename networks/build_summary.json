@@ -1513,11 +1513,11 @@
   },
   {
     "task": 190,
-    "solver": "none",
-    "saved": false,
-    "points": 0.0,
-    "memory": null,
-    "params": null
+    "solver": "solve_diag_shoot",
+    "saved": true,
+    "points": 11.99670172975461,
+    "memory": 443602,
+    "params": 273
   },
   {
     "task": 191,
