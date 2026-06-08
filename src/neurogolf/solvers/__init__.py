@@ -99,6 +99,8 @@ from .key_cycle import solve_key_cycle
 from .laser_cross import solve_laser_cross
 from .enclosure_recolor import solve_enclosure_recolor
 from .key_flood import solve_key_flood
+from .hole_size_fill import solve_hole_size_fill
+from .hole_parity_fill import solve_hole_parity_fill
 from .gravity_down import solve_gravity_down
 from .slide_to_wall import solve_slide_to_wall
 from .slide_to_line import solve_slide_to_line
@@ -299,6 +301,8 @@ ALL_SOLVERS: list[Solver] = [
     solve_laser_cross,
     solve_enclosure_recolor,
     solve_key_flood,
+    solve_hole_size_fill,
+    solve_hole_parity_fill,
     solve_periodic_fill,
     solve_conv3x3,
     solve_conv1x1_masked,

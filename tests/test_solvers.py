@@ -3257,3 +3257,60 @@ def test_key_flood_rejects_no_block():
     from neurogolf.solvers.key_flood import solve_key_flood
     task = _make_task([([[2, 0], [0, 0]], [[2, 0], [0, 0]])])
     assert solve_key_flood(task) is None
+
+
+def test_hole_size_fill():
+    import numpy as np
+    import onnxruntime as ort
+    from neurogolf.grids import from_onehot, to_onehot
+    from neurogolf.solvers.hole_size_fill import solve_hole_size_fill, _ref
+
+    g = [[5, 5, 5, 0, 0],          # 1x1 hole -> 5+1 = 6
+         [5, 0, 5, 0, 0],
+         [5, 5, 5, 0, 0],
+         [0, 0, 0, 0, 0],
+         [0, 0, 0, 0, 0]]
+    expected = _ref(np.array(g)).tolist()
+    assert expected[1] == [5, 6, 5, 0, 0]
+    task = _make_task([(g, expected)])
+    model = solve_hole_size_fill(task)
+    assert model is not None and hasattr(model, "graph")
+    sess = ort.InferenceSession(model.SerializeToString())
+    res = sess.run(["output"], {"input": to_onehot(g)})[0]
+    assert from_onehot((res > 0.5).astype(np.float32)) == expected
+
+
+def test_hole_size_fill_rejects_open():
+    from neurogolf.solvers.hole_size_fill import solve_hole_size_fill
+    task = _make_task([([[0, 0, 0], [0, 5, 0], [0, 0, 0]],
+                        [[0, 0, 0], [0, 5, 0], [0, 0, 0]])])
+    assert solve_hole_size_fill(task) is None
+
+
+def test_hole_parity_fill():
+    import numpy as np
+    import onnxruntime as ort
+    from neurogolf.grids import from_onehot, to_onehot
+    from neurogolf.solvers.hole_parity_fill import solve_hole_parity_fill, _ref
+
+    g = [[1, 1, 1, 1, 0, 0],          # 2x2 hole, even side -> 2
+         [1, 0, 0, 1, 0, 0],
+         [1, 0, 0, 1, 0, 0],
+         [1, 1, 1, 1, 0, 0],
+         [0, 0, 0, 0, 0, 0],
+         [0, 0, 0, 0, 0, 0]]
+    expected = _ref(np.array(g)).tolist()
+    assert expected[1] == [1, 2, 2, 1, 0, 0]
+    task = _make_task([(g, expected)])
+    model = solve_hole_parity_fill(task)
+    assert model is not None and hasattr(model, "graph")
+    sess = ort.InferenceSession(model.SerializeToString())
+    res = sess.run(["output"], {"input": to_onehot(g)})[0]
+    assert from_onehot((res > 0.5).astype(np.float32)) == expected
+
+
+def test_hole_parity_fill_rejects_open():
+    from neurogolf.solvers.hole_parity_fill import solve_hole_parity_fill
+    task = _make_task([([[0, 0, 0], [0, 1, 0], [0, 0, 0]],
+                        [[0, 0, 0], [0, 1, 0], [0, 0, 0]])])
+    assert solve_hole_parity_fill(task) is None

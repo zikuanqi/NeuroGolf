@@ -1625,11 +1625,11 @@
   },
   {
     "task": 204,
-    "solver": "none",
-    "saved": false,
-    "points": 0.0,
-    "memory": null,
-    "params": null
+    "solver": "solve_hole_parity_fill",
+    "saved": true,
+    "points": 10.545102807553478,
+    "memory": 1895258,
+    "params": 60
   },
   {
     "task": 205,
@@ -2409,11 +2409,11 @@
   },
   {
     "task": 302,
-    "solver": "none",
-    "saved": false,
-    "points": 0.0,
-    "memory": null,
-    "params": null
+    "solver": "solve_hole_size_fill",
+    "saved": true,
+    "points": 10.554645812170033,
+    "memory": 1877258,
+    "params": 59
   },
   {
     "task": 303,
