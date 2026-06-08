@@ -2225,11 +2225,11 @@
   },
   {
     "task": 279,
-    "solver": "none",
-    "saved": false,
-    "points": 0.0,
-    "memory": null,
-    "params": null
+    "solver": "solve_enclosure_recolor",
+    "saved": true,
+    "points": 10.490558568643245,
+    "memory": 2001474,
+    "params": 94
   },
   {
     "task": 280,

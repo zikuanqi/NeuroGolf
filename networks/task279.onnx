@@ -1,0 +1,2369 @@
+:õÌ
+9
+inputcontent"	ReduceSum*
+axes@ *
+keepdims 
+8
+inputhist"	ReduceSum*
+axes@@ *
+keepdims 
+8
+histbgcount"	ReduceMax*
+axes@ *
+keepdims 
+
+bgcount
+halfbghalf"Sub
+ 
+hist
+bghalfbgsel_b"Greater
+!
+bgsel_bbgsel"Cast*	
+to 
+
+input
+bgselibg"Mul
+4
+ibgisbg"	ReduceSum*
+axes@ *
+keepdims 
+
+content
+isbgnz"Sub
+1
+content
+pad_1_0ps1"Pad*
+mode"constant 
+)
+ps1
+sst_0_0
+sen_0_0
+ax23rs1"Slice
+2
+content
+pad_-1_0ps2"Pad*
+mode"constant 
+)
+ps2
+sst_1_0
+sen_1_0
+ax23rs2"Slice
+1
+content
+pad_0_1ps3"Pad*
+mode"constant 
+)
+ps3
+sst_0_0
+sen_0_0
+ax23rs3"Slice
+2
+content
+pad_0_-1ps4"Pad*
+mode"constant 
+)
+ps4
+sst_0_1
+sen_0_1
+ax23rs4"Slice
+
+rs1
+rs2na1"Mul
+
+rs3
+rs4na2"Mul
+
+na1
+na2	neigh_all"Mul
+
+one
+	neigh_allnotall"Sub
+ 
+content
+notallboundary"Mul
+!
+isbg
+boundary
+borderseed"Mul
+ 
+
+borderseed
+isbgacc_b_0"Mul
+1
+acc_b_0
+pad_1_0ps6"Pad*
+mode"constant 
+)
+ps6
+sst_0_0
+sen_0_0
+ax23rs6"Slice
+2
+acc_b_0
+pad_-1_0ps7"Pad*
+mode"constant 
+)
+ps7
+sst_1_0
+sen_1_0
+ax23rs7"Slice
+1
+acc_b_0
+pad_0_1ps8"Pad*
+mode"constant 
+)
+ps8
+sst_0_0
+sen_0_0
+ax23rs8"Slice
+2
+acc_b_0
+pad_0_-1ps9"Pad*
+mode"constant 
+)
+ps9
+sst_0_1
+sen_0_1
+ax23rs9"Slice
++
+acc_b_0
+rs6
+rs7
+rs8
+rs9dil_b_0"Max
+
+dil_b_0
+isbgacc_b_1"Mul
+2
+acc_b_1
+pad_1_0ps10"Pad*
+mode"constant 
++
+ps10
+sst_0_0
+sen_0_0
+ax23rs10"Slice
+3
+acc_b_1
+pad_-1_0ps11"Pad*
+mode"constant 
++
+ps11
+sst_1_0
+sen_1_0
+ax23rs11"Slice
+2
+acc_b_1
+pad_0_1ps12"Pad*
+mode"constant 
++
+ps12
+sst_0_0
+sen_0_0
+ax23rs12"Slice
+3
+acc_b_1
+pad_0_-1ps13"Pad*
+mode"constant 
++
+ps13
+sst_0_1
+sen_0_1
+ax23rs13"Slice
+/
+acc_b_1
+rs10
+rs11
+rs12
+rs13dil_b_1"Max
+
+dil_b_1
+isbgacc_b_2"Mul
+2
+acc_b_2
+pad_1_0ps14"Pad*
+mode"constant 
++
+ps14
+sst_0_0
+sen_0_0
+ax23rs14"Slice
+3
+acc_b_2
+pad_-1_0ps15"Pad*
+mode"constant 
++
+ps15
+sst_1_0
+sen_1_0
+ax23rs15"Slice
+2
+acc_b_2
+pad_0_1ps16"Pad*
+mode"constant 
++
+ps16
+sst_0_0
+sen_0_0
+ax23rs16"Slice
+3
+acc_b_2
+pad_0_-1ps17"Pad*
+mode"constant 
++
+ps17
+sst_0_1
+sen_0_1
+ax23rs17"Slice
+/
+acc_b_2
+rs14
+rs15
+rs16
+rs17dil_b_2"Max
+
+dil_b_2
+isbgacc_b_3"Mul
+2
+acc_b_3
+pad_1_0ps18"Pad*
+mode"constant 
++
+ps18
+sst_0_0
+sen_0_0
+ax23rs18"Slice
+3
+acc_b_3
+pad_-1_0ps19"Pad*
+mode"constant 
++
+ps19
+sst_1_0
+sen_1_0
+ax23rs19"Slice
+2
+acc_b_3
+pad_0_1ps20"Pad*
+mode"constant 
++
+ps20
+sst_0_0
+sen_0_0
+ax23rs20"Slice
+3
+acc_b_3
+pad_0_-1ps21"Pad*
+mode"constant 
++
+ps21
+sst_0_1
+sen_0_1
+ax23rs21"Slice
+/
+acc_b_3
+rs18
+rs19
+rs20
+rs21dil_b_3"Max
+
+dil_b_3
+isbgacc_b_4"Mul
+2
+acc_b_4
+pad_1_0ps22"Pad*
+mode"constant 
++
+ps22
+sst_0_0
+sen_0_0
+ax23rs22"Slice
+3
+acc_b_4
+pad_-1_0ps23"Pad*
+mode"constant 
++
+ps23
+sst_1_0
+sen_1_0
+ax23rs23"Slice
+2
+acc_b_4
+pad_0_1ps24"Pad*
+mode"constant 
++
+ps24
+sst_0_0
+sen_0_0
+ax23rs24"Slice
+3
+acc_b_4
+pad_0_-1ps25"Pad*
+mode"constant 
++
+ps25
+sst_0_1
+sen_0_1
+ax23rs25"Slice
+/
+acc_b_4
+rs22
+rs23
+rs24
+rs25dil_b_4"Max
+
+dil_b_4
+isbgacc_b_5"Mul
+2
+acc_b_5
+pad_1_0ps26"Pad*
+mode"constant 
++
+ps26
+sst_0_0
+sen_0_0
+ax23rs26"Slice
+3
+acc_b_5
+pad_-1_0ps27"Pad*
+mode"constant 
++
+ps27
+sst_1_0
+sen_1_0
+ax23rs27"Slice
+2
+acc_b_5
+pad_0_1ps28"Pad*
+mode"constant 
++
+ps28
+sst_0_0
+sen_0_0
+ax23rs28"Slice
+3
+acc_b_5
+pad_0_-1ps29"Pad*
+mode"constant 
++
+ps29
+sst_0_1
+sen_0_1
+ax23rs29"Slice
+/
+acc_b_5
+rs26
+rs27
+rs28
+rs29dil_b_5"Max
+
+dil_b_5
+isbgacc_b_6"Mul
+2
+acc_b_6
+pad_1_0ps30"Pad*
+mode"constant 
++
+ps30
+sst_0_0
+sen_0_0
+ax23rs30"Slice
+3
+acc_b_6
+pad_-1_0ps31"Pad*
+mode"constant 
++
+ps31
+sst_1_0
+sen_1_0
+ax23rs31"Slice
+2
+acc_b_6
+pad_0_1ps32"Pad*
+mode"constant 
++
+ps32
+sst_0_0
+sen_0_0
+ax23rs32"Slice
+3
+acc_b_6
+pad_0_-1ps33"Pad*
+mode"constant 
++
+ps33
+sst_0_1
+sen_0_1
+ax23rs33"Slice
+/
+acc_b_6
+rs30
+rs31
+rs32
+rs33dil_b_6"Max
+
+dil_b_6
+isbgacc_b_7"Mul
+2
+acc_b_7
+pad_1_0ps34"Pad*
+mode"constant 
++
+ps34
+sst_0_0
+sen_0_0
+ax23rs34"Slice
+3
+acc_b_7
+pad_-1_0ps35"Pad*
+mode"constant 
++
+ps35
+sst_1_0
+sen_1_0
+ax23rs35"Slice
+2
+acc_b_7
+pad_0_1ps36"Pad*
+mode"constant 
++
+ps36
+sst_0_0
+sen_0_0
+ax23rs36"Slice
+3
+acc_b_7
+pad_0_-1ps37"Pad*
+mode"constant 
++
+ps37
+sst_0_1
+sen_0_1
+ax23rs37"Slice
+/
+acc_b_7
+rs34
+rs35
+rs36
+rs37dil_b_7"Max
+
+dil_b_7
+isbgacc_b_8"Mul
+2
+acc_b_8
+pad_1_0ps38"Pad*
+mode"constant 
++
+ps38
+sst_0_0
+sen_0_0
+ax23rs38"Slice
+3
+acc_b_8
+pad_-1_0ps39"Pad*
+mode"constant 
++
+ps39
+sst_1_0
+sen_1_0
+ax23rs39"Slice
+2
+acc_b_8
+pad_0_1ps40"Pad*
+mode"constant 
++
+ps40
+sst_0_0
+sen_0_0
+ax23rs40"Slice
+3
+acc_b_8
+pad_0_-1ps41"Pad*
+mode"constant 
++
+ps41
+sst_0_1
+sen_0_1
+ax23rs41"Slice
+/
+acc_b_8
+rs38
+rs39
+rs40
+rs41dil_b_8"Max
+
+dil_b_8
+isbgacc_b_9"Mul
+2
+acc_b_9
+pad_1_0ps42"Pad*
+mode"constant 
++
+ps42
+sst_0_0
+sen_0_0
+ax23rs42"Slice
+3
+acc_b_9
+pad_-1_0ps43"Pad*
+mode"constant 
++
+ps43
+sst_1_0
+sen_1_0
+ax23rs43"Slice
+2
+acc_b_9
+pad_0_1ps44"Pad*
+mode"constant 
++
+ps44
+sst_0_0
+sen_0_0
+ax23rs44"Slice
+3
+acc_b_9
+pad_0_-1ps45"Pad*
+mode"constant 
++
+ps45
+sst_0_1
+sen_0_1
+ax23rs45"Slice
+/
+acc_b_9
+rs42
+rs43
+rs44
+rs45dil_b_9"Max
+
+dil_b_9
+isbgacc_b_10"Mul
+3
+acc_b_10
+pad_1_0ps46"Pad*
+mode"constant 
++
+ps46
+sst_0_0
+sen_0_0
+ax23rs46"Slice
+4
+acc_b_10
+pad_-1_0ps47"Pad*
+mode"constant 
++
+ps47
+sst_1_0
+sen_1_0
+ax23rs47"Slice
+3
+acc_b_10
+pad_0_1ps48"Pad*
+mode"constant 
++
+ps48
+sst_0_0
+sen_0_0
+ax23rs48"Slice
+4
+acc_b_10
+pad_0_-1ps49"Pad*
+mode"constant 
++
+ps49
+sst_0_1
+sen_0_1
+ax23rs49"Slice
+1
+acc_b_10
+rs46
+rs47
+rs48
+rs49dil_b_10"Max
+
+dil_b_10
+isbgacc_b_11"Mul
+3
+acc_b_11
+pad_1_0ps50"Pad*
+mode"constant 
++
+ps50
+sst_0_0
+sen_0_0
+ax23rs50"Slice
+4
+acc_b_11
+pad_-1_0ps51"Pad*
+mode"constant 
++
+ps51
+sst_1_0
+sen_1_0
+ax23rs51"Slice
+3
+acc_b_11
+pad_0_1ps52"Pad*
+mode"constant 
++
+ps52
+sst_0_0
+sen_0_0
+ax23rs52"Slice
+4
+acc_b_11
+pad_0_-1ps53"Pad*
+mode"constant 
++
+ps53
+sst_0_1
+sen_0_1
+ax23rs53"Slice
+1
+acc_b_11
+rs50
+rs51
+rs52
+rs53dil_b_11"Max
+
+dil_b_11
+isbgacc_b_12"Mul
+3
+acc_b_12
+pad_1_0ps54"Pad*
+mode"constant 
++
+ps54
+sst_0_0
+sen_0_0
+ax23rs54"Slice
+4
+acc_b_12
+pad_-1_0ps55"Pad*
+mode"constant 
++
+ps55
+sst_1_0
+sen_1_0
+ax23rs55"Slice
+3
+acc_b_12
+pad_0_1ps56"Pad*
+mode"constant 
++
+ps56
+sst_0_0
+sen_0_0
+ax23rs56"Slice
+4
+acc_b_12
+pad_0_-1ps57"Pad*
+mode"constant 
++
+ps57
+sst_0_1
+sen_0_1
+ax23rs57"Slice
+1
+acc_b_12
+rs54
+rs55
+rs56
+rs57dil_b_12"Max
+
+dil_b_12
+isbgacc_b_13"Mul
+3
+acc_b_13
+pad_1_0ps58"Pad*
+mode"constant 
++
+ps58
+sst_0_0
+sen_0_0
+ax23rs58"Slice
+4
+acc_b_13
+pad_-1_0ps59"Pad*
+mode"constant 
++
+ps59
+sst_1_0
+sen_1_0
+ax23rs59"Slice
+3
+acc_b_13
+pad_0_1ps60"Pad*
+mode"constant 
++
+ps60
+sst_0_0
+sen_0_0
+ax23rs60"Slice
+4
+acc_b_13
+pad_0_-1ps61"Pad*
+mode"constant 
++
+ps61
+sst_0_1
+sen_0_1
+ax23rs61"Slice
+1
+acc_b_13
+rs58
+rs59
+rs60
+rs61dil_b_13"Max
+
+dil_b_13
+isbgacc_b_14"Mul
+3
+acc_b_14
+pad_1_0ps62"Pad*
+mode"constant 
++
+ps62
+sst_0_0
+sen_0_0
+ax23rs62"Slice
+4
+acc_b_14
+pad_-1_0ps63"Pad*
+mode"constant 
++
+ps63
+sst_1_0
+sen_1_0
+ax23rs63"Slice
+3
+acc_b_14
+pad_0_1ps64"Pad*
+mode"constant 
++
+ps64
+sst_0_0
+sen_0_0
+ax23rs64"Slice
+4
+acc_b_14
+pad_0_-1ps65"Pad*
+mode"constant 
++
+ps65
+sst_0_1
+sen_0_1
+ax23rs65"Slice
+1
+acc_b_14
+rs62
+rs63
+rs64
+rs65dil_b_14"Max
+
+dil_b_14
+isbgacc_b_15"Mul
+3
+acc_b_15
+pad_1_0ps66"Pad*
+mode"constant 
++
+ps66
+sst_0_0
+sen_0_0
+ax23rs66"Slice
+4
+acc_b_15
+pad_-1_0ps67"Pad*
+mode"constant 
++
+ps67
+sst_1_0
+sen_1_0
+ax23rs67"Slice
+3
+acc_b_15
+pad_0_1ps68"Pad*
+mode"constant 
++
+ps68
+sst_0_0
+sen_0_0
+ax23rs68"Slice
+4
+acc_b_15
+pad_0_-1ps69"Pad*
+mode"constant 
++
+ps69
+sst_0_1
+sen_0_1
+ax23rs69"Slice
+1
+acc_b_15
+rs66
+rs67
+rs68
+rs69dil_b_15"Max
+
+dil_b_15
+isbgacc_b_16"Mul
+3
+acc_b_16
+pad_1_0ps70"Pad*
+mode"constant 
++
+ps70
+sst_0_0
+sen_0_0
+ax23rs70"Slice
+4
+acc_b_16
+pad_-1_0ps71"Pad*
+mode"constant 
++
+ps71
+sst_1_0
+sen_1_0
+ax23rs71"Slice
+3
+acc_b_16
+pad_0_1ps72"Pad*
+mode"constant 
++
+ps72
+sst_0_0
+sen_0_0
+ax23rs72"Slice
+4
+acc_b_16
+pad_0_-1ps73"Pad*
+mode"constant 
++
+ps73
+sst_0_1
+sen_0_1
+ax23rs73"Slice
+1
+acc_b_16
+rs70
+rs71
+rs72
+rs73dil_b_16"Max
+
+dil_b_16
+isbgacc_b_17"Mul
+3
+acc_b_17
+pad_1_0ps74"Pad*
+mode"constant 
++
+ps74
+sst_0_0
+sen_0_0
+ax23rs74"Slice
+4
+acc_b_17
+pad_-1_0ps75"Pad*
+mode"constant 
++
+ps75
+sst_1_0
+sen_1_0
+ax23rs75"Slice
+3
+acc_b_17
+pad_0_1ps76"Pad*
+mode"constant 
++
+ps76
+sst_0_0
+sen_0_0
+ax23rs76"Slice
+4
+acc_b_17
+pad_0_-1ps77"Pad*
+mode"constant 
++
+ps77
+sst_0_1
+sen_0_1
+ax23rs77"Slice
+1
+acc_b_17
+rs74
+rs75
+rs76
+rs77dil_b_17"Max
+
+dil_b_17
+isbgacc_b_18"Mul
+3
+acc_b_18
+pad_1_0ps78"Pad*
+mode"constant 
++
+ps78
+sst_0_0
+sen_0_0
+ax23rs78"Slice
+4
+acc_b_18
+pad_-1_0ps79"Pad*
+mode"constant 
++
+ps79
+sst_1_0
+sen_1_0
+ax23rs79"Slice
+3
+acc_b_18
+pad_0_1ps80"Pad*
+mode"constant 
++
+ps80
+sst_0_0
+sen_0_0
+ax23rs80"Slice
+4
+acc_b_18
+pad_0_-1ps81"Pad*
+mode"constant 
++
+ps81
+sst_0_1
+sen_0_1
+ax23rs81"Slice
+1
+acc_b_18
+rs78
+rs79
+rs80
+rs81dil_b_18"Max
+
+dil_b_18
+isbgacc_b_19"Mul
+3
+acc_b_19
+pad_1_0ps82"Pad*
+mode"constant 
++
+ps82
+sst_0_0
+sen_0_0
+ax23rs82"Slice
+4
+acc_b_19
+pad_-1_0ps83"Pad*
+mode"constant 
++
+ps83
+sst_1_0
+sen_1_0
+ax23rs83"Slice
+3
+acc_b_19
+pad_0_1ps84"Pad*
+mode"constant 
++
+ps84
+sst_0_0
+sen_0_0
+ax23rs84"Slice
+4
+acc_b_19
+pad_0_-1ps85"Pad*
+mode"constant 
++
+ps85
+sst_0_1
+sen_0_1
+ax23rs85"Slice
+1
+acc_b_19
+rs82
+rs83
+rs84
+rs85dil_b_19"Max
+
+dil_b_19
+isbgacc_b_20"Mul
+3
+acc_b_20
+pad_1_0ps86"Pad*
+mode"constant 
++
+ps86
+sst_0_0
+sen_0_0
+ax23rs86"Slice
+4
+acc_b_20
+pad_-1_0ps87"Pad*
+mode"constant 
++
+ps87
+sst_1_0
+sen_1_0
+ax23rs87"Slice
+3
+acc_b_20
+pad_0_1ps88"Pad*
+mode"constant 
++
+ps88
+sst_0_0
+sen_0_0
+ax23rs88"Slice
+4
+acc_b_20
+pad_0_-1ps89"Pad*
+mode"constant 
++
+ps89
+sst_0_1
+sen_0_1
+ax23rs89"Slice
+1
+acc_b_20
+rs86
+rs87
+rs88
+rs89dil_b_20"Max
+
+dil_b_20
+isbgacc_b_21"Mul
+3
+acc_b_21
+pad_1_0ps90"Pad*
+mode"constant 
++
+ps90
+sst_0_0
+sen_0_0
+ax23rs90"Slice
+4
+acc_b_21
+pad_-1_0ps91"Pad*
+mode"constant 
++
+ps91
+sst_1_0
+sen_1_0
+ax23rs91"Slice
+3
+acc_b_21
+pad_0_1ps92"Pad*
+mode"constant 
++
+ps92
+sst_0_0
+sen_0_0
+ax23rs92"Slice
+4
+acc_b_21
+pad_0_-1ps93"Pad*
+mode"constant 
++
+ps93
+sst_0_1
+sen_0_1
+ax23rs93"Slice
+1
+acc_b_21
+rs90
+rs91
+rs92
+rs93dil_b_21"Max
+
+dil_b_21
+isbgacc_b_22"Mul
+3
+acc_b_22
+pad_1_0ps94"Pad*
+mode"constant 
++
+ps94
+sst_0_0
+sen_0_0
+ax23rs94"Slice
+4
+acc_b_22
+pad_-1_0ps95"Pad*
+mode"constant 
++
+ps95
+sst_1_0
+sen_1_0
+ax23rs95"Slice
+3
+acc_b_22
+pad_0_1ps96"Pad*
+mode"constant 
++
+ps96
+sst_0_0
+sen_0_0
+ax23rs96"Slice
+4
+acc_b_22
+pad_0_-1ps97"Pad*
+mode"constant 
++
+ps97
+sst_0_1
+sen_0_1
+ax23rs97"Slice
+1
+acc_b_22
+rs94
+rs95
+rs96
+rs97dil_b_22"Max
+
+dil_b_22
+isbgacc_b_23"Mul
+3
+acc_b_23
+pad_1_0ps98"Pad*
+mode"constant 
++
+ps98
+sst_0_0
+sen_0_0
+ax23rs98"Slice
+4
+acc_b_23
+pad_-1_0ps99"Pad*
+mode"constant 
++
+ps99
+sst_1_0
+sen_1_0
+ax23rs99"Slice
+4
+acc_b_23
+pad_0_1ps100"Pad*
+mode"constant 
+-
+ps100
+sst_0_0
+sen_0_0
+ax23rs100"Slice
+5
+acc_b_23
+pad_0_-1ps101"Pad*
+mode"constant 
+-
+ps101
+sst_0_1
+sen_0_1
+ax23rs101"Slice
+3
+acc_b_23
+rs98
+rs99
+rs100
+rs101dil_b_23"Max
+
+dil_b_23
+isbgacc_b_24"Mul
+
+isbg
+acc_b_24enc"Sub
+/
+enc
+pad_1_0ps102"Pad*
+mode"constant 
+-
+ps102
+sst_0_0
+sen_0_0
+ax23rs102"Slice
+0
+enc
+pad_-1_0ps103"Pad*
+mode"constant 
+-
+ps103
+sst_1_0
+sen_1_0
+ax23rs103"Slice
+/
+enc
+pad_0_1ps104"Pad*
+mode"constant 
+-
+ps104
+sst_0_0
+sen_0_0
+ax23rs104"Slice
+0
+enc
+pad_0_-1ps105"Pad*
+mode"constant 
+-
+ps105
+sst_0_1
+sen_0_1
+ax23rs105"Slice
+/
+enc
+pad_1_1ps106"Pad*
+mode"constant 
+-
+ps106
+sst_0_0
+sen_0_0
+ax23rs106"Slice
+0
+enc
+pad_1_-1ps107"Pad*
+mode"constant 
+-
+ps107
+sst_0_1
+sen_0_1
+ax23rs107"Slice
+0
+enc
+pad_-1_1ps108"Pad*
+mode"constant 
+-
+ps108
+sst_1_0
+sen_1_0
+ax23rs108"Slice
+1
+enc
+	pad_-1_-1ps109"Pad*
+mode"constant 
+-
+ps109
+sst_1_1
+sen_1_1
+ax23rs109"Slice
+B
+rs102
+rs103
+rs104
+rs105
+rs106
+rs107
+rs108
+rs109adj"Max
+
+nz
+adjseedc"Mul
+
+seedc
+nzacc_c_0"Mul
+3
+acc_c_0
+pad_1_0ps111"Pad*
+mode"constant 
+-
+ps111
+sst_0_0
+sen_0_0
+ax23rs111"Slice
+4
+acc_c_0
+pad_-1_0ps112"Pad*
+mode"constant 
+-
+ps112
+sst_1_0
+sen_1_0
+ax23rs112"Slice
+3
+acc_c_0
+pad_0_1ps113"Pad*
+mode"constant 
+-
+ps113
+sst_0_0
+sen_0_0
+ax23rs113"Slice
+4
+acc_c_0
+pad_0_-1ps114"Pad*
+mode"constant 
+-
+ps114
+sst_0_1
+sen_0_1
+ax23rs114"Slice
+3
+acc_c_0
+rs111
+rs112
+rs113
+rs114dil_c_0"Max
+
+dil_c_0
+nzacc_c_1"Mul
+3
+acc_c_1
+pad_1_0ps115"Pad*
+mode"constant 
+-
+ps115
+sst_0_0
+sen_0_0
+ax23rs115"Slice
+4
+acc_c_1
+pad_-1_0ps116"Pad*
+mode"constant 
+-
+ps116
+sst_1_0
+sen_1_0
+ax23rs116"Slice
+3
+acc_c_1
+pad_0_1ps117"Pad*
+mode"constant 
+-
+ps117
+sst_0_0
+sen_0_0
+ax23rs117"Slice
+4
+acc_c_1
+pad_0_-1ps118"Pad*
+mode"constant 
+-
+ps118
+sst_0_1
+sen_0_1
+ax23rs118"Slice
+3
+acc_c_1
+rs115
+rs116
+rs117
+rs118dil_c_1"Max
+
+dil_c_1
+nzacc_c_2"Mul
+3
+acc_c_2
+pad_1_0ps119"Pad*
+mode"constant 
+-
+ps119
+sst_0_0
+sen_0_0
+ax23rs119"Slice
+4
+acc_c_2
+pad_-1_0ps120"Pad*
+mode"constant 
+-
+ps120
+sst_1_0
+sen_1_0
+ax23rs120"Slice
+3
+acc_c_2
+pad_0_1ps121"Pad*
+mode"constant 
+-
+ps121
+sst_0_0
+sen_0_0
+ax23rs121"Slice
+4
+acc_c_2
+pad_0_-1ps122"Pad*
+mode"constant 
+-
+ps122
+sst_0_1
+sen_0_1
+ax23rs122"Slice
+3
+acc_c_2
+rs119
+rs120
+rs121
+rs122dil_c_2"Max
+
+dil_c_2
+nzacc_c_3"Mul
+3
+acc_c_3
+pad_1_0ps123"Pad*
+mode"constant 
+-
+ps123
+sst_0_0
+sen_0_0
+ax23rs123"Slice
+4
+acc_c_3
+pad_-1_0ps124"Pad*
+mode"constant 
+-
+ps124
+sst_1_0
+sen_1_0
+ax23rs124"Slice
+3
+acc_c_3
+pad_0_1ps125"Pad*
+mode"constant 
+-
+ps125
+sst_0_0
+sen_0_0
+ax23rs125"Slice
+4
+acc_c_3
+pad_0_-1ps126"Pad*
+mode"constant 
+-
+ps126
+sst_0_1
+sen_0_1
+ax23rs126"Slice
+3
+acc_c_3
+rs123
+rs124
+rs125
+rs126dil_c_3"Max
+
+dil_c_3
+nzacc_c_4"Mul
+3
+acc_c_4
+pad_1_0ps127"Pad*
+mode"constant 
+-
+ps127
+sst_0_0
+sen_0_0
+ax23rs127"Slice
+4
+acc_c_4
+pad_-1_0ps128"Pad*
+mode"constant 
+-
+ps128
+sst_1_0
+sen_1_0
+ax23rs128"Slice
+3
+acc_c_4
+pad_0_1ps129"Pad*
+mode"constant 
+-
+ps129
+sst_0_0
+sen_0_0
+ax23rs129"Slice
+4
+acc_c_4
+pad_0_-1ps130"Pad*
+mode"constant 
+-
+ps130
+sst_0_1
+sen_0_1
+ax23rs130"Slice
+3
+acc_c_4
+rs127
+rs128
+rs129
+rs130dil_c_4"Max
+
+dil_c_4
+nzacc_c_5"Mul
+3
+acc_c_5
+pad_1_0ps131"Pad*
+mode"constant 
+-
+ps131
+sst_0_0
+sen_0_0
+ax23rs131"Slice
+4
+acc_c_5
+pad_-1_0ps132"Pad*
+mode"constant 
+-
+ps132
+sst_1_0
+sen_1_0
+ax23rs132"Slice
+3
+acc_c_5
+pad_0_1ps133"Pad*
+mode"constant 
+-
+ps133
+sst_0_0
+sen_0_0
+ax23rs133"Slice
+4
+acc_c_5
+pad_0_-1ps134"Pad*
+mode"constant 
+-
+ps134
+sst_0_1
+sen_0_1
+ax23rs134"Slice
+3
+acc_c_5
+rs131
+rs132
+rs133
+rs134dil_c_5"Max
+
+dil_c_5
+nzacc_c_6"Mul
+3
+acc_c_6
+pad_1_0ps135"Pad*
+mode"constant 
+-
+ps135
+sst_0_0
+sen_0_0
+ax23rs135"Slice
+4
+acc_c_6
+pad_-1_0ps136"Pad*
+mode"constant 
+-
+ps136
+sst_1_0
+sen_1_0
+ax23rs136"Slice
+3
+acc_c_6
+pad_0_1ps137"Pad*
+mode"constant 
+-
+ps137
+sst_0_0
+sen_0_0
+ax23rs137"Slice
+4
+acc_c_6
+pad_0_-1ps138"Pad*
+mode"constant 
+-
+ps138
+sst_0_1
+sen_0_1
+ax23rs138"Slice
+3
+acc_c_6
+rs135
+rs136
+rs137
+rs138dil_c_6"Max
+
+dil_c_6
+nzacc_c_7"Mul
+3
+acc_c_7
+pad_1_0ps139"Pad*
+mode"constant 
+-
+ps139
+sst_0_0
+sen_0_0
+ax23rs139"Slice
+4
+acc_c_7
+pad_-1_0ps140"Pad*
+mode"constant 
+-
+ps140
+sst_1_0
+sen_1_0
+ax23rs140"Slice
+3
+acc_c_7
+pad_0_1ps141"Pad*
+mode"constant 
+-
+ps141
+sst_0_0
+sen_0_0
+ax23rs141"Slice
+4
+acc_c_7
+pad_0_-1ps142"Pad*
+mode"constant 
+-
+ps142
+sst_0_1
+sen_0_1
+ax23rs142"Slice
+3
+acc_c_7
+rs139
+rs140
+rs141
+rs142dil_c_7"Max
+
+dil_c_7
+nzacc_c_8"Mul
+3
+acc_c_8
+pad_1_0ps143"Pad*
+mode"constant 
+-
+ps143
+sst_0_0
+sen_0_0
+ax23rs143"Slice
+4
+acc_c_8
+pad_-1_0ps144"Pad*
+mode"constant 
+-
+ps144
+sst_1_0
+sen_1_0
+ax23rs144"Slice
+3
+acc_c_8
+pad_0_1ps145"Pad*
+mode"constant 
+-
+ps145
+sst_0_0
+sen_0_0
+ax23rs145"Slice
+4
+acc_c_8
+pad_0_-1ps146"Pad*
+mode"constant 
+-
+ps146
+sst_0_1
+sen_0_1
+ax23rs146"Slice
+3
+acc_c_8
+rs143
+rs144
+rs145
+rs146dil_c_8"Max
+
+dil_c_8
+nzacc_c_9"Mul
+3
+acc_c_9
+pad_1_0ps147"Pad*
+mode"constant 
+-
+ps147
+sst_0_0
+sen_0_0
+ax23rs147"Slice
+4
+acc_c_9
+pad_-1_0ps148"Pad*
+mode"constant 
+-
+ps148
+sst_1_0
+sen_1_0
+ax23rs148"Slice
+3
+acc_c_9
+pad_0_1ps149"Pad*
+mode"constant 
+-
+ps149
+sst_0_0
+sen_0_0
+ax23rs149"Slice
+4
+acc_c_9
+pad_0_-1ps150"Pad*
+mode"constant 
+-
+ps150
+sst_0_1
+sen_0_1
+ax23rs150"Slice
+3
+acc_c_9
+rs147
+rs148
+rs149
+rs150dil_c_9"Max
+
+dil_c_9
+nzacc_c_10"Mul
+4
+acc_c_10
+pad_1_0ps151"Pad*
+mode"constant 
+-
+ps151
+sst_0_0
+sen_0_0
+ax23rs151"Slice
+5
+acc_c_10
+pad_-1_0ps152"Pad*
+mode"constant 
+-
+ps152
+sst_1_0
+sen_1_0
+ax23rs152"Slice
+4
+acc_c_10
+pad_0_1ps153"Pad*
+mode"constant 
+-
+ps153
+sst_0_0
+sen_0_0
+ax23rs153"Slice
+5
+acc_c_10
+pad_0_-1ps154"Pad*
+mode"constant 
+-
+ps154
+sst_0_1
+sen_0_1
+ax23rs154"Slice
+5
+acc_c_10
+rs151
+rs152
+rs153
+rs154dil_c_10"Max
+
+dil_c_10
+nzacc_c_11"Mul
+4
+acc_c_11
+pad_1_0ps155"Pad*
+mode"constant 
+-
+ps155
+sst_0_0
+sen_0_0
+ax23rs155"Slice
+5
+acc_c_11
+pad_-1_0ps156"Pad*
+mode"constant 
+-
+ps156
+sst_1_0
+sen_1_0
+ax23rs156"Slice
+4
+acc_c_11
+pad_0_1ps157"Pad*
+mode"constant 
+-
+ps157
+sst_0_0
+sen_0_0
+ax23rs157"Slice
+5
+acc_c_11
+pad_0_-1ps158"Pad*
+mode"constant 
+-
+ps158
+sst_0_1
+sen_0_1
+ax23rs158"Slice
+5
+acc_c_11
+rs155
+rs156
+rs157
+rs158dil_c_11"Max
+
+dil_c_11
+nzacc_c_12"Mul
+4
+acc_c_12
+pad_1_0ps159"Pad*
+mode"constant 
+-
+ps159
+sst_0_0
+sen_0_0
+ax23rs159"Slice
+5
+acc_c_12
+pad_-1_0ps160"Pad*
+mode"constant 
+-
+ps160
+sst_1_0
+sen_1_0
+ax23rs160"Slice
+4
+acc_c_12
+pad_0_1ps161"Pad*
+mode"constant 
+-
+ps161
+sst_0_0
+sen_0_0
+ax23rs161"Slice
+5
+acc_c_12
+pad_0_-1ps162"Pad*
+mode"constant 
+-
+ps162
+sst_0_1
+sen_0_1
+ax23rs162"Slice
+5
+acc_c_12
+rs159
+rs160
+rs161
+rs162dil_c_12"Max
+
+dil_c_12
+nzacc_c_13"Mul
+4
+acc_c_13
+pad_1_0ps163"Pad*
+mode"constant 
+-
+ps163
+sst_0_0
+sen_0_0
+ax23rs163"Slice
+5
+acc_c_13
+pad_-1_0ps164"Pad*
+mode"constant 
+-
+ps164
+sst_1_0
+sen_1_0
+ax23rs164"Slice
+4
+acc_c_13
+pad_0_1ps165"Pad*
+mode"constant 
+-
+ps165
+sst_0_0
+sen_0_0
+ax23rs165"Slice
+5
+acc_c_13
+pad_0_-1ps166"Pad*
+mode"constant 
+-
+ps166
+sst_0_1
+sen_0_1
+ax23rs166"Slice
+5
+acc_c_13
+rs163
+rs164
+rs165
+rs166dil_c_13"Max
+
+dil_c_13
+nzacc_c_14"Mul
+4
+acc_c_14
+pad_1_0ps167"Pad*
+mode"constant 
+-
+ps167
+sst_0_0
+sen_0_0
+ax23rs167"Slice
+5
+acc_c_14
+pad_-1_0ps168"Pad*
+mode"constant 
+-
+ps168
+sst_1_0
+sen_1_0
+ax23rs168"Slice
+4
+acc_c_14
+pad_0_1ps169"Pad*
+mode"constant 
+-
+ps169
+sst_0_0
+sen_0_0
+ax23rs169"Slice
+5
+acc_c_14
+pad_0_-1ps170"Pad*
+mode"constant 
+-
+ps170
+sst_0_1
+sen_0_1
+ax23rs170"Slice
+5
+acc_c_14
+rs167
+rs168
+rs169
+rs170dil_c_14"Max
+
+dil_c_14
+nzacc_c_15"Mul
+4
+acc_c_15
+pad_1_0ps171"Pad*
+mode"constant 
+-
+ps171
+sst_0_0
+sen_0_0
+ax23rs171"Slice
+5
+acc_c_15
+pad_-1_0ps172"Pad*
+mode"constant 
+-
+ps172
+sst_1_0
+sen_1_0
+ax23rs172"Slice
+4
+acc_c_15
+pad_0_1ps173"Pad*
+mode"constant 
+-
+ps173
+sst_0_0
+sen_0_0
+ax23rs173"Slice
+5
+acc_c_15
+pad_0_-1ps174"Pad*
+mode"constant 
+-
+ps174
+sst_0_1
+sen_0_1
+ax23rs174"Slice
+5
+acc_c_15
+rs171
+rs172
+rs173
+rs174dil_c_15"Max
+
+dil_c_15
+nzacc_c_16"Mul
+4
+acc_c_16
+pad_1_0ps175"Pad*
+mode"constant 
+-
+ps175
+sst_0_0
+sen_0_0
+ax23rs175"Slice
+5
+acc_c_16
+pad_-1_0ps176"Pad*
+mode"constant 
+-
+ps176
+sst_1_0
+sen_1_0
+ax23rs176"Slice
+4
+acc_c_16
+pad_0_1ps177"Pad*
+mode"constant 
+-
+ps177
+sst_0_0
+sen_0_0
+ax23rs177"Slice
+5
+acc_c_16
+pad_0_-1ps178"Pad*
+mode"constant 
+-
+ps178
+sst_0_1
+sen_0_1
+ax23rs178"Slice
+5
+acc_c_16
+rs175
+rs176
+rs177
+rs178dil_c_16"Max
+
+dil_c_16
+nzacc_c_17"Mul
+4
+acc_c_17
+pad_1_0ps179"Pad*
+mode"constant 
+-
+ps179
+sst_0_0
+sen_0_0
+ax23rs179"Slice
+5
+acc_c_17
+pad_-1_0ps180"Pad*
+mode"constant 
+-
+ps180
+sst_1_0
+sen_1_0
+ax23rs180"Slice
+4
+acc_c_17
+pad_0_1ps181"Pad*
+mode"constant 
+-
+ps181
+sst_0_0
+sen_0_0
+ax23rs181"Slice
+5
+acc_c_17
+pad_0_-1ps182"Pad*
+mode"constant 
+-
+ps182
+sst_0_1
+sen_0_1
+ax23rs182"Slice
+5
+acc_c_17
+rs179
+rs180
+rs181
+rs182dil_c_17"Max
+
+dil_c_17
+nzacc_c_18"Mul
+4
+acc_c_18
+pad_1_0ps183"Pad*
+mode"constant 
+-
+ps183
+sst_0_0
+sen_0_0
+ax23rs183"Slice
+5
+acc_c_18
+pad_-1_0ps184"Pad*
+mode"constant 
+-
+ps184
+sst_1_0
+sen_1_0
+ax23rs184"Slice
+4
+acc_c_18
+pad_0_1ps185"Pad*
+mode"constant 
+-
+ps185
+sst_0_0
+sen_0_0
+ax23rs185"Slice
+5
+acc_c_18
+pad_0_-1ps186"Pad*
+mode"constant 
+-
+ps186
+sst_0_1
+sen_0_1
+ax23rs186"Slice
+5
+acc_c_18
+rs183
+rs184
+rs185
+rs186dil_c_18"Max
+
+dil_c_18
+nzacc_c_19"Mul
+4
+acc_c_19
+pad_1_0ps187"Pad*
+mode"constant 
+-
+ps187
+sst_0_0
+sen_0_0
+ax23rs187"Slice
+5
+acc_c_19
+pad_-1_0ps188"Pad*
+mode"constant 
+-
+ps188
+sst_1_0
+sen_1_0
+ax23rs188"Slice
+4
+acc_c_19
+pad_0_1ps189"Pad*
+mode"constant 
+-
+ps189
+sst_0_0
+sen_0_0
+ax23rs189"Slice
+5
+acc_c_19
+pad_0_-1ps190"Pad*
+mode"constant 
+-
+ps190
+sst_0_1
+sen_0_1
+ax23rs190"Slice
+5
+acc_c_19
+rs187
+rs188
+rs189
+rs190dil_c_19"Max
+
+dil_c_19
+nzacc_c_20"Mul
+4
+acc_c_20
+pad_1_0ps191"Pad*
+mode"constant 
+-
+ps191
+sst_0_0
+sen_0_0
+ax23rs191"Slice
+5
+acc_c_20
+pad_-1_0ps192"Pad*
+mode"constant 
+-
+ps192
+sst_1_0
+sen_1_0
+ax23rs192"Slice
+4
+acc_c_20
+pad_0_1ps193"Pad*
+mode"constant 
+-
+ps193
+sst_0_0
+sen_0_0
+ax23rs193"Slice
+5
+acc_c_20
+pad_0_-1ps194"Pad*
+mode"constant 
+-
+ps194
+sst_0_1
+sen_0_1
+ax23rs194"Slice
+5
+acc_c_20
+rs191
+rs192
+rs193
+rs194dil_c_20"Max
+
+dil_c_20
+nzacc_c_21"Mul
+4
+acc_c_21
+pad_1_0ps195"Pad*
+mode"constant 
+-
+ps195
+sst_0_0
+sen_0_0
+ax23rs195"Slice
+5
+acc_c_21
+pad_-1_0ps196"Pad*
+mode"constant 
+-
+ps196
+sst_1_0
+sen_1_0
+ax23rs196"Slice
+4
+acc_c_21
+pad_0_1ps197"Pad*
+mode"constant 
+-
+ps197
+sst_0_0
+sen_0_0
+ax23rs197"Slice
+5
+acc_c_21
+pad_0_-1ps198"Pad*
+mode"constant 
+-
+ps198
+sst_0_1
+sen_0_1
+ax23rs198"Slice
+5
+acc_c_21
+rs195
+rs196
+rs197
+rs198dil_c_21"Max
+
+dil_c_21
+nzacc_c_22"Mul
+4
+acc_c_22
+pad_1_0ps199"Pad*
+mode"constant 
+-
+ps199
+sst_0_0
+sen_0_0
+ax23rs199"Slice
+5
+acc_c_22
+pad_-1_0ps200"Pad*
+mode"constant 
+-
+ps200
+sst_1_0
+sen_1_0
+ax23rs200"Slice
+4
+acc_c_22
+pad_0_1ps201"Pad*
+mode"constant 
+-
+ps201
+sst_0_0
+sen_0_0
+ax23rs201"Slice
+5
+acc_c_22
+pad_0_-1ps202"Pad*
+mode"constant 
+-
+ps202
+sst_0_1
+sen_0_1
+ax23rs202"Slice
+5
+acc_c_22
+rs199
+rs200
+rs201
+rs202dil_c_22"Max
+
+dil_c_22
+nzacc_c_23"Mul
+4
+acc_c_23
+pad_1_0ps203"Pad*
+mode"constant 
+-
+ps203
+sst_0_0
+sen_0_0
+ax23rs203"Slice
+5
+acc_c_23
+pad_-1_0ps204"Pad*
+mode"constant 
+-
+ps204
+sst_1_0
+sen_1_0
+ax23rs204"Slice
+4
+acc_c_23
+pad_0_1ps205"Pad*
+mode"constant 
+-
+ps205
+sst_0_0
+sen_0_0
+ax23rs205"Slice
+5
+acc_c_23
+pad_0_-1ps206"Pad*
+mode"constant 
+-
+ps206
+sst_0_1
+sen_0_1
+ax23rs206"Slice
+5
+acc_c_23
+rs203
+rs204
+rs205
+rs206dil_c_23"Max
+
+dil_c_23
+nzacc_c_24"Mul
+
+one
+acc_c_24keep"Sub
+
+input
+keepkept"Mul
+
+e8
+acc_c_24addc"Mul
+
+kept
+addcoutput"Addenclosure_recolor*8
+Be8J(                                  €?    *BhalfJ   ?*BoneJ  €?*Bax23J              *OBpad_1_0J@                                                               *Bsst_0_0J                *Bsen_0_0J              *PBpad_-1_0J@                                                               *Bsst_1_0J               *Bsen_1_0J              *OBpad_0_1J@                                                               *PBpad_0_-1J@                                                               *Bsst_0_1J               *Bsen_0_1J              *OBpad_1_1J@                                                              *PBpad_1_-1J@                                                              *PBpad_-1_1J@                                                              *QB	pad_-1_-1J@                                                              *Bsst_1_1J              *Bsen_1_1J              Z
+input
+
+
+
+
+
+b 
+output
+
+
+
+
+
+B
+ 

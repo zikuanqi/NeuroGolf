@@ -3203,3 +3203,31 @@ def test_laser_cross_rejects_no_pair():
     from neurogolf.solvers.laser_cross import solve_laser_cross
     task = _make_task([([[8, 0], [0, 0]], [[8, 0], [0, 0]])])
     assert solve_laser_cross(task) is None
+
+
+def test_enclosure_recolor():
+    import numpy as np
+    import onnxruntime as ort
+    from neurogolf.grids import from_onehot, to_onehot
+    from neurogolf.solvers.enclosure_recolor import solve_enclosure_recolor, _ref
+
+    g = [[0, 0, 0, 0, 0],          # closed box encloses a hole -> recolour to 8
+         [0, 1, 1, 1, 0],
+         [0, 1, 0, 1, 0],
+         [0, 1, 1, 1, 0],
+         [0, 0, 0, 0, 0]]
+    expected = _ref(np.array(g)).tolist()
+    assert expected[1] == [0, 8, 8, 8, 0] and expected[2] == [0, 8, 0, 8, 0]
+    task = _make_task([(g, expected)])
+    model = solve_enclosure_recolor(task)
+    assert model is not None and hasattr(model, "graph")
+    sess = ort.InferenceSession(model.SerializeToString())
+    res = sess.run(["output"], {"input": to_onehot(g)})[0]
+    assert from_onehot((res > 0.5).astype(np.float32)) == expected
+
+
+def test_enclosure_recolor_rejects_open():
+    from neurogolf.solvers.enclosure_recolor import solve_enclosure_recolor
+    task = _make_task([([[0, 1, 0], [1, 1, 1], [0, 1, 0]],
+                        [[0, 1, 0], [1, 1, 1], [0, 1, 0]])])
+    assert solve_enclosure_recolor(task) is None

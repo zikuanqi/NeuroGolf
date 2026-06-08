@@ -97,6 +97,7 @@ from .col3_recolor import solve_col3_recolor
 from .vperiod3 import solve_vperiod3
 from .key_cycle import solve_key_cycle
 from .laser_cross import solve_laser_cross
+from .enclosure_recolor import solve_enclosure_recolor
 from .gravity_down import solve_gravity_down
 from .slide_to_wall import solve_slide_to_wall
 from .slide_to_line import solve_slide_to_line
@@ -295,6 +296,7 @@ ALL_SOLVERS: list[Solver] = [
     solve_vperiod3,
     solve_key_cycle,
     solve_laser_cross,
+    solve_enclosure_recolor,
     solve_periodic_fill,
     solve_conv3x3,
     solve_conv1x1_masked,
