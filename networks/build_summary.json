@@ -2825,11 +2825,11 @@
   },
   {
     "task": 354,
-    "solver": "none",
-    "saved": false,
-    "points": 0.0,
-    "memory": null,
-    "params": null
+    "solver": "solve_key_flood",
+    "saved": true,
+    "points": 11.254929073861607,
+    "memory": 931920,
+    "params": 64
   },
   {
     "task": 355,

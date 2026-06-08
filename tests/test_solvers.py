@@ -3231,3 +3231,29 @@ def test_enclosure_recolor_rejects_open():
     task = _make_task([([[0, 1, 0], [1, 1, 1], [0, 1, 0]],
                         [[0, 1, 0], [1, 1, 1], [0, 1, 0]])])
     assert solve_enclosure_recolor(task) is None
+
+
+def test_key_flood():
+    import numpy as np
+    import onnxruntime as ort
+    from neurogolf.grids import from_onehot, to_onehot
+    from neurogolf.solvers.key_flood import solve_key_flood, _ref
+
+    g = [[0, 2, 0, 0, 6, 0],          # keys 2@col1, 6@col4; blocks flood to them
+         [0, 0, 0, 0, 0, 0],
+         [0, 5, 5, 0, 5, 5],
+         [0, 5, 5, 0, 5, 5]]
+    expected = _ref(np.array(g)).tolist()
+    assert expected[2] == [0, 2, 2, 0, 6, 6] and expected[3] == [0, 2, 2, 0, 6, 6]
+    task = _make_task([(g, expected)])
+    model = solve_key_flood(task)
+    assert model is not None and hasattr(model, "graph")
+    sess = ort.InferenceSession(model.SerializeToString())
+    res = sess.run(["output"], {"input": to_onehot(g)})[0]
+    assert from_onehot((res > 0.5).astype(np.float32)) == expected
+
+
+def test_key_flood_rejects_no_block():
+    from neurogolf.solvers.key_flood import solve_key_flood
+    task = _make_task([([[2, 0], [0, 0]], [[2, 0], [0, 0]])])
+    assert solve_key_flood(task) is None
