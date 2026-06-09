@@ -3392,3 +3392,31 @@ def test_cross_center_rejects_empty():
     from neurogolf.solvers.cross_center import solve_cross_center
     task = _make_task([([[8, 8], [8, 8]], [[8, 8], [8, 8]])])
     assert solve_cross_center(task) is None
+
+
+def test_fold_mirror():
+    import numpy as np
+    import onnxruntime as ort
+    from neurogolf.grids import from_onehot, to_onehot
+    from neurogolf.solvers.fold_mirror import solve_fold_mirror, _ref
+
+    g = [[0, 0, 0, 0, 0, 0],          # 8-shape folds across the 2 below it; bg -> 3
+         [0, 0, 0, 0, 0, 0],
+         [0, 0, 0, 8, 8, 8],
+         [0, 0, 0, 0, 0, 8],
+         [0, 0, 0, 0, 0, 2],
+         [0, 0, 0, 0, 0, 0]]
+    expected = _ref(np.array(g)).tolist()
+    assert expected[2][3:6] == [8, 8, 8] and expected[5][3:6] == [8, 8, 8] and expected[0][0] == 3
+    task = _make_task([(g, expected)])
+    model = solve_fold_mirror(task)
+    assert model is not None and hasattr(model, "graph")
+    sess = ort.InferenceSession(model.SerializeToString())
+    res = sess.run(["output"], {"input": to_onehot(g)})[0]
+    assert from_onehot((res > 0.5).astype(np.float32)) == expected
+
+
+def test_fold_mirror_rejects_no_marker():
+    from neurogolf.solvers.fold_mirror import solve_fold_mirror
+    task = _make_task([([[8, 0], [0, 0]], [[8, 0], [0, 0]])])
+    assert solve_fold_mirror(task) is None

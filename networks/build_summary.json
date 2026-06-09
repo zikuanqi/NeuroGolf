@@ -489,11 +489,11 @@
   },
   {
     "task": 62,
-    "solver": "none",
-    "saved": false,
-    "points": 0.0,
-    "memory": null,
-    "params": null
+    "solver": "solve_fold_mirror",
+    "saved": true,
+    "points": 12.729634175926288,
+    "memory": 211391,
+    "params": 1890
   },
   {
     "task": 63,
