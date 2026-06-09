@@ -2553,11 +2553,11 @@
   },
   {
     "task": 320,
-    "solver": "none",
-    "saved": false,
-    "points": 0.0,
-    "memory": null,
-    "params": null
+    "solver": "solve_bar_half",
+    "saved": true,
+    "points": 10.465819262044695,
+    "memory": 2050740,
+    "params": 963
   },
   {
     "task": 321,

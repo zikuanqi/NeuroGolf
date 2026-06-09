@@ -3420,3 +3420,29 @@ def test_fold_mirror_rejects_no_marker():
     from neurogolf.solvers.fold_mirror import solve_fold_mirror
     task = _make_task([([[8, 0], [0, 0]], [[8, 0], [0, 0]])])
     assert solve_fold_mirror(task) is None
+
+
+def test_bar_half():
+    import numpy as np
+    import onnxruntime as ort
+    from neurogolf.grids import from_onehot, to_onehot
+    from neurogolf.solvers.bar_half import solve_bar_half, _ref
+
+    g = [[0, 2, 0],          # bar height 4 -> bottom 2 cells -> 8
+         [0, 2, 0],
+         [0, 2, 0],
+         [0, 2, 0]]
+    expected = _ref(np.array(g)).tolist()
+    assert expected[0] == [0, 2, 0] and expected[2] == [0, 8, 0] and expected[3] == [0, 8, 0]
+    task = _make_task([(g, expected)])
+    model = solve_bar_half(task)
+    assert model is not None and hasattr(model, "graph")
+    sess = ort.InferenceSession(model.SerializeToString())
+    res = sess.run(["output"], {"input": to_onehot(g)})[0]
+    assert from_onehot((res > 0.5).astype(np.float32)) == expected
+
+
+def test_bar_half_rejects_no_bar():
+    from neurogolf.solvers.bar_half import solve_bar_half
+    task = _make_task([([[3, 3], [3, 3]], [[3, 3], [3, 3]])])
+    assert solve_bar_half(task) is None
