@@ -609,11 +609,11 @@
   },
   {
     "task": 77,
-    "solver": "none",
-    "saved": false,
-    "points": 0.0,
-    "memory": null,
-    "params": null
+    "solver": "solve_bbox_fill",
+    "saved": true,
+    "points": 9.87414081764796,
+    "memory": 3705600,
+    "params": 1866
   },
   {
     "task": 78,

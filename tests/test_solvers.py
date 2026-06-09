@@ -3339,3 +3339,29 @@ def test_blob_size_color_rejects_uniform():
     from neurogolf.solvers.blob_size_color import solve_blob_size_color
     task = _make_task([([[5, 5], [5, 5]], [[5, 5], [5, 5]])])
     assert solve_blob_size_color(task) is None
+
+
+def test_bbox_fill():
+    import numpy as np
+    import onnxruntime as ort
+    from neurogolf.grids import from_onehot, to_onehot
+    from neurogolf.solvers.bbox_fill import solve_bbox_fill, _ref
+
+    g = [[2, 2, 2, 0],          # 2-ring's bbox contains the 1-cell -> 4
+         [2, 1, 2, 0],
+         [2, 2, 2, 0],
+         [0, 0, 0, 0]]
+    expected = _ref(np.array(g)).tolist()
+    assert expected[1] == [2, 4, 2, 0]
+    task = _make_task([(g, expected)])
+    model = solve_bbox_fill(task)
+    assert model is not None and hasattr(model, "graph")
+    sess = ort.InferenceSession(model.SerializeToString())
+    res = sess.run(["output"], {"input": to_onehot(g)})[0]
+    assert from_onehot((res > 0.5).astype(np.float32)) == expected
+
+
+def test_bbox_fill_rejects_no_two():
+    from neurogolf.solvers.bbox_fill import solve_bbox_fill
+    task = _make_task([([[2, 0], [0, 0]], [[2, 0], [0, 0]])])
+    assert solve_bbox_fill(task) is None
