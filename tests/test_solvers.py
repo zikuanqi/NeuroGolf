@@ -3365,3 +3365,30 @@ def test_bbox_fill_rejects_no_two():
     from neurogolf.solvers.bbox_fill import solve_bbox_fill
     task = _make_task([([[2, 0], [0, 0]], [[2, 0], [0, 0]])])
     assert solve_bbox_fill(task) is None
+
+
+def test_cross_center():
+    import numpy as np
+    import onnxruntime as ort
+    from neurogolf.grids import from_onehot, to_onehot
+    from neurogolf.solvers.cross_center import solve_cross_center, _ref
+
+    g = [[8, 8, 8, 8, 8],          # box centre (2,2) -> full cross of 6
+         [8, 1, 1, 1, 8],
+         [8, 1, 8, 1, 8],
+         [8, 1, 1, 1, 8],
+         [8, 8, 8, 8, 8]]
+    expected = _ref(np.array(g)).tolist()
+    assert expected[2] == [6, 1, 6, 1, 6] and expected[0] == [8, 8, 6, 8, 8] and expected[4] == [8, 8, 6, 8, 8]
+    task = _make_task([(g, expected)])
+    model = solve_cross_center(task)
+    assert model is not None and hasattr(model, "graph")
+    sess = ort.InferenceSession(model.SerializeToString())
+    res = sess.run(["output"], {"input": to_onehot(g)})[0]
+    assert from_onehot((res > 0.5).astype(np.float32)) == expected
+
+
+def test_cross_center_rejects_empty():
+    from neurogolf.solvers.cross_center import solve_cross_center
+    task = _make_task([([[8, 8], [8, 8]], [[8, 8], [8, 8]])])
+    assert solve_cross_center(task) is None

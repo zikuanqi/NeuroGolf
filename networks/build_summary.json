@@ -745,11 +745,11 @@
   },
   {
     "task": 94,
-    "solver": "none",
-    "saved": false,
-    "points": 0.0,
-    "memory": null,
-    "params": null
+    "solver": "solve_cross_center",
+    "saved": true,
+    "points": 9.784075729744963,
+    "memory": 4055018,
+    "params": 1860
   },
   {
     "task": 95,
