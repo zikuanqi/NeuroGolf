@@ -3446,3 +3446,28 @@ def test_bar_half_rejects_no_bar():
     from neurogolf.solvers.bar_half import solve_bar_half
     task = _make_task([([[3, 3], [3, 3]], [[3, 3], [3, 3]])])
     assert solve_bar_half(task) is None
+
+
+def test_corner_rect_fill():
+    import numpy as np
+    import onnxruntime as ort
+    from neurogolf.grids import from_onehot, to_onehot
+    from neurogolf.solvers.corner_rect_fill import solve_corner_rect_fill, _ref
+
+    g = [[4, 0, 4],          # 4 corners -> interior (1,1) filled with 2
+         [0, 0, 0],
+         [4, 0, 4]]
+    expected = _ref(np.array(g)).tolist()
+    assert expected == [[4, 0, 4], [0, 2, 0], [4, 0, 4]]
+    task = _make_task([(g, expected)])
+    model = solve_corner_rect_fill(task)
+    assert model is not None and hasattr(model, "graph")
+    sess = ort.InferenceSession(model.SerializeToString())
+    res = sess.run(["output"], {"input": to_onehot(g)})[0]
+    assert from_onehot((res > 0.5).astype(np.float32)) == expected
+
+
+def test_corner_rect_fill_rejects_few():
+    from neurogolf.solvers.corner_rect_fill import solve_corner_rect_fill
+    task = _make_task([([[4, 0], [0, 0]], [[4, 0], [0, 0]])])
+    assert solve_corner_rect_fill(task) is None

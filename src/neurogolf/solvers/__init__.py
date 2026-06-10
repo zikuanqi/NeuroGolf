@@ -106,6 +106,7 @@ from .bbox_fill import solve_bbox_fill
 from .cross_center import solve_cross_center
 from .fold_mirror import solve_fold_mirror
 from .bar_half import solve_bar_half
+from .corner_rect_fill import solve_corner_rect_fill
 from .gravity_down import solve_gravity_down
 from .slide_to_wall import solve_slide_to_wall
 from .slide_to_line import solve_slide_to_line
@@ -313,6 +314,7 @@ ALL_SOLVERS: list[Solver] = [
     solve_cross_center,
     solve_fold_mirror,
     solve_bar_half,
+    solve_corner_rect_fill,
     solve_periodic_fill,
     solve_conv3x3,
     solve_conv1x1_masked,
