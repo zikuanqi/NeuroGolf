@@ -3471,3 +3471,34 @@ def test_corner_rect_fill_rejects_few():
     from neurogolf.solvers.corner_rect_fill import solve_corner_rect_fill
     task = _make_task([([[4, 0], [0, 0]], [[4, 0], [0, 0]])])
     assert solve_corner_rect_fill(task) is None
+
+
+def test_neighbor_halo():
+    import numpy as np
+    import onnxruntime as ort
+    from neurogolf.grids import from_onehot, to_onehot
+    from neurogolf.solvers.neighbor_halo import solve_neighbor_halo, _ref
+
+    g = [[0, 0, 0, 0, 0],     # 1 -> orthogonal 7s ; 2 -> diagonal 4s
+         [0, 1, 0, 0, 0],
+         [0, 0, 0, 0, 0],
+         [0, 0, 0, 2, 0],
+         [0, 0, 0, 0, 0]]
+    expected = _ref(np.array(g)).tolist()
+    assert expected == [[0, 7, 0, 0, 0],
+                        [7, 1, 7, 0, 0],
+                        [0, 7, 4, 0, 4],
+                        [0, 0, 0, 2, 0],
+                        [0, 0, 4, 0, 4]]
+    task = _make_task([(g, expected)])
+    model = solve_neighbor_halo(task)
+    assert model is not None and hasattr(model, "graph")
+    sess = ort.InferenceSession(model.SerializeToString())
+    res = sess.run(["output"], {"input": to_onehot(g)})[0]
+    assert from_onehot((res > 0.5).astype(np.float32)) == expected
+
+
+def test_neighbor_halo_rejects_plain():
+    from neurogolf.solvers.neighbor_halo import solve_neighbor_halo
+    task = _make_task([([[8, 0], [0, 0]], [[8, 0], [0, 0]])])
+    assert solve_neighbor_halo(task) is None

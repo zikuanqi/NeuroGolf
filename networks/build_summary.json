@@ -113,11 +113,11 @@
   },
   {
     "task": 15,
-    "solver": "none",
-    "saved": false,
-    "points": 0.0,
-    "memory": null,
-    "params": null
+    "solver": "solve_neighbor_halo",
+    "saved": true,
+    "points": 12.708419607365231,
+    "memory": 217800,
+    "params": 54
   },
   {
     "task": 16,
