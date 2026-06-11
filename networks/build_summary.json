@@ -737,11 +737,11 @@
   },
   {
     "task": 93,
-    "solver": "none",
-    "saved": false,
-    "points": 0.0,
-    "memory": null,
-    "params": null
+    "solver": "solve_stack_to_band",
+    "saved": true,
+    "points": 12.156366882349632,
+    "memory": 378285,
+    "params": 87
   },
   {
     "task": 94,

@@ -116,6 +116,7 @@ from .bbox_recolor_ones import solve_bbox_recolor_ones
 from .stamp_at_markers import solve_stamp_at_markers
 from .left_third import solve_left_third
 from .marker_box_interior import solve_marker_box_interior
+from .stack_to_band import solve_stack_to_band
 from .gravity_down import solve_gravity_down
 from .slide_to_wall import solve_slide_to_wall
 from .slide_to_line import solve_slide_to_line
@@ -333,6 +334,7 @@ ALL_SOLVERS: list[Solver] = [
     solve_stamp_at_markers,
     solve_left_third,
     solve_marker_box_interior,
+    solve_stack_to_band,
     solve_periodic_fill,
     solve_conv3x3,
     solve_conv1x1_masked,
