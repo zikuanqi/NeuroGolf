@@ -13,7 +13,7 @@
 [![Tests](https://img.shields.io/badge/tests-246%20passing-brightgreen)](tests/)
 [![Tasks Solved](https://img.shields.io/badge/tasks_solved-181%2F400-blue)](networks/)
 [![Local Score](https://img.shields.io/badge/local_score-2458.67-success)](networks/build_summary.json)
-[![Public Score](https://img.shields.io/badge/public_score-2389.93-blue)](https://www.kaggle.com/competitions/neurogolf-2026)
+[![Public Score](https://img.shields.io/badge/public_score-2458.66-blue)](https://www.kaggle.com/competitions/neurogolf-2026)
 
 </div>
 
@@ -58,13 +58,13 @@
 |---|---|
 | **Tasks solved · 通过任务** | **181 / 400** |
 | **Local score · 本地总分** | **2458.67** — clean-room scorer over `build_summary.json` · 独立评分器统计 |
-| **Public score · 公开分数 (Kaggle)** | **2389.93** — leaderboard-confirmed at 175/400; tasks 176–181 built/verified locally, queued for the next daily reset · 已确认 175/400；176–181 已本地验证，待额度重置后提交 |
+| **Public score · 公开分数 (Kaggle)** | **2458.66** — leaderboard-confirmed at 181/400 (exact match to local) · 已确认 181/400（与本地完全一致） |
 | Solvers · 求解器 | in 9 families · 分 9 类 |
 | Unit tests · 单元测试 | 246 passing · 246 个全部通过 |
 | Networks · 网络文件 | 181 × `networks/taskNNN.onnx` (one per solved task) · 每个解出任务一个 |
 
-> Local score is **2458.67 / 181 tasks**; the Kaggle leaderboard is confirmed at **2389.93 / 175** (exact match to local), with tasks 176–181 awaiting the next submission window. The v1 → v46 progression lives in [Submission history](#history).
-> 本地分数 **2458.67 / 181 解**；Kaggle 排行榜确认 **2389.93 / 175**（与本地完全一致），176–181 待下次提交窗口。v1 → v46 进展见 [提交历史](#history)。
+> Local score is **2458.67 / 181 tasks**; the Kaggle leaderboard is confirmed at **2458.66 / 181** (exact match to local, to ~0.01). The v1 → v46 progression lives in [Submission history](#history).
+> 本地分数 **2458.67 / 181 解**；Kaggle 排行榜确认 **2458.66 / 181**（与本地完全一致，误差约 0.01）。v1 → v46 进展见 [提交历史](#history)。
 
 ---
 
@@ -556,7 +556,7 @@ The suite covers the one-hot round-trip contract and, for each solver family, a 
 | v110 | + fold-mirror (62) | 178 | _2422.32 local · submit pending_ |
 | v111 | + bar-half (320) | 179 | _2432.79 local · submit pending_ |
 | v112 | + corner-rect-fill (273) | 180 | _2445.96 local · submit pending_ |
-| v113 | + neighbor-halo (15) | 181 | _2458.67 local · submit pending_ |
+| v113 | + neighbor-halo (15) | 181 | **2458.66** ✓ confirmed (incl. 176–181) |
 
 Bold = score confirmed on the Kaggle leaderboard; `~` = local estimate from `build_summary.json` (the local clean-room scorer matches the official score to two decimals).
 
