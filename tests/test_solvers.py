@@ -3690,3 +3690,30 @@ def test_left_third_rejects_non_multiple():
     from neurogolf.solvers.left_third import solve_left_third
     task = _make_task([([[1, 2], [3, 4]], [[1, 2], [3, 4]])])
     assert solve_left_third(task) is None
+
+
+def test_marker_box_interior():
+    import numpy as np
+    import onnxruntime as ort
+    from neurogolf.grids import to_onehot
+    from neurogolf.solvers.marker_box_interior import solve_marker_box_interior, _ref
+
+    g = [[6, 0, 0, 0, 6],     # 6 markers at corners; 8-shape inside -> recoloured 6
+         [0, 0, 8, 0, 0],
+         [0, 8, 8, 8, 0],
+         [0, 0, 8, 0, 0],
+         [6, 0, 0, 0, 6]]
+    expected = _ref(np.array(g)).tolist()
+    assert expected == [[0, 6, 0], [6, 6, 6], [0, 6, 0]]
+    task = _make_task([(g, expected)])
+    model = solve_marker_box_interior(task)
+    assert model is not None and hasattr(model, "graph")
+    sess = ort.InferenceSession(model.SerializeToString())
+    res = sess.run(["output"], {"input": to_onehot(g)})[0]
+    assert np.array_equal((res > 0.0).astype(np.float32), to_onehot(expected))
+
+
+def test_marker_box_interior_rejects_tiny():
+    from neurogolf.solvers.marker_box_interior import solve_marker_box_interior
+    task = _make_task([([[6, 0], [0, 6]], [[6, 0], [0, 6]])])
+    assert solve_marker_box_interior(task) is None

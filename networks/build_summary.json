@@ -697,11 +697,11 @@
   },
   {
     "task": 88,
-    "solver": "none",
-    "saved": false,
-    "points": 0.0,
-    "memory": null,
-    "params": null
+    "solver": "solve_marker_box_interior",
+    "saved": true,
+    "points": 12.89922676088375,
+    "memory": 179932,
+    "params": 79
   },
   {
     "task": 89,
