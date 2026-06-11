@@ -449,11 +449,11 @@
   },
   {
     "task": 57,
-    "solver": "none",
-    "saved": false,
-    "points": 0.0,
-    "memory": null,
-    "params": null
+    "solver": "solve_crop_tile_h",
+    "saved": true,
+    "points": 12.93557732805474,
+    "memory": 172608,
+    "params": 977
   },
   {
     "task": 58,

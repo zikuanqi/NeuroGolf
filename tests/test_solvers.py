@@ -3558,3 +3558,29 @@ def test_panel_complete_rejects_wrong_size():
     from neurogolf.solvers.panel_complete import solve_panel_complete
     task = _make_task([([[3, 0], [0, 0]], [[3, 0], [0, 0]])])
     assert solve_panel_complete(task) is None
+
+
+def test_crop_tile_h():
+    import numpy as np
+    import onnxruntime as ort
+    from neurogolf.grids import to_onehot
+    from neurogolf.solvers.crop_tile_h import solve_crop_tile_h, _ref
+
+    g = [[0, 0, 0, 0],
+         [0, 8, 8, 0],
+         [0, 8, 0, 0],
+         [0, 0, 0, 0]]
+    expected = _ref(np.array(g)).tolist()
+    assert expected == [[8, 8, 8, 8], [8, 0, 8, 0]]
+    task = _make_task([(g, expected)])
+    model = solve_crop_tile_h(task)
+    assert model is not None and hasattr(model, "graph")
+    sess = ort.InferenceSession(model.SerializeToString())
+    res = sess.run(["output"], {"input": to_onehot(g)})[0]
+    assert np.array_equal((res > 0.0).astype(np.float32), to_onehot(expected))
+
+
+def test_crop_tile_h_rejects_identity():
+    from neurogolf.solvers.crop_tile_h import solve_crop_tile_h
+    task = _make_task([([[8, 0], [0, 0]], [[8, 0], [0, 0]])])
+    assert solve_crop_tile_h(task) is None
