@@ -3502,3 +3502,59 @@ def test_neighbor_halo_rejects_plain():
     from neurogolf.solvers.neighbor_halo import solve_neighbor_halo
     task = _make_task([([[8, 0], [0, 0]], [[8, 0], [0, 0]])])
     assert solve_neighbor_halo(task) is None
+
+
+def test_align_to_anchor():
+    import numpy as np
+    import onnxruntime as ort
+    from neurogolf.grids import from_onehot, to_onehot
+    from neurogolf.solvers.align_to_anchor import solve_align_to_anchor, _ref
+
+    g = [[2, 2, 0, 0, 0],     # 2-block slides down so its top meets the 1-block
+         [2, 2, 0, 1, 1],
+         [0, 0, 0, 1, 1]]
+    expected = _ref(np.array(g)).tolist()
+    assert expected == [[0, 0, 0, 0, 0],
+                        [2, 2, 0, 1, 1],
+                        [2, 2, 0, 1, 1]]
+    task = _make_task([(g, expected)])
+    model = solve_align_to_anchor(task)
+    assert model is not None and hasattr(model, "graph")
+    sess = ort.InferenceSession(model.SerializeToString())
+    res = sess.run(["output"], {"input": to_onehot(g)})[0]
+    assert from_onehot((res > 0.0).astype(np.float32)) == expected
+
+
+def test_align_to_anchor_rejects_no_anchor():
+    from neurogolf.solvers.align_to_anchor import solve_align_to_anchor
+    task = _make_task([([[2, 2], [0, 0]], [[2, 2], [0, 0]])])
+    assert solve_align_to_anchor(task) is None
+
+
+def test_panel_complete():
+    import numpy as np
+    import onnxruntime as ort
+    from neurogolf.grids import to_onehot
+    from neurogolf.solvers.panel_complete import solve_panel_complete, _ref
+
+    d = 3
+    g = np.zeros((17, 17), int)
+    g[5, :] = d; g[11, :] = d; g[:, 5] = d; g[:, 11] = d
+    for dr, dc in [(0, 0), (-1, 0), (1, 0), (0, -1), (0, 1)]:   # full plus, colour 7
+        g[2 + dr, 2 + dc] = 7
+    g[8, 8] = 7; g[8, 7] = 7                                    # partial plus in panel (1,1)
+    expected = _ref(g)
+    assert expected is not None
+    assert expected[8, 9] == d and expected[7, 8] == d          # missing arms filled with divider
+    task = _make_task([(g.tolist(), expected.tolist())])
+    model = solve_panel_complete(task)
+    assert model is not None and hasattr(model, "graph")
+    sess = ort.InferenceSession(model.SerializeToString())
+    res = sess.run(["output"], {"input": to_onehot(g.tolist())})[0]
+    assert np.array_equal((res > 0.0).astype(np.float32), to_onehot(expected.tolist()))
+
+
+def test_panel_complete_rejects_wrong_size():
+    from neurogolf.solvers.panel_complete import solve_panel_complete
+    task = _make_task([([[3, 0], [0, 0]], [[3, 0], [0, 0]])])
+    assert solve_panel_complete(task) is None

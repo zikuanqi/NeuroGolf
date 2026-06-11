@@ -233,11 +233,11 @@
   },
   {
     "task": 30,
-    "solver": "none",
-    "saved": false,
-    "points": 0.0,
-    "memory": null,
-    "params": null
+    "solver": "solve_align_to_anchor",
+    "saved": true,
+    "points": 12.721402062665602,
+    "memory": 214092,
+    "params": 952
   },
   {
     "task": 31,
@@ -257,11 +257,11 @@
   },
   {
     "task": 33,
-    "solver": "none",
-    "saved": false,
-    "points": 0.0,
-    "memory": null,
-    "params": null
+    "solver": "solve_panel_complete",
+    "saved": true,
+    "points": 13.259524705632746,
+    "memory": 125484,
+    "params": 68
   },
   {
     "task": 34,
