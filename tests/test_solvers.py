@@ -3665,3 +3665,28 @@ def test_stamp_at_markers_rejects_no_marker():
     from neurogolf.solvers.stamp_at_markers import solve_stamp_at_markers
     task = _make_task([([[4, 0, 0], [0, 0, 0], [0, 0, 0]], [[4, 0, 0], [0, 0, 0], [0, 0, 0]])])
     assert solve_stamp_at_markers(task) is None
+
+
+def test_left_third():
+    import numpy as np
+    import onnxruntime as ort
+    from neurogolf.grids import to_onehot
+    from neurogolf.solvers.left_third import solve_left_third, _ref
+
+    g = [[4, 5, 1, 1, 5, 4, 4, 5, 1],     # W=9 -> keep leftmost 3 columns
+         [5, 5, 5, 5, 5, 5, 5, 5, 5],
+         [1, 5, 4, 4, 5, 1, 1, 5, 4]]
+    expected = _ref(np.array(g)).tolist()
+    assert expected == [[4, 5, 1], [5, 5, 5], [1, 5, 4]]
+    task = _make_task([(g, expected)])
+    model = solve_left_third(task)
+    assert model is not None and hasattr(model, "graph")
+    sess = ort.InferenceSession(model.SerializeToString())
+    res = sess.run(["output"], {"input": to_onehot(g)})[0]
+    assert np.array_equal((res > 0.0).astype(np.float32), to_onehot(expected))
+
+
+def test_left_third_rejects_non_multiple():
+    from neurogolf.solvers.left_third import solve_left_third
+    task = _make_task([([[1, 2], [3, 4]], [[1, 2], [3, 4]])])
+    assert solve_left_third(task) is None

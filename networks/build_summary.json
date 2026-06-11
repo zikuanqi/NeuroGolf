@@ -529,11 +529,11 @@
   },
   {
     "task": 67,
-    "solver": "none",
-    "saved": false,
-    "points": 0.0,
-    "memory": null,
-    "params": null
+    "solver": "solve_left_third",
+    "saved": true,
+    "points": 16.728963134207046,
+    "memory": 3878,
+    "params": 31
   },
   {
     "task": 68,
