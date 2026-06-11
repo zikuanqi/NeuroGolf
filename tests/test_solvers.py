@@ -3611,3 +3611,57 @@ def test_panel_max_fill_rejects_wrong_size():
     from neurogolf.solvers.panel_max_fill import solve_panel_max_fill
     task = _make_task([([[1, 0], [0, 0]], [[1, 0], [0, 0]])])
     assert solve_panel_max_fill(task) is None
+
+
+def test_bbox_recolor_ones():
+    import numpy as np
+    import onnxruntime as ort
+    from neurogolf.grids import to_onehot
+    from neurogolf.solvers.bbox_recolor_ones import solve_bbox_recolor_ones, _ref
+
+    g = [[0, 0, 0, 0, 0],
+         [0, 8, 0, 8, 0],
+         [0, 0, 1, 0, 1],     # (2,2) inside 8-bbox -> 3 ; (2,4) outside -> stays 1
+         [0, 8, 0, 8, 0],
+         [0, 0, 0, 0, 0]]
+    expected = _ref(np.array(g)).tolist()
+    assert expected[2] == [0, 0, 3, 0, 1]
+    task = _make_task([(g, expected)])
+    model = solve_bbox_recolor_ones(task)
+    assert model is not None and hasattr(model, "graph")
+    sess = ort.InferenceSession(model.SerializeToString())
+    res = sess.run(["output"], {"input": to_onehot(g)})[0]
+    assert np.array_equal((res > 0.0).astype(np.float32), to_onehot(expected))
+
+
+def test_bbox_recolor_ones_rejects_no_eight():
+    from neurogolf.solvers.bbox_recolor_ones import solve_bbox_recolor_ones
+    task = _make_task([([[1, 0], [0, 0]], [[1, 0], [0, 0]])])
+    assert solve_bbox_recolor_ones(task) is None
+
+
+def test_stamp_at_markers():
+    import numpy as np
+    import onnxruntime as ort
+    from neurogolf.grids import to_onehot
+    from neurogolf.solvers.stamp_at_markers import solve_stamp_at_markers, _ref
+
+    g = [[4, 2, 2, 5, 0, 0, 0],
+         [2, 6, 2, 5, 0, 1, 0],     # marker at (1,5) -> template stamped at cols 4..6
+         [6, 4, 4, 5, 0, 0, 0]]
+    expected = _ref(np.array(g)).tolist()
+    assert expected == [[4, 2, 2, 5, 4, 2, 2],
+                        [2, 6, 2, 5, 2, 6, 2],
+                        [6, 4, 4, 5, 6, 4, 4]]
+    task = _make_task([(g, expected)])
+    model = solve_stamp_at_markers(task)
+    assert model is not None and hasattr(model, "graph")
+    sess = ort.InferenceSession(model.SerializeToString())
+    res = sess.run(["output"], {"input": to_onehot(g)})[0]
+    assert np.array_equal((res > 0.0).astype(np.float32), to_onehot(expected))
+
+
+def test_stamp_at_markers_rejects_no_marker():
+    from neurogolf.solvers.stamp_at_markers import solve_stamp_at_markers
+    task = _make_task([([[4, 0, 0], [0, 0, 0], [0, 0, 0]], [[4, 0, 0], [0, 0, 0], [0, 0, 0]])])
+    assert solve_stamp_at_markers(task) is None

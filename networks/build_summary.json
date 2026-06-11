@@ -553,11 +553,11 @@
   },
   {
     "task": 70,
-    "solver": "solve_recolor_in_block",
+    "solver": "solve_bbox_recolor_ones",
     "saved": true,
-    "points": 14.017626788979795,
-    "memory": 58576,
-    "params": 252
+    "points": 14.144005511456735,
+    "memory": 51768,
+    "params": 76
   },
   {
     "task": 71,
@@ -593,11 +593,11 @@
   },
   {
     "task": 75,
-    "solver": "none",
-    "saved": false,
-    "points": 0.0,
-    "memory": null,
-    "params": null
+    "solver": "solve_stamp_at_markers",
+    "saved": true,
+    "points": 11.416482030849307,
+    "memory": 792856,
+    "params": 96
   },
   {
     "task": 76,
