@@ -3584,3 +3584,30 @@ def test_crop_tile_h_rejects_identity():
     from neurogolf.solvers.crop_tile_h import solve_crop_tile_h
     task = _make_task([([[8, 0], [0, 0]], [[8, 0], [0, 0]])])
     assert solve_crop_tile_h(task) is None
+
+
+def test_panel_max_fill():
+    import numpy as np
+    import onnxruntime as ort
+    from neurogolf.grids import to_onehot
+    from neurogolf.solvers.panel_max_fill import solve_panel_max_fill, _ref
+
+    g = np.zeros((11, 11), int)
+    g[3, :] = 5; g[7, :] = 5; g[:, 3] = 5; g[:, 7] = 5
+    g[0, 0] = 1; g[1, 1] = 1     # panel (0,0): 2 markers (the most)
+    g[5, 5] = 1                  # panel (1,1): 1 marker
+    expected = _ref(g)
+    assert expected is not None
+    assert np.all(expected[0:3, 0:3] == 1) and expected[5, 5] == 0   # winner solid, loser cleared
+    task = _make_task([(g.tolist(), expected.tolist())])
+    model = solve_panel_max_fill(task)
+    assert model is not None and hasattr(model, "graph")
+    sess = ort.InferenceSession(model.SerializeToString())
+    res = sess.run(["output"], {"input": to_onehot(g.tolist())})[0]
+    assert np.array_equal((res > 0.0).astype(np.float32), to_onehot(expected.tolist()))
+
+
+def test_panel_max_fill_rejects_wrong_size():
+    from neurogolf.solvers.panel_max_fill import solve_panel_max_fill
+    task = _make_task([([[1, 0], [0, 0]], [[1, 0], [0, 0]])])
+    assert solve_panel_max_fill(task) is None

@@ -465,11 +465,11 @@
   },
   {
     "task": 59,
-    "solver": "none",
-    "saved": false,
-    "points": 0.0,
-    "memory": null,
-    "params": null
+    "solver": "solve_panel_max_fill",
+    "saved": true,
+    "points": 12.454459608868815,
+    "memory": 280806,
+    "params": 34
   },
   {
     "task": 60,

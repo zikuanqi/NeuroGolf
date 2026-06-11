@@ -111,6 +111,7 @@ from .neighbor_halo import solve_neighbor_halo
 from .align_to_anchor import solve_align_to_anchor
 from .panel_complete import solve_panel_complete
 from .crop_tile_h import solve_crop_tile_h
+from .panel_max_fill import solve_panel_max_fill
 from .gravity_down import solve_gravity_down
 from .slide_to_wall import solve_slide_to_wall
 from .slide_to_line import solve_slide_to_line
@@ -323,6 +324,7 @@ ALL_SOLVERS: list[Solver] = [
     solve_align_to_anchor,
     solve_panel_complete,
     solve_crop_tile_h,
+    solve_panel_max_fill,
     solve_periodic_fill,
     solve_conv3x3,
     solve_conv1x1_masked,
