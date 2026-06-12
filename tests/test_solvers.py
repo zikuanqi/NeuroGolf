@@ -3823,3 +3823,32 @@ def test_diag_ray_pair_rejects_single_colour():
     from neurogolf.solvers.diag_ray_pair import solve_diag_ray_pair
     task = _make_task([([[1, 1], [1, 1]], [[1, 1], [1, 1]])])
     assert solve_diag_ray_pair(task) is None
+
+
+def test_blob_box_fill():
+    import numpy as np
+    import onnxruntime as ort
+    from neurogolf.grids import to_onehot
+    from neurogolf.solvers.blob_box_fill import solve_blob_box_fill, _ref
+
+    g = [[4, 4, 4, 0, 0],
+         [4, 0, 4, 0, 0],     # blob bbox 3x3: holes (1,1) and (2,0) -> 7
+         [0, 4, 4, 0, 0],
+         [0, 0, 0, 0, 0]]
+    expected = _ref(np.array(g)).tolist()
+    assert expected == [[4, 4, 4, 0, 0],
+                        [4, 7, 4, 0, 0],
+                        [7, 4, 4, 0, 0],
+                        [0, 0, 0, 0, 0]]
+    task = _make_task([(g, expected)])
+    model = solve_blob_box_fill(task)
+    assert model is not None and hasattr(model, "graph")
+    sess = ort.InferenceSession(model.SerializeToString())
+    res = sess.run(["output"], {"input": to_onehot(g)})[0]
+    assert np.array_equal((res > 0.0).astype(np.float32), to_onehot(expected))
+
+
+def test_blob_box_fill_rejects_small_bbox():
+    from neurogolf.solvers.blob_box_fill import solve_blob_box_fill
+    task = _make_task([([[4, 0], [0, 0]], [[4, 0], [0, 0]])])
+    assert solve_blob_box_fill(task) is None

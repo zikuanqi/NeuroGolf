@@ -1105,11 +1105,11 @@
   },
   {
     "task": 139,
-    "solver": "none",
-    "saved": false,
-    "points": 0.0,
-    "memory": null,
-    "params": null
+    "solver": "solve_blob_box_fill",
+    "saved": true,
+    "points": 11.480706500746871,
+    "memory": 743492,
+    "params": 134
   },
   {
     "task": 140,
