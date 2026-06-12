@@ -905,11 +905,11 @@
   },
   {
     "task": 114,
-    "solver": "none",
-    "saved": false,
-    "points": 0.0,
-    "memory": null,
-    "params": null
+    "solver": "solve_edge_frame",
+    "saved": true,
+    "points": 12.96367232905934,
+    "memory": 168700,
+    "params": 76
   },
   {
     "task": 115,
