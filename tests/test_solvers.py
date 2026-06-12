@@ -3795,3 +3795,31 @@ def test_eight_center_crop_rejects_no_eight():
     from neurogolf.solvers.eight_center_crop import solve_eight_center_crop
     task = _make_task([([[4, 0], [0, 0]], [[4, 0], [0, 0]])])
     assert solve_eight_center_crop(task) is None
+
+
+def test_diag_ray_pair():
+    import numpy as np
+    import onnxruntime as ort
+    from neurogolf.grids import to_onehot
+    from neurogolf.solvers.diag_ray_pair import solve_diag_ray_pair, _ref
+
+    g = [[0, 0, 0, 0, 0, 0],
+         [0, 1, 1, 0, 0, 0],
+         [0, 1, 1, 0, 0, 0],
+         [0, 2, 2, 0, 0, 0],
+         [0, 2, 2, 0, 0, 0],
+         [0, 0, 0, 0, 0, 0]]
+    expected = _ref(np.array(g)).tolist()
+    assert expected[0][0] == 1 and expected[5][3] == 2     # up-left 1-ray, down-right 2-ray
+    task = _make_task([(g, expected)])
+    model = solve_diag_ray_pair(task)
+    assert model is not None and hasattr(model, "graph")
+    sess = ort.InferenceSession(model.SerializeToString())
+    res = sess.run(["output"], {"input": to_onehot(g)})[0]
+    assert np.array_equal((res > 0.0).astype(np.float32), to_onehot(expected))
+
+
+def test_diag_ray_pair_rejects_single_colour():
+    from neurogolf.solvers.diag_ray_pair import solve_diag_ray_pair
+    task = _make_task([([[1, 1], [1, 1]], [[1, 1], [1, 1]])])
+    assert solve_diag_ray_pair(task) is None

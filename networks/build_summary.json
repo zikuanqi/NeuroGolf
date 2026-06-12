@@ -1081,11 +1081,11 @@
   },
   {
     "task": 136,
-    "solver": "none",
-    "saved": false,
-    "points": 0.0,
-    "memory": null,
-    "params": null
+    "solver": "solve_diag_ray_pair",
+    "saved": true,
+    "points": 12.635834455409944,
+    "memory": 233260,
+    "params": 995
   },
   {
     "task": 137,
