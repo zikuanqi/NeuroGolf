@@ -13,7 +13,7 @@
 [![Tests](https://img.shields.io/badge/tests-270%20passing-brightgreen)](tests/)
 [![Tasks Solved](https://img.shields.io/badge/tasks_solved-193%2F400-blue)](networks/)
 [![Local Score](https://img.shields.io/badge/local_score-2613.48-success)](networks/build_summary.json)
-[![Public Score](https://img.shields.io/badge/public_score-2602.00-blue)](https://www.kaggle.com/competitions/neurogolf-2026)
+[![Public Score](https://img.shields.io/badge/public_score-2613.48-blue)](https://www.kaggle.com/competitions/neurogolf-2026)
 
 </div>
 
@@ -58,13 +58,13 @@
 |---|---|
 | **Tasks solved · 通过任务** | **193 / 400** |
 | **Local score · 本地总分** | **2613.48** — clean-room scorer over `build_summary.json` · 独立评分器统计 |
-| **Public score · 公开分数 (Kaggle)** | **2602.00** — leaderboard-confirmed at 192/400 (exact match to local); task 193 submitting · 已确认 192/400（与本地完全一致）；193 提交中 |
+| **Public score · 公开分数 (Kaggle)** | **2613.48** — leaderboard-confirmed at 193/400 (exact match to local) · 已确认 193/400（与本地完全一致） |
 | Solvers · 求解器 | in 9 families · 分 9 类 |
 | Unit tests · 单元测试 | 270 passing · 270 个全部通过 |
 | Networks · 网络文件 | 193 × `networks/taskNNN.onnx` (one per solved task) · 每个解出任务一个 |
 
-> Local score is **2613.48 / 193 tasks**; the Kaggle leaderboard is confirmed at **2602.00 / 192** (exact match to local), with task 193 in the current submission. The v1 → v46 progression lives in [Submission history](#history).
-> 本地分数 **2613.48 / 193 解**；Kaggle 排行榜确认 **2602.00 / 192**（与本地完全一致），193 在本次提交中。v1 → v46 进展见 [提交历史](#history)。
+> Local score is **2613.48 / 193 tasks**; the Kaggle leaderboard is confirmed at **2613.48 / 193** (exact match to local). The v1 → v46 progression lives in [Submission history](#history).
+> 本地分数 **2613.48 / 193 解**；Kaggle 排行榜确认 **2613.48 / 193**（与本地完全一致）。v1 → v46 进展见 [提交历史](#history)。
 
 ---
 
@@ -568,7 +568,7 @@ The suite covers the one-hot round-trip contract and, for each solver family, a 
 | v122 | + edge-frame (114) | 190 | **2576.32** ✓ confirmed |
 | v123 | + eight-center-crop (121) | 191 | **2589.36** ✓ confirmed |
 | v124 | + diag-ray-pair (136) | 192 | **2602.00** ✓ confirmed |
-| v125 | + blob-box-fill (139) | 193 | _2613.48 local · submitting_ |
+| v125 | + blob-box-fill (139) | 193 | **2613.48** ✓ confirmed |
 
 Bold = score confirmed on the Kaggle leaderboard; `~` = local estimate from `build_summary.json` (the local clean-room scorer matches the official score to two decimals).
 
