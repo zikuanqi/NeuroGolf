@@ -961,11 +961,11 @@
   },
   {
     "task": 121,
-    "solver": "none",
-    "saved": false,
-    "points": 0.0,
-    "memory": null,
-    "params": null
+    "solver": "solve_eight_center_crop",
+    "saved": true,
+    "points": 13.035540422067697,
+    "memory": 156982,
+    "params": 90
   },
   {
     "task": 122,

@@ -3768,3 +3768,30 @@ def test_edge_frame_rejects_identity():
     from neurogolf.solvers.edge_frame import solve_edge_frame
     task = _make_task([([[1, 2], [3, 8]], [[1, 2], [3, 8]])])
     assert solve_edge_frame(task) is None
+
+
+def test_eight_center_crop():
+    import numpy as np
+    import onnxruntime as ort
+    from neurogolf.grids import to_onehot
+    from neurogolf.solvers.eight_center_crop import solve_eight_center_crop, _ref
+
+    g = [[0, 0, 0, 0, 0],
+         [0, 4, 0, 0, 0],
+         [4, 8, 4, 0, 0],     # 8 at (2,1): crop its 3x3, recolour 8 -> 4
+         [0, 4, 0, 0, 0],
+         [0, 0, 0, 0, 0]]
+    expected = _ref(np.array(g)).tolist()
+    assert expected == [[0, 4, 0], [4, 4, 4], [0, 4, 0]]
+    task = _make_task([(g, expected)])
+    model = solve_eight_center_crop(task)
+    assert model is not None and hasattr(model, "graph")
+    sess = ort.InferenceSession(model.SerializeToString())
+    res = sess.run(["output"], {"input": to_onehot(g)})[0]
+    assert np.array_equal((res > 0.0).astype(np.float32), to_onehot(expected))
+
+
+def test_eight_center_crop_rejects_no_eight():
+    from neurogolf.solvers.eight_center_crop import solve_eight_center_crop
+    task = _make_task([([[4, 0], [0, 0]], [[4, 0], [0, 0]])])
+    assert solve_eight_center_crop(task) is None
