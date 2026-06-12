@@ -3852,3 +3852,32 @@ def test_blob_box_fill_rejects_small_bbox():
     from neurogolf.solvers.blob_box_fill import solve_blob_box_fill
     task = _make_task([([[4, 0], [0, 0]], [[4, 0], [0, 0]])])
     assert solve_blob_box_fill(task) is None
+
+
+def test_bar_echo():
+    import numpy as np
+    import onnxruntime as ort
+    from neurogolf.grids import to_onehot
+    from neurogolf.solvers.bar_echo import solve_bar_echo, _ref
+
+    g = [[2, 0, 0, 0, 0, 0],
+         [2, 0, 0, 8, 0, 0],     # marked row: fill to marker, marker -> 4
+         [2, 0, 0, 0, 0, 0],
+         [0, 0, 0, 0, 0, 2],
+         [0, 0, 0, 0, 0, 2],     # echo row (offset 1): full row of 8
+         [0, 0, 0, 0, 0, 2]]
+    expected = _ref(np.array(g)).tolist()
+    assert expected[1] == [2, 8, 8, 4, 0, 0]
+    assert expected[4] == [8, 8, 8, 8, 8, 2]
+    task = _make_task([(g, expected)])
+    model = solve_bar_echo(task)
+    assert model is not None and hasattr(model, "graph")
+    sess = ort.InferenceSession(model.SerializeToString())
+    res = sess.run(["output"], {"input": to_onehot(g)})[0]
+    assert np.array_equal((res > 0.0).astype(np.float32), to_onehot(expected))
+
+
+def test_bar_echo_rejects_no_marker():
+    from neurogolf.solvers.bar_echo import solve_bar_echo
+    task = _make_task([([[2, 0], [2, 0]], [[2, 0], [2, 0]])])
+    assert solve_bar_echo(task) is None

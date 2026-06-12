@@ -1177,11 +1177,11 @@
   },
   {
     "task": 148,
-    "solver": "none",
-    "saved": false,
-    "points": 0.0,
-    "memory": null,
-    "params": null
+    "solver": "solve_bar_echo",
+    "saved": true,
+    "points": 12.361310870391025,
+    "memory": 308158,
+    "params": 99
   },
   {
     "task": 149,

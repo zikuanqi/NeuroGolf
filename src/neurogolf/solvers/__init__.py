@@ -121,6 +121,7 @@ from .edge_frame import solve_edge_frame
 from .eight_center_crop import solve_eight_center_crop
 from .diag_ray_pair import solve_diag_ray_pair
 from .blob_box_fill import solve_blob_box_fill
+from .bar_echo import solve_bar_echo
 from .gravity_down import solve_gravity_down
 from .slide_to_wall import solve_slide_to_wall
 from .slide_to_line import solve_slide_to_line
@@ -343,6 +344,7 @@ ALL_SOLVERS: list[Solver] = [
     solve_eight_center_crop,
     solve_diag_ray_pair,
     solve_blob_box_fill,
+    solve_bar_echo,
     solve_periodic_fill,
     solve_conv3x3,
     solve_conv1x1_masked,
