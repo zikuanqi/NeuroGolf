@@ -3881,3 +3881,29 @@ def test_bar_echo_rejects_no_marker():
     from neurogolf.solvers.bar_echo import solve_bar_echo
     task = _make_task([([[2, 0], [2, 0]], [[2, 0], [2, 0]])])
     assert solve_bar_echo(task) is None
+
+
+def test_panel_pair_flag():
+    import numpy as np
+    import onnxruntime as ort
+    from neurogolf.grids import to_onehot
+    from neurogolf.solvers.panel_pair_flag import solve_panel_pair_flag, _ref
+
+    g = np.zeros((11, 11), int)
+    g[3, :] = 8; g[7, :] = 8; g[:, 3] = 8; g[:, 7] = 8
+    g[0, 0] = 6; g[1, 1] = 6      # panel (0,0): two 6s -> 1
+    g[5, 5] = 6                   # panel (1,1): one 6 -> 0
+    expected = _ref(g)
+    assert expected.tolist() == [[1, 0, 0], [0, 0, 0], [0, 0, 0]]
+    task = _make_task([(g.tolist(), expected.tolist())])
+    model = solve_panel_pair_flag(task)
+    assert model is not None and hasattr(model, "graph")
+    sess = ort.InferenceSession(model.SerializeToString())
+    res = sess.run(["output"], {"input": to_onehot(g.tolist())})[0]
+    assert np.array_equal((res > 0.0).astype(np.float32), to_onehot(expected.tolist()))
+
+
+def test_panel_pair_flag_rejects_wrong_size():
+    from neurogolf.solvers.panel_pair_flag import solve_panel_pair_flag
+    task = _make_task([([[6, 0], [0, 0]], [[6, 0], [0, 0]])])
+    assert solve_panel_pair_flag(task) is None
