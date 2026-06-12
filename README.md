@@ -13,7 +13,7 @@
 [![Tests](https://img.shields.io/badge/tests-268%20passing-brightgreen)](tests/)
 [![Tasks Solved](https://img.shields.io/badge/tasks_solved-192%2F400-blue)](networks/)
 [![Local Score](https://img.shields.io/badge/local_score-2602.00-success)](networks/build_summary.json)
-[![Public Score](https://img.shields.io/badge/public_score-2589.36-blue)](https://www.kaggle.com/competitions/neurogolf-2026)
+[![Public Score](https://img.shields.io/badge/public_score-2602.00-blue)](https://www.kaggle.com/competitions/neurogolf-2026)
 
 </div>
 
@@ -58,7 +58,7 @@
 |---|---|
 | **Tasks solved · 通过任务** | **192 / 400** |
 | **Local score · 本地总分** | **2602.00** — clean-room scorer over `build_summary.json` · 独立评分器统计 |
-| **Public score · 公开分数 (Kaggle)** | **2589.36** — leaderboard-confirmed at 191/400 (exact match to local); task 192 submitting · 已确认 191/400（与本地完全一致）；192 提交中 |
+| **Public score · 公开分数 (Kaggle)** | **2602.00** — leaderboard-confirmed at 192/400 (exact match to local) · 已确认 192/400（与本地完全一致） |
 | Solvers · 求解器 | in 9 families · 分 9 类 |
 | Unit tests · 单元测试 | 268 passing · 268 个全部通过 |
 | Networks · 网络文件 | 192 × `networks/taskNNN.onnx` (one per solved task) · 每个解出任务一个 |
@@ -567,7 +567,7 @@ The suite covers the one-hot round-trip contract and, for each solver family, a 
 | v121 | + stack-to-band (93) | 189 | **2563.36** ✓ confirmed (incl. 187–189) |
 | v122 | + edge-frame (114) | 190 | **2576.32** ✓ confirmed |
 | v123 | + eight-center-crop (121) | 191 | **2589.36** ✓ confirmed |
-| v124 | + diag-ray-pair (136) | 192 | _2602.00 local · submitting_ |
+| v124 | + diag-ray-pair (136) | 192 | **2602.00** ✓ confirmed |
 
 Bold = score confirmed on the Kaggle leaderboard; `~` = local estimate from `build_summary.json` (the local clean-room scorer matches the official score to two decimals).
 
