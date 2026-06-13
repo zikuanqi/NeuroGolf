@@ -13,7 +13,7 @@
 [![Tests](https://img.shields.io/badge/tests-284%20passing-brightgreen)](tests/)
 [![Tasks Solved](https://img.shields.io/badge/tasks_solved-200%2F400-blue)](networks/)
 [![Local Score](https://img.shields.io/badge/local_score-2704.10-success)](networks/build_summary.json)
-[![Public Score](https://img.shields.io/badge/public_score-2690.93-blue)](https://www.kaggle.com/competitions/neurogolf-2026)
+[![Public Score](https://img.shields.io/badge/public_score-2704.10-blue)](https://www.kaggle.com/competitions/neurogolf-2026)
 
 </div>
 
@@ -58,13 +58,13 @@
 |---|---|
 | **Tasks solved · 通过任务** | **200 / 400 — halfway! · 过半！** |
 | **Local score · 本地总分** | **2704.10** — clean-room scorer over `build_summary.json` · 独立评分器统计 |
-| **Public score · 公开分数 (Kaggle)** | **2690.93** — leaderboard-confirmed at 199/400 (exact match to local); task 200 submitting · 已确认 199/400（与本地完全一致）；200 提交中 |
+| **Public score · 公开分数 (Kaggle)** | **2704.10** — leaderboard-confirmed at 200/400 (exact match to local) · 已确认 200/400（与本地完全一致） |
 | Solvers · 求解器 | in 9 families · 分 9 类 |
 | Unit tests · 单元测试 | 284 passing · 284 个全部通过 |
 | Networks · 网络文件 | 200 × `networks/taskNNN.onnx` (one per solved task) · 每个解出任务一个 |
 
-> Local score is **2704.10 / 200 tasks**; the Kaggle leaderboard is confirmed at **2690.93 / 199** (exact match to local), with task 200 in the current submission. The v1 → v46 progression lives in [Submission history](#history).
-> 本地分数 **2704.10 / 200 解**；Kaggle 排行榜确认 **2690.93 / 199**（与本地完全一致），200 在本次提交中。v1 → v46 进展见 [提交历史](#history)。
+> Local score is **2704.10 / 200 tasks**; the Kaggle leaderboard is confirmed at **2704.10 / 200** (exact match to local) — **halfway through all 400 tasks**. The v1 → v46 progression lives in [Submission history](#history).
+> 本地分数 **2704.10 / 200 解**；Kaggle 排行榜确认 **2704.10 / 200**（与本地完全一致）—— **已解出全部 400 题的一半**。v1 → v46 进展见 [提交历史](#history)。
 
 ---
 
@@ -575,7 +575,7 @@ The suite covers the one-hot round-trip contract and, for each solver family, a 
 | v129 | + edge-pair-lines (161) | 197 | **2665.68** ✓ confirmed |
 | v130 | + key-meta-mask (170) | 198 | _2679.33 local · submitting_ |
 | v131 | + symmetric-shape-crop (174) | 199 | **2690.93** ✓ confirmed (incl. 198) |
-| v132 | + crop-flip-h (177) | **200 — halfway!** | _2704.10 local · submitting_ |
+| v132 | + crop-flip-h (177) | **200 — halfway!** | **2704.10** ✓ confirmed |
 
 Bold = score confirmed on the Kaggle leaderboard; `~` = local estimate from `build_summary.json` (the local clean-room scorer matches the official score to two decimals).
 
