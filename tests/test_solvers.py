@@ -4021,3 +4021,29 @@ def test_symmetric_shape_crop_rejects_multi():
     from neurogolf.solvers.symmetric_shape_crop import solve_symmetric_shape_crop
     task = _make_task([([[4, 0, 7], [0, 0, 0]], [[4]])])   # both symmetric -> ambiguous
     assert solve_symmetric_shape_crop(task) is None
+
+
+def test_crop_flip_h():
+    import numpy as np
+    import onnxruntime as ort
+    from neurogolf.grids import to_onehot
+    from neurogolf.solvers.crop_flip_h import solve_crop_flip_h, _ref
+
+    g = [[0, 0, 0, 0, 0],
+         [0, 8, 8, 2, 0],
+         [0, 8, 2, 8, 0],
+         [0, 0, 0, 0, 0]]
+    expected = _ref(np.array(g)).tolist()
+    assert expected == [[2, 8, 8], [8, 2, 8]]
+    task = _make_task([(g, expected)])
+    model = solve_crop_flip_h(task)
+    assert model is not None and hasattr(model, "graph")
+    sess = ort.InferenceSession(model.SerializeToString())
+    res = sess.run(["output"], {"input": to_onehot(g)})[0]
+    assert np.array_equal((res > 0.0).astype(np.float32), to_onehot(expected))
+
+
+def test_crop_flip_h_rejects_symmetric_only():
+    from neurogolf.solvers.crop_flip_h import solve_crop_flip_h
+    task = _make_task([([[8, 8], [8, 8]], [[8, 8], [8, 8]])])
+    assert solve_crop_flip_h(task) is None

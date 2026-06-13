@@ -127,6 +127,7 @@ from .cross_ring import solve_cross_ring
 from .edge_pair_lines import solve_edge_pair_lines
 from .key_meta_mask import solve_key_meta_mask
 from .symmetric_shape_crop import solve_symmetric_shape_crop
+from .crop_flip_h import solve_crop_flip_h
 from .gravity_down import solve_gravity_down
 from .slide_to_wall import solve_slide_to_wall
 from .slide_to_line import solve_slide_to_line
@@ -355,6 +356,7 @@ ALL_SOLVERS: list[Solver] = [
     solve_edge_pair_lines,
     solve_key_meta_mask,
     solve_symmetric_shape_crop,
+    solve_crop_flip_h,
     solve_periodic_fill,
     solve_conv3x3,
     solve_conv1x1_masked,

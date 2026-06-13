@@ -1409,11 +1409,11 @@
   },
   {
     "task": 177,
-    "solver": "none",
-    "saved": false,
-    "points": 0.0,
-    "memory": null,
-    "params": null
+    "solver": "solve_crop_flip_h",
+    "saved": true,
+    "points": 13.169806961663733,
+    "memory": 136368,
+    "params": 969
   },
   {
     "task": 178,
