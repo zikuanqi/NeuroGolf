@@ -3965,3 +3965,32 @@ def test_edge_pair_lines_rejects_no_pairs():
     from neurogolf.solvers.edge_pair_lines import solve_edge_pair_lines
     task = _make_task([([[3, 0], [0, 0]], [[3, 0], [0, 0]])])
     assert solve_edge_pair_lines(task) is None
+
+
+def test_key_meta_mask():
+    import numpy as np
+    import onnxruntime as ort
+    from neurogolf.grids import to_onehot
+    from neurogolf.solvers.key_meta_mask import solve_key_meta_mask, _ref
+
+    g = np.zeros((16, 16), int)
+    for a in range(3):                       # blocks on the diagonal only
+        if a != 1:
+            g[a * 3:a * 3 + 3, a * 3:a * 3 + 3] = 1
+    g[4:7, 4:7] = 1                          # centre block
+    g[11:14, 12:15] = np.array([[3, 4, 5], [6, 7, 8], [9, 2, 3]])   # 3x3 key
+    expected = _ref(g)
+    assert expected is not None
+    assert expected.tolist() == [[3, 0, 0], [0, 7, 0], [0, 0, 3]]
+    task = _make_task([(g.tolist(), expected.tolist())])
+    model = solve_key_meta_mask(task)
+    assert model is not None and hasattr(model, "graph")
+    sess = ort.InferenceSession(model.SerializeToString())
+    res = sess.run(["output"], {"input": to_onehot(g.tolist())})[0]
+    assert np.array_equal((res > 0.0).astype(np.float32), to_onehot(expected.tolist()))
+
+
+def test_key_meta_mask_rejects_plain():
+    from neurogolf.solvers.key_meta_mask import solve_key_meta_mask
+    task = _make_task([([[1, 0], [0, 0]], [[1, 0], [0, 0]])])
+    assert solve_key_meta_mask(task) is None

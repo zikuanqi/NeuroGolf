@@ -1353,11 +1353,11 @@
   },
   {
     "task": 170,
-    "solver": "none",
-    "saved": false,
-    "points": 0.0,
-    "memory": null,
-    "params": null
+    "solver": "solve_key_meta_mask",
+    "saved": true,
+    "points": 13.64607026652023,
+    "memory": 85234,
+    "params": 66
   },
   {
     "task": 171,
