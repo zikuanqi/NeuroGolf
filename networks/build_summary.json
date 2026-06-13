@@ -1537,11 +1537,11 @@
   },
   {
     "task": 193,
-    "solver": "none",
-    "saved": false,
-    "points": 0.0,
-    "memory": null,
-    "params": null
+    "solver": "solve_open_2x2",
+    "saved": true,
+    "points": 12.875348929010164,
+    "memory": 184332,
+    "params": 29
   },
   {
     "task": 194,

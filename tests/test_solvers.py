@@ -4103,3 +4103,32 @@ def test_quadrant_corner_map_rejects_plain():
     from neurogolf.solvers.quadrant_corner_map import solve_quadrant_corner_map
     task = _make_task([([[8, 0], [0, 0]], [[8, 0], [0, 0]])])
     assert solve_quadrant_corner_map(task) is None
+
+
+def test_open_2x2():
+    import numpy as np
+    import onnxruntime as ort
+    from neurogolf.grids import to_onehot
+    from neurogolf.solvers.open_2x2 import solve_open_2x2, _ref
+
+    g = [[0, 8, 0, 0, 0],
+         [0, 0, 0, 8, 8],     # (0,1) single -> removed ; 2x2 block kept
+         [0, 0, 0, 8, 8],
+         [0, 0, 0, 0, 0]]
+    expected = _ref(np.array(g)).tolist()
+    assert expected == [[0, 0, 0, 0, 0],
+                        [0, 0, 0, 8, 8],
+                        [0, 0, 0, 8, 8],
+                        [0, 0, 0, 0, 0]]
+    task = _make_task([(g, expected)])
+    model = solve_open_2x2(task)
+    assert model is not None and hasattr(model, "graph")
+    sess = ort.InferenceSession(model.SerializeToString())
+    res = sess.run(["output"], {"input": to_onehot(g)})[0]
+    assert np.array_equal((res > 0.0).astype(np.float32), to_onehot(expected))
+
+
+def test_open_2x2_rejects_no_noise():
+    from neurogolf.solvers.open_2x2 import solve_open_2x2
+    task = _make_task([([[8, 8], [8, 8]], [[8, 8], [8, 8]])])
+    assert solve_open_2x2(task) is None
