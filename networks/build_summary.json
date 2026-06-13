@@ -1385,11 +1385,11 @@
   },
   {
     "task": 174,
-    "solver": "none",
-    "saved": false,
-    "points": 0.0,
-    "memory": null,
-    "params": null
+    "solver": "solve_symmetric_shape_crop",
+    "saved": true,
+    "points": 11.59805073598679,
+    "memory": 659408,
+    "params": 1883
   },
   {
     "task": 175,

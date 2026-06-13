@@ -3994,3 +3994,30 @@ def test_key_meta_mask_rejects_plain():
     from neurogolf.solvers.key_meta_mask import solve_key_meta_mask
     task = _make_task([([[1, 0], [0, 0]], [[1, 0], [0, 0]])])
     assert solve_key_meta_mask(task) is None
+
+
+def test_symmetric_shape_crop():
+    import numpy as np
+    import onnxruntime as ort
+    from neurogolf.grids import to_onehot
+    from neurogolf.solvers.symmetric_shape_crop import solve_symmetric_shape_crop, _ref
+
+    g = [[0, 2, 2, 0, 0, 0, 0],
+         [0, 0, 2, 2, 0, 0, 0],     # 2: asymmetric
+         [0, 0, 0, 0, 0, 7, 7],
+         [0, 4, 4, 0, 0, 7, 7],     # 4: symmetric square ; 7: symmetric but...
+         [0, 4, 4, 0, 0, 7, 0]]     # 7 has an extra cell -> asymmetric
+    expected = _ref(np.array(g))
+    assert expected is not None and expected.tolist() == [[4, 4], [4, 4]]
+    task = _make_task([(g, expected.tolist())])
+    model = solve_symmetric_shape_crop(task)
+    assert model is not None and hasattr(model, "graph")
+    sess = ort.InferenceSession(model.SerializeToString())
+    res = sess.run(["output"], {"input": to_onehot(g)})[0]
+    assert np.array_equal((res > 0.0).astype(np.float32), to_onehot(expected.tolist()))
+
+
+def test_symmetric_shape_crop_rejects_multi():
+    from neurogolf.solvers.symmetric_shape_crop import solve_symmetric_shape_crop
+    task = _make_task([([[4, 0, 7], [0, 0, 0]], [[4]])])   # both symmetric -> ambiguous
+    assert solve_symmetric_shape_crop(task) is None
