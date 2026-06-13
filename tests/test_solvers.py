@@ -4047,3 +4047,59 @@ def test_crop_flip_h_rejects_symmetric_only():
     from neurogolf.solvers.crop_flip_h import solve_crop_flip_h
     task = _make_task([([[8, 8], [8, 8]], [[8, 8], [8, 8]])])
     assert solve_crop_flip_h(task) is None
+
+
+def test_reflect_marker_dir():
+    import numpy as np
+    import onnxruntime as ort
+    from neurogolf.grids import to_onehot
+    from neurogolf.solvers.reflect_marker_dir import solve_reflect_marker_dir, _ref
+
+    g = [[0, 0, 8, 8, 0, 0, 0, 0],
+         [0, 0, 0, 8, 0, 0, 0, 0],
+         [0, 0, 0, 0, 0, 0, 0, 0],
+         [0, 4, 0, 0, 0, 0, 0, 0],     # top arm left of centre -> mirror left
+         [0, 4, 4, 4, 0, 0, 0, 0],
+         [0, 0, 4, 0, 0, 0, 0, 0]]
+    expected = _ref(np.array(g)).tolist()
+    assert expected[0] == [8, 8, 8, 8, 0, 0, 0, 0] and expected[1][0] == 8
+    task = _make_task([(g, expected)])
+    model = solve_reflect_marker_dir(task)
+    assert model is not None and hasattr(model, "graph")
+    sess = ort.InferenceSession(model.SerializeToString())
+    res = sess.run(["output"], {"input": to_onehot(g)})[0]
+    assert np.array_equal((res > 0.0).astype(np.float32), to_onehot(expected))
+
+
+def test_reflect_marker_dir_rejects_no_marker():
+    from neurogolf.solvers.reflect_marker_dir import solve_reflect_marker_dir
+    task = _make_task([([[8, 0], [0, 0]], [[8, 0], [0, 0]])])
+    assert solve_reflect_marker_dir(task) is None
+
+
+def test_quadrant_corner_map():
+    import numpy as np
+    import onnxruntime as ort
+    from neurogolf.grids import to_onehot
+    from neurogolf.solvers.quadrant_corner_map import solve_quadrant_corner_map, _ref
+
+    g = [[2, 1, 0, 0, 1, 3],
+         [1, 1, 1, 1, 1, 1],
+         [0, 1, 8, 8, 1, 0],
+         [0, 1, 8, 0, 1, 0],
+         [1, 1, 1, 1, 1, 1],
+         [4, 1, 0, 0, 1, 6]]
+    expected = _ref(np.array(g))
+    assert expected is not None and expected.tolist() == [[2, 3], [4, 0]]
+    task = _make_task([(g, expected.tolist())])
+    model = solve_quadrant_corner_map(task)
+    assert model is not None and hasattr(model, "graph")
+    sess = ort.InferenceSession(model.SerializeToString())
+    res = sess.run(["output"], {"input": to_onehot(g)})[0]
+    assert np.array_equal((res > 0.0).astype(np.float32), to_onehot(expected.tolist()))
+
+
+def test_quadrant_corner_map_rejects_plain():
+    from neurogolf.solvers.quadrant_corner_map import solve_quadrant_corner_map
+    task = _make_task([([[8, 0], [0, 0]], [[8, 0], [0, 0]])])
+    assert solve_quadrant_corner_map(task) is None

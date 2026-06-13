@@ -1441,11 +1441,11 @@
   },
   {
     "task": 181,
-    "solver": "none",
-    "saved": false,
-    "points": 0.0,
-    "memory": null,
-    "params": null
+    "solver": "solve_reflect_marker_dir",
+    "saved": true,
+    "points": 13.154280483215626,
+    "memory": 138525,
+    "params": 961
   },
   {
     "task": 182,
@@ -1457,11 +1457,11 @@
   },
   {
     "task": 183,
-    "solver": "none",
-    "saved": false,
-    "points": 0.0,
-    "memory": null,
-    "params": null
+    "solver": "solve_quadrant_corner_map",
+    "saved": true,
+    "points": 12.22958560862925,
+    "memory": 351572,
+    "params": 86
   },
   {
     "task": 184,
