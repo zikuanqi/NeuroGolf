@@ -1201,11 +1201,11 @@
   },
   {
     "task": 151,
-    "solver": "none",
-    "saved": false,
-    "points": 0.0,
-    "memory": null,
-    "params": null
+    "solver": "solve_cross_ring",
+    "saved": true,
+    "points": 13.419640210780175,
+    "memory": 106900,
+    "params": 76
   },
   {
     "task": 152,

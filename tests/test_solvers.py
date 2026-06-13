@@ -3907,3 +3907,32 @@ def test_panel_pair_flag_rejects_wrong_size():
     from neurogolf.solvers.panel_pair_flag import solve_panel_pair_flag
     task = _make_task([([[6, 0], [0, 0]], [[6, 0], [0, 0]])])
     assert solve_panel_pair_flag(task) is None
+
+
+def test_cross_ring():
+    import numpy as np
+    import onnxruntime as ort
+    from neurogolf.grids import to_onehot
+    from neurogolf.solvers.cross_ring import solve_cross_ring, _ref
+
+    g = [[0, 3, 0, 0],
+         [2, 2, 2, 2],
+         [0, 3, 0, 0],
+         [0, 3, 0, 0]]
+    expected = _ref(np.array(g)).tolist()
+    assert expected == [[4, 4, 4, 0],
+                        [4, 2, 4, 2],
+                        [4, 4, 4, 0],
+                        [0, 3, 0, 0]]
+    task = _make_task([(g, expected)])
+    model = solve_cross_ring(task)
+    assert model is not None and hasattr(model, "graph")
+    sess = ort.InferenceSession(model.SerializeToString())
+    res = sess.run(["output"], {"input": to_onehot(g)})[0]
+    assert np.array_equal((res > 0.0).astype(np.float32), to_onehot(expected))
+
+
+def test_cross_ring_rejects_no_cross():
+    from neurogolf.solvers.cross_ring import solve_cross_ring
+    task = _make_task([([[2, 0], [0, 0]], [[2, 0], [0, 0]])])
+    assert solve_cross_ring(task) is None
