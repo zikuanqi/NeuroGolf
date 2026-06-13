@@ -3936,3 +3936,32 @@ def test_cross_ring_rejects_no_cross():
     from neurogolf.solvers.cross_ring import solve_cross_ring
     task = _make_task([([[2, 0], [0, 0]], [[2, 0], [0, 0]])])
     assert solve_cross_ring(task) is None
+
+
+def test_edge_pair_lines():
+    import numpy as np
+    import onnxruntime as ort
+    from neurogolf.grids import to_onehot
+    from neurogolf.solvers.edge_pair_lines import solve_edge_pair_lines, _ref
+
+    g = [[0, 0, 0, 0, 0],
+         [3, 0, 8, 0, 3],     # 3-pair row; 8 is noise (count 2 but 0 lines... 1 cell here)
+         [0, 0, 0, 0, 0],
+         [0, 0, 8, 0, 0]]
+    expected = _ref(np.array(g)).tolist()
+    assert expected == [[0, 0, 0, 0, 0],
+                        [3, 3, 3, 3, 3],
+                        [0, 0, 0, 0, 0],
+                        [0, 0, 0, 0, 0]]
+    task = _make_task([(g, expected)])
+    model = solve_edge_pair_lines(task)
+    assert model is not None and hasattr(model, "graph")
+    sess = ort.InferenceSession(model.SerializeToString())
+    res = sess.run(["output"], {"input": to_onehot(g)})[0]
+    assert np.array_equal((res > 0.0).astype(np.float32), to_onehot(expected))
+
+
+def test_edge_pair_lines_rejects_no_pairs():
+    from neurogolf.solvers.edge_pair_lines import solve_edge_pair_lines
+    task = _make_task([([[3, 0], [0, 0]], [[3, 0], [0, 0]])])
+    assert solve_edge_pair_lines(task) is None

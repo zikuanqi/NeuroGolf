@@ -1281,11 +1281,11 @@
   },
   {
     "task": 161,
-    "solver": "none",
-    "saved": false,
-    "points": 0.0,
-    "memory": null,
-    "params": null
+    "solver": "solve_edge_pair_lines",
+    "saved": true,
+    "points": 12.752905379946904,
+    "memory": 208348,
+    "params": 27
   },
   {
     "task": 162,

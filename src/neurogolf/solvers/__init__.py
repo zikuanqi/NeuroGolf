@@ -124,6 +124,7 @@ from .blob_box_fill import solve_blob_box_fill
 from .bar_echo import solve_bar_echo
 from .panel_pair_flag import solve_panel_pair_flag
 from .cross_ring import solve_cross_ring
+from .edge_pair_lines import solve_edge_pair_lines
 from .gravity_down import solve_gravity_down
 from .slide_to_wall import solve_slide_to_wall
 from .slide_to_line import solve_slide_to_line
@@ -349,6 +350,7 @@ ALL_SOLVERS: list[Solver] = [
     solve_bar_echo,
     solve_panel_pair_flag,
     solve_cross_ring,
+    solve_edge_pair_lines,
     solve_periodic_fill,
     solve_conv3x3,
     solve_conv1x1_masked,
