@@ -1641,11 +1641,11 @@
   },
   {
     "task": 206,
-    "solver": "none",
-    "saved": false,
-    "points": 0.0,
-    "memory": null,
-    "params": null
+    "solver": "solve_stamp_template_at_five",
+    "saved": true,
+    "points": 12.26537478555789,
+    "memory": 337408,
+    "params": 1887
   },
   {
     "task": 207,

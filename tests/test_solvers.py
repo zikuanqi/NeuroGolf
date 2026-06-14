@@ -4188,3 +4188,31 @@ def test_band_drill_rejects_no_holes():
     from neurogolf.solvers.band_drill import solve_band_drill
     task = _make_task([([[5, 5], [4, 4]], [[5, 5], [4, 4]])])
     assert solve_band_drill(task) is None
+
+
+def test_stamp_template_at_five():
+    import numpy as np
+    import onnxruntime as ort
+    from neurogolf.grids import to_onehot
+    from neurogolf.solvers.stamp_template_at_five import solve_stamp_template_at_five, _ref
+
+    g = [[0, 2, 0, 0, 0, 0],
+         [2, 2, 1, 0, 0, 0],     # template (centre (1,1)); 5 marks where to copy it
+         [0, 1, 3, 0, 0, 0],
+         [0, 0, 0, 0, 0, 0],
+         [0, 0, 0, 0, 5, 0],
+         [0, 0, 0, 0, 0, 0]]
+    expected = _ref(np.array(g)).tolist()
+    assert expected[4][4] == 2 and expected[5][5] == 3 and expected[4][5] == 1
+    task = _make_task([(g, expected)])
+    model = solve_stamp_template_at_five(task)
+    assert model is not None and hasattr(model, "graph")
+    sess = ort.InferenceSession(model.SerializeToString())
+    res = sess.run(["output"], {"input": to_onehot(g)})[0]
+    assert np.array_equal((res > 0.0).astype(np.float32), to_onehot(expected))
+
+
+def test_stamp_template_at_five_rejects_no_marker():
+    from neurogolf.solvers.stamp_template_at_five import solve_stamp_template_at_five
+    task = _make_task([([[2, 1], [0, 0]], [[2, 1], [0, 0]])])
+    assert solve_stamp_template_at_five(task) is None
