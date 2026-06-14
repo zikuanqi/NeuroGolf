@@ -4132,3 +4132,30 @@ def test_open_2x2_rejects_no_noise():
     from neurogolf.solvers.open_2x2 import solve_open_2x2
     task = _make_task([([[8, 8], [8, 8]], [[8, 8], [8, 8]])])
     assert solve_open_2x2(task) is None
+
+
+def test_maze_enclose():
+    import numpy as np
+    import onnxruntime as ort
+    from neurogolf.grids import to_onehot
+    from neurogolf.solvers.maze_enclose import solve_maze_enclose, _ref
+
+    g = [[8, 8, 8, 8, 8],
+         [8, 0, 8, 0, 8],     # left pocket sealed -> 2 ; right cell open at bottom -> 3
+         [8, 0, 8, 0, 8],
+         [8, 8, 8, 0, 8],
+         [0, 0, 0, 0, 0]]
+    expected = _ref(np.array(g)).tolist()
+    assert expected[1][1] == 2 and expected[1][3] == 3
+    task = _make_task([(g, expected)])
+    model = solve_maze_enclose(task)
+    assert model is not None and hasattr(model, "graph")
+    sess = ort.InferenceSession(model.SerializeToString())
+    res = sess.run(["output"], {"input": to_onehot(g)})[0]
+    assert np.array_equal((res > 0.0).astype(np.float32), to_onehot(expected))
+
+
+def test_maze_enclose_rejects_multicolour():
+    from neurogolf.solvers.maze_enclose import solve_maze_enclose
+    task = _make_task([([[8, 0], [3, 0]], [[8, 0], [3, 0]])])
+    assert solve_maze_enclose(task) is None

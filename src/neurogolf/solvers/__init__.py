@@ -130,6 +130,7 @@ from .symmetric_shape_crop import solve_symmetric_shape_crop
 from .crop_flip_h import solve_crop_flip_h
 from .reflect_marker_dir import solve_reflect_marker_dir
 from .open_2x2 import solve_open_2x2
+from .maze_enclose import solve_maze_enclose
 from .quadrant_corner_map import solve_quadrant_corner_map
 from .gravity_down import solve_gravity_down
 from .slide_to_wall import solve_slide_to_wall
@@ -362,6 +363,7 @@ ALL_SOLVERS: list[Solver] = [
     solve_crop_flip_h,
     solve_reflect_marker_dir,
     solve_open_2x2,
+    solve_maze_enclose,
     solve_quadrant_corner_map,
     solve_periodic_fill,
     solve_conv3x3,

@@ -1489,11 +1489,11 @@
   },
   {
     "task": 187,
-    "solver": "none",
-    "saved": false,
-    "points": 0.0,
-    "memory": null,
-    "params": null
+    "solver": "solve_maze_enclose",
+    "saved": true,
+    "points": 11.919033782491823,
+    "memory": 478800,
+    "params": 924
   },
   {
     "task": 188,
