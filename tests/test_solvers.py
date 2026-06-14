@@ -4323,3 +4323,29 @@ def test_marker_ring_rejects_other_colour():
     from neurogolf.solvers.marker_ring import solve_marker_ring
     task = _make_task([([[0, 0], [0, 7]], [[0, 0], [0, 7]])])
     assert solve_marker_ring(task) is None
+
+
+def test_alt_ray_right():
+    import numpy as np
+    import onnxruntime as ort
+    from neurogolf.grids import to_onehot
+    from neurogolf.solvers.alt_ray_right import solve_alt_ray_right, _ref
+
+    g = [[0, 0, 2, 0, 0, 0, 0, 0],
+         [0, 0, 0, 0, 0, 0, 0, 0],
+         [0, 0, 0, 6, 0, 0, 0, 0]]
+    expected = _ref(np.array(g)).tolist()
+    assert expected[0] == [0, 0, 2, 5, 2, 5, 2, 5]
+    assert expected[2] == [0, 0, 0, 6, 5, 6, 5, 6]
+    task = _make_task([(g, expected)])
+    model = solve_alt_ray_right(task)
+    assert model is not None and hasattr(model, "graph")
+    sess = ort.InferenceSession(model.SerializeToString())
+    res = sess.run(["output"], {"input": to_onehot(g)})[0]
+    assert np.array_equal((res > 0.0).astype(np.float32), to_onehot(expected))
+
+
+def test_alt_ray_right_rejects_plain():
+    from neurogolf.solvers.alt_ray_right import solve_alt_ray_right
+    task = _make_task([([[0, 2], [0, 0]], [[0, 2], [0, 0]])])
+    assert solve_alt_ray_right(task) is None
