@@ -144,6 +144,7 @@ from .midpoint_fill_h import solve_midpoint_fill_h
 from .drop_one_recolor import solve_drop_one_recolor
 from .isolated_two_recolor import solve_isolated_two_recolor
 from .diag_corner_stamp import solve_diag_corner_stamp
+from .flood_ones import solve_flood_ones
 from .quadrant_corner_map import solve_quadrant_corner_map
 from .gravity_down import solve_gravity_down
 from .slide_to_wall import solve_slide_to_wall
@@ -390,6 +391,7 @@ ALL_SOLVERS: list[Solver] = [
     solve_drop_one_recolor,
     solve_isolated_two_recolor,
     solve_diag_corner_stamp,
+    solve_flood_ones,
     solve_quadrant_corner_map,
     solve_periodic_fill,
     solve_conv3x3,

@@ -4476,6 +4476,32 @@ def test_isolated_two_recolor():
     assert np.array_equal((res > 0.0).astype(np.float32), to_onehot(expected))
 
 
+def test_flood_ones():
+    import numpy as np
+    import onnxruntime as ort
+    from neurogolf.grids import to_onehot
+    from neurogolf.solvers.flood_ones import solve_flood_ones, _ref
+
+    g = [[1, 0, 0, 3, 0],
+         [0, 0, 0, 3, 0],   # right 0-column sealed by 3-wall -> stays 0
+         [3, 3, 3, 3, 0]]
+    expected = _ref(np.array(g)).tolist()
+    assert expected[0][1] == 1 and expected[0][2] == 1  # reachable from the 1
+    assert expected[0][4] == 0 and expected[1][4] == 0  # sealed pocket stays 0
+    task = _make_task([(g, expected)])
+    model = solve_flood_ones(task)
+    assert model is not None and hasattr(model, "graph")
+    sess = ort.InferenceSession(model.SerializeToString())
+    res = sess.run(["output"], {"input": to_onehot(g)})[0]
+    assert np.array_equal((res > 0.0).astype(np.float32), to_onehot(expected))
+
+
+def test_flood_ones_rejects_no_one():
+    from neurogolf.solvers.flood_ones import solve_flood_ones
+    task = _make_task([([[0, 2], [0, 0]], [[0, 2], [0, 0]])])
+    assert solve_flood_ones(task) is None
+
+
 def test_diag_corner_stamp():
     import numpy as np
     import onnxruntime as ort
