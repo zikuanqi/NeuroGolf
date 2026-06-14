@@ -4455,3 +4455,42 @@ def test_drop_one_recolor_rejects_empty():
     from neurogolf.solvers.drop_one_recolor import solve_drop_one_recolor
     task = _make_task([([[0, 0], [0, 0]], [[0, 0], [0, 0]])])
     assert solve_drop_one_recolor(task) is None
+
+
+def test_isolated_two_recolor():
+    import numpy as np
+    import onnxruntime as ort
+    from neurogolf.grids import to_onehot
+    from neurogolf.solvers.isolated_two_recolor import solve_isolated_two_recolor, _ref
+
+    g = [[2, 2, 0, 0],
+         [0, 0, 0, 2],
+         [0, 0, 0, 0]]   # the (1,3) two is isolated -> 1 ; the 2x1 pair stays
+    expected = _ref(np.array(g)).tolist()
+    assert expected[0] == [2, 2, 0, 0] and expected[1] == [0, 0, 0, 1]
+    task = _make_task([(g, expected)])
+    model = solve_isolated_two_recolor(task)
+    assert model is not None and hasattr(model, "graph")
+    sess = ort.InferenceSession(model.SerializeToString())
+    res = sess.run(["output"], {"input": to_onehot(g)})[0]
+    assert np.array_equal((res > 0.0).astype(np.float32), to_onehot(expected))
+
+
+def test_diag_corner_stamp():
+    import numpy as np
+    import onnxruntime as ort
+    from neurogolf.grids import to_onehot
+    from neurogolf.solvers.diag_corner_stamp import solve_diag_corner_stamp, _ref
+
+    g = [[0, 0, 0, 0, 0],
+         [0, 0, 2, 0, 0],
+         [0, 0, 0, 0, 0]]
+    expected = _ref(np.array(g)).tolist()
+    assert expected[0][1] == 3 and expected[0][3] == 6
+    assert expected[2][1] == 8 and expected[2][3] == 7 and expected[1][2] == 0
+    task = _make_task([(g, expected)])
+    model = solve_diag_corner_stamp(task)
+    assert model is not None and hasattr(model, "graph")
+    sess = ort.InferenceSession(model.SerializeToString())
+    res = sess.run(["output"], {"input": to_onehot(g)})[0]
+    assert np.array_equal((res > 0.0).astype(np.float32), to_onehot(expected))
