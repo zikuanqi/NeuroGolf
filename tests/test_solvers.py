@@ -4216,3 +4216,34 @@ def test_stamp_template_at_five_rejects_no_marker():
     from neurogolf.solvers.stamp_template_at_five import solve_stamp_template_at_five
     task = _make_task([([[2, 1], [0, 0]], [[2, 1], [0, 0]])])
     assert solve_stamp_template_at_five(task) is None
+
+
+def test_divider_rays():
+    import numpy as np
+    import onnxruntime as ort
+    from neurogolf.grids import to_onehot
+    from neurogolf.solvers.divider_rays import solve_divider_rays, _ref
+
+    g = [[0, 2, 0, 1, 0],
+         [0, 0, 0, 0, 0],     # 2 grows down to divider, 1 grows up to edge
+         [5, 5, 5, 5, 5],
+         [0, 0, 0, 0, 0],
+         [0, 2, 0, 1, 0]]
+    expected = _ref(np.array(g)).tolist()
+    assert expected == [[0, 2, 0, 1, 0],
+                        [0, 2, 0, 0, 0],
+                        [5, 5, 5, 5, 5],
+                        [0, 2, 0, 0, 0],
+                        [0, 2, 0, 1, 0]]
+    task = _make_task([(g, expected)])
+    model = solve_divider_rays(task)
+    assert model is not None and hasattr(model, "graph")
+    sess = ort.InferenceSession(model.SerializeToString())
+    res = sess.run(["output"], {"input": to_onehot(g)})[0]
+    assert np.array_equal((res > 0.0).astype(np.float32), to_onehot(expected))
+
+
+def test_divider_rays_rejects_no_divider():
+    from neurogolf.solvers.divider_rays import solve_divider_rays
+    task = _make_task([([[2, 0], [0, 1]], [[2, 0], [0, 1]])])
+    assert solve_divider_rays(task) is None

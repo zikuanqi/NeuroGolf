@@ -133,6 +133,7 @@ from .open_2x2 import solve_open_2x2
 from .maze_enclose import solve_maze_enclose
 from .band_drill import solve_band_drill
 from .stamp_template_at_five import solve_stamp_template_at_five
+from .divider_rays import solve_divider_rays
 from .quadrant_corner_map import solve_quadrant_corner_map
 from .gravity_down import solve_gravity_down
 from .slide_to_wall import solve_slide_to_wall
@@ -368,6 +369,7 @@ ALL_SOLVERS: list[Solver] = [
     solve_maze_enclose,
     solve_band_drill,
     solve_stamp_template_at_five,
+    solve_divider_rays,
     solve_quadrant_corner_map,
     solve_periodic_fill,
     solve_conv3x3,

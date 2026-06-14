@@ -1689,11 +1689,11 @@
   },
   {
     "task": 212,
-    "solver": "none",
-    "saved": false,
-    "points": 0.0,
-    "memory": null,
-    "params": null
+    "solver": "solve_divider_rays",
+    "saved": true,
+    "points": 12.801500961968888,
+    "memory": 198432,
+    "params": 59
   },
   {
     "task": 213,
