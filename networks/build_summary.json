@@ -1681,11 +1681,11 @@
   },
   {
     "task": 211,
-    "solver": "none",
-    "saved": false,
-    "points": 0.0,
-    "memory": null,
-    "params": null
+    "solver": "solve_mirror_tile_3x2",
+    "saved": true,
+    "points": 13.802333375251788,
+    "memory": 72000,
+    "params": 960
   },
   {
     "task": 212,

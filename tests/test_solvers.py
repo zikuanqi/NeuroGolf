@@ -4247,3 +4247,27 @@ def test_divider_rays_rejects_no_divider():
     from neurogolf.solvers.divider_rays import solve_divider_rays
     task = _make_task([([[2, 0], [0, 1]], [[2, 0], [0, 1]])])
     assert solve_divider_rays(task) is None
+
+
+def test_mirror_tile_3x2():
+    import numpy as np
+    import onnxruntime as ort
+    from neurogolf.grids import to_onehot
+    from neurogolf.solvers.mirror_tile_3x2 import solve_mirror_tile_3x2, _ref
+
+    g = [[0, 8], [0, 0], [0, 8]]
+    expected = _ref(np.array(g)).tolist()
+    assert len(expected) == 9 and len(expected[0]) == 4
+    assert expected[0] == [8, 0, 0, 8]
+    task = _make_task([(g, expected)])
+    model = solve_mirror_tile_3x2(task)
+    assert model is not None and hasattr(model, "graph")
+    sess = ort.InferenceSession(model.SerializeToString())
+    res = sess.run(["output"], {"input": to_onehot(g)})[0]
+    assert np.array_equal((res > 0.0).astype(np.float32), to_onehot(expected))
+
+
+def test_mirror_tile_3x2_rejects_wrong_size():
+    from neurogolf.solvers.mirror_tile_3x2 import solve_mirror_tile_3x2
+    task = _make_task([([[8, 0, 0]], [[8, 0, 0]])])
+    assert solve_mirror_tile_3x2(task) is None
