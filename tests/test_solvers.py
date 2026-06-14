@@ -4404,3 +4404,54 @@ def test_tall_short_lines_rejects_uniform():
     from neurogolf.solvers.tall_short_lines import solve_tall_short_lines
     task = _make_task([([[5, 0, 5], [5, 0, 5]], [[5, 0, 5], [5, 0, 5]])])  # equal heights
     assert solve_tall_short_lines(task) is None
+
+
+def test_midpoint_fill_h():
+    import numpy as np
+    import onnxruntime as ort
+    from neurogolf.grids import to_onehot
+    from neurogolf.solvers.midpoint_fill_h import solve_midpoint_fill_h, _ref
+
+    g = [[1, 0, 1, 0, 1],
+         [0, 0, 0, 0, 0],
+         [0, 1, 0, 1, 0]]
+    expected = _ref(np.array(g)).tolist()
+    assert expected[0] == [1, 2, 1, 2, 1] and expected[2] == [0, 1, 2, 1, 0]
+    task = _make_task([(g, expected)])
+    model = solve_midpoint_fill_h(task)
+    assert model is not None and hasattr(model, "graph")
+    sess = ort.InferenceSession(model.SerializeToString())
+    res = sess.run(["output"], {"input": to_onehot(g)})[0]
+    assert np.array_equal((res > 0.0).astype(np.float32), to_onehot(expected))
+
+
+def test_midpoint_fill_h_rejects_plain():
+    from neurogolf.solvers.midpoint_fill_h import solve_midpoint_fill_h
+    task = _make_task([([[1, 0, 0], [0, 0, 0]], [[1, 0, 0], [0, 0, 0]])])
+    assert solve_midpoint_fill_h(task) is None
+
+
+def test_drop_one_recolor():
+    import numpy as np
+    import onnxruntime as ort
+    from neurogolf.grids import to_onehot
+    from neurogolf.solvers.drop_one_recolor import solve_drop_one_recolor, _ref
+
+    g = [[8, 8, 0],
+         [8, 8, 0],
+         [0, 0, 0],
+         [0, 0, 0]]
+    expected = _ref(np.array(g)).tolist()
+    assert expected[1] == [2, 2, 0] and expected[2] == [2, 2, 0]
+    task = _make_task([(g, expected)])
+    model = solve_drop_one_recolor(task)
+    assert model is not None and hasattr(model, "graph")
+    sess = ort.InferenceSession(model.SerializeToString())
+    res = sess.run(["output"], {"input": to_onehot(g)})[0]
+    assert np.array_equal((res > 0.0).astype(np.float32), to_onehot(expected))
+
+
+def test_drop_one_recolor_rejects_empty():
+    from neurogolf.solvers.drop_one_recolor import solve_drop_one_recolor
+    task = _make_task([([[0, 0], [0, 0]], [[0, 0], [0, 0]])])
+    assert solve_drop_one_recolor(task) is None
