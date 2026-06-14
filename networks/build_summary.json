@@ -1753,11 +1753,11 @@
   },
   {
     "task": 220,
-    "solver": "none",
-    "saved": false,
-    "points": 0.0,
-    "memory": null,
-    "params": null
+    "solver": "solve_marker_ring",
+    "saved": true,
+    "points": 12.40442565290633,
+    "memory": 295200,
+    "params": 49
   },
   {
     "task": 221,

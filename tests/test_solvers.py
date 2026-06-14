@@ -4296,3 +4296,30 @@ def test_rotate_into_regions_rejects_wrong_size():
     from neurogolf.solvers.rotate_into_regions import solve_rotate_into_regions
     task = _make_task([([[1, 5, 0], [1, 5, 0]], [[1, 5, 0], [1, 5, 0]])])
     assert solve_rotate_into_regions(task) is None
+
+
+def test_marker_ring():
+    import numpy as np
+    import onnxruntime as ort
+    from neurogolf.grids import to_onehot
+    from neurogolf.solvers.marker_ring import solve_marker_ring, _ref
+
+    g = [[0, 0, 0, 0, 0, 0, 0],
+         [0, 0, 3, 0, 0, 0, 0],     # 3 -> 6-ring ; 8 -> 4-ring (spaced, no overlap)
+         [0, 0, 0, 0, 0, 0, 0],
+         [0, 0, 0, 0, 0, 8, 0],
+         [0, 0, 0, 0, 0, 0, 0]]
+    expected = _ref(np.array(g)).tolist()
+    assert expected[1] == [0, 6, 3, 6, 0, 0, 0] and expected[3][4] == 4
+    task = _make_task([(g, expected)])
+    model = solve_marker_ring(task)
+    assert model is not None and hasattr(model, "graph")
+    sess = ort.InferenceSession(model.SerializeToString())
+    res = sess.run(["output"], {"input": to_onehot(g)})[0]
+    assert np.array_equal((res > 0.0).astype(np.float32), to_onehot(expected))
+
+
+def test_marker_ring_rejects_other_colour():
+    from neurogolf.solvers.marker_ring import solve_marker_ring
+    task = _make_task([([[0, 0], [0, 7]], [[0, 0], [0, 7]])])
+    assert solve_marker_ring(task) is None
