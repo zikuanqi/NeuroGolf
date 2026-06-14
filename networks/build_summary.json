@@ -1609,11 +1609,11 @@
   },
   {
     "task": 202,
-    "solver": "none",
-    "saved": false,
-    "points": 0.0,
-    "memory": null,
-    "params": null
+    "solver": "solve_band_drill",
+    "saved": true,
+    "points": 11.107493216333397,
+    "memory": 1078213,
+    "params": 1825
   },
   {
     "task": 203,

@@ -4159,3 +4159,32 @@ def test_maze_enclose_rejects_multicolour():
     from neurogolf.solvers.maze_enclose import solve_maze_enclose
     task = _make_task([([[8, 0], [3, 0]], [[8, 0], [3, 0]])])
     assert solve_maze_enclose(task) is None
+
+
+def test_band_drill():
+    import numpy as np
+    import onnxruntime as ort
+    from neurogolf.grids import to_onehot
+    from neurogolf.solvers.band_drill import solve_band_drill, _ref
+
+    g = [[5, 5, 5, 5],
+         [4, 4, 0, 4],     # horizontal stripes; hole drills the 4-band column
+         [4, 4, 4, 4],
+         [8, 8, 8, 8]]
+    expected = _ref(np.array(g)).tolist()
+    assert expected == [[5, 5, 5, 5],
+                        [4, 4, 0, 4],
+                        [4, 4, 0, 4],
+                        [8, 8, 8, 8]]
+    task = _make_task([(g, expected)])
+    model = solve_band_drill(task)
+    assert model is not None and hasattr(model, "graph")
+    sess = ort.InferenceSession(model.SerializeToString())
+    res = sess.run(["output"], {"input": to_onehot(g)})[0]
+    assert np.array_equal((res > 0.0).astype(np.float32), to_onehot(expected))
+
+
+def test_band_drill_rejects_no_holes():
+    from neurogolf.solvers.band_drill import solve_band_drill
+    task = _make_task([([[5, 5], [4, 4]], [[5, 5], [4, 4]])])
+    assert solve_band_drill(task) is None
