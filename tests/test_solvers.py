@@ -4496,6 +4496,33 @@ def test_flood_ones():
     assert np.array_equal((res > 0.0).astype(np.float32), to_onehot(expected))
 
 
+def test_smallest_blob_two():
+    import numpy as np
+    import onnxruntime as ort
+    from neurogolf.grids import to_onehot
+    from neurogolf.solvers.smallest_blob_two import solve_smallest_blob_two, _ref
+
+    g = [[8, 8, 0, 0, 0],
+         [8, 8, 0, 8, 0],
+         [0, 0, 0, 0, 0],
+         [8, 8, 8, 0, 0],
+         [8, 8, 8, 0, 0]]   # blobs: 4-cell, 1-cell(smallest->2), 6-cell
+    expected = _ref(np.array(g)).tolist()
+    assert expected[1][3] == 2 and expected[0][0] == 1 and expected[3][0] == 1
+    task = _make_task([(g, expected)])
+    model = solve_smallest_blob_two(task)
+    assert model is not None and hasattr(model, "graph")
+    sess = ort.InferenceSession(model.SerializeToString())
+    res = sess.run(["output"], {"input": to_onehot(g)})[0]
+    assert np.array_equal((res > 0.0).astype(np.float32), to_onehot(expected))
+
+
+def test_smallest_blob_two_rejects_single():
+    from neurogolf.solvers.smallest_blob_two import solve_smallest_blob_two
+    task = _make_task([([[8, 8], [8, 8]], [[1, 1], [1, 1]])])  # single blob
+    assert solve_smallest_blob_two(task) is None
+
+
 def test_flood_ones_rejects_no_one():
     from neurogolf.solvers.flood_ones import solve_flood_ones
     task = _make_task([([[0, 2], [0, 0]], [[0, 2], [0, 0]])])
