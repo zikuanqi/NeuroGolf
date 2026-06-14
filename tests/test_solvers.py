@@ -4271,3 +4271,28 @@ def test_mirror_tile_3x2_rejects_wrong_size():
     from neurogolf.solvers.mirror_tile_3x2 import solve_mirror_tile_3x2
     task = _make_task([([[8, 0, 0]], [[8, 0, 0]])])
     assert solve_mirror_tile_3x2(task) is None
+
+
+def test_rotate_into_regions():
+    import numpy as np
+    import onnxruntime as ort
+    from neurogolf.grids import from_onehot, to_onehot
+    from neurogolf.solvers.rotate_into_regions import solve_rotate_into_regions, _ref
+
+    g = [[1, 1, 2, 5, 0, 0, 0, 5, 0, 0, 0],
+         [4, 1, 1, 5, 0, 0, 0, 5, 0, 0, 0],
+         [4, 4, 1, 5, 0, 0, 0, 5, 0, 0, 0]]
+    expected = _ref(np.array(g)).tolist()
+    assert [row[4:7] for row in expected] == np.rot90(np.array(g)[:, 0:3], -1).tolist()
+    task = _make_task([(g, expected)])
+    model = solve_rotate_into_regions(task)
+    assert model is not None and hasattr(model, "graph")
+    sess = ort.InferenceSession(model.SerializeToString())
+    res = sess.run(["output"], {"input": to_onehot(g)})[0]
+    assert from_onehot((res > 0.5).astype(np.float32)) == expected
+
+
+def test_rotate_into_regions_rejects_wrong_size():
+    from neurogolf.solvers.rotate_into_regions import solve_rotate_into_regions
+    task = _make_task([([[1, 5, 0], [1, 5, 0]], [[1, 5, 0], [1, 5, 0]])])
+    assert solve_rotate_into_regions(task) is None

@@ -1705,11 +1705,11 @@
   },
   {
     "task": 214,
-    "solver": "none",
-    "saved": false,
-    "points": 0.0,
-    "memory": null,
-    "params": null
+    "solver": "solve_rotate_into_regions",
+    "saved": true,
+    "points": 13.803060064665189,
+    "memory": 72000,
+    "params": 907
   },
   {
     "task": 215,
