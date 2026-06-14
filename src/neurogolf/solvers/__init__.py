@@ -138,6 +138,7 @@ from .mirror_tile_3x2 import solve_mirror_tile_3x2
 from .rotate_into_regions import solve_rotate_into_regions
 from .marker_ring import solve_marker_ring
 from .alt_ray_right import solve_alt_ray_right
+from .right_then_down_ray import solve_right_then_down_ray
 from .quadrant_corner_map import solve_quadrant_corner_map
 from .gravity_down import solve_gravity_down
 from .slide_to_wall import solve_slide_to_wall
@@ -378,6 +379,7 @@ ALL_SOLVERS: list[Solver] = [
     solve_rotate_into_regions,
     solve_marker_ring,
     solve_alt_ray_right,
+    solve_right_then_down_ray,
     solve_quadrant_corner_map,
     solve_periodic_fill,
     solve_conv3x3,
