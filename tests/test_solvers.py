@@ -4523,6 +4523,33 @@ def test_smallest_blob_two_rejects_single():
     assert solve_smallest_blob_two(task) is None
 
 
+def test_domino_ring():
+    import numpy as np
+    import onnxruntime as ort
+    from neurogolf.grids import to_onehot
+    from neurogolf.solvers.domino_ring import solve_domino_ring, _ref
+
+    g = [[0, 0, 0, 0, 0],
+         [0, 0, 2, 0, 0],
+         [0, 0, 2, 0, 0],
+         [0, 0, 0, 0, 0],
+         [2, 0, 0, 0, 0]]   # vertical domino -> ring ; lone 2 untouched
+    expected = _ref(np.array(g)).tolist()
+    assert expected[0][1:4] == [3, 3, 3] and expected[1][2] == 2 and expected[4][0] == 2
+    task = _make_task([(g, expected)])
+    model = solve_domino_ring(task)
+    assert model is not None and hasattr(model, "graph")
+    sess = ort.InferenceSession(model.SerializeToString())
+    res = sess.run(["output"], {"input": to_onehot(g)})[0]
+    assert np.array_equal((res > 0.0).astype(np.float32), to_onehot(expected))
+
+
+def test_domino_ring_rejects_lone():
+    from neurogolf.solvers.domino_ring import solve_domino_ring
+    task = _make_task([([[2, 0, 0], [0, 0, 0]], [[2, 0, 0], [0, 0, 0]])])  # no domino
+    assert solve_domino_ring(task) is None
+
+
 def test_flood_ones_rejects_no_one():
     from neurogolf.solvers.flood_ones import solve_flood_ones
     task = _make_task([([[0, 2], [0, 0]], [[0, 2], [0, 0]])])
