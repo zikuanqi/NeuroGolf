@@ -4378,3 +4378,29 @@ def test_right_then_down_ray_rejects_plain():
     from neurogolf.solvers.right_then_down_ray import solve_right_then_down_ray
     task = _make_task([([[0, 2], [0, 0]], [[0, 2], [0, 0]])])
     assert solve_right_then_down_ray(task) is None
+
+
+def test_tall_short_lines():
+    import numpy as np
+    import onnxruntime as ort
+    from neurogolf.grids import to_onehot
+    from neurogolf.solvers.tall_short_lines import solve_tall_short_lines, _ref
+
+    g = [[5, 0, 0, 0],
+         [5, 0, 0, 5],
+         [5, 0, 0, 5],
+         [5, 0, 0, 0]]   # col0 tallest (4) -> 1 ; col3 shortest (2) -> 2
+    expected = _ref(np.array(g)).tolist()
+    assert expected[0] == [1, 0, 0, 0] and expected[1] == [1, 0, 0, 2]
+    task = _make_task([(g, expected)])
+    model = solve_tall_short_lines(task)
+    assert model is not None and hasattr(model, "graph")
+    sess = ort.InferenceSession(model.SerializeToString())
+    res = sess.run(["output"], {"input": to_onehot(g)})[0]
+    assert np.array_equal((res > 0.0).astype(np.float32), to_onehot(expected))
+
+
+def test_tall_short_lines_rejects_uniform():
+    from neurogolf.solvers.tall_short_lines import solve_tall_short_lines
+    task = _make_task([([[5, 0, 5], [5, 0, 5]], [[5, 0, 5], [5, 0, 5]])])  # equal heights
+    assert solve_tall_short_lines(task) is None
