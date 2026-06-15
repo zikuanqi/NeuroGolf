@@ -4635,6 +4635,33 @@ def test_crop_swap_pair_rejects_single_color():
     assert solve_crop_swap_pair(task) is None
 
 
+def test_line_triangle_expand():
+    import numpy as np
+    import onnxruntime as ort
+    from neurogolf.grids import to_onehot
+    from neurogolf.solvers.line_triangle_expand import solve_line_triangle_expand, _ref
+
+    g = [[0, 0, 0, 7, 0, 0, 0],
+         [0, 0, 0, 7, 0, 0, 0],
+         [0, 0, 0, 7, 0, 0, 0],
+         [0, 0, 0, 7, 0, 0, 0],
+         [0, 0, 0, 0, 0, 0, 0]]
+    expected = _ref(np.array(g)).tolist()
+    assert expected[0] == [8, 7, 8, 7, 8, 7, 8] and expected[3] == [0, 0, 0, 7, 0, 0, 0]
+    task = _make_task([(g, expected)])
+    model = solve_line_triangle_expand(task)
+    assert model is not None and hasattr(model, "graph")
+    sess = ort.InferenceSession(model.SerializeToString())
+    res = sess.run(["output"], {"input": to_onehot(g)})[0]
+    assert np.array_equal((res > 0.0).astype(np.float32), to_onehot(expected))
+
+
+def test_line_triangle_expand_rejects_plain():
+    from neurogolf.solvers.line_triangle_expand import solve_line_triangle_expand
+    task = _make_task([([[0, 2], [0, 0]], [[0, 2], [0, 0]])])
+    assert solve_line_triangle_expand(task) is None
+
+
 def test_flood_ones_rejects_no_one():
     from neurogolf.solvers.flood_ones import solve_flood_ones
     task = _make_task([([[0, 2], [0, 0]], [[0, 2], [0, 0]])])
