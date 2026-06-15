@@ -4718,6 +4718,61 @@ def test_overlay_mirror_halves_rejects_plain():
     assert solve_overlay_mirror_halves(task) is None
 
 
+def test_line_pierce_box():
+    import numpy as np
+    import onnxruntime as ort
+    from neurogolf.grids import to_onehot
+    from neurogolf.solvers.line_pierce_box import solve_line_pierce_box, _ref
+
+    g = [[0, 0, 2, 0, 0],
+         [0, 0, 0, 0, 0],
+         [0, 0, 0, 0, 0],
+         [8, 8, 8, 8, 8],
+         [0, 0, 0, 0, 0]]
+    expected = _ref(np.array(g)).tolist()
+    assert expected[0][2] == 2 and expected[3][2] == 2 and expected[2][1] == 8
+    task = _make_task([(g, expected)])
+    model = solve_line_pierce_box(task)
+    assert model is not None and hasattr(model, "graph")
+    sess = ort.InferenceSession(model.SerializeToString())
+    res = sess.run(["output"], {"input": to_onehot(g)})[0]
+    assert np.array_equal((res > 0.0).astype(np.float32), to_onehot(expected))
+
+
+def test_line_pierce_box_rejects_plain():
+    from neurogolf.solvers.line_pierce_box import solve_line_pierce_box
+    task = _make_task([([[0, 2], [0, 0]], [[0, 2], [0, 0]])])  # no line
+    assert solve_line_pierce_box(task) is None
+
+
+def test_box_fill_gap_ray():
+    import numpy as np
+    import onnxruntime as ort
+    from neurogolf.grids import to_onehot
+    from neurogolf.solvers.box_fill_gap_ray import solve_box_fill_gap_ray, _ref
+
+    g = [[0, 0, 0, 0, 0, 0],
+         [0, 5, 5, 5, 5, 0],
+         [0, 5, 0, 0, 5, 0],
+         [0, 5, 0, 0, 5, 0],
+         [0, 5, 5, 0, 5, 0],   # gap at (4,3) on bottom border
+         [0, 0, 0, 0, 0, 0]]
+    expected = _ref(np.array(g)).tolist()
+    assert expected[2][2] == 8 and expected[4][3] == 8 and expected[5][3] == 8
+    task = _make_task([(g, expected)])
+    model = solve_box_fill_gap_ray(task)
+    assert model is not None and hasattr(model, "graph")
+    sess = ort.InferenceSession(model.SerializeToString())
+    res = sess.run(["output"], {"input": to_onehot(g)})[0]
+    assert np.array_equal((res > 0.0).astype(np.float32), to_onehot(expected))
+
+
+def test_box_fill_gap_ray_rejects_plain():
+    from neurogolf.solvers.box_fill_gap_ray import solve_box_fill_gap_ray
+    task = _make_task([([[0, 2], [0, 0]], [[0, 2], [0, 0]])])
+    assert solve_box_fill_gap_ray(task) is None
+
+
 def test_flood_ones_rejects_no_one():
     from neurogolf.solvers.flood_ones import solve_flood_ones
     task = _make_task([([[0, 2], [0, 0]], [[0, 2], [0, 0]])])

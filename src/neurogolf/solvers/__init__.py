@@ -153,6 +153,8 @@ from .crop_swap_pair import solve_crop_swap_pair
 from .line_triangle_expand import solve_line_triangle_expand
 from .two_halo_ones import solve_two_halo_ones
 from .overlay_mirror_halves import solve_overlay_mirror_halves
+from .line_pierce_box import solve_line_pierce_box
+from .box_fill_gap_ray import solve_box_fill_gap_ray
 from .quadrant_corner_map import solve_quadrant_corner_map
 from .gravity_down import solve_gravity_down
 from .slide_to_wall import solve_slide_to_wall
@@ -408,6 +410,8 @@ ALL_SOLVERS: list[Solver] = [
     solve_line_triangle_expand,
     solve_two_halo_ones,
     solve_overlay_mirror_halves,
+    solve_line_pierce_box,
+    solve_box_fill_gap_ray,
     solve_quadrant_corner_map,
     solve_periodic_fill,
     solve_conv3x3,
