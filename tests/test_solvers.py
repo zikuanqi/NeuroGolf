@@ -4550,6 +4550,31 @@ def test_domino_ring_rejects_lone():
     assert solve_domino_ring(task) is None
 
 
+def test_empty_line_fill():
+    import numpy as np
+    import onnxruntime as ort
+    from neurogolf.grids import to_onehot
+    from neurogolf.solvers.empty_line_fill import solve_empty_line_fill, _ref
+
+    g = [[1, 0, 1],
+         [0, 0, 0],
+         [1, 0, 1]]   # row1 empty -> 2 ; col1 empty -> 2
+    expected = _ref(np.array(g)).tolist()
+    assert expected[1] == [2, 2, 2] and expected[0][1] == 2 and expected[2][1] == 2
+    task = _make_task([(g, expected)])
+    model = solve_empty_line_fill(task)
+    assert model is not None and hasattr(model, "graph")
+    sess = ort.InferenceSession(model.SerializeToString())
+    res = sess.run(["output"], {"input": to_onehot(g)})[0]
+    assert np.array_equal((res > 0.0).astype(np.float32), to_onehot(expected))
+
+
+def test_empty_line_fill_rejects_full():
+    from neurogolf.solvers.empty_line_fill import solve_empty_line_fill
+    task = _make_task([([[1, 1], [1, 1]], [[1, 1], [1, 1]])])  # no empty line
+    assert solve_empty_line_fill(task) is None
+
+
 def test_flood_ones_rejects_no_one():
     from neurogolf.solvers.flood_ones import solve_flood_ones
     task = _make_task([([[0, 2], [0, 0]], [[0, 2], [0, 0]])])
