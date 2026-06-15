@@ -4745,6 +4745,33 @@ def test_line_pierce_box_rejects_plain():
     assert solve_line_pierce_box(task) is None
 
 
+def test_box_interior_fill():
+    import numpy as np
+    import onnxruntime as ort
+    from neurogolf.grids import to_onehot
+    from neurogolf.solvers.box_interior_fill import solve_box_interior_fill, _ref
+
+    g = [[0, 0, 0, 0, 0],
+         [0, 2, 2, 2, 0],
+         [0, 2, 0, 2, 0],
+         [0, 2, 2, 2, 0],
+         [0, 0, 0, 0, 0]]
+    expected = _ref(np.array(g)).tolist()
+    assert expected[2][2] == 3 and expected[1][1] == 0
+    task = _make_task([(g, expected)])
+    model = solve_box_interior_fill(task)
+    assert model is not None and hasattr(model, "graph")
+    sess = ort.InferenceSession(model.SerializeToString())
+    res = sess.run(["output"], {"input": to_onehot(g)})[0]
+    assert np.array_equal((res > 0.0).astype(np.float32), to_onehot(expected))
+
+
+def test_box_interior_fill_rejects_open():
+    from neurogolf.solvers.box_interior_fill import solve_box_interior_fill
+    task = _make_task([([[0, 0], [0, 0]], [[0, 0], [0, 0]])])  # no enclosure
+    assert solve_box_interior_fill(task) is None
+
+
 def test_box_fill_gap_ray():
     import numpy as np
     import onnxruntime as ort
