@@ -4604,6 +4604,37 @@ def test_hollow_color_pick_rejects_all_solid():
     assert solve_hollow_color_pick(task) is None
 
 
+def test_crop_swap_pair():
+    import numpy as np
+    import onnxruntime as ort
+    from neurogolf.grids import to_onehot
+    from neurogolf.solvers.crop_swap_pair import solve_crop_swap_pair, _ref
+
+    g = [[0, 0, 0, 0, 0],
+         [0, 2, 2, 2, 0],
+         [0, 2, 4, 2, 0],
+         [0, 2, 2, 2, 0],
+         [0, 0, 0, 0, 0]]   # crop 3x3, swap 2<->4
+    expected = _ref(np.array(g)).tolist()
+    assert expected == [[4, 4, 4], [4, 2, 4], [4, 4, 4]]
+    task = _make_task([(g, expected)])
+    model = solve_crop_swap_pair(task)
+    assert model is not None and hasattr(model, "graph")
+    sess = ort.InferenceSession(model.SerializeToString())
+    res = sess.run(["output"], {"input": to_onehot(g)})[0]
+    exp = np.zeros((10, 30, 30), np.float32)
+    for r in range(3):
+        for c in range(3):
+            exp[expected[r][c], r, c] = 1.0
+    assert np.array_equal((res[0] > 0.0).astype(np.float32), exp)
+
+
+def test_crop_swap_pair_rejects_single_color():
+    from neurogolf.solvers.crop_swap_pair import solve_crop_swap_pair
+    task = _make_task([([[2, 2], [2, 2]], [[2, 2], [2, 2]])])  # one colour
+    assert solve_crop_swap_pair(task) is None
+
+
 def test_flood_ones_rejects_no_one():
     from neurogolf.solvers.flood_ones import solve_flood_ones
     task = _make_task([([[0, 2], [0, 0]], [[0, 2], [0, 0]])])
