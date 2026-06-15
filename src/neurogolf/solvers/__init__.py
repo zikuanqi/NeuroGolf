@@ -148,6 +148,7 @@ from .flood_ones import solve_flood_ones
 from .smallest_blob_two import solve_smallest_blob_two
 from .domino_ring import solve_domino_ring
 from .empty_line_fill import solve_empty_line_fill
+from .hollow_color_pick import solve_hollow_color_pick
 from .quadrant_corner_map import solve_quadrant_corner_map
 from .gravity_down import solve_gravity_down
 from .slide_to_wall import solve_slide_to_wall
@@ -398,6 +399,7 @@ ALL_SOLVERS: list[Solver] = [
     solve_smallest_blob_two,
     solve_domino_ring,
     solve_empty_line_fill,
+    solve_hollow_color_pick,
     solve_quadrant_corner_map,
     solve_periodic_fill,
     solve_conv3x3,

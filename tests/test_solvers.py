@@ -4575,6 +4575,35 @@ def test_empty_line_fill_rejects_full():
     assert solve_empty_line_fill(task) is None
 
 
+def test_hollow_color_pick():
+    import numpy as np
+    import onnxruntime as ort
+    from neurogolf.grids import to_onehot
+    from neurogolf.solvers.hollow_color_pick import solve_hollow_color_pick, _ref
+
+    g = [[6, 6, 6, 0, 0],
+         [6, 0, 6, 0, 0],   # 6 is hollow (ring)
+         [6, 6, 6, 0, 0],
+         [0, 0, 0, 3, 3],   # 3 is solid
+         [0, 0, 0, 3, 3]]
+    expected = _ref(np.array(g)).tolist()
+    assert expected == [[6]]
+    task = _make_task([(g, expected)])
+    model = solve_hollow_color_pick(task)
+    assert model is not None and hasattr(model, "graph")
+    sess = ort.InferenceSession(model.SerializeToString())
+    res = sess.run(["output"], {"input": to_onehot(g)})[0]
+    pred = (res[0] > 0.0)
+    exp = np.zeros((10, 30, 30), bool); exp[6, 0, 0] = True
+    assert np.array_equal(pred, exp)
+
+
+def test_hollow_color_pick_rejects_all_solid():
+    from neurogolf.solvers.hollow_color_pick import solve_hollow_color_pick
+    task = _make_task([([[3, 3], [3, 3]], [[3]])])  # solid, not hollow
+    assert solve_hollow_color_pick(task) is None
+
+
 def test_flood_ones_rejects_no_one():
     from neurogolf.solvers.flood_ones import solve_flood_ones
     task = _make_task([([[0, 2], [0, 0]], [[0, 2], [0, 0]])])
