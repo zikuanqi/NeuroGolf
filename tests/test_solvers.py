@@ -4772,6 +4772,36 @@ def test_box_interior_fill_rejects_open():
     assert solve_box_interior_fill(task) is None
 
 
+def test_cross_tile_seed():
+    import numpy as np
+    import onnxruntime as ort
+    from neurogolf.grids import to_onehot
+    from neurogolf.solvers.cross_tile_seed import solve_cross_tile_seed, _ref
+
+    g = [[0, 0, 8, 0, 0, 0],
+         [0, 0, 3, 0, 0, 0],
+         [8, 3, 2, 0, 0, 0],
+         [0, 0, 0, 0, 0, 0],
+         [0, 0, 0, 0, 0, 0],
+         [0, 0, 0, 0, 0, 0]]
+    expected = _ref(np.array(g)).tolist()
+    assert expected is not None
+    # vertical seed [8,3,2] at col2 rows0-2 tiles down; row2 tiles across
+    assert expected[3][2] == 8 and expected[2][3] == 8
+    task = _make_task([(g, expected)])
+    model = solve_cross_tile_seed(task)
+    assert model is not None and hasattr(model, "graph")
+    sess = ort.InferenceSession(model.SerializeToString())
+    res = sess.run(["output"], {"input": to_onehot(g)})[0]
+    assert np.array_equal((res > 0.0).astype(np.float32), to_onehot(expected))
+
+
+def test_cross_tile_seed_rejects_plain():
+    from neurogolf.solvers.cross_tile_seed import solve_cross_tile_seed
+    task = _make_task([([[0, 5], [0, 0]], [[0, 5], [0, 0]])])
+    assert solve_cross_tile_seed(task) is None
+
+
 def test_box_fill_gap_ray():
     import numpy as np
     import onnxruntime as ort

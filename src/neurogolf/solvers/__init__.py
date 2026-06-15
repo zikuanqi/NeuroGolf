@@ -155,6 +155,7 @@ from .two_halo_ones import solve_two_halo_ones
 from .overlay_mirror_halves import solve_overlay_mirror_halves
 from .line_pierce_box import solve_line_pierce_box
 from .box_interior_fill import solve_box_interior_fill
+from .cross_tile_seed import solve_cross_tile_seed
 from .box_fill_gap_ray import solve_box_fill_gap_ray
 from .quadrant_corner_map import solve_quadrant_corner_map
 from .gravity_down import solve_gravity_down
@@ -413,6 +414,7 @@ ALL_SOLVERS: list[Solver] = [
     solve_overlay_mirror_halves,
     solve_line_pierce_box,
     solve_box_interior_fill,
+    solve_cross_tile_seed,
     solve_box_fill_gap_ray,
     solve_quadrant_corner_map,
     solve_periodic_fill,
