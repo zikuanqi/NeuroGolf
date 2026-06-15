@@ -151,6 +151,7 @@ from .empty_line_fill import solve_empty_line_fill
 from .hollow_color_pick import solve_hollow_color_pick
 from .crop_swap_pair import solve_crop_swap_pair
 from .line_triangle_expand import solve_line_triangle_expand
+from .two_halo_ones import solve_two_halo_ones
 from .quadrant_corner_map import solve_quadrant_corner_map
 from .gravity_down import solve_gravity_down
 from .slide_to_wall import solve_slide_to_wall
@@ -404,6 +405,7 @@ ALL_SOLVERS: list[Solver] = [
     solve_hollow_color_pick,
     solve_crop_swap_pair,
     solve_line_triangle_expand,
+    solve_two_halo_ones,
     solve_quadrant_corner_map,
     solve_periodic_fill,
     solve_conv3x3,

@@ -4662,6 +4662,31 @@ def test_line_triangle_expand_rejects_plain():
     assert solve_line_triangle_expand(task) is None
 
 
+def test_two_halo_ones():
+    import numpy as np
+    import onnxruntime as ort
+    from neurogolf.grids import to_onehot
+    from neurogolf.solvers.two_halo_ones import solve_two_halo_ones, _ref
+
+    g = [[0, 0, 0, 0, 0],
+         [0, 2, 0, 0, 0],
+         [0, 0, 0, 6, 0]]   # 2 -> halo of 1s ; 6 untouched
+    expected = _ref(np.array(g)).tolist()
+    assert expected[0][:3] == [1, 1, 1] and expected[2][3] == 6
+    task = _make_task([(g, expected)])
+    model = solve_two_halo_ones(task)
+    assert model is not None and hasattr(model, "graph")
+    sess = ort.InferenceSession(model.SerializeToString())
+    res = sess.run(["output"], {"input": to_onehot(g)})[0]
+    assert np.array_equal((res > 0.0).astype(np.float32), to_onehot(expected))
+
+
+def test_two_halo_ones_rejects_no_two():
+    from neurogolf.solvers.two_halo_ones import solve_two_halo_ones
+    task = _make_task([([[0, 3], [0, 0]], [[0, 3], [0, 0]])])  # no 2
+    assert solve_two_halo_ones(task) is None
+
+
 def test_flood_ones_rejects_no_one():
     from neurogolf.solvers.flood_ones import solve_flood_ones
     task = _make_task([([[0, 2], [0, 0]], [[0, 2], [0, 0]])])
