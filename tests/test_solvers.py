@@ -4687,6 +4687,37 @@ def test_two_halo_ones_rejects_no_two():
     assert solve_two_halo_ones(task) is None
 
 
+def test_overlay_mirror_halves():
+    import numpy as np
+    import onnxruntime as ort
+    from neurogolf.grids import to_onehot
+    from neurogolf.solvers.overlay_mirror_halves import solve_overlay_mirror_halves, _ref
+
+    # 9-wide, divider at col4; left has 3 at col0, right col7 mirrors to col1
+    g = [[3, 0, 0, 0, 5, 0, 0, 6, 0],
+         [0, 0, 0, 0, 5, 0, 0, 0, 0]]
+    res = _ref(np.array(g))
+    assert res is not None
+    expected = res[0].tolist()  # 2x4
+    assert expected[0] == [3, 6, 0, 0]
+    task = _make_task([(g, expected)])
+    model = solve_overlay_mirror_halves(task)
+    assert model is not None and hasattr(model, "graph")
+    sess = ort.InferenceSession(model.SerializeToString())
+    out = sess.run(["output"], {"input": to_onehot(g)})[0]
+    exp = np.zeros((10, 30, 30), np.float32)
+    for r in range(len(expected)):
+        for c in range(len(expected[0])):
+            exp[expected[r][c], r, c] = 1.0
+    assert np.array_equal((out[0] > 0.0).astype(np.float32), exp)
+
+
+def test_overlay_mirror_halves_rejects_plain():
+    from neurogolf.solvers.overlay_mirror_halves import solve_overlay_mirror_halves
+    task = _make_task([([[1, 2], [3, 4]], [[1, 2], [3, 4]])])  # no divider
+    assert solve_overlay_mirror_halves(task) is None
+
+
 def test_flood_ones_rejects_no_one():
     from neurogolf.solvers.flood_ones import solve_flood_ones
     task = _make_task([([[0, 2], [0, 0]], [[0, 2], [0, 0]])])
