@@ -4891,6 +4891,36 @@ def test_stamp_ref_on_blocks_rejects_plain():
     assert solve_stamp_ref_on_blocks(task) is None
 
 
+def test_lattice_connect():
+    import numpy as np
+    import onnxruntime as ort
+    from neurogolf.grids import to_onehot
+    from neurogolf.solvers.lattice_connect import solve_lattice_connect, _ref
+
+    # 8 lattice lines (col2); two 2s in a row get the gap filled
+    g = [[2, 0, 8, 0, 2],
+         [0, 0, 8, 0, 0],
+         [8, 8, 8, 8, 8],
+         [0, 0, 8, 0, 0],
+         [3, 0, 8, 0, 3]]
+    expected = _ref(np.array(g))
+    assert expected is not None
+    expected = expected.tolist()
+    assert expected[0][1] == 2 and expected[4][1] == 3
+    task = _make_task([(g, expected)])
+    model = solve_lattice_connect(task)
+    assert model is not None and hasattr(model, "graph")
+    sess = ort.InferenceSession(model.SerializeToString())
+    res = sess.run(["output"], {"input": to_onehot(g)})[0]
+    assert np.array_equal((res > 0.0).astype(np.float32), to_onehot(expected))
+
+
+def test_lattice_connect_rejects_plain():
+    from neurogolf.solvers.lattice_connect import solve_lattice_connect
+    task = _make_task([([[2, 0], [0, 0]], [[2, 0], [0, 0]])])  # single cell
+    assert solve_lattice_connect(task) is None
+
+
 def test_box_fill_gap_ray():
     import numpy as np
     import onnxruntime as ort
