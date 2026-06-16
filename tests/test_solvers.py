@@ -4831,6 +4831,38 @@ def test_marker_to_wall_rejects_plain():
     assert solve_marker_to_wall(task) is None
 
 
+def test_symmetry_patch():
+    import numpy as np
+    import onnxruntime as ort
+    from neurogolf.grids import to_onehot
+    from neurogolf.solvers.symmetry_patch import solve_symmetry_patch, _ref
+
+    # rows symmetric in cols (col2==col3); a 3-block occludes cols4-5,
+    # recovered by h-flip from cols1,0
+    g = [[7, 4, 5, 5, 3, 3],
+         [1, 6, 8, 8, 3, 3],
+         [2, 9, 4, 4, 3, 3]]
+    exp = _ref(np.array(g))
+    assert exp is not None
+    expected = exp.tolist()
+    task = _make_task([(g, expected)])
+    model = solve_symmetry_patch(task)
+    assert model is not None and hasattr(model, "graph")
+    sess = ort.InferenceSession(model.SerializeToString())
+    out = sess.run(["output"], {"input": to_onehot(g)})[0]
+    eo = np.zeros((10, 30, 30), np.float32)
+    for r in range(len(expected)):
+        for c in range(len(expected[0])):
+            eo[expected[r][c], r, c] = 1.0
+    assert np.array_equal((out[0] > 0.0).astype(np.float32), eo)
+
+
+def test_symmetry_patch_rejects_plain():
+    from neurogolf.solvers.symmetry_patch import solve_symmetry_patch
+    task = _make_task([([[1, 2], [3, 4]], [[1, 2], [3, 4]])])  # no 3-block
+    assert solve_symmetry_patch(task) is None
+
+
 def test_box_fill_gap_ray():
     import numpy as np
     import onnxruntime as ort

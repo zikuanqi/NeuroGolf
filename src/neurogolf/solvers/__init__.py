@@ -157,6 +157,7 @@ from .line_pierce_box import solve_line_pierce_box
 from .box_interior_fill import solve_box_interior_fill
 from .cross_tile_seed import solve_cross_tile_seed
 from .marker_to_wall import solve_marker_to_wall
+from .symmetry_patch import solve_symmetry_patch
 from .box_fill_gap_ray import solve_box_fill_gap_ray
 from .quadrant_corner_map import solve_quadrant_corner_map
 from .gravity_down import solve_gravity_down
@@ -417,6 +418,7 @@ ALL_SOLVERS: list[Solver] = [
     solve_box_interior_fill,
     solve_cross_tile_seed,
     solve_marker_to_wall,
+    solve_symmetry_patch,
     solve_box_fill_gap_ray,
     solve_quadrant_corner_map,
     solve_periodic_fill,
