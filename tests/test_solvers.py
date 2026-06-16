@@ -4802,6 +4802,35 @@ def test_cross_tile_seed_rejects_plain():
     assert solve_cross_tile_seed(task) is None
 
 
+def test_marker_to_wall():
+    import numpy as np
+    import onnxruntime as ort
+    from neurogolf.grids import to_onehot
+    from neurogolf.solvers.marker_to_wall import solve_marker_to_wall, _ref
+
+    # frame: top=4, bottom=8, left=2, right=3; interior 2-marker slides left
+    g = [[0, 4, 4, 4, 0],
+         [2, 0, 0, 0, 3],
+         [2, 0, 0, 2, 3],
+         [2, 0, 0, 0, 3],
+         [0, 8, 8, 8, 0]]
+    expected = _ref(np.array(g))
+    assert expected is not None and expected[2][1] == 2
+    expected = expected.tolist()
+    task = _make_task([(g, expected)])
+    model = solve_marker_to_wall(task)
+    assert model is not None and hasattr(model, "graph")
+    sess = ort.InferenceSession(model.SerializeToString())
+    res = sess.run(["output"], {"input": to_onehot(g)})[0]
+    assert np.array_equal((res > 0.0).astype(np.float32), to_onehot(expected))
+
+
+def test_marker_to_wall_rejects_plain():
+    from neurogolf.solvers.marker_to_wall import solve_marker_to_wall
+    task = _make_task([([[0, 2], [0, 0]], [[0, 2], [0, 0]])])
+    assert solve_marker_to_wall(task) is None
+
+
 def test_box_fill_gap_ray():
     import numpy as np
     import onnxruntime as ort
