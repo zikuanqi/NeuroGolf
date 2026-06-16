@@ -4921,6 +4921,36 @@ def test_lattice_connect_rejects_plain():
     assert solve_lattice_connect(task) is None
 
 
+def test_c4_complete():
+    import numpy as np
+    import onnxruntime as ort
+    from neurogolf.grids import to_onehot
+    from neurogolf.solvers.c4_complete import solve_c4_complete, _ref
+
+    # 3 corners of a C4 square about centre (2,2); the 4th corner is filled in
+    g = [[4, 0, 0, 0, 0],
+         [0, 0, 0, 0, 0],
+         [0, 0, 0, 0, 0],
+         [0, 0, 0, 0, 0],
+         [4, 0, 0, 0, 4]]
+    expected = _ref(np.array(g))
+    assert expected is not None
+    assert expected[0][4] == 4  # missing corner completed
+    expected = expected.tolist()
+    task = _make_task([(g, expected)])
+    model = solve_c4_complete(task)
+    assert model is not None and hasattr(model, "graph")
+    sess = ort.InferenceSession(model.SerializeToString())
+    res = sess.run(["output"], {"input": to_onehot(g)})[0]
+    assert np.array_equal((res > 0.0).astype(np.float32), to_onehot(expected))
+
+
+def test_c4_complete_rejects_plain():
+    from neurogolf.solvers.c4_complete import solve_c4_complete
+    task = _make_task([([[4, 4], [4, 4]], [[4, 4], [4, 4]])])  # already full, no change
+    assert solve_c4_complete(task) is None
+
+
 def test_box_fill_gap_ray():
     import numpy as np
     import onnxruntime as ort
