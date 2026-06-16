@@ -4863,6 +4863,34 @@ def test_symmetry_patch_rejects_plain():
     assert solve_symmetry_patch(task) is None
 
 
+def test_stamp_ref_on_blocks():
+    import numpy as np
+    import onnxruntime as ort
+    from neurogolf.grids import to_onehot
+    from neurogolf.solvers.stamp_ref_on_blocks import solve_stamp_ref_on_blocks, _ref
+
+    g = [[2, 2, 0, 0, 0],
+         [2, 4, 0, 0, 0],
+         [0, 0, 0, 5, 5],
+         [0, 0, 0, 5, 5]]
+    expected = _ref(np.array(g))
+    assert expected is not None
+    expected = expected.tolist()
+    assert expected[2][3] == 2 and expected[3][4] == 4  # 5-block -> reference
+    task = _make_task([(g, expected)])
+    model = solve_stamp_ref_on_blocks(task)
+    assert model is not None and hasattr(model, "graph")
+    sess = ort.InferenceSession(model.SerializeToString())
+    res = sess.run(["output"], {"input": to_onehot(g)})[0]
+    assert np.array_equal((res > 0.0).astype(np.float32), to_onehot(expected))
+
+
+def test_stamp_ref_on_blocks_rejects_plain():
+    from neurogolf.solvers.stamp_ref_on_blocks import solve_stamp_ref_on_blocks
+    task = _make_task([([[0, 5], [0, 0]], [[0, 5], [0, 0]])])  # no reference
+    assert solve_stamp_ref_on_blocks(task) is None
+
+
 def test_box_fill_gap_ray():
     import numpy as np
     import onnxruntime as ort
