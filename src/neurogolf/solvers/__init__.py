@@ -161,6 +161,7 @@ from .symmetry_patch import solve_symmetry_patch
 from .stamp_ref_on_blocks import solve_stamp_ref_on_blocks
 from .lattice_connect import solve_lattice_connect
 from .c4_complete import solve_c4_complete
+from .stamp_key_on_eights import solve_stamp_key_on_eights
 from .box_fill_gap_ray import solve_box_fill_gap_ray
 from .quadrant_corner_map import solve_quadrant_corner_map
 from .gravity_down import solve_gravity_down
@@ -425,6 +426,7 @@ ALL_SOLVERS: list[Solver] = [
     solve_stamp_ref_on_blocks,
     solve_lattice_connect,
     solve_c4_complete,
+    solve_stamp_key_on_eights,
     solve_box_fill_gap_ray,
     solve_quadrant_corner_map,
     solve_periodic_fill,

@@ -65,11 +65,11 @@
   },
   {
     "task": 9,
-    "solver": "none",
-    "saved": false,
-    "points": 0.0,
-    "memory": null,
-    "params": null
+    "solver": "solve_lattice_connect",
+    "saved": true,
+    "points": 11.706247945864973,
+    "memory": 593450,
+    "params": 26
   },
   {
     "task": 10,
@@ -153,11 +153,11 @@
   },
   {
     "task": 20,
-    "solver": "none",
-    "saved": false,
-    "points": 0.0,
-    "memory": null,
-    "params": null
+    "solver": "solve_c4_complete",
+    "saved": true,
+    "points": 11.686935274531137,
+    "memory": 604960,
+    "params": 89
   },
   {
     "task": 21,
@@ -545,11 +545,11 @@
   },
   {
     "task": 69,
-    "solver": "none",
-    "saved": false,
-    "points": 0.0,
-    "memory": null,
-    "params": null
+    "solver": "solve_stamp_key_on_eights",
+    "saved": true,
+    "points": 11.750744974367995,
+    "memory": 566660,
+    "params": 987
   },
   {
     "task": 70,
@@ -1849,11 +1849,11 @@
   },
   {
     "task": 232,
-    "solver": "none",
-    "saved": false,
-    "points": 0.0,
-    "memory": null,
-    "params": null
+    "solver": "solve_alt_ray_right",
+    "saved": true,
+    "points": 12.805311913336464,
+    "memory": 197700,
+    "params": 36
   },
   {
     "task": 233,
@@ -1889,11 +1889,11 @@
   },
   {
     "task": 237,
-    "solver": "none",
-    "saved": false,
-    "points": 0.0,
-    "memory": null,
-    "params": null
+    "solver": "solve_right_then_down_ray",
+    "saved": true,
+    "points": 12.760420047164912,
+    "memory": 206736,
+    "params": 79
   },
   {
     "task": 238,
@@ -1937,11 +1937,11 @@
   },
   {
     "task": 243,
-    "solver": "none",
-    "saved": false,
-    "points": 0.0,
-    "memory": null,
-    "params": null
+    "solver": "solve_flood_ones",
+    "saved": true,
+    "points": 11.855456431788072,
+    "memory": 511200,
+    "params": 14
   },
   {
     "task": 244,
@@ -2025,11 +2025,11 @@
   },
   {
     "task": 254,
-    "solver": "none",
-    "saved": false,
-    "points": 0.0,
-    "memory": null,
-    "params": null
+    "solver": "solve_tall_short_lines",
+    "saved": true,
+    "points": 12.951728020733873,
+    "memory": 170768,
+    "params": 36
   },
   {
     "task": 255,
@@ -2057,11 +2057,11 @@
   },
   {
     "task": 258,
-    "solver": "solve_hspan_fill",
+    "solver": "solve_midpoint_fill_h",
     "saved": true,
-    "points": 13.160479489079393,
-    "memory": 138600,
-    "params": 24
+    "points": 13.916704270137235,
+    "memory": 65040,
+    "params": 35
   },
   {
     "task": 259,
@@ -2081,11 +2081,11 @@
   },
   {
     "task": 261,
-    "solver": "none",
-    "saved": false,
-    "points": 0.0,
-    "memory": null,
-    "params": null
+    "solver": "solve_drop_one_recolor",
+    "saved": true,
+    "points": 13.51389090118913,
+    "memory": 97320,
+    "params": 34
   },
   {
     "task": 262,
@@ -2121,11 +2121,11 @@
   },
   {
     "task": 266,
-    "solver": "solve_corner_burst",
+    "solver": "solve_diag_corner_stamp",
     "saved": true,
-    "points": 11.949175589777987,
-    "memory": 465376,
-    "params": 104
+    "points": 11.964766552066914,
+    "memory": 458176,
+    "params": 103
   },
   {
     "task": 267,
@@ -2169,11 +2169,11 @@
   },
   {
     "task": 272,
-    "solver": "solve_isolate_recolor",
+    "solver": "solve_isolated_two_recolor",
     "saved": true,
-    "points": 12.4927455646272,
-    "memory": 270000,
-    "params": 291
+    "points": 13.627130020484485,
+    "memory": 86880,
+    "params": 51
   },
   {
     "task": 273,
@@ -2209,19 +2209,19 @@
   },
   {
     "task": 277,
-    "solver": "none",
-    "saved": false,
-    "points": 0.0,
-    "memory": null,
-    "params": null
+    "solver": "solve_smallest_blob_two",
+    "saved": true,
+    "points": 9.688836543010462,
+    "memory": 4461304,
+    "params": 945
   },
   {
     "task": 278,
-    "solver": "none",
-    "saved": false,
-    "points": 0.0,
-    "memory": null,
-    "params": null
+    "solver": "solve_domino_ring",
+    "saved": true,
+    "points": 13.547536045149643,
+    "memory": 94080,
+    "params": 53
   },
   {
     "task": 279,
@@ -2313,19 +2313,19 @@
   },
   {
     "task": 290,
-    "solver": "none",
-    "saved": false,
-    "points": 0.0,
-    "memory": null,
-    "params": null
+    "solver": "solve_crop_swap_pair",
+    "saved": true,
+    "points": 12.797413423754659,
+    "memory": 199108,
+    "params": 196
   },
   {
     "task": 291,
-    "solver": "none",
-    "saved": false,
-    "points": 0.0,
-    "memory": null,
-    "params": null
+    "solver": "solve_hollow_color_pick",
+    "saved": true,
+    "points": 15.32009359450913,
+    "memory": 15020,
+    "params": 973
   },
   {
     "task": 292,
@@ -2417,11 +2417,11 @@
   },
   {
     "task": 303,
-    "solver": "none",
-    "saved": false,
-    "points": 0.0,
-    "memory": null,
-    "params": null
+    "solver": "solve_empty_line_fill",
+    "saved": true,
+    "points": 14.089777902820172,
+    "memory": 54720,
+    "params": 13
   },
   {
     "task": 304,
@@ -2681,11 +2681,11 @@
   },
   {
     "task": 336,
-    "solver": "none",
-    "saved": false,
-    "points": 0.0,
-    "memory": null,
-    "params": null
+    "solver": "solve_box_fill_gap_ray",
+    "saved": true,
+    "points": 13.318040872562753,
+    "memory": 118340,
+    "params": 76
   },
   {
     "task": 337,
@@ -2697,11 +2697,11 @@
   },
   {
     "task": 338,
-    "solver": "none",
-    "saved": false,
-    "points": 0.0,
-    "memory": null,
-    "params": null
+    "solver": "solve_box_interior_fill",
+    "saved": true,
+    "points": 11.812365869605287,
+    "memory": 532800,
+    "params": 924
   },
   {
     "task": 339,
@@ -2713,11 +2713,11 @@
   },
   {
     "task": 340,
-    "solver": "none",
-    "saved": false,
-    "points": 0.0,
-    "memory": null,
-    "params": null
+    "solver": "solve_marker_to_wall",
+    "saved": true,
+    "points": 11.51898782798253,
+    "memory": 715536,
+    "params": 161
   },
   {
     "task": 341,
@@ -2777,11 +2777,11 @@
   },
   {
     "task": 348,
-    "solver": "none",
-    "saved": false,
-    "points": 0.0,
-    "memory": null,
-    "params": null
+    "solver": "solve_line_triangle_expand",
+    "saved": true,
+    "points": 12.90756088623779,
+    "memory": 178422,
+    "params": 95
   },
   {
     "task": 349,
@@ -2801,19 +2801,19 @@
   },
   {
     "task": 351,
-    "solver": "none",
-    "saved": false,
-    "points": 0.0,
-    "memory": null,
-    "params": null
+    "solver": "solve_symmetry_patch",
+    "saved": true,
+    "points": 11.409796582221249,
+    "memory": 798202,
+    "params": 69
   },
   {
     "task": 352,
-    "solver": "none",
-    "saved": false,
-    "points": 0.0,
-    "memory": null,
-    "params": null
+    "solver": "solve_two_halo_ones",
+    "saved": true,
+    "points": 14.171955971172684,
+    "memory": 50400,
+    "params": 15
   },
   {
     "task": 353,
@@ -2857,11 +2857,11 @@
   },
   {
     "task": 358,
-    "solver": "none",
-    "saved": false,
-    "points": 0.0,
-    "memory": null,
-    "params": null
+    "solver": "solve_cross_tile_seed",
+    "saved": true,
+    "points": 12.22306645899065,
+    "memory": 353870,
+    "params": 88
   },
   {
     "task": 359,
@@ -2873,11 +2873,11 @@
   },
   {
     "task": 360,
-    "solver": "none",
-    "saved": false,
-    "points": 0.0,
-    "memory": null,
-    "params": null
+    "solver": "solve_overlay_mirror_halves",
+    "saved": true,
+    "points": 12.65208063024159,
+    "memory": 230400,
+    "params": 80
   },
   {
     "task": 361,
@@ -2937,11 +2937,11 @@
   },
   {
     "task": 368,
-    "solver": "none",
-    "saved": false,
-    "points": 0.0,
-    "memory": null,
-    "params": null
+    "solver": "solve_stamp_ref_on_blocks",
+    "saved": true,
+    "points": 12.288734565371728,
+    "memory": 331372,
+    "params": 89
   },
   {
     "task": 369,
@@ -3025,11 +3025,11 @@
   },
   {
     "task": 379,
-    "solver": "none",
-    "saved": false,
-    "points": 0.0,
-    "memory": null,
-    "params": null
+    "solver": "solve_line_pierce_box",
+    "saved": true,
+    "points": 11.4313021610887,
+    "memory": 781216,
+    "params": 71
   },
   {
     "task": 380,

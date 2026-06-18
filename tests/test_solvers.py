@@ -4951,6 +4951,38 @@ def test_c4_complete_rejects_plain():
     assert solve_c4_complete(task) is None
 
 
+def test_stamp_key_on_eights():
+    import numpy as np
+    import onnxruntime as ort
+    from neurogolf.grids import to_onehot
+    from neurogolf.solvers.stamp_key_on_eights import solve_stamp_key_on_eights, _ref
+
+    # colour key 7 6 / 9 4; every 8-block repainted by it, the key erased
+    g = [[7, 6, 0, 0, 0, 0],
+         [9, 4, 0, 0, 0, 0],
+         [0, 0, 0, 0, 0, 0],
+         [0, 0, 0, 8, 8, 0],
+         [0, 0, 0, 8, 8, 0],
+         [0, 0, 0, 0, 0, 0]]
+    expected = _ref(np.array(g))
+    assert expected is not None
+    assert expected[3][3] == 7 and expected[4][4] == 4  # block repainted
+    assert expected[0][0] == 0  # key erased
+    expected = expected.tolist()
+    task = _make_task([(g, expected)])
+    model = solve_stamp_key_on_eights(task)
+    assert model is not None and hasattr(model, "graph")
+    sess = ort.InferenceSession(model.SerializeToString())
+    res = sess.run(["output"], {"input": to_onehot(g)})[0]
+    assert np.array_equal((res > 0.0).astype(np.float32), to_onehot(expected))
+
+
+def test_stamp_key_on_eights_rejects_plain():
+    from neurogolf.solvers.stamp_key_on_eights import solve_stamp_key_on_eights
+    task = _make_task([([[1, 0], [0, 2]], [[1, 0], [0, 2]])])  # no 8-blocks
+    assert solve_stamp_key_on_eights(task) is None
+
+
 def test_box_fill_gap_ray():
     import numpy as np
     import onnxruntime as ort
