@@ -4983,6 +4983,44 @@ def test_stamp_key_on_eights_rejects_plain():
     assert solve_stamp_key_on_eights(task) is None
 
 
+def test_majority_shape_crop():
+    import numpy as np
+    import onnxruntime as ort
+    from neurogolf.grids import to_onehot
+    from neurogolf.solvers.majority_shape_crop import solve_majority_shape_crop, _ref
+
+    # colour 8 has 2 copies, colour 2 has 1 -> output 8's 3x3 template
+    g = [[8, 0, 8, 0, 0, 0, 0],
+         [0, 8, 0, 0, 0, 0, 0],
+         [8, 0, 8, 0, 2, 0, 2],
+         [0, 0, 0, 0, 0, 2, 0],
+         [8, 0, 8, 0, 2, 0, 2],
+         [0, 8, 0, 0, 0, 0, 0],
+         [8, 0, 8, 0, 0, 0, 0]]
+    expected = _ref(np.array(g))
+    assert expected is not None and expected.shape == (3, 3)
+    assert expected[0][0] == 8 and expected[1][1] == 8
+    expected = expected.tolist()
+    task = _make_task([(g, expected)])
+    model = solve_majority_shape_crop(task)
+    assert model is not None and hasattr(model, "graph")
+    sess = ort.InferenceSession(model.SerializeToString())
+    res = sess.run(["output"], {"input": to_onehot(g)})[0]
+    assert np.array_equal((res > 0.0).astype(np.float32), to_onehot(expected))
+
+
+def test_majority_shape_crop_rejects_plain():
+    from neurogolf.solvers.majority_shape_crop import solve_majority_shape_crop
+    # output keeps the full 5x5 grid, but the rule would crop to 3x3 -> shape mismatch
+    g = [[1, 0, 1, 0, 0],
+         [0, 1, 0, 0, 0],
+         [1, 0, 1, 0, 0],
+         [0, 0, 0, 0, 0],
+         [0, 0, 0, 0, 0]]
+    task = _make_task([(g, g)])
+    assert solve_majority_shape_crop(task) is None
+
+
 def test_mirror_repair():
     import numpy as np
     import onnxruntime as ort

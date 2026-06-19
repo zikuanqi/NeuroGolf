@@ -625,11 +625,11 @@
   },
   {
     "task": 79,
-    "solver": "none",
-    "saved": false,
-    "points": 0.0,
-    "memory": null,
-    "params": null
+    "solver": "solve_majority_shape_crop",
+    "saved": true,
+    "points": 11.183693758675707,
+    "memory": 998910,
+    "params": 1886
   },
   {
     "task": 80,
