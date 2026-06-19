@@ -561,11 +561,11 @@
   },
   {
     "task": 71,
-    "solver": "none",
-    "saved": false,
-    "points": 0.0,
-    "memory": null,
-    "params": null
+    "solver": "solve_mirror_repair",
+    "saved": true,
+    "points": 10.25612034814401,
+    "memory": 2526733,
+    "params": 3646
   },
   {
     "task": 72,

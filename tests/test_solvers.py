@@ -4983,6 +4983,37 @@ def test_stamp_key_on_eights_rejects_plain():
     assert solve_stamp_key_on_eights(task) is None
 
 
+def test_mirror_repair():
+    import numpy as np
+    import onnxruntime as ort
+    from neurogolf.grids import to_onehot
+    from neurogolf.solvers.mirror_repair import solve_mirror_repair, _ref
+
+    # a v-mirror-symmetric 7-figure; a solid 8-rectangle hides part of the right side
+    g = [[0, 0, 7, 0, 0, 7, 0, 0],
+         [0, 7, 7, 0, 0, 7, 7, 0],
+         [7, 0, 0, 8, 8, 8, 8, 8],
+         [7, 0, 0, 8, 8, 8, 8, 8],
+         [0, 7, 7, 0, 0, 7, 7, 0]]
+    expected = _ref(np.array(g))
+    assert expected is not None
+    assert 8 not in np.array(expected)  # occluder gone
+    assert expected[2][7] == 7 and expected[2][0] == 7  # restored by mirror
+    expected = expected.tolist()
+    task = _make_task([(g, expected)])
+    model = solve_mirror_repair(task)
+    assert model is not None and hasattr(model, "graph")
+    sess = ort.InferenceSession(model.SerializeToString())
+    res = sess.run(["output"], {"input": to_onehot(g)})[0]
+    assert np.array_equal((res > 0.0).astype(np.float32), to_onehot(expected))
+
+
+def test_mirror_repair_rejects_plain():
+    from neurogolf.solvers.mirror_repair import solve_mirror_repair
+    task = _make_task([([[1, 0], [0, 2]], [[1, 0], [0, 2]])])  # no solid-rect occluder
+    assert solve_mirror_repair(task) is None
+
+
 def test_box_fill_gap_ray():
     import numpy as np
     import onnxruntime as ort
