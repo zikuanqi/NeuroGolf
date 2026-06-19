@@ -649,11 +649,11 @@
   },
   {
     "task": 82,
-    "solver": "none",
-    "saved": false,
-    "points": 0.0,
-    "memory": null,
-    "params": null
+    "solver": "solve_top_marker_zigzag",
+    "saved": true,
+    "points": 12.797022138377217,
+    "memory": 199280,
+    "params": 102
   },
   {
     "task": 83,

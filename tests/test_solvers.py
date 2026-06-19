@@ -4983,6 +4983,35 @@ def test_stamp_key_on_eights_rejects_plain():
     assert solve_stamp_key_on_eights(task) is None
 
 
+def test_top_marker_zigzag():
+    import numpy as np
+    import onnxruntime as ort
+    from neurogolf.grids import to_onehot
+    from neurogolf.solvers.top_marker_zigzag import solve_top_marker_zigzag, _ref
+
+    g = [[0, 2, 0, 0],
+         [0, 0, 0, 0],
+         [0, 0, 0, 0],
+         [0, 0, 0, 0]]
+    expected = _ref(np.array(g))
+    assert expected is not None
+    assert expected[0][1] == 2 and expected[1][0] == 2 and expected[1][2] == 2
+    assert expected[2][1] == 2
+    expected = expected.tolist()
+    task = _make_task([(g, expected)])
+    model = solve_top_marker_zigzag(task)
+    assert model is not None and hasattr(model, "graph")
+    sess = ort.InferenceSession(model.SerializeToString())
+    res = sess.run(["output"], {"input": to_onehot(g)})[0]
+    assert np.array_equal((res > 0.0).astype(np.float32), to_onehot(expected))
+
+
+def test_top_marker_zigzag_rejects_plain():
+    from neurogolf.solvers.top_marker_zigzag import solve_top_marker_zigzag
+    task = _make_task([([[0, 0], [0, 0]], [[0, 0], [0, 0]])])  # no top-row marker
+    assert solve_top_marker_zigzag(task) is None
+
+
 def test_majority_shape_crop():
     import numpy as np
     import onnxruntime as ort

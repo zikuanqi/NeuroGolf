@@ -164,6 +164,7 @@ from .c4_complete import solve_c4_complete
 from .stamp_key_on_eights import solve_stamp_key_on_eights
 from .mirror_repair import solve_mirror_repair
 from .majority_shape_crop import solve_majority_shape_crop
+from .top_marker_zigzag import solve_top_marker_zigzag
 from .box_fill_gap_ray import solve_box_fill_gap_ray
 from .quadrant_corner_map import solve_quadrant_corner_map
 from .gravity_down import solve_gravity_down
@@ -431,6 +432,7 @@ ALL_SOLVERS: list[Solver] = [
     solve_stamp_key_on_eights,
     solve_mirror_repair,
     solve_majority_shape_crop,
+    solve_top_marker_zigzag,
     solve_box_fill_gap_ray,
     solve_quadrant_corner_map,
     solve_periodic_fill,
