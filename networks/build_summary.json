@@ -673,11 +673,11 @@
   },
   {
     "task": 85,
-    "solver": "none",
-    "saved": false,
-    "points": 0.0,
-    "memory": null,
-    "params": null
+    "solver": "solve_bar_middle_dash",
+    "saved": true,
+    "points": 12.209356967359591,
+    "memory": 358800,
+    "params": 44
   },
   {
     "task": 86,

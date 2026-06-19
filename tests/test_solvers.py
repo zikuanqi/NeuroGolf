@@ -4983,6 +4983,36 @@ def test_stamp_key_on_eights_rejects_plain():
     assert solve_stamp_key_on_eights(task) is None
 
 
+def test_bar_middle_dash():
+    import numpy as np
+    import onnxruntime as ort
+    from neurogolf.grids import to_onehot
+    from neurogolf.solvers.bar_middle_dash import solve_bar_middle_dash, _ref
+
+    g = [[0, 0, 0, 0, 0, 0],
+         [4, 4, 4, 4, 4, 4],
+         [4, 4, 4, 4, 4, 4],
+         [4, 4, 4, 4, 4, 4],
+         [0, 0, 0, 0, 0, 0]]
+    expected = _ref(np.array(g))
+    assert expected is not None
+    expected = expected.tolist()
+    assert expected[2] == [4, 0, 4, 0, 4, 0]  # middle row dashed
+    assert expected[1] == [4, 4, 4, 4, 4, 4]  # top row solid
+    task = _make_task([(g, expected)])
+    model = solve_bar_middle_dash(task)
+    assert model is not None and hasattr(model, "graph")
+    sess = ort.InferenceSession(model.SerializeToString())
+    res = sess.run(["output"], {"input": to_onehot(g)})[0]
+    assert np.array_equal((res > 0.0).astype(np.float32), to_onehot(expected))
+
+
+def test_bar_middle_dash_rejects_plain():
+    from neurogolf.solvers.bar_middle_dash import solve_bar_middle_dash
+    task = _make_task([([[4, 4], [0, 0]], [[4, 4], [0, 0]])])  # no 3-row bar
+    assert solve_bar_middle_dash(task) is None
+
+
 def test_top_marker_zigzag():
     import numpy as np
     import onnxruntime as ort
