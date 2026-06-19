@@ -4983,6 +4983,37 @@ def test_stamp_key_on_eights_rejects_plain():
     assert solve_stamp_key_on_eights(task) is None
 
 
+def test_square_enclosure_fill():
+    import numpy as np
+    import onnxruntime as ort
+    from neurogolf.grids import to_onehot
+    from neurogolf.solvers.square_enclosure_fill import solve_square_enclosure_fill, _ref
+
+    # left box: solid 2x2 interior (filled); right box: 1x2 interior (skipped)
+    g = [[0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+         [0, 5, 5, 5, 5, 0, 5, 5, 5, 5],
+         [0, 5, 0, 0, 5, 0, 5, 0, 0, 5],
+         [0, 5, 0, 0, 5, 0, 5, 5, 5, 5],
+         [0, 5, 5, 5, 5, 0, 0, 0, 0, 0]]
+    expected = _ref(np.array(g))
+    assert expected is not None
+    assert expected[2][2] == 2 and expected[2][3] == 2  # solid square filled
+    assert expected[2][7] == 0 and expected[2][8] == 0  # 1x2 interior skipped
+    expected = expected.tolist()
+    task = _make_task([(g, expected)])
+    model = solve_square_enclosure_fill(task)
+    assert model is not None and hasattr(model, "graph")
+    sess = ort.InferenceSession(model.SerializeToString())
+    res = sess.run(["output"], {"input": to_onehot(g)})[0]
+    assert np.array_equal((res > 0.0).astype(np.float32), to_onehot(expected))
+
+
+def test_square_enclosure_fill_rejects_plain():
+    from neurogolf.solvers.square_enclosure_fill import solve_square_enclosure_fill
+    task = _make_task([([[1, 0], [0, 2]], [[1, 0], [0, 2]])])  # no enclosure
+    assert solve_square_enclosure_fill(task) is None
+
+
 def test_bar_middle_dash():
     import numpy as np
     import onnxruntime as ort

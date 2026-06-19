@@ -809,11 +809,11 @@
   },
   {
     "task": 102,
-    "solver": "none",
-    "saved": false,
-    "points": 0.0,
-    "memory": null,
-    "params": null
+    "solver": "solve_square_enclosure_fill",
+    "saved": true,
+    "points": 9.461419675969069,
+    "memory": 5599800,
+    "params": 1898
   },
   {
     "task": 103,

@@ -166,6 +166,7 @@ from .mirror_repair import solve_mirror_repair
 from .majority_shape_crop import solve_majority_shape_crop
 from .top_marker_zigzag import solve_top_marker_zigzag
 from .bar_middle_dash import solve_bar_middle_dash
+from .square_enclosure_fill import solve_square_enclosure_fill
 from .box_fill_gap_ray import solve_box_fill_gap_ray
 from .quadrant_corner_map import solve_quadrant_corner_map
 from .gravity_down import solve_gravity_down
@@ -435,6 +436,7 @@ ALL_SOLVERS: list[Solver] = [
     solve_majority_shape_crop,
     solve_top_marker_zigzag,
     solve_bar_middle_dash,
+    solve_square_enclosure_fill,
     solve_box_fill_gap_ray,
     solve_quadrant_corner_map,
     solve_periodic_fill,
